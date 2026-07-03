@@ -182,13 +182,13 @@ public partial class TestCtrlrUser: ITester{
 		var ctx = new DbFnCtx();
 
 		if(_tokenIds.Count > 0){
-			await _repoRefreshToken.BatHardDelById(ctx, AsyE(_tokenIds.Distinct().ToArray()), CT.None);
+			await _repoRefreshToken.OrdHardDelById(ctx, AsyE(_tokenIds.Distinct().ToArray()), CT.None);
 		}
 		if(_createdPasswordId is not null){
-			await _repoPassword.BatHardDelById(ctx, AsyE(_createdPasswordId.Value), CT.None);
+			await _repoPassword.OrdHardDelById(ctx, AsyE(_createdPasswordId.Value), CT.None);
 		}
 		if(_createdUserId is not null){
-			await _repoUser.BatHardDelById(ctx, AsyE(_createdUserId.Value), CT.None);
+			await _repoUser.OrdHardDelById(ctx, AsyE(_createdUserId.Value), CT.None);
 		}
 	}
 

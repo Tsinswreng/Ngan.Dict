@@ -62,8 +62,8 @@ public partial class SvcUser(
 			,Algo = PoPassword.EAlgo.Argon2id
 			,Text = PasswordHash
 		};
-		await RepoUser.BatAdd(Ctx, OneAsyE(PoUser), Ct);
-		await RepoPassword.BatAdd(Ctx, OneAsyE(Password), Ct);
+		await RepoUser.OrdAdd(Ctx, OneAsyE(PoUser), Ct);
+		await RepoPassword.OrdAdd(Ctx, OneAsyE(Password), Ct);
 		try{
 			await Cache.SetStringAsync($"user:register:{PoUser.Id}", JsonS.Stringify(PoUser), new DistributedCacheEntryOptions {
 				AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10)

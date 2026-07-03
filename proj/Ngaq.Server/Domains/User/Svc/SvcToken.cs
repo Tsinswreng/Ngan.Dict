@@ -252,7 +252,7 @@ public class SvcToken
 			o.IpAddr = UserCtx.IpAddr;
 			o.UserAgent = UserCtx.UserAgent;
 		}
-		await RepoToken.BatAdd(Ctx, OneAsyE(Session), Ct);
+		await RepoToken.OrdAdd(Ctx, OneAsyE(Session), Ct);
 		return Resp;
 	}
 
