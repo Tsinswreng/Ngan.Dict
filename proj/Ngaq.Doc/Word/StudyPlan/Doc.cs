@@ -46,6 +46,8 @@ using Ngaq.Core.Shared.Word.WeightAlgo;
 		學習方案主編輯頁，關聯前置篩選器、權重計算器與權重參數。
 	- {{nameof(Ngaq.Ui.Views.Word.WordManage.StudyPlan.PreFilterEdit.PreFilterVisualEdit.ViewPreFilterVisualEdit)}}:
 		前置篩選器一體化編輯頁，含核心篩選器與屬性篩選器分頁。
+	- {{nameof(Ngaq.Ui.Views.Word.WordManage.StudyPlan.PreFilterEdit.PreFilterVisualEditV2.ViewPreFilterVisualEditV2)}}:
+		前置篩選器 V2 編輯頁，統一為單列表編輯；字段與篩選項各限制單條，舊版入口保留於標題菜單。
 	- {{nameof(Ngaq.Ui.Views.Word.WordManage.StudyPlan.WeightCalculatorEdit.ViewWeightCalculatorEdit)}}:
 		權重計算器編輯頁，支持負載文本配置。
 	- {{nameof(Ngaq.Ui.Views.Word.WordManage.StudyPlan.WeightArgPayloadJsonEdit.ViewWeightArgPayloadJsonEdit)}}:

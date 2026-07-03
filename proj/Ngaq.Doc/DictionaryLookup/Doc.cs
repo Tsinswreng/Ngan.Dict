@@ -84,6 +84,12 @@ using Tsinswreng.CsCore;
 	這使前端可以邊接收邊展示，
 	減少用戶等待完整結果後再一次性刷新的停頓感。
 
+	查詞按鈕再次點擊時表示取消當前查詢。
+	取消語義要求如下:
+	- 若尚未收到任何流式片段，前端回滾到本次查詢前的結果狀態。
+	- 若已收到部分流式片段，前端保留當前已展示的釋義文本，不再彈未知錯誤。
+	- 後端流式讀取循環必須響應取消令牌，避免模型已開始輸出後出現「再次點擊取消沒有反應」。
+
 	送入大模型的用戶提示詞
 	不應直接把
 	{{nameof(Ngaq.Core.Shared.Dictionary.Models.IReqLlmDict)}}
@@ -96,6 +102,15 @@ using Tsinswreng.CsCore;
 	目標語言、
 	偏好配置、
 	以及輸出必須爲可解析的 YamlMd。
+
+	若某些 OpenAI-compatible provider
+	需要額外的頂層請求體字段，
+	可通過
+	{{nameof(Ngaq.Core.Infra.Cfg.KeysClientCfg.LlmDictionary.ExtraBodyJson)}}
+	配置一個 JSON 對象透傳。
+	該對象會 merge 到默認請求體頂層，
+	同名字段以配置值覆蓋，
+	用於例如關閉 provider 默認開啟的 thinking / reasoning 模式。
 ]
 
 #H[YamlMd 輸出約定與寬容解析][
@@ -137,7 +152,7 @@ using Tsinswreng.CsCore;
 	如 `en 英語`、`zh 中文`。
 
 	譯名來源為
-	{{nameof(Ngaq.Core.Shared.Word.Svc.ISvcNormLang.BatGetTranslatedName)}}。
+	{{nameof(Ngaq.Core.Shared.Word.Svc.ISvcNormLang.OrdGetTranslatedName)}}。
 
 	另:
 	- 搜索按鈕位於輸入框左側。
