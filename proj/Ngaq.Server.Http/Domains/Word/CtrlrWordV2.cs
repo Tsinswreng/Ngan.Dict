@@ -32,9 +32,9 @@ public class CtrlrWordV2(
 		return NIL;
 	}
 
-	[Doc(@$"{nameof(ISvcWordV2.BatSyncJnWordByBizIdFromStream)}")]
+	[Doc(@$"{nameof(ISvcWordV2.OrdSyncJnWordByBizIdFromStream)}")]
 	public async Task<IResult> ReceiveFull(HttpContext Ctx, CT Ct){
-		await foreach(var _ in SvcWordV2.BatSyncJnWordByBizIdFromStream(
+		await foreach(var _ in SvcWordV2.OrdSyncJnWordByBizIdFromStream(
 			Ctx.ToDbUserCtx(),
 			Ctx.Request.Body,
 			Ct
@@ -51,7 +51,7 @@ public class CtrlrWordV2(
 	public async Task<IResult> SendFull(HttpContext Ctx, CT Ct){
 		return await HandleNoReqRawStream(
 			Ct,
-			ct=>SvcWordV2.PackAllWordsWithDel(Ctx.ToDbUserCtx(), ct)
+			ct=>SvcWordV2.PackAllWordWithDel(Ctx.ToDbUserCtx(), ct)
 		);
 	}
 
@@ -63,7 +63,7 @@ public class CtrlrWordV2(
 		return await HandleReqRespAsGzipLines<JnWord, DtoJnWordSyncResult>(
 			Ctx,
 			Ct,
-			(req, ct)=>SvcWordV2.BatSyncJnWordByBizId(Ctx.ToDbUserCtx(), req, ct)
+			(req, ct)=>SvcWordV2.OrdSyncJnWordByBizId(Ctx.ToDbUserCtx(), req, ct)
 		);
 	}
 
@@ -75,7 +75,7 @@ public class CtrlrWordV2(
 		return await HandleReqNoRespAsOk<JnWord>(
 			Ctx,
 			Ct,
-			(req, ct)=>SvcWordV2.BatAddJnWord(Ctx.ToDbUserCtx(), req, ct)
+			(req, ct)=>SvcWordV2.OrdAddJnWord(Ctx.ToDbUserCtx(), req, ct)
 		);
 	}
 
@@ -86,7 +86,7 @@ public class CtrlrWordV2(
 	public async Task<IResult> GetAllWordsWithDel(HttpContext Ctx, CT Ct){
 		return await HandleNoReqRespAsGzipLines<JnWord>(
 			Ct,
-			ct=>SvcWordV2.GetAllWordsWithDel(Ctx.ToDbUserCtx(), ct)
+			ct=>SvcWordV2.GetAllWordWithDel(Ctx.ToDbUserCtx(), ct)
 		);
 	}
 
@@ -98,7 +98,7 @@ public class CtrlrWordV2(
 		return await HandleReqRespAsGzipLines<PoWord, RespUpdBizId>(
 			Ctx,
 			Ct,
-			(req, ct)=>SvcWordV2.BatUpdHeadLang(Ctx.ToDbUserCtx(), req, ct)
+			(req, ct)=>SvcWordV2.OrdUpdHeadLang(Ctx.ToDbUserCtx(), req, ct)
 		);
 	}
 
