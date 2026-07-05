@@ -13,6 +13,8 @@ using System.IO;
 using Ngaq.Server.Db.TswG.Migrations;
 using Tsinswreng.CsSql;
 using Ngaq.Server.Db.TswG;
+using Ngaq.Core.Infra.Log;
+using Microsoft.Extensions.Logging;
 
 
 namespace Ngaq.Server.Http;
@@ -20,6 +22,7 @@ namespace Ngaq.Server.Http;
 
 public class NgaqWeb{
 	public static void Main(string [] args){
+		AppLog.UseConsoleLogger(nameof(Ngaq.Server.Http), LogLevel.Information);
 		if(CfgLoader.IsMigrateCmd(args)){
 			RunMigrate(args).GetAwaiter().GetResult();
 			return;

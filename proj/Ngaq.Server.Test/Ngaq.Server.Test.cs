@@ -5,6 +5,8 @@ using Ngaq.Backend.Di;
 using Ngaq.Server;
 using Ngaq.Server.Http;
 using Ngaq.Server.Infra.Cfg;
+using Ngaq.Core.Infra.Log;
+using Microsoft.Extensions.Logging;
 using Tsinswreng.CsTreeTest;
 
 namespace Ngaq.Server.Test;
@@ -14,6 +16,7 @@ internal class Program{
 	public static IServiceProvider SvcProvdr = null!;
 
 	public static async Task Main(string[] args){
+		AppLog.UseConsoleLogger(nameof(Ngaq.Server.Test), LogLevel.Information);
 		BaseDirMgr.Inst._BaseDir = Directory.GetCurrentDirectory();
 
 		var serverCfgPath = TestCfg.GetServerCfgPath(args);
