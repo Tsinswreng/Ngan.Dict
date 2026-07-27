@@ -103,7 +103,7 @@ public class MockSvcWordV2 : ISvcWordV2 {
 		throw new NotImplementedException();
 	}
 
-	public Task<IAsyncEnumerable<RespUpdPoWord>> BatUpdPoWord(IDbUserCtx Ctx, IAsyncEnumerable<PoWord> PoWords, CT Ct) {
+	public Task<IAsyncEnumerable<RespUpdPoWord>> OrdUpdPoWord(IDbUserCtx Ctx, IAsyncEnumerable<PoWord> PoWords, CT Ct) {
 		throw new NotImplementedException();
 	}
 

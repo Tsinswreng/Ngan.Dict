@@ -139,7 +139,7 @@ public partial class VmWordEditV2{
 		if(AnyNull(SvcWordV2, Draft)){
 			return default;
 		}
-		var respAsyE = await SvcWordV2.BatUpdPoWord(DbCtx, ToolAsyE.ToAsyE([Draft.Word]), Ct);
+		var respAsyE = await SvcWordV2.OrdUpdPoWord(DbCtx, ToolAsyE.ToAsyE([Draft.Word]), Ct);
 		var resp = await respAsyE.FirstOrDefaultAsync(Ct);
 		if(resp is null){
 			throw new InvalidOperationException("BatUpdPoWord returned empty response");

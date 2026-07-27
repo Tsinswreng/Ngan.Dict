@@ -160,7 +160,7 @@ public partial class VmEditJsonWord: ViewModelBase, IMk<Ctx>{
 		if(SvcWordV2 is null){
 			return default;
 		}
-		var respAsyE = await SvcWordV2.BatUpdPoWord(dbCtx, ToolAsyE.ToAsyE([draft.Word]), Ct);
+		var respAsyE = await SvcWordV2.OrdUpdPoWord(dbCtx, ToolAsyE.ToAsyE([draft.Word]), Ct);
 		var resp = await respAsyE.FirstOrDefaultAsync(Ct);
 		if(resp is null){
 			throw new InvalidOperationException("BatUpdPoWord returned empty response");

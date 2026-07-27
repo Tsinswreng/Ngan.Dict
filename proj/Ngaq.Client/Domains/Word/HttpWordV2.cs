@@ -69,7 +69,7 @@ public class HttpWordV2 : ISvcWordV2 {
 		return PostReqResp<PoWord, RespUpdBizId>(U.BatUpdHeadLang, PoWords, Ct);
 	}
 
-	public Task<IAsyncEnumerable<RespUpdPoWord>> BatUpdPoWord(IDbUserCtx Ctx, IAsyncEnumerable<PoWord> PoWords, CT Ct) {
+	public Task<IAsyncEnumerable<RespUpdPoWord>> OrdUpdPoWord(IDbUserCtx Ctx, IAsyncEnumerable<PoWord> PoWords, CT Ct) {
 		throw new NotImplementedException();
 	}
 

@@ -211,7 +211,7 @@ public partial class VmLearnWords
 				await MgrLearn.LoadEtCalcWeight(ToolAsyE.ToAsyE(wordList), Ct);
 			}
 			await MgrLearn.Start(Ct);
-		});
+		}, Ct);
 		RenderWordList();
 		// After starting learning but before any word clicks
 		CurWordInfo.SetPromptAfterStart();
