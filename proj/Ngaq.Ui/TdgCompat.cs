@@ -43,6 +43,18 @@ public sealed partial class TextColumn<TModel, TValue>: DataGridColumn{
 	/// 從行模型取得顯示值；使用解譯式 expression 避免 AOT 動態程式碼生成。
 	readonly Func<TModel, TValue> Getter;
 
+	/// 使用同一 Getter 比較兩行，讓任意顯示表達式都能參與 DataGrid 排序。
+	sealed partial class RowValueComparer: IComparer{
+		/// 取得列顯示值的委託。
+		readonly Func<TModel, TValue> Getter;
+
+		/// 建立與當前文字列共用 Getter 的比較器。
+		public partial RowValueComparer(Func<TModel, TValue> Getter);
+
+		/// 比較兩個行模型的列值；空值排在非空值之前。
+		public partial i32 Compare(object? X, object? Y);
+	}
+
 	/// 建立相容於原 TreeDataGrid 的文字列。
 	public partial TextColumn(
 		object? Header

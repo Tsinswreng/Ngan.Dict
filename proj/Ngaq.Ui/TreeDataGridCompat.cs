@@ -25,9 +25,11 @@ public sealed class TreeDataGrid: DataGrid{
 	public TreeDataGrid(){
 		AutoGenerateColumns = false;
 		IsReadOnly = true;
-		CanUserResizeColumns = false;
-		CanUserSortColumns = false;
+		// DataGrid 原生支持排序與調寬；兼容層不應降低原 TreeDataGrid 的交互能力。
+		CanUserResizeColumns = true;
+		CanUserSortColumns = true;
 		CanUserReorderColumns = false;
+		HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto;
 		GridLinesVisibility = DataGridGridLinesVisibility.Horizontal;
 		HeadersVisibility = DataGridHeadersVisibility.Column;
 		SelectionMode = DataGridSelectionMode.Single;

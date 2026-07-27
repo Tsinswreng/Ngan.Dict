@@ -19,6 +19,33 @@ public sealed partial class TextColumn<TModel, TValue>{
 		this.Header = Header;
 		Width = ToDataGridLength(width ?? new GridLength(1, GridUnitType.Auto));
 		IsReadOnly = true;
+		CanUserResize = true;
+		CanUserSort = true;
+		CustomSortComparer = new RowValueComparer(this.Getter);
+	}
+
+	/// 基於列 Getter 的排序比較器實現。
+	sealed partial class RowValueComparer{
+		/// 保存顯示值 Getter，避免排序時依賴屬性名稱或反射。
+		public partial RowValueComparer(Func<TModel, TValue> Getter){
+			this.Getter = Getter;
+		}
+
+		/// 使用泛型默認比較器排序；當行類型不匹配時保持原相對次序。
+		public partial i32 Compare(object? X, object? Y){
+			if(ReferenceEquals(X, Y)){
+				return 0;
+			}
+			if(X is not TModel xModel){
+				return -1;
+			}
+			if(Y is not TModel yModel){
+				return 1;
+			}
+			var xValue = Getter(xModel);
+			var yValue = Getter(yModel);
+			return Comparer<TValue>.Default.Compare(xValue, yValue);
+		}
 	}
 
 	/// 用輕量 TextBlock 顯示值，保持表格爲只讀用途。
