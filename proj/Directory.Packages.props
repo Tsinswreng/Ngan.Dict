@@ -4,26 +4,26 @@
 		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageVersion Include="Tsinswreng.Avln.Dsl" Version="0.1.0-alpha" />
+		<PackageVersion Include="Tsinswreng.Avln.Dsl" Version="0.3.0-alpha" />
 		<PackageVersion Include="Tsinswreng.Avln.Grid" Version="0.0.2-alpha" />
 		<PackageVersion Include="Tsinswreng.Avln.Navi" Version="0.0.1-alpha" />
 	</ItemGroup>
 	<ItemGroup>
 		<!-- Avalonia packages -->
 		<!-- Important: keep version in sync! -->
-		<PackageVersion Include="Avalonia" Version="11.3.8" />
-		<PackageVersion Include="Avalonia.Controls.TreeDataGrid" Version="11.1.0" />
-		<PackageVersion Include="Avalonia.AvaloniaEdit" Version="11.3.0" />
-		<PackageVersion Include="Avalonia.Markup.Declarative" Version="11.1.3" />
-		<PackageVersion Include="Avalonia.Skia" Version="11.3.8" />
-		<PackageVersion Include="Avalonia.Themes.Fluent" Version="11.3.8" />
-		<PackageVersion Include="Avalonia.Fonts.Inter" Version="11.3.8" />
-		<PackageVersion Include="Avalonia.Diagnostics" Version="11.3.8" />
-		<PackageVersion Include="Avalonia.Desktop" Version="11.3.8" />
-		<PackageVersion Include="Avalonia.iOS" Version="11.3.8" />
-		<PackageVersion Include="Avalonia.Browser" Version="11.3.8" />
-		<PackageVersion Include="Avalonia.Android" Version="11.3.8" />
-		<PackageVersion Include="AvaloniaEdit.TextMate" Version="11.3.0" />
+		<PackageVersion Include="Avalonia" Version="12.1.0" />
+		<PackageVersion Include="Avalonia.Controls.DataGrid" Version="12.1.0" />
+		<PackageVersion Include="Avalonia.AvaloniaEdit" Version="12.0.0" />
+		<PackageVersion Include="Avalonia.Markup.Declarative" Version="12.1.0" />
+		<PackageVersion Include="Avalonia.Skia" Version="12.1.0" />
+		<PackageVersion Include="Avalonia.Themes.Fluent" Version="12.1.0" />
+		<PackageVersion Include="Avalonia.Fonts.Inter" Version="12.1.0" />
+		<PackageVersion Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.3" />
+		<PackageVersion Include="Avalonia.Desktop" Version="12.1.0" />
+		<PackageVersion Include="Avalonia.iOS" Version="12.1.0" />
+		<PackageVersion Include="Avalonia.Browser" Version="12.1.0" />
+		<PackageVersion Include="Avalonia.Android" Version="12.1.0" />
+		<PackageVersion Include="AvaloniaEdit.TextMate" Version="12.0.0" />
 		<PackageVersion Include="CommunityToolkit.Mvvm" Version="8.3.2" />
 		<PackageVersion Include="Live.Avalonia" Version="1.4.1" />
 		<PackageVersion Include="MessageFormat" Version="7.1.3" />
@@ -31,7 +31,7 @@
 		<PackageVersion Include="NAudio" Version="2.2.1" />
 		<PackageVersion Include="Plugin.MediaManager" Version="1.2.2" />
 		<PackageVersion Include="ReactiveUI" Version="22.2.1" />
-		<PackageVersion Include="ScottPlot.Avalonia" Version="5.1.57" />
+		<PackageVersion Include="ScottPlot.Avalonia" Version="5.1.59" />
 		<PackageVersion Include="Serilog" Version="4.0.1" />
 		<PackageVersion Include="Serilog.Extensions.Logging" Version="8.0.0" />
 		<PackageVersion Include="Serilog.Sinks.Async" Version="1.5.0" />
@@ -39,12 +39,12 @@
 		<PackageVersion Include="Serilog.Sinks.File" Version="5.0.0" />
 		<!-- <PackageVersion Include="SkiaSharp" Version="3.119.1" /> -->
 		<PackageVersion Include="TestableIO.System.IO.Abstractions" Version="22.1.1" />
-		<PackageVersion Include="TextMateSharp.Grammars" Version="1.0.70" />
+		<PackageVersion Include="TextMateSharp.Grammars" Version="2.0.3" />
 		<PackageVersion Include="Xamarin.AndroidX.Core.SplashScreen" Version="1.0.1.1" />
 		<PackageVersion Include="System.Reactive" Version="6.1.0" />
-		<PackageVersion Include="Irihi.Ursa" Version="1.9.0" />
-		<PackageVersion Include="Irihi.Ursa.Themes.Semi" Version="1.9.0" />
-		<PackageVersion Include="Semi.Avalonia" Version="11.2.1.5" />
+		<PackageVersion Include="Irihi.Ursa" Version="2.1.0" />
+		<PackageVersion Include="Irihi.Ursa.Themes.Semi" Version="2.1.0" />
+		<PackageVersion Include="Semi.Avalonia" Version="12.1.0" />
 		<PackageVersion Include="SkiaSharp.NativeAssets.WebAssembly" Version="3.119.0" />
 		<PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="3.119.0" />
 	</ItemGroup>

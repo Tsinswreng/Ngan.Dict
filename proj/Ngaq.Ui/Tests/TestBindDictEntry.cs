@@ -59,13 +59,14 @@ class ViewTestBindDict : UserControl {
 					var o = input;
 					o.Bind(
 						o.PropText
-						, new CBE(CBE.Pth<VmTestBindDict>(x => x.Dict)) {
-							Mode = BindingMode.TwoWay
-							,Converter = new ConvDictEntry<str, str>()
-							,ConverterParameter = new Dict_Key<str,str>(
+						,CBE.Mk<VmTestBindDict>(
+							x=>x.Dict
+							,Mode: BindingMode.TwoWay
+							,Converter: new ConvDictEntry<str, str>()
+							,ConverterParameter: new Dict_Key<str,str>(
 								Dict: Ctx.Dict, Key: "Summary"
 							)
-						}
+						)
 					);
 				}
 

@@ -40,8 +40,8 @@ namespace Ngaq.Android;
 	MainLauncher = true, //表示應用程式從這個 Activity 開始執行。
 	LaunchMode = LaunchMode.SingleTop,
 	ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize | ConfigChanges.UiMode)]
-// MainActivity 繼承自 AvaloniaMainActivity<App>，這是 Avalonia 與 Android 整合的橋樑。泛型 App 是 Avalonia 應用程式的進入點。
-public partial class MainActivity : AvaloniaMainActivity<App>{
+// Avalonia 12 的 AppBuilder 由 AvaloniaAndroidApplication<App> 配置，Activity 只負責窗口生命週期。
+public partial class MainActivity : AvaloniaMainActivity{
 	private const int DictionaryLookupNotificationId = 43001;
 	private const int NotificationPermissionRequestCode = 43002;
 	private const string DictionaryLookupNotificationChannelId = "ngaq_dictionary_lookup";
@@ -56,7 +56,6 @@ public partial class MainActivity : AvaloniaMainActivity<App>{
 	// 參數 Bundle 儲存了先前被銷毀前的狀態。一定要呼叫 base.OnCreate 以確保 Avalonia 正常初始化。
 	protected override void OnCreate(Bundle? savedInstanceState){
 		Log.Info("Ngaq.Android", "MainActivity.OnCreate");
-		Init();
 		CaptureDictionaryLookupIntent(Intent);
 		base.OnCreate(savedInstanceState);
 		EnsureDictionaryLookupNotification();
@@ -95,17 +94,6 @@ public partial class MainActivity : AvaloniaMainActivity<App>{
 		}
 	}
 
-	protected override AppBuilder CustomizeAppBuilder(AppBuilder builder){
-		return base.CustomizeAppBuilder(builder)
-			.WithInterFont()
-			.AfterSetup(async _ => {
-				AppIniter.Inst.Sp = App.SvcProvider;
-				await AppIniter.Inst.Init(_cts.Token);
-				EnsureDictionaryLookupNotification();
-				TryConsumePendingDictionaryLookupIntent();
-			});
-	}
-
 	// OnRequestPermissionsResult 是處理 Android 執行時期權限請求結果的 callback。
 	// 這裡用來處理 POST_NOTIFICATIONS 權限（Android 13+ 需要）。
 	public override void OnRequestPermissionsResult(
@@ -123,93 +111,6 @@ public partial class MainActivity : AvaloniaMainActivity<App>{
 			return;
 		}
 		EnsureDictionaryLookupNotification();
-	}
-
-	private void Init(){
-		// Android 入口直接把 logcat logger 掛到全局源頭，後續 DI 與 App.Logger 共用同一出口。
-		AppLog.UseLogger(new AndroidLogger("Tsinswreng.Ngaq"));
-		var appContext = global::Android.App.Application.Context;
-		var externalFileDirObj = appContext.GetExternalFilesDir(null)
-			?? throw new Exception("Cannot get ExternalFilesDir");
-		if(appContext.Assets is null){
-			throw new Exception("Cannot get Assets");
-		}
-		if(appContext.FilesDir is null){
-			throw new Exception("Cannot get FilesDir");
-		}
-
-		var externalFileDir = externalFileDirObj.AbsolutePath;
-		BaseDirMgr.Inst._BaseDir = externalFileDir;
-		var baseDir = BaseDirMgr.Inst;
-
-		var roCfgPath = baseDir.Combine("Ngaq.jsonc");
-		var dfltRwCfgPath = baseDir.Combine("Ngaq.Rw.jsonc");
-		if(!File.Exists(roCfgPath)){
-			CopyAssetToDirectory("Ngaq.jsonc", externalFileDir);
-			ToolFile.EnsureFile(roCfgPath);
-			File.WriteAllText(roCfgPath, "{}");
-		}
-
-		var dualSrcCfg = AppCfg.Inst;
-		var roCfg = new JsonFileCfgAccessor();
-		dualSrcCfg.RoCfg = roCfg;
-		roCfg.FromFile(roCfgPath);
-
-		var rwCfgPath = KeysClientCfg.RwCfgPath.GetFrom(dualSrcCfg) ?? dfltRwCfgPath;
-		rwCfgPath = baseDir.Combine(rwCfgPath);
-		ToolFile.EnsureFile(rwCfgPath);
-
-		var rwCfg = new JsonFileCfgAccessor();
-		dualSrcCfg.RwCfg = rwCfg;
-		rwCfg.FromFile(rwCfgPath);
-
-		InitI18n(baseDir, dualSrcCfg);
-
-		var svc = new ServiceCollection();
-		svc.AddSingleton<II18n>(AppI18n.Inst);
-		svc
-			.SetupCore()
-			.SetupLocal()
-			.SetupLocalFrontend()
-			.SetupClient()
-			.SetupUi()
-			.SetupAndroid();
-		var serviceProvider = svc.BuildServiceProvider(new ServiceProviderOptions{
-			ValidateOnBuild = false,
-			ValidateScopes = false
-		});
-		App.SetSvcProvider(serviceProvider);
-	}
-
-	/// <summary>
-	/// 參照 Windows 入口的做法，按配置中的語言值載入對應語言包，
-	/// 並把 i18n 實例掛到全局與 DI，讓 Android 入口與桌面端初始化行爲一致。
-	/// </summary>
-	private void InitI18n(BaseDirMgr BaseDir, AppCfg DualSrcCfg){
-		var lang = KeysClientCfg.Lang.GetFrom(DualSrcCfg) ?? "default";
-		var i18nCfg = new JsonFileCfgAccessor();
-		AppI18n.Inst = new(i18nCfg);
-#if DEBUG
-		AppI18n.Inst.OnKeyNotFound = (self, key, args)=>{
-			var msg = "❗" + key.GetFullPath() + "❗";
-			System.Console.WriteLine(msg);
-			return msg;
-		};
-#endif
-
-		var langDir = BaseDir.Combine("Languages");
-		Directory.CreateDirectory(langDir);
-		var langRelativeAssetPath = Path.Combine("Languages", lang + ".json");
-		var langFilePath = BaseDir.Combine(langRelativeAssetPath);
-		if(!File.Exists(langFilePath)){
-			CopyAssetToDirectory(langRelativeAssetPath, langDir);
-		}
-
-		try{
-			i18nCfg.FromFile(langFilePath);
-		}catch{
-			System.Console.Error.WriteLine($"Failed to load language file: {lang}");
-		}
 	}
 
 	// EnsureDictionaryLookupNotification 建立一則持續顯示的通知，讓使用者點擊後可以查詢剪貼簿內容。
@@ -322,32 +223,4 @@ public partial class MainActivity : AvaloniaMainActivity<App>{
 		});
 	}
 
-	/// 将 Assets 中的文件复制到指定目标路径。
-	/// 將 Android Assets（內建檔案）複製到外部儲存目錄。
-	/// Assets 是 Android 專案中 /Assets 資料夾內的資源，無法直接當成檔案系統存取，必須透過 AssetManager 開啟 Stream。
-	public static bool CopyAssetToDirectory(string assetFileName, string targetDir){
-		try{
-			var context = global::Android.App.Application.Context;
-			if(context is null){
-				throw new InvalidOperationException("Cannot get Android context");
-			}
-
-			if(!Directory.Exists(targetDir)){
-				Directory.CreateDirectory(targetDir);
-			}
-
-			var targetFilePath = Path.Combine(targetDir, Path.GetFileName(assetFileName));
-			if(File.Exists(targetFilePath)){
-				File.Delete(targetFilePath);
-			}
-
-			using var assetStream = context.Assets.Open(assetFileName);
-			using var targetStream = new FileStream(targetFilePath, FileMode.CreateNew);
-			assetStream.CopyTo(targetStream);
-			return true;
-		}catch(Exception ex){
-			Console.WriteLine($"Copy asset failed: {ex.Message}");
-			return false;
-		}
-	}
 }

@@ -162,7 +162,6 @@ sealed class Program {
 		BuildAvaloniaApp()
 #if DEBUG
 			.UseHotReload()
-			.UseRiderHotReload()
 #endif
 			.AfterSetup(e => {
 				App.SetSvcProvider(svcProvider);

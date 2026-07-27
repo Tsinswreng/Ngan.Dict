@@ -65,9 +65,9 @@ public partial class ViewRegister
 			Stk.Spacing = 8.0;
 			var formItem = _fn_addLabelBox(Stk);
 
-			formItem(I[K.Email], CBE.Pth<Ctx>(x=>x.Email), false);
-			formItem(I[K.Password], CBE.Pth<Ctx>(x=>x.Password), true);
-			formItem(I[K.ConfirmPassword], CBE.Pth<Ctx>(x=>x.ConfirmPassword), true);
+			formItem(I[K.Email], CBE.Mk<Ctx>(x=>x.Email, Mode:BindingMode.TwoWay), false);
+			formItem(I[K.Password], CBE.Mk<Ctx>(x=>x.Password, Mode:BindingMode.TwoWay), true);
+			formItem(I[K.ConfirmPassword], CBE.Mk<Ctx>(x=>x.ConfirmPassword, Mode:BindingMode.TwoWay), true);
 			var errMsgSclv = new ScrollViewer{};
 			Stk.A(errMsgSclv);
 
@@ -95,7 +95,7 @@ public partial class ViewRegister
 		var ans = new ItemsControl{};
 		ans.Bind(
 			ItemsControl.ItemsSourceProperty
-			,new CBE(CBE.Pth<Ctx>(x=>x.Msgs))
+			,CBE.Mk<Ctx>(x=>x.Msgs)
 		);
 		ans.ItemTemplate = new FuncDataTemplate<str>((err,b)=>{
 			var ua = new SelectableTextBlock{};
@@ -108,8 +108,8 @@ public partial class ViewRegister
 	}
 
 
-	protected Func<str, CompiledBindingPath, bool, nil> _fn_addLabelBox(Panel Container){
-		return (LabelText, Pth, IsPassword)=>{
+	protected Func<str, IBinding, bool, nil> _fn_addLabelBox(Panel Container){
+		return (LabelText, TextBinding, IsPassword)=>{
 			var label = new Label{};
 			Container.A(label);
 			{
@@ -127,9 +127,7 @@ public partial class ViewRegister
 					label.Target = o;
 					o.Bind(
 						o.PropText
-						,new CBE(Pth){
-							Mode = BindingMode.TwoWay
-						}
+						,TextBinding
 					);
 				}
 			}else{
@@ -141,9 +139,7 @@ public partial class ViewRegister
 					label.Target = o;
 					o.Bind(
 						o.PropText
-						,new CBE(Pth){
-							Mode = BindingMode.TwoWay
-						}
+						,TextBinding
 					);
 				}
 			}

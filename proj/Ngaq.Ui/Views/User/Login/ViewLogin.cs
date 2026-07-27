@@ -71,8 +71,8 @@ public partial class Cls_{
 			Stk.Spacing = 8.0;
 
 			var formItem = FnAddLabelBox(Stk);
-			formItem(I[K.Email], CBE.Pth<Ctx>(x=>x.Email), false);
-			formItem(I[K.Password], CBE.Pth<Ctx>(x=>x.Password), true);
+			formItem(I[K.Email], CBE.Mk<Ctx>(x=>x.Email, Mode:BindingMode.TwoWay), false);
+			formItem(I[K.Password], CBE.Mk<Ctx>(x=>x.Password, Mode:BindingMode.TwoWay), true);
 			var errMsgSclv = new ScrollViewer{};
 			Stk.A(errMsgSclv);
 			{
@@ -103,7 +103,7 @@ public partial class Cls_{
 		var ans = new ItemsControl{};
 		ans.Bind(
 			ItemsControl.ItemsSourceProperty
-			,new CBE(CBE.Pth<Ctx>(x=>x.Msgs))
+			,CBE.Mk<Ctx>(x=>x.Msgs)
 		);
 		ans.ItemTemplate = new FuncDataTemplate<str>((err,b)=>{
 			var ua = new SelectableTextBlock{};
@@ -116,8 +116,8 @@ public partial class Cls_{
 	}
 
 
-	protected Func<str, CompiledBindingPath, bool, nil?> FnAddLabelBox(Panel Container){
-		return (LabelText, Pth, IsPassword)=>{
+	protected Func<str, IBinding, bool, nil?> FnAddLabelBox(Panel Container){
+		return (LabelText, TextBinding, IsPassword)=>{
 			var label = new Label{};
 			Container.A(label);
 			{
@@ -135,9 +135,7 @@ public partial class Cls_{
 					label.Target = o;
 					o.Bind(
 						o.PropText
-						,new CBE(Pth){
-							Mode = BindingMode.TwoWay
-						}
+						,TextBinding
 					);
 				}
 			}else{
@@ -149,9 +147,7 @@ public partial class Cls_{
 					label.Target = o;
 					o.Bind(
 						o.PropText
-						,new CBE(Pth){
-							Mode = BindingMode.TwoWay
-						}
+						,TextBinding
 					);
 				}
 			}

@@ -86,7 +86,7 @@ public partial class App :Application
 		//增 && WINDOWS亦不效 緣Ngaq.Ui中無斯預處理ˉ符號
 		#if DEBUG
 			if(RuntimeInformation.IsOSPlatform(OSPlatform.Windows)){
-				DevToolsExtensions.AttachDevTools(this);
+				// Avalonia 12 uses DiagnosticsSupport; the former DevToolsExtensions entry point no longer exists.
 			}
 		#endif
 	}
@@ -137,14 +137,7 @@ public partial class App :Application
 
 
 	private void DisableAvaloniaDataAnnotationValidation() {
-		// Get an array of plugins to remove
-		var dataValidationPluginsToRemove =
-			BindingPlugins.DataValidators.OfType<DataAnnotationsValidationPlugin>().ToArray();
-
-		// remove each entry found
-		foreach (var plugin in dataValidationPluginsToRemove) {
-			BindingPlugins.DataValidators.Remove(plugin);
-		}
+		// Avalonia 12 internalized BindingPlugins; validation configuration is no longer changed here.
 	}
 
 
