@@ -3,7 +3,7 @@ set -euo pipefail
 
 # 日常構建保持 Mono；此腳本在 WSL 中使用新版 Linux NDK 顯式發佈 NativeAOT APK。
 ProjectDir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-AndroidSdkDirectory="${ANDROID_SDK_DIRECTORY:-$HOME/Android/Sdk}"
+AndroidSdkDirectory="${ANDROID_SDK_DIRECTORY:-/mnt/d/ENV/Android/Sdk}"
 AndroidNdkDirectory="${ANDROID_NDK_DIRECTORY:-/mnt/d/ENV/_wsl/android-ndk-r27c}"
 RuntimeIdentifier="${ANDROID_RUNTIME_IDENTIFIER:-android-arm64}"
 ArtifactsPath="${NATIVEAOT_ARTIFACTS_PATH:-$HOME/ngaq-nativeaot-artifacts}"
@@ -12,11 +12,7 @@ dotnet publish "$ProjectDir/Ngaq.Android.csproj" \
 	-c Release \
 	-r "$RuntimeIdentifier" \
 	--artifacts-path "$ArtifactsPath" \
-	-p:UseMonoRuntime=false \
-	-p:AndroidEnableAot=true \
-	-p:PublishAot=true \
-	-p:PublishTrimmed=true \
-	-p:AndroidLinkMode=Full \
+	-p:NgaqAndroidNativeAot=true \
 	-p:AndroidSdkDirectory="$AndroidSdkDirectory" \
 	-p:AndroidNdkDirectory="$AndroidNdkDirectory" \
 	-p:AllowMissingPrunePackageData=true \

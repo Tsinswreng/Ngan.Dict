@@ -28,6 +28,18 @@
 
 	</PropertyGroup>
 
+	<!--
+		只在 Android 主項目內把腳本開關轉成 NativeAOT 屬性。
+		避免命令列的 PublishAot 全局屬性傳入 netstandard 與源生成器 ProjectReference。
+	-->
+	<PropertyGroup Condition="'$(NgaqAndroidNativeAot)' == 'true'">
+		<UseMonoRuntime>false</UseMonoRuntime>
+		<AndroidEnableAot>true</AndroidEnableAot>
+		<PublishAot>true</PublishAot>
+		<PublishTrimmed>true</PublishTrimmed>
+		<AndroidLinkMode>Full</AndroidLinkMode>
+	</PropertyGroup>
+
 	<!-- NativeAOT 需保留 Java 端間接調用的 TLS trust-manager JNI 回調。 -->
 	<ItemGroup Condition="'$(PublishAot)' == 'true'">
 		<IlcArg Include="--export-dynamic-symbol:Java_net_dot_android_crypto_DotnetProxyTrustManager_verifyRemoteCertificate" />
