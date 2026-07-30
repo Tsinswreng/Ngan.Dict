@@ -19,7 +19,7 @@ public class DtoOnDone{
 /// 词典查询请求接口
 public interface IReqLlmDict:IReq{
 	/// 唯一请求ID，用于追踪/缓存
-	public string Id { get; set; }
+	public str Id { get; set; }
 	public UnixMs UnixMs { get; set; }
 	/// 核心查询内容
 	public Query Query { get; set; }
@@ -43,7 +43,7 @@ public interface IReqLlmDictEvt{
 /// 词典查询请求，支持多模式查询
 public class ReqLlmDict:IReqLlmDict{
 	/// 唯一请求ID，用于追踪/缓存
-	public string Id { get; set; } = "";
+	public str Id { get; set; } = "";
 	public UnixMs UnixMs { get; set; }
 
 	/// 核心查询内容
@@ -76,11 +76,13 @@ public class ReqLlmDictEvt:ReqLlmDict, IReqLlmDictEvt{
 
 /// 核心查询内容
 public class Query {
-	/// 查询词（源语言）
-	public string Term { get; set; } = "";
+	[Doc(@$"查詢文本。
+	可能是詞或整句。
+	")]
+	public str InputText { get; set; } = "";
 
 	/// 可选：上下文句子，用于消歧
-	public string? ContextSentence { get; set; }
+	public str? ContextSentence { get; set; }
 
 }
 
@@ -111,7 +113,7 @@ public class Preferences {
 // 	public ProficiencyLevel ProficiencyLevel { get; set; } = ProficiencyLevel.Intermediate;
 
 // 	/// 可选：关联查询历史（用于连贯释义）暫不實現
-// 	//public IList<string> PreviousQueries { get; set; } = new List<string>();
+// 	//public IList<str> PreviousQueries { get; set; } = new List<str>();
 // }
 
 
@@ -123,7 +125,7 @@ class Sample{
 Id: "1cwMqe3zEnhxG28qZoRVX"
 UnixMs: 1740000000000
 Query:
-  Term: "acquiesce"
+  InputText: "acquiesce"
   ContextSentence: "He chose to acquiesce to the decision"
 OptLang:
   SrcLang:

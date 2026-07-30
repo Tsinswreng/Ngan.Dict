@@ -161,7 +161,7 @@ public interface ISvcWordV2{
 	就先調{nameof(OrdUpdHeadLang)}、再以返回的Id爲基準、更新其他字段
 	#Rtn[更新結果Dto。其{nameof(RespUpdPoWord.FinalId)}一定有值]
 	")]
-	public Task<IAsyncEnumerable<RespUpdPoWord>> BatUpdPoWord(
+	public Task<IAsyncEnumerable<RespUpdPoWord>> OrdUpdPoWord(
 		IDbUserCtx Ctx, IAsyncEnumerable<PoWord> PoWords, CT Ct
 	);
 	
