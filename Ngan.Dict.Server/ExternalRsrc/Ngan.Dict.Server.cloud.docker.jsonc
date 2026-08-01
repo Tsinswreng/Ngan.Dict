@@ -1,0 +1,31 @@
+{
+	"Port": 2341
+	,"Db":{
+		"Postgres":{
+			"ConnectionString": ""
+			,"Server":"postgres"
+			,"Port":5432
+			,"Database":"ngan.dict"
+			,"UserId":"ngan.dict"
+			,"Password":"Ngan.DictDb2026!"
+		},
+		"Sqlite": {
+			"Path": "Ngan.Dict_Server.sqlite"
+		},
+		"Redis": {
+			"Host": "redis"
+			,"Port": 6379
+			,"InstanceName": "CsNgan.Dict"
+		}
+	},
+	"Auth":{
+		"JwtSecret": "TsinswrengTsinswrengTsinswrengTsinswrengTsinswrengTsinswrengTsinswrengTsinswrengTsinswreng"
+	},
+	"Debug":{
+		"Auth":{
+			"UserId": "1"
+			,"AllowedAccessToken": "TsinswrengAccessToken"
+			,"AllowedRefreshToken": "TsinswrengRefreshToken"
+		}
+	}
+}

@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Tools.JsonMap;
+namespace Ngan.Dict.Core.Tools.JsonMap;
 [Doc(@$"
 
 異ₐUI ʸʹ編輯器控件ˇ針對、需細分JsonValue之類型 如下。

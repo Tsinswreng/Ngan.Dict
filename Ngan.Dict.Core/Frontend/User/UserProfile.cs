@@ -1,2 +1,2 @@
-namespace Ngaq.Core.Frontend.User;
+namespace Ngan.Dict.Core.Frontend.User;
 

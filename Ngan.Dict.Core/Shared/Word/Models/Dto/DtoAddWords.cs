@@ -1,7 +1,7 @@
-namespace Ngaq.Core.Shared.Word.Models.Dto;
-using Ngaq.Core.Shared.Word.Models;
-using Ngaq.Core.Model.Po.Kv;
-using Ngaq.Core.Word.Models.Dto;
+namespace Ngan.Dict.Core.Shared.Word.Models.Dto;
+using Ngan.Dict.Core.Shared.Word.Models;
+using Ngan.Dict.Core.Model.Po.Kv;
+using Ngan.Dict.Core.Word.Models.Dto;
 
 
 

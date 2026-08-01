@@ -1,14 +1,14 @@
-namespace Ngaq.Core.Infra;
+namespace Ngan.Dict.Core.Infra;
 
 using System.Collections.Concurrent;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
-using Ngaq.Core.Infra.IF;
-using Ngaq.Core.Shared.User.Models.Po;
-using Ngaq.Core.Shared.User.Models.Po.User;
-using Ngaq.Core.Tools;
+using Ngan.Dict.Core.Infra.IF;
+using Ngan.Dict.Core.Shared.User.Models.Po;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Tools;
 using Tsinswreng.CsIfaceGen;
 using Tsinswreng.CsTools;
 
@@ -17,7 +17,7 @@ interface INull{
 }
 
 //JsonSerializable註解須寫在一起、不能散落在分散之partial class、否則json源生成器不輸出
-//執行Ngaq.Core\GenAppJsonCtx.sh㕥自動生成帶註解ʹAppJsonCtx分部類
+//執行Ngan.Dict.Core\GenAppJsonCtx.sh㕥自動生成帶註解ʹAppJsonCtx分部類
 [IfaceGen(
 	ParentType = typeof(IAppSerializable)
 	//ParentType = typeof(INull)
@@ -52,7 +52,7 @@ public interface IIfaceGenCfg_AppJsonCtx{
 	,PhIdentifierSafeFullType = "ID"
 	,Template =
 """
-new global::Ngaq.Core.Tools.JsonConvtr<TYPE>(),
+new global::Ngan.Dict.Core.Tools.JsonConvtr<TYPE>(),
 
 """
 
@@ -73,7 +73,7 @@ public interface IIfaceGenCfg_JsonCustomConverterList{
 // )]
 public partial class AppJsonCtx : JsonSerializerContext {
 	// public static IList<JsonConverter> JsonConverters = [
-	// 	new global::Ngaq.Core.Tools.JsonConvtr<IdKv>(),
+	// 	new global::Ngan.Dict.Core.Tools.JsonConvtr<IdKv>(),
 	// ];
 	protected static AppJsonCtx? _Inst = null;
 	public static AppJsonCtx Inst => _Inst??= new AppJsonCtx(Opt);
@@ -97,7 +97,7 @@ public partial class AppJsonCtx : JsonSerializerContext {
 }
 
 
-#if false //額外類型 自己手動複製粘貼到 Ngaq.Core/GenAppJsonCtx.sh
+#if false //額外類型 自己手動複製粘貼到 Ngan.Dict.Core/GenAppJsonCtx.sh
 
 [JsonSerializable(typeof(global::Tsinswreng.CsErr.IWebAns<obj>))]
 [JsonSerializable(typeof(global::Tsinswreng.CsErr.IAppErrView))]

@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Shared.Audio;
+namespace Ngan.Dict.Core.Shared.Audio;
 public class Audio{
 	public Audio(Func<CT, Task<Stream>> Data, EAudioType Type){
 		this.MkrData = Data;

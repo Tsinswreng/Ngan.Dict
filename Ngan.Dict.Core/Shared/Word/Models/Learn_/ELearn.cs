@@ -1,6 +1,6 @@
-namespace Ngaq.Core.Shared.Word.Models.Learn_;
+namespace Ngan.Dict.Core.Shared.Word.Models.Learn_;
 
-using Ngaq.Core.Model.Po.Kv;
+using Ngan.Dict.Core.Model.Po.Kv;
 
 
 

@@ -1,12 +1,12 @@
 
-using Ngaq.Core.Infra;
-using Ngaq.Core.Infra.Errors;
-using Ngaq.Core.Shared.Word.Models.Dto;
-using Ngaq.Core.Shared.Word.Models.Po.UserLang;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Infra.Errors;
+using Ngan.Dict.Core.Shared.Word.Models.Dto;
+using Ngan.Dict.Core.Shared.Word.Models.Po.UserLang;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 using Tsinswreng.CsPage;
 
-namespace Ngaq.Core.Shared.Word.Svc;
+namespace Ngan.Dict.Core.Shared.Word.Svc;
 
 [Doc(@$"{nameof(PoUserLang)}
 所有涉及修改{nameof(PoUserLang)}的 都要更新 {nameof(PoUserLang.BizUpdatedAt)}。

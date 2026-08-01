@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Service.Parser;
+namespace Ngan.Dict.Core.Service.Parser;
 
  // S_ : start
 public enum WordParseState{

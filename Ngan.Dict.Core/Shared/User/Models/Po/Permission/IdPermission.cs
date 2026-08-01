@@ -1,6 +1,6 @@
-namespace Ngaq.Core.Models.Sys.Po.Permission;
+namespace Ngan.Dict.Core.Models.Sys.Po.Permission;
 
-using Ngaq.Core.Shared.Base.Models.Consts;
+using Ngan.Dict.Core.Shared.Base.Models.Consts;
 using StronglyTypedIds;
 [StronglyTypedId(ConstStrongTypeIdTemplate.UInt128)]
 public partial struct IdPermission {

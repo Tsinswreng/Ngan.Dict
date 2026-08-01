@@ -1,6 +1,6 @@
-namespace Ngaq.Core.Shared.User.Models.Bo.Jwt;
+namespace Ngan.Dict.Core.Shared.User.Models.Bo.Jwt;
 
-using Ngaq.Core.Shared.Base.Models.Consts;
+using Ngan.Dict.Core.Shared.Base.Models.Consts;
 using StronglyTypedIds;
 
 [StronglyTypedId(ConstStrongTypeIdTemplate.UInt128)]

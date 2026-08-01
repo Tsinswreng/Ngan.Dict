@@ -1,12 +1,12 @@
-using Ngaq.Core.Frontend.Kv;
-using Ngaq.Core.Infra;
-using Ngaq.Core.Shared.Dictionary.Models;
-using Ngaq.Core.Shared.Dictionary.Models.Po.NormLang;
-using Ngaq.Core.Shared.Kv;
-using Ngaq.Core.Shared.Word.Models.Dto;
+using Ngan.Dict.Core.Frontend.Kv;
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Shared.Dictionary.Models;
+using Ngan.Dict.Core.Shared.Dictionary.Models.Po.NormLang;
+using Ngan.Dict.Core.Shared.Kv;
+using Ngan.Dict.Core.Shared.Word.Models.Dto;
 using Tsinswreng.CsPage;
 
-namespace Ngaq.Core.Shared.Word.Svc;
+namespace Ngan.Dict.Core.Shared.Word.Svc;
 
 [Doc(@$"{nameof(PoNormLang)}
 所有涉及修改{nameof(PoNormLang)}的 都要更新 {nameof(PoNormLang.BizUpdatedAt)}。

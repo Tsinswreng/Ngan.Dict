@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Frontend.Hotkey;
+namespace Ngan.Dict.Core.Frontend.Hotkey;
 
 /// 快捷键模型定义接口
 public interface IHotKey{

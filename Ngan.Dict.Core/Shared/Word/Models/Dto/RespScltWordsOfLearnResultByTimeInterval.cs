@@ -1,6 +1,6 @@
-namespace Ngaq.Core.Shared.Word.Models.Dto;
+namespace Ngan.Dict.Core.Shared.Word.Models.Dto;
 
-using Ngaq.Core.Shared.Base.Models.Resp;
+using Ngan.Dict.Core.Shared.Base.Models.Resp;
 using Tsinswreng.CsPage;
 using Tsinswreng.CsTempus;
 

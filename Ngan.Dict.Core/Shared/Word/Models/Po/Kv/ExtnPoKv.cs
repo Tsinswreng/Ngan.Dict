@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Shared.Word.Models.Po.Kv;
+namespace Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
 public static class ExtnPoKv{
 	public static TSelf SetStrStr<TSelf>(this TSelf z, str K, str V)
 		where TSelf : class, IPoKv

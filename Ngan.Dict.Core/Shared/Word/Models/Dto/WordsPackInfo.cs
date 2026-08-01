@@ -1,8 +1,8 @@
-namespace Ngaq.Core.Shared.Word.Models.Dto;
+namespace Ngan.Dict.Core.Shared.Word.Models.Dto;
 
-using Ngaq.Core.Infra;
-using Ngaq.Core.Infra.IF;
-using Ngaq.Core.Tools;
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Infra.IF;
+using Ngan.Dict.Core.Tools;
 using Tsinswreng.CsTempus;
 
 public class WordsPackInfo

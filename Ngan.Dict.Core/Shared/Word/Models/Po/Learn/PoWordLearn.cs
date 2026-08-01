@@ -1,14 +1,14 @@
 #define Impl
-namespace Ngaq.Core.Shared.Word.Models.Po.Learn;
+namespace Ngan.Dict.Core.Shared.Word.Models.Po.Learn;
 
-using Ngaq.Core.Shared.Base.Models.Po;
-using Ngaq.Core.Shared.Word.Models.Learn_;
-using Ngaq.Core.Model.Po.Learn_;
-using Ngaq.Core.Word.Models.Po.Word;
-using Ngaq.Core.Tools;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Shared.Word.Models.Learn_;
+using Ngan.Dict.Core.Model.Po.Learn_;
+using Ngan.Dict.Core.Word.Models.Po.Word;
+using Ngan.Dict.Core.Tools;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 using Tsinswreng.CsTempus;
-using Ngaq.Core.Infra.IF;
+using Ngan.Dict.Core.Infra.IF;
 
 
 // public  partial class Po_Learn:Po_Kv{

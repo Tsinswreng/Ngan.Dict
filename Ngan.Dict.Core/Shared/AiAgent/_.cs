@@ -38,11 +38,11 @@ AI 智能體
 ### 1. 整体架构（在现有分层基础上扩展）
 
 ```
-Avalonia UI (Ngaq.UI)
+Avalonia UI (Ngan.Dict.UI)
    ↓ 用户输入
 Agent ViewModel (新增)
    ↓ 调用
-Agent Service (新增，位于 Ngaq.Core 或 Ngaq.Frontend)
+Agent Service (新增，位于 Ngan.Dict.Core 或 Ngan.Dict.Frontend)
    ↓ 意图识别 + 参数提取
 LLM Client (封装 OpenAI / Azure / 本地模型，AOT 安全)
    ↓ 调用
@@ -51,7 +51,7 @@ Existing Business Services (ISvcWordV2, ISvcDictionary, ISvcStudyPlan ...)
 
 ### 2. 关键模块设计
 
-#### 2.1 Agent Service 接口（放在 `Ngaq.Core/Shared/Agent/`）
+#### 2.1 Agent Service 接口（放在 `Ngan.Dict.Core/Shared/Agent/`）
 
 ```csharp
 public interface IAgentService
@@ -136,7 +136,7 @@ var response = await httpClient.PostAsJsonAsync(url, request, jsonOptions, ct);
 
 #### 2.5 UI 集成（Avalonia）
 
-- 在 `Ngaq.UI` 中新增一个 `AgentView`（聊天界面），绑定 `AgentViewModel`。
+- 在 `Ngan.Dict.UI` 中新增一个 `AgentView`（聊天界面），绑定 `AgentViewModel`。
 - ViewModel 负责：
   - 维护消息列表（`ObservableCollection<ChatMessage>`）。
   - 调用 `IAgentService.ChatAsync` 流式获取回复。

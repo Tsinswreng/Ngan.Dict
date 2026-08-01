@@ -1,7 +1,7 @@
-using Ngaq.Core.Shared.Word.Models;
+using Ngan.Dict.Core.Shared.Word.Models;
 using Tsinswreng.CsTools;
 
-namespace Ngaq.Core.Word.Models.Dto;
+namespace Ngan.Dict.Core.Word.Models.Dto;
 
 public struct DtoJnWordEtAsset{
 	public JnWord JnWord{get;set;}

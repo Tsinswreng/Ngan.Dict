@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Shared.StudyPlan.Models.PreFilter;
+namespace Ngan.Dict.Core.Shared.StudyPlan.Models.PreFilter;
 [Doc($@"篩選操作模式")]
 [DoNotRenameMembers]
 public enum EFilterOperationMode{

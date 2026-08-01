@@ -1,7 +1,7 @@
-namespace Ngaq.Core.Backend;
-using K = Ngaq.Core.Tools.RedisKey;
-using static Ngaq.Core.Tools.RedisKey;
-using Ngaq.Core.Shared.User.Models.Po.User;
+namespace Ngan.Dict.Core.Backend;
+using K = Ngan.Dict.Core.Tools.RedisKey;
+using static Ngan.Dict.Core.Tools.RedisKey;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
 
 [Doc("Keys for cache(redis)")]
 public class KeysCache{

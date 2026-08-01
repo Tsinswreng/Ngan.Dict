@@ -1,8 +1,8 @@
-namespace Ngaq.Core.Infra.Cfg;
+namespace Ngan.Dict.Core.Infra.Cfg;
 
 using System.Collections;
-using Ngaq.Core.Frontend.Hotkey;
-using Ngaq.Core.Frontend.Kv;
+using Ngan.Dict.Core.Frontend.Hotkey;
+using Ngan.Dict.Core.Frontend.Kv;
 using Tsinswreng.CsCfg;
 using static Tsinswreng.CsCfg.CfgNode<obj?>;
 //TODO 異常處理 勿緣用戶配置ʹ謬而致整程序崩
@@ -10,9 +10,9 @@ using static Tsinswreng.CsCfg.CfgNode<obj?>;
 public class KeysClientCfg{
 	public static ICfgNode<str> Lang = Mk(null, [nameof(Lang)], "en");
 
-	public static ICfgNode<str> SqlitePath = Mk(null, [nameof(SqlitePath)], "./Ngaq.sqlite");
+	public static ICfgNode<str> SqlitePath = Mk(null, [nameof(SqlitePath)], "./Ngan.Dict.sqlite");
 
-	public static ICfgNode<str> RwCfgPath = Mk(null, [nameof(RwCfgPath)], "Ngaq.Rw.jsonc");
+	public static ICfgNode<str> RwCfgPath = Mk(null, [nameof(RwCfgPath)], "Ngan.Dict.Rw.jsonc");
 
 	public class Background{
 		public static ICfgNode _R = Mk(null, [nameof(Background)]);

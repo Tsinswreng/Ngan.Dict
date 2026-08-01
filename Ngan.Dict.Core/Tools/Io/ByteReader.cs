@@ -7,9 +7,9 @@ c# 異步流式讀文件、每次讀一部分。
 using W = byte;
 using System.Text;
 using Chunk = System.ArraySegment<byte>;
-using Ngaq.Core.Iter;
+using Ngan.Dict.Core.Iter;
 
-namespace Ngaq.Core.Tools.Io;
+namespace Ngan.Dict.Core.Tools.Io;
 
 public  partial class ByteReader: IIterable<u8>, IDisposable{
 

@@ -1,16 +1,16 @@
-using Ngaq.Core.Shared.StudyPlan.Models.Po.PreFilter;
-using Ngaq.Core.Shared.StudyPlan.Models.Po.StudyPlan;
-using Ngaq.Core.Shared.StudyPlan.Models.Po.WeightArg;
-using Ngaq.Core.Shared.StudyPlan.Models.Po.WeightCalculator;
-using Ngaq.Core.Shared.StudyPlan.Models.PreFilter;
-using Ngaq.Core.Shared.Word.Svc;
-using Ngaq.Core.Tools;
-using Ngaq.Core.Tools.Json;
-using Ngaq.Core.Word.Svc;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.PreFilter;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.StudyPlan;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightArg;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightCalculator;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.PreFilter;
+using Ngan.Dict.Core.Shared.Word.Svc;
+using Ngan.Dict.Core.Tools;
+using Ngan.Dict.Core.Tools.Json;
+using Ngan.Dict.Core.Word.Svc;
 using System.Text.Json;
 using Tsinswreng.CsTools;
 
-namespace Ngaq.Core.Shared.StudyPlan.Models;
+namespace Ngan.Dict.Core.Shared.StudyPlan.Models;
 
 [Doc($$"""
 #Sum[學習方案聚合模型]
@@ -130,10 +130,10 @@ public static class ExtnBoStudyPlan{
 
 
 // //只是草稿
-// namespace Ngaq.Core.Shared.Word.Models;
+// namespace Ngan.Dict.Core.Shared.Word.Models;
 
-// using Ngaq.Core.Tools.Json;
-// using Ngaq.Core.Word.Svc;
+// using Ngan.Dict.Core.Tools.Json;
+// using Ngan.Dict.Core.Word.Svc;
 // using Tsinswreng.CsTools;
 
 // public struct IdStudyPlan{

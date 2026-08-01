@@ -1,22 +1,22 @@
-namespace Ngaq.Core.Shared.Word.Models;
+namespace Ngan.Dict.Core.Shared.Word.Models;
 
-using Ngaq.Core.Infra.IF;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
-using Ngaq.Core.Infra.Errors;
+using Ngan.Dict.Core.Infra.IF;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Core.Infra.Errors;
 using Tsinswreng.CsTools;
-using Ngaq.Core.Shared.Word.Models.Po.Kv;
-using Ngaq.Core.Infra;
-using Ngaq.Core.Shared.Base.Models.Po;
-using Ngaq.Core.Tools.Algo;
-using Ngaq.Core.Model.Po.Kv;
-using Ngaq.Core.Shared.Word.Models.Po.Learn;
-using Ngaq.Core.Model.Po.Learn_;
-using Ngaq.Core.Shared.Word.Models.Dto;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Tools.Algo;
+using Ngan.Dict.Core.Model.Po.Kv;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Learn;
+using Ngan.Dict.Core.Model.Po.Learn_;
+using Ngan.Dict.Core.Shared.Word.Models.Dto;
 using Tsinswreng.CsErr;
 using Tsinswreng.Srefl;
-using Ngaq.Core.Shared.Word.Models;
-using Ngaq.Core.Shared.User.Models.Po.User;
-using Ngaq.Core.Shared.User.Models.Po;
+using Ngan.Dict.Core.Shared.Word.Models;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Shared.User.Models.Po;
 using Tsinswreng.CsTempus;
 
 public static class ExtnJnWord{

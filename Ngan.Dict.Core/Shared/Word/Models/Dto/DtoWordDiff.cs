@@ -1,7 +1,7 @@
-using Ngaq.Core.Shared.Word.Models.Po.Kv;
-using Ngaq.Core.Shared.Word.Models.Po.Learn;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Learn;
 
-namespace Ngaq.Core.Word.Models.Dto;
+namespace Ngan.Dict.Core.Word.Models.Dto;
 
 public partial struct DtoWordDiff{
 	public IList<PoWordProp> PoWordProps{get;set;}

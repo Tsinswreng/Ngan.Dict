@@ -1,6 +1,6 @@
 using Tsinswreng.CsTempus;
 
-namespace Ngaq.Core.Shared.Word.WeightAlgo.Models;
+namespace Ngan.Dict.Core.Shared.Word.WeightAlgo.Models;
 
 [Doc(@$"單詞權重計算過程中的運行時狀態。
 

@@ -1,6 +1,6 @@
-namespace Ngaq.Core.Shared.User.Models.Po;
+namespace Ngan.Dict.Core.Shared.User.Models.Po;
 
-using Ngaq.Core.Infra;
+using Ngan.Dict.Core.Infra;
 using StronglyTypedIds;
 
 

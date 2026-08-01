@@ -1,8 +1,8 @@
-namespace Ngaq.Core.Models.Sys.Po.Password;
+namespace Ngan.Dict.Core.Models.Sys.Po.Password;
 
-using Ngaq.Core.Shared.Base.Models.Po;
-using Ngaq.Core.Shared.User.Models.Po.User;
-using Ngaq.Core.Model.Sys.Po.Password;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Model.Sys.Po.Password;
 
 
 public partial class PoPassword

@@ -1,7 +1,7 @@
-namespace Ngaq.Core.Word.Models;
+namespace Ngan.Dict.Core.Word.Models;
 
-using Ngaq.Core.Shared.Base.Models.Po;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 
 public  partial interface IVmWord
 	:AppI_Id<str>

@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Shared.Dictionary.Models;
+namespace Ngan.Dict.Core.Shared.Dictionary.Models;
 /// 语言信息（源/目标/额外目标语言通用结构）
 [Obsolete(@$"use {nameof(NormLangDetail)}")]
 public class LangInfo {

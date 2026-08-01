@@ -1,9 +1,9 @@
-namespace Ngaq.Backend.Word.Dao;
+namespace Ngan.Dict.Backend.Word.Dao;
 
 using Tsinswreng.CsSql;
-using Ngaq.Backend.Db.TswG;
-using Ngaq.Core.Shared.User.UserCtx;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Backend.Db.TswG;
+using Ngan.Dict.Core.Shared.User.UserCtx;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 
 public partial class DaoWord{
 /// 不校驗、直接update語句㕥改

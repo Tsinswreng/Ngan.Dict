@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Tools.Encryption;
+namespace Ngan.Dict.Core.Tools.Encryption;
 
 
 /// 加密&雜湊

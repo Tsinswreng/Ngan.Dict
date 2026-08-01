@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Shared.StudyPlan.Models.Po.WeightCalculator;
+namespace Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightCalculator;
 
 
 [Doc($@"權重算法實現載體類型")]

@@ -1,7 +1,7 @@
-using Ngaq.Core.Shared.Word.Models;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Core.Shared.Word.Models;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 
-namespace Ngaq.Core.Shared.Sync;
+namespace Ngan.Dict.Core.Shared.Sync;
 
 using E = EDiffByBizIdResultForSync;
 [Doc(@$"用于兩持久對象同步。

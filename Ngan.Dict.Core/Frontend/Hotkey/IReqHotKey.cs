@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Frontend.Hotkey;
+namespace Ngan.Dict.Core.Frontend.Hotkey;
 
 public interface IReqHotKey{
 	

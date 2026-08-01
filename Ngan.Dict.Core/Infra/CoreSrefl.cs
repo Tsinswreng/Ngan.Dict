@@ -1,7 +1,7 @@
-using Ngaq.Core.Infra.IF;
+using Ngan.Dict.Core.Infra.IF;
 using Tsinswreng.CsIfaceGen;
 using Tsinswreng.Srefl;
-namespace Ngaq.Core.Infra;
+namespace Ngan.Dict.Core.Infra;
 
 public class CfgIfaceGen{
 	public const str OutDir = nameof(Tsinswreng)+"."+nameof(Tsinswreng.CsIfaceGen)+"/";
@@ -17,7 +17,7 @@ public class CfgIfaceGen{
 	,Template =
 """
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
 	[SreflType(typeof(TYPE))]
 	public partial class CoreDictMapper{
@@ -45,7 +45,7 @@ public interface IIfaceGenCfg_CoreDictMapper{
 
 
 [Doc(@$"
-Ngaq.Core/GenAppJsonCtx.sh 中 引用了此類的名稱
+Ngan.Dict.Core/GenAppJsonCtx.sh 中 引用了此類的名稱
 故謹慎重命名、留作CoreDictMapper
 ")]
 public partial class CoreDictMapper{

@@ -1,18 +1,18 @@
-namespace Ngaq.Backend.Di;
+namespace Ngan.Dict.Backend.Di;
 
 using Microsoft.Extensions.DependencyInjection;
-using Ngaq.Core.Frontend.ImgBg;
-using Ngaq.Core.Frontend.User;
-using Ngaq.Core.Frontend.User.Svc;
-using Ngaq.Core.Infra.Url;
-using Ngaq.Core.Shared.Audio;
-using Ngaq.Core.Shared.Dictionary.Svc;
-using Ngaq.Core.Shared.Encryption.Svc;
-using Ngaq.Core.Shared.User.UserCtx;
-using Ngaq.Backend.Domains.Dictionary.Svc;
-using Ngaq.Backend.Frontend.User.Svc;
-using Ngaq.Backend.ImplFrontend;
-using Ngaq.Backend.Infra;
+using Ngan.Dict.Core.Frontend.ImgBg;
+using Ngan.Dict.Core.Frontend.User;
+using Ngan.Dict.Core.Frontend.User.Svc;
+using Ngan.Dict.Core.Infra.Url;
+using Ngan.Dict.Core.Shared.Audio;
+using Ngan.Dict.Core.Shared.Dictionary.Svc;
+using Ngan.Dict.Core.Shared.Encryption.Svc;
+using Ngan.Dict.Core.Shared.User.UserCtx;
+using Ngan.Dict.Backend.Domains.Dictionary.Svc;
+using Ngan.Dict.Backend.Frontend.User.Svc;
+using Ngan.Dict.Backend.ImplFrontend;
+using Ngan.Dict.Backend.Infra;
 using Tsinswreng.CsCore;
 using System.IO.Abstractions;
 

@@ -305,7 +305,7 @@ const a: TI18nKv = {
 			DictionaryLookupHotkeyModifiers_: "Tastenkombinations-Modifikatoren für Wörterbuchsuche",
 			DictionaryLookupHotkeyKey: "Tastenkombinationstaste für Wörterbuchsuche",
 			WordEditorOpenerNotReady: "Wörterbuch-Editor-Öffner nicht bereit",
-			NgaqDictionaryLookup: "Wörterbuchsuche",
+			Ngan.DictDictionaryLookup: "Wörterbuchsuche",
 			TapReadClipboardAndAutoLookup: "Tippen, um Zwischenablage zu lesen und automatisch zu suchen",
 			WeightAlgorithmPluginDoc: "Dokumentation für Gewichtungsalgorithmus-Plugins"
 		}

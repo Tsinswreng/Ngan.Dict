@@ -1,21 +1,21 @@
-namespace Ngaq.Backend.Domains.StudyPlan.Dao;
+namespace Ngan.Dict.Backend.Domains.StudyPlan.Dao;
 
-using Ngaq.Core.Shared.Base.Models.Po;
-using Ngaq.Core.Shared.StudyPlan.Models;
-using Ngaq.Core.Shared.StudyPlan.Models.Req;
-using Ngaq.Core.Shared.StudyPlan.Models.Po.PreFilter;
-using Ngaq.Core.Shared.StudyPlan.Models.Po.StudyPlan;
-using Ngaq.Core.Shared.StudyPlan.Models.Po.WeightArg;
-using Ngaq.Core.Shared.StudyPlan.Models.Po.WeightCalculator;
-using Ngaq.Core.Shared.User.Models.Po.User;
-using Ngaq.Backend.Db.TswG;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Shared.StudyPlan.Models;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Req;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.PreFilter;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.StudyPlan;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightArg;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightCalculator;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Backend.Db.TswG;
 using Tsinswreng.CsCore;
 using Tsinswreng.CsPage;
 using Tsinswreng.CsSql;
 using Tsinswreng.CsTools;
 using IStr_Any = System.Collections.Generic.IDictionary<string, object?>;
 using Str_Any = System.Collections.Generic.Dictionary<string, object?>;
-using Ngaq.Core.Infra.IF;
+using Ngan.Dict.Core.Infra.IF;
 
 public partial class DaoStudyPlan(
 	ISqlCmdMkr SqlCmdMkr

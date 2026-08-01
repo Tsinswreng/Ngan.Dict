@@ -1,7 +1,7 @@
-using Ngaq.Core.Shared.Dictionary.Models;
-using Ngaq.Core.Shared.Dictionary.Models.Po.NormLang;
+using Ngan.Dict.Core.Shared.Dictionary.Models;
+using Ngan.Dict.Core.Shared.Dictionary.Models.Po.NormLang;
 
-namespace Ngaq.Core.Shared.Dictionary.Svc;
+namespace Ngan.Dict.Core.Shared.Dictionary.Svc;
 
 [Doc(@$"文本轉語言服務")]
 public interface ISvcTts{

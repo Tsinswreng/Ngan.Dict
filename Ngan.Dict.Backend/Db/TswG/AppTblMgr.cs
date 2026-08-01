@@ -1,4 +1,4 @@
-namespace Ngaq.Backend.Db.TswG;
+namespace Ngan.Dict.Backend.Db.TswG;
 using Tsinswreng.CsSql.Sqlite;
 
 public partial class LocalTblMgr:SqliteTblMgr{

@@ -1,6 +1,6 @@
 using Tsinswreng.CsTempus;
 
-namespace Ngaq.Core.Tools;
+namespace Ngan.Dict.Core.Tools;
 
 public static class ToolTime{
 	extension(UnixMs z){

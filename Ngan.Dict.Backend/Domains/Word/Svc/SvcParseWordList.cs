@@ -1,12 +1,12 @@
-namespace Ngaq.Backend.Domains.Word.Svc;
+namespace Ngan.Dict.Backend.Domains.Word.Svc;
 
 using System.Text;
-using Ngaq.Core.Shared.Word.Models;
-using Ngaq.Core.Infra.Errors;
-using Ngaq.Core.Service.Parser;
-using Ngaq.Core.Iter;
-using Ngaq.Core.Tools.Io;
-using Ngaq.Core.Shared.Word.Svc;
+using Ngan.Dict.Core.Shared.Word.Models;
+using Ngan.Dict.Core.Infra.Errors;
+using Ngan.Dict.Core.Service.Parser;
+using Ngan.Dict.Core.Iter;
+using Ngan.Dict.Core.Tools.Io;
+using Ngan.Dict.Core.Shared.Word.Svc;
 
 public partial class SvcParseWordList
 	: ISvcParseWordList

@@ -4,14 +4,14 @@
 
 
 partial struct PLACEHOLDERID
-	:Ngaq.Core.Infra.IF.IIdUInt128
+	:Ngan.Dict.Core.Infra.IF.IIdUInt128
 	,IEquatable<PLACEHOLDERID>
 	,IRawValueSerializable
 {
 
 	object? I_ToDeSerialized.ToDeSerialized(object? Obj) {
 		if(Obj is str s){
-			return global::Ngaq.Core.Infra.IF.ExtnIIIdUInt128.FromLow64Base<PLACEHOLDERID>(s);
+			return global::Ngan.Dict.Core.Infra.IF.ExtnIIIdUInt128.FromLow64Base<PLACEHOLDERID>(s);
 		}
 		return Obj;
 	}

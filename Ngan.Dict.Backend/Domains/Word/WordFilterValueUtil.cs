@@ -1,9 +1,9 @@
-namespace Ngaq.Backend.Domains.Word;
+namespace Ngan.Dict.Backend.Domains.Word;
 
-using Ngaq.Core.Infra;
-using Ngaq.Core.Model.Po.Kv;
-using Ngaq.Core.Shared.StudyPlan.Models.PreFilter;
-using Ngaq.Core.Shared.Word.Models.Po.Kv;
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Model.Po.Kv;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.PreFilter;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
 using Tsinswreng.CsTempus;
 
 /// <summary>

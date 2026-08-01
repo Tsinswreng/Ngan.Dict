@@ -9,10 +9,10 @@ trap cleanup_askpass EXIT
 
 run_ssh "
 set -eu
-cd /opt/ngaq-server/deploy
+cd /opt/ngan.dict-server/deploy
 echo '=== postgres logs ==='
 docker compose -f docker-compose.aot-slim.yml logs --tail=200 postgres
 echo
 echo '=== recent users ==='
-docker exec deploy-postgres-1 psql -U ngaq -d ngaq -c 'select \"Id\", \"UniqName\", \"Email\", \"DbCreatedAt\" from \"User\" order by \"DbCreatedAt\" desc limit 10;' || true
+docker exec deploy-postgres-1 psql -U ngan.dict -d ngan.dict -c 'select \"Id\", \"UniqName\", \"Email\", \"DbCreatedAt\" from \"User\" order by \"DbCreatedAt\" desc limit 10;' || true
 "

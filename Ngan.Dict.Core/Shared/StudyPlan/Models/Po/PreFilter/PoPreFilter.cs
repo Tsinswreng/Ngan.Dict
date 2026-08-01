@@ -1,11 +1,11 @@
-using Ngaq.Core.Infra.IF;
-using Ngaq.Core.Shared.Base.Models.Po;
-using Ngaq.Core.Shared.StudyPlan.Models.Po.StudyPlan;
-using Ngaq.Core.Shared.StudyPlan.Models.Po.WeightArg;
-using Ngaq.Core.Shared.StudyPlan.Models.Po.WeightCalculator;
-using Ngaq.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Infra.IF;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.StudyPlan;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightArg;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightCalculator;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
 
-namespace Ngaq.Core.Shared.StudyPlan.Models.Po.PreFilter;
+namespace Ngan.Dict.Core.Shared.StudyPlan.Models.Po.PreFilter;
 
 [Doc($@"學習方案前置篩選器持久化實體")]
 public class PoPreFilter

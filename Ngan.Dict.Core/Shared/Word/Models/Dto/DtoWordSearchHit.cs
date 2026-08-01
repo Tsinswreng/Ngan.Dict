@@ -1,8 +1,8 @@
-using Ngaq.Core.Shared.Word.Models;
-using Ngaq.Core.Shared.Word.Models.Po.Kv;
-using Ngaq.Core.Shared.Word.Models.Po.Learn;
+using Ngan.Dict.Core.Shared.Word.Models;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Learn;
 
-namespace Ngaq.Core.Shared.Word.Models.Dto;
+namespace Ngan.Dict.Core.Shared.Word.Models.Dto;
 
 /// 搜索命中類型。
 /// 用于區分本次命中的是單詞聚合根、單詞屬性還是學習記錄。

@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Shared.Dictionary.Models;
+namespace Ngan.Dict.Core.Shared.Dictionary.Models;
 
 /// 詞典源語言快捷標籤的本地配置項。
 /// 語言身份由 Type 與 Code 穩定標識；Text 僅控制快捷欄顯示文字。

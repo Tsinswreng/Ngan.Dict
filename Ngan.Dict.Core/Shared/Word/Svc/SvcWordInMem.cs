@@ -1,12 +1,12 @@
-namespace Ngaq.Core.Shared.Word.Svc;
+namespace Ngan.Dict.Core.Shared.Word.Svc;
 
-using Ngaq.Core.Infra.Errors;
-using Ngaq.Core.Shared.Sync;
-using Ngaq.Core.Shared.Word.Models;
-using Ngaq.Core.Shared.Word.Models.Dto;
-using Ngaq.Core.Shared.Word.Models.Po.Kv;
-using Ngaq.Core.Shared.Word.Models.Po.Learn;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Core.Infra.Errors;
+using Ngan.Dict.Core.Shared.Sync;
+using Ngan.Dict.Core.Shared.Word.Models;
+using Ngan.Dict.Core.Shared.Word.Models.Dto;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Learn;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 using Tsinswreng.CsErr;
 using Tsinswreng.CsTempus;
 
@@ -157,8 +157,8 @@ public class SvcWordInMem:ISvcWordInMem{
 
 		var localClone = CloneJnWord(Local);
 		var localWasSoftDeleted = Local.DelAt.Value != 0;
-		var localPropIds = new HashSet<Ngaq.Core.Model.Po.Kv.IdWordProp>(localClone.Props.Select(x=>x.Id));
-		var localLearnIds = new HashSet<Ngaq.Core.Model.Po.Learn_.IdWordLearn>(localClone.Learns.Select(x=>x.Id));
+		var localPropIds = new HashSet<Ngan.Dict.Core.Model.Po.Kv.IdWordProp>(localClone.Props.Select(x=>x.Id));
+		var localLearnIds = new HashSet<Ngan.Dict.Core.Model.Po.Learn_.IdWordLearn>(localClone.Learns.Select(x=>x.Id));
 		var newProps = new List<PoWordProp>();
 		var newLearns = new List<PoWordLearn>();
 

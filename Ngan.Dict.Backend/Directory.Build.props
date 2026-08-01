@@ -30,7 +30,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="../Ngaq.Core/Ngaq.Core.csproj" />
+		<ProjectReference Include="../Ngan.Dict.Core/Ngan.Dict.Core.csproj" />
 	</ItemGroup>
 
 </Project>

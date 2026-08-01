@@ -1,7 +1,7 @@
-using Ngaq.Core.Tools.Proxy;
+using Ngan.Dict.Core.Tools.Proxy;
 using Tsinswreng.CsTools;
 
-namespace Ngaq.Core.Tools.JsonMap;
+namespace Ngan.Dict.Core.Tools.JsonMap;
 public class IUiJsonMapItem : IFnProxy{
 	protected IUiJsonMapItem(){
 		Init();

@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Frontend.ImgBg;
+namespace Ngan.Dict.Core.Frontend.ImgBg;
 
 
 public enum EBackgroundMode{

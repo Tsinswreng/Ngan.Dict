@@ -1,6 +1,6 @@
-namespace Ngaq.Core.Shared.User.Models.Resp;
+namespace Ngan.Dict.Core.Shared.User.Models.Resp;
 
-using Ngaq.Core.Shared.Base.Models.Resp;
+using Ngan.Dict.Core.Shared.Base.Models.Resp;
 using Tsinswreng.CsTempus;
 
 public class RespRefreshBothToken:BaseResp{

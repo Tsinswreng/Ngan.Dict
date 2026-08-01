@@ -1,4 +1,4 @@
-namespace Ngaq;
+namespace Ngan.Dict;
 
 public class Todo{
 	public Todo(){

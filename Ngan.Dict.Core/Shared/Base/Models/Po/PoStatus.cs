@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Models.Po;
+namespace Ngan.Dict.Core.Models.Po;
 
 using TStruct = PoStatus;
 using TPrimitive = i32;

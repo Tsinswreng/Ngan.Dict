@@ -1,7 +1,7 @@
-namespace Ngaq.Core.Shared.User.Models.Req;
+namespace Ngan.Dict.Core.Shared.User.Models.Req;
 
-using Ngaq.Core.Shared.Base.Models.Req;
-using Ngaq.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Shared.Base.Models.Req;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
 
 
 

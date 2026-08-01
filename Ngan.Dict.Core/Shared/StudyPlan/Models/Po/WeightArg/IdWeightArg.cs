@@ -1,6 +1,6 @@
-namespace Ngaq.Core.Shared.StudyPlan.Models.Po.WeightArg;
+namespace Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightArg;
 
-using Ngaq.Core.Shared.Base.Models.Consts;
+using Ngan.Dict.Core.Shared.Base.Models.Consts;
 using StronglyTypedIds;
 
 [StronglyTypedId(ConstStrongTypeIdTemplate.UInt128)]

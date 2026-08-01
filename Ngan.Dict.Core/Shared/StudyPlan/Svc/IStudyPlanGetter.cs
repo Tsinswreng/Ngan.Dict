@@ -1,9 +1,9 @@
-using Ngaq.Core.Shared.StudyPlan.Models;
-using Ngaq.Core.Shared.User.UserCtx;
-using Ngaq.Core.Shared.Word;
-using Ngaq.Core.Shared.Word.WeightAlgo;
+using Ngan.Dict.Core.Shared.StudyPlan.Models;
+using Ngan.Dict.Core.Shared.User.UserCtx;
+using Ngan.Dict.Core.Shared.Word;
+using Ngan.Dict.Core.Shared.Word.WeightAlgo;
 
-namespace Ngaq.Core.Shared.StudyPlan.Svc;
+namespace Ngan.Dict.Core.Shared.StudyPlan.Svc;
 
 public interface IStudyPlanGetter{
 	[Doc(@$"

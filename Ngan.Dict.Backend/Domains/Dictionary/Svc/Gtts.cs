@@ -1,14 +1,14 @@
-using Ngaq.Core.Shared.Audio;
-using Ngaq.Core.Infra.Errors;
-using Ngaq.Core.Shared.Dictionary.Svc;
+using Ngan.Dict.Core.Shared.Audio;
+using Ngan.Dict.Core.Infra.Errors;
+using Ngan.Dict.Core.Shared.Dictionary.Svc;
 using Tsinswreng.CsErr;
 using Tsinswreng.CsCore;
 using System.Collections.Concurrent;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using Ngaq.Core.Shared.Dictionary.Models;
+using Ngan.Dict.Core.Shared.Dictionary.Models;
 
-namespace Ngaq.Backend.Domains.Dictionary.Svc;
+namespace Ngan.Dict.Backend.Domains.Dictionary.Svc;
 
 
 /// Google TTS 服務實現。

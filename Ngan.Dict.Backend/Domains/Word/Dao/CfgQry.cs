@@ -1,4 +1,4 @@
-// namespace Ngaq.Backend.Domains.Word.Dao;
+// namespace Ngan.Dict.Backend.Domains.Word.Dao;
 
 // public class OptQry{
 // 	public bool IncludeDeleted{get; set;}

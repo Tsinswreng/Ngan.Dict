@@ -1,0 +1,235 @@
+using Ngan.Dict.Core.Infra.Errors;
+using Ngan.Dict.Core.Infra.IF;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.PreFilter;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.StudyPlan;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightArg;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightCalculator;
+using Ngan.Dict.Core.Shared.StudyPlan.Svc;
+using Tsinswreng.CsErr;
+using Tsinswreng.CsTreeTest;
+
+namespace Ngan.Dict.Backend.Test.Domains.StudyPlan;
+
+public partial class TestISvcStudyPlan{
+	static void AssertThrowsErrItem(
+		Exception Ex
+		,IErrNode Expected
+		,str CaseName
+	){
+		if(Ex is not AppErr appErr){
+			throw new Exception($"{CaseName} should throw AppErr, got {Ex.GetType().FullName}");
+		}
+		if(!ReferenceEquals(appErr.Type, Expected)){
+			throw new Exception($"{CaseName} should throw expected err item, got [{appErr.Key}]");
+		}
+	}
+
+	void RegisterConflictErrCases(ITestNode Node){
+		var register = Node.MkTestFnRegister(
+			typeof(TestISvcStudyPlan)
+			,[typeof(ISvcStudyPlan)]
+			,[]
+		);
+		var R = register.Register;
+		register.TesteeFnNames = [
+			nameof(ISvcStudyPlan.OrdAddPreFilter)
+			,nameof(ISvcStudyPlan.OrdAddWeightArg)
+			,nameof(ISvcStudyPlan.OrdAddWeightCalculator)
+			,nameof(ISvcStudyPlan.OrdUpdPreFilter)
+			,nameof(ISvcStudyPlan.OrdUpdWeightArg)
+			,nameof(ISvcStudyPlan.OrdUpdWeightCalculator)
+			,nameof(ISvcStudyPlan.OrdUpdStudyPlan)
+		];
+
+		R("BatAddPreFilter_Should_Throw_AddFailedDataMayConflict_OnUniqConflict", async(o)=>{
+			var userCtx = MkUserCtx(_ownerA);
+			var row = new PoPreFilter{
+				Id = new IdPreFilter(),
+				Owner = _ownerA,
+				UniqName = _token + "_pf_a_1",
+				Type = EPreFilterType.Json,
+				DataSchemaVer = new Version(1, 0),
+				Text = "{\"Version\":\"1.0.0.0\",\"CoreFilter\":[],\"PropFilter\":[]}",
+			};
+			_preFilterIds.Add(row.Id);
+
+			try{
+				await SvcStudyPlan.OrdAddPreFilter(userCtx, AsyE(row), CT.None);
+				throw new Exception("BatAddPreFilter conflict should throw");
+			}catch(Exception ex){
+				AssertThrowsErrItem(ex, KeysErr.Common.DataIllegalOrConflict, nameof(ISvcStudyPlan.OrdAddPreFilter));
+			}
+			return NIL;
+		});
+
+		R("BatAddWeightArg_Should_Throw_AddFailedDataMayConflict_OnUniqConflict", async(o)=>{
+			var userCtx = MkUserCtx(_ownerA);
+			var row = new PoWeightArg{
+				Id = new IdWeightArg(),
+				Owner = _ownerA,
+				UniqName = _token + "_wa_a_1",
+				Type = EWeightArgType.Json,
+				WeightCalculatorId = IdWeightCalculator.Zero,
+				Text = "{}",
+			};
+			_weightArgIds.Add(row.Id);
+
+			try{
+				await SvcStudyPlan.OrdAddWeightArg(userCtx, AsyE(row), CT.None);
+				throw new Exception("BatAddWeightArg conflict should throw");
+			}catch(Exception ex){
+				AssertThrowsErrItem(ex, KeysErr.Common.DataIllegalOrConflict, nameof(ISvcStudyPlan.OrdAddWeightArg));
+			}
+			return NIL;
+		});
+
+		R("BatAddWeightCalculator_Should_Throw_AddFailedDataMayConflict_OnUniqConflict", async(o)=>{
+			var userCtx = MkUserCtx(_ownerA);
+			var row = new PoWeightCalculator{
+				Id = new IdWeightCalculator(),
+				Owner = _ownerA,
+				UniqName = _token + "_wc_a_1",
+				Type = EWeightCalculatorType.Builtin,
+			};
+			_weightCalculatorIds.Add(row.Id);
+
+			try{
+				await SvcStudyPlan.OrdAddWeightCalculator(userCtx, AsyE(row), CT.None);
+				throw new Exception("BatAddWeightCalculator conflict should throw");
+			}catch(Exception ex){
+				AssertThrowsErrItem(ex, KeysErr.Common.DataIllegalOrConflict, nameof(ISvcStudyPlan.OrdAddWeightCalculator));
+			}
+			return NIL;
+		});
+
+		R("BatUpdPreFilter_Should_Throw_UpdateFailedDataMayConflict_OnUniqConflict", async(o)=>{
+			var userCtx = MkUserCtx(_ownerA);
+			var row1 = new PoPreFilter{
+				Id = new IdPreFilter(),
+				Owner = _ownerA,
+				UniqName = _token + "_upd_conflict_pf_1",
+				Type = EPreFilterType.Json,
+				DataSchemaVer = new Version(1, 0),
+				Text = "{\"Version\":\"1.0.0.0\",\"CoreFilter\":[],\"PropFilter\":[]}",
+			};
+			var row2 = new PoPreFilter{
+				Id = new IdPreFilter(),
+				Owner = _ownerA,
+				UniqName = _token + "_upd_conflict_pf_2",
+				Type = EPreFilterType.Json,
+				DataSchemaVer = new Version(1, 0),
+				Text = "{\"Version\":\"1.0.0.0\",\"CoreFilter\":[],\"PropFilter\":[]}",
+			};
+			await RunNoTxn(async(ctx)=>{
+				await RepoPreFilter.OrdAdd(ctx, AsyE(row1, row2), CT.None);
+				return NIL;
+			});
+			_preFilterIds.Add(row1.Id);
+			_preFilterIds.Add(row2.Id);
+
+			row1.UniqName = row2.UniqName;
+			try{
+				await SvcStudyPlan.OrdUpdPreFilter(userCtx, AsyE(row1), CT.None);
+				throw new Exception("BatUpdPreFilter conflict should throw");
+			}catch(Exception ex){
+				AssertThrowsErrItem(ex, KeysErr.Common.DataIllegalOrConflict, nameof(ISvcStudyPlan.OrdUpdPreFilter));
+			}
+			return NIL;
+		});
+
+		R("BatUpdWeightArg_Should_Throw_UpdateFailedDataMayConflict_OnUniqConflict", async(o)=>{
+			var userCtx = MkUserCtx(_ownerA);
+			var row1 = new PoWeightArg{
+				Id = new IdWeightArg(),
+				Owner = _ownerA,
+				UniqName = _token + "_upd_conflict_wa_1",
+				Type = EWeightArgType.Json,
+				WeightCalculatorId = IdWeightCalculator.Zero,
+				Text = "{\"A\":1}",
+			};
+			var row2 = new PoWeightArg{
+				Id = new IdWeightArg(),
+				Owner = _ownerA,
+				UniqName = _token + "_upd_conflict_wa_2",
+				Type = EWeightArgType.Json,
+				WeightCalculatorId = IdWeightCalculator.Zero,
+				Text = "{\"A\":2}",
+			};
+			await RunNoTxn(async(ctx)=>{
+				await RepoWeightArg.OrdAdd(ctx, AsyE(row1, row2), CT.None);
+				return NIL;
+			});
+			_weightArgIds.Add(row1.Id);
+			_weightArgIds.Add(row2.Id);
+
+			row1.UniqName = row2.UniqName;
+			try{
+				await SvcStudyPlan.OrdUpdWeightArg(userCtx, AsyE(row1), CT.None);
+				throw new Exception("BatUpdWeightArg conflict should throw");
+			}catch(Exception ex){
+				AssertThrowsErrItem(ex, KeysErr.Common.DataIllegalOrConflict, nameof(ISvcStudyPlan.OrdUpdWeightArg));
+			}
+			return NIL;
+		});
+
+		R("BatUpdWeightCalculator_Should_Throw_UpdateFailedDataMayConflict_OnUniqConflict", async(o)=>{
+			var userCtx = MkUserCtx(_ownerA);
+			var row1 = new PoWeightCalculator{
+				Id = new IdWeightCalculator(),
+				Owner = _ownerA,
+				UniqName = _token + "_upd_conflict_wc_1",
+				Type = EWeightCalculatorType.Builtin,
+			};
+			var row2 = new PoWeightCalculator{
+				Id = new IdWeightCalculator(),
+				Owner = _ownerA,
+				UniqName = _token + "_upd_conflict_wc_2",
+				Type = EWeightCalculatorType.Builtin,
+			};
+			await RunNoTxn(async(ctx)=>{
+				await RepoWeightCalculator.OrdAdd(ctx, AsyE(row1, row2), CT.None);
+				return NIL;
+			});
+			_weightCalculatorIds.Add(row1.Id);
+			_weightCalculatorIds.Add(row2.Id);
+
+			row1.UniqName = row2.UniqName;
+			try{
+				await SvcStudyPlan.OrdUpdWeightCalculator(userCtx, AsyE(row1), CT.None);
+				throw new Exception("BatUpdWeightCalculator conflict should throw");
+			}catch(Exception ex){
+				AssertThrowsErrItem(ex, KeysErr.Common.DataIllegalOrConflict, nameof(ISvcStudyPlan.OrdUpdWeightCalculator));
+			}
+			return NIL;
+		});
+
+		R("BatUpdStudyPlan_Should_Throw_UpdateFailedDataMayConflict_OnUniqConflict", async(o)=>{
+			var userCtx = MkUserCtx(_ownerA);
+			var row1 = new PoStudyPlan{
+				Id = new IdStudyPlan(),
+				Owner = _ownerA,
+				UniqName = _token + "_upd_conflict_sp_1",
+			};
+			var row2 = new PoStudyPlan{
+				Id = new IdStudyPlan(),
+				Owner = _ownerA,
+				UniqName = _token + "_upd_conflict_sp_2",
+			};
+			await RunNoTxn(async(ctx)=>{
+				await RepoStudyPlan.OrdAdd(ctx, AsyE(row1, row2), CT.None);
+				return NIL;
+			});
+			_studyPlanIds.Add(row1.Id);
+			_studyPlanIds.Add(row2.Id);
+
+			row1.UniqName = row2.UniqName;
+			try{
+				await SvcStudyPlan.OrdUpdStudyPlan(userCtx, AsyE(row1), CT.None);
+				throw new Exception("BatUpdStudyPlan conflict should throw");
+			}catch(Exception ex){
+				AssertThrowsErrItem(ex, KeysErr.Common.DataIllegalOrConflict, nameof(ISvcStudyPlan.OrdUpdStudyPlan));
+			}
+			return NIL;
+		});
+	}
+}

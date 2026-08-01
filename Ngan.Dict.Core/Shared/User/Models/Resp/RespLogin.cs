@@ -1,7 +1,7 @@
-namespace Ngaq.Core.Shared.User.Models.Resp;
+namespace Ngan.Dict.Core.Shared.User.Models.Resp;
 
-using Ngaq.Core.Shared.Base.Models.Resp;
-using Ngaq.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Shared.Base.Models.Resp;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
 using Tsinswreng.CsTempus;
 
 public partial class RespLogin: BaseResp{

@@ -1,9 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
-using Ngaq.Core.Infra;
+using Ngan.Dict.Core.Infra;
 using Tsinswreng.CsSql;
 using Tsinswreng.CsSql.Sqlite;
 
-namespace Ngaq.Backend.Db.TswG.Migrations;
+namespace Ngan.Dict.Backend.Db.TswG.Migrations;
 
 /// Local 端初始遷移。
 ///

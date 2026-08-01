@@ -305,7 +305,7 @@ const a: TI18nKv = {
 			DictionaryLookupHotkeyModifiers_: "Modificateurs du raccourci de recherche dictionnaire",
 			DictionaryLookupHotkeyKey: "Touche du raccourci de recherche dictionnaire",
 			WordEditorOpenerNotReady: "Ouvreur d'éditeur de mots non prêt",
-			NgaqDictionaryLookup: "Recherche dictionnaire",
+			Ngan.DictDictionaryLookup: "Recherche dictionnaire",
 			TapReadClipboardAndAutoLookup: "Appuyez pour lire le presse-papiers et rechercher automatiquement",
 			WeightAlgorithmPluginDoc: "Documentation du plugin d'algorithme de poids",
 			TakeEffectAfterTheProgramIsRestarted: "Prendre effet après le redémarrage du programme",

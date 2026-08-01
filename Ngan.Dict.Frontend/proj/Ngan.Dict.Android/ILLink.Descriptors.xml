@@ -1,0 +1,12 @@
+<linker>
+	<assembly fullname="Microsoft.Extensions.DependencyInjection">
+		<type fullname="Microsoft.Extensions.DependencyInjection.ServiceProvider" preserve="all" />
+		<type fullname="Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngine" preserve="all" />
+		<type fullname="Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver" preserve="all" />
+		<type fullname="Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory" preserve="all" />
+		<type fullname="Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceCallSite" preserve="all" />
+	</assembly>
+	<assembly fullname="Microsoft.Extensions.DependencyInjection.Abstractions">
+		<type fullname="*" preserve="all" />
+	</assembly>
+</linker>

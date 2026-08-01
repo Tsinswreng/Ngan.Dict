@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Shared.StudyPlan.Models.Po.WeightArg;
+namespace Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightArg;
 
 [Doc($@"權重參數數據格式")]
 public enum EWeightArgType{

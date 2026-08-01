@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Infra.Errors;
+namespace Ngan.Dict.Core.Infra.Errors;
 public static class AppErrTags{
 	/// 業務異常 如參數不合法
 	public static str BizErr = nameof(BizErr);

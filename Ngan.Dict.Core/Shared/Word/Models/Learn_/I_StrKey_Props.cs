@@ -1,7 +1,7 @@
-namespace Ngaq.Core.Shared.Word.Models.Learn_;
+namespace Ngan.Dict.Core.Shared.Word.Models.Learn_;
 
-using Ngaq.Core.Shared.Base.Models.Po;
-using Ngaq.Core.Shared.Word.Models.Po.Kv;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
 using Tsinswreng.CsTools;
 
 

@@ -1,720 +1,720 @@
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Base.Models.Req.BaseReq))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Base.Models.Req.BaseReq))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Base_Models_Req_BaseReq = "global::Ngaq.Core.Shared.Base.Models.Req.BaseReq";
+		//public static string Ngaq_Core_Shared_Base_Models_Req_BaseReq = "global::Ngan.Dict.Core.Shared.Base.Models.Req.BaseReq";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Base.Models.Resp.BaseResp))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Base.Models.Resp.BaseResp))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Base_Models_Resp_BaseResp = "global::Ngaq.Core.Shared.Base.Models.Resp.BaseResp";
+		//public static string Ngaq_Core_Shared_Base_Models_Resp_BaseResp = "global::Ngan.Dict.Core.Shared.Base.Models.Resp.BaseResp";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.DictionaryApi.Definition))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.DictionaryApi.Definition))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_DictionaryApi_Definition = "global::Ngaq.Core.Shared.Word.Models.DictionaryApi.Definition";
+		//public static string Ngaq_Core_Shared_Word_Models_DictionaryApi_Definition = "global::Ngan.Dict.Core.Shared.Word.Models.DictionaryApi.Definition";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.WeightAlgo.Models.DfltWeightCfg))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.WeightAlgo.Models.DfltWeightCfg))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_WeightAlgo_Models_DfltWeightCfg = "global::Ngaq.Core.Shared.Word.WeightAlgo.Models.DfltWeightCfg";
+		//public static string Ngaq_Core_Shared_Word_WeightAlgo_Models_DfltWeightCfg = "global::Ngan.Dict.Core.Shared.Word.WeightAlgo.Models.DfltWeightCfg";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.DictionaryApi.DictionaryApiWord))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.DictionaryApi.DictionaryApiWord))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_DictionaryApi_DictionaryApiWord = "global::Ngaq.Core.Shared.Word.Models.DictionaryApi.DictionaryApiWord";
+		//public static string Ngaq_Core_Shared_Word_Models_DictionaryApi_DictionaryApiWord = "global::Ngan.Dict.Core.Shared.Word.Models.DictionaryApi.DictionaryApiWord";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.Dto.DtoCompressedWords))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.Dto.DtoCompressedWords))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_Dto_DtoCompressedWords = "global::Ngaq.Core.Shared.Word.Models.Dto.DtoCompressedWords";
+		//public static string Ngaq_Core_Shared_Word_Models_Dto_DtoCompressedWords = "global::Ngan.Dict.Core.Shared.Word.Models.Dto.DtoCompressedWords";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.User.Models.Po.Device.IdClient))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.User.Models.Po.Device.IdClient))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_User_Models_Po_Device_IdClient = "global::Ngaq.Core.Shared.User.Models.Po.Device.IdClient";
+		//public static string Ngaq_Core_Shared_User_Models_Po_Device_IdClient = "global::Ngan.Dict.Core.Shared.User.Models.Po.Device.IdClient";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Kv.Models.IdKv))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Kv.Models.IdKv))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Kv_Models_IdKv = "global::Ngaq.Core.Shared.Kv.Models.IdKv";
+		//public static string Ngaq_Core_Shared_Kv_Models_IdKv = "global::Ngan.Dict.Core.Shared.Kv.Models.IdKv";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Dictionary.Models.Po.NormLang.IdNormLang))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Dictionary.Models.Po.NormLang.IdNormLang))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Dictionary_Models_Po_NormLang_IdNormLang = "global::Ngaq.Core.Shared.Dictionary.Models.Po.NormLang.IdNormLang";
+		//public static string Ngaq_Core_Shared_Dictionary_Models_Po_NormLang_IdNormLang = "global::Ngan.Dict.Core.Shared.Dictionary.Models.Po.NormLang.IdNormLang";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.Po.NormLangToUserLang.IdNormLangToUserLang))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.Po.NormLangToUserLang.IdNormLangToUserLang))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_Po_NormLangToUserLang_IdNormLangToUserLang = "global::Ngaq.Core.Shared.Word.Models.Po.NormLangToUserLang.IdNormLangToUserLang";
+		//public static string Ngaq_Core_Shared_Word_Models_Po_NormLangToUserLang_IdNormLangToUserLang = "global::Ngan.Dict.Core.Shared.Word.Models.Po.NormLangToUserLang.IdNormLangToUserLang";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Model.Sys.Po.Password.IdPassword))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Model.Sys.Po.Password.IdPassword))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Model_Sys_Po_Password_IdPassword = "global::Ngaq.Core.Model.Sys.Po.Password.IdPassword";
+		//public static string Ngaq_Core_Model_Sys_Po_Password_IdPassword = "global::Ngan.Dict.Core.Model.Sys.Po.Password.IdPassword";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Models.Sys.Po.Permission.IdPermission))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Models.Sys.Po.Permission.IdPermission))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Models_Sys_Po_Permission_IdPermission = "global::Ngaq.Core.Models.Sys.Po.Permission.IdPermission";
+		//public static string Ngaq_Core_Models_Sys_Po_Permission_IdPermission = "global::Ngan.Dict.Core.Models.Sys.Po.Permission.IdPermission";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.StudyPlan.Models.Po.PreFilter.IdPreFilter))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.StudyPlan.Models.Po.PreFilter.IdPreFilter))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_StudyPlan_Models_Po_PreFilter_IdPreFilter = "global::Ngaq.Core.Shared.StudyPlan.Models.Po.PreFilter.IdPreFilter";
+		//public static string Ngaq_Core_Shared_StudyPlan_Models_Po_PreFilter_IdPreFilter = "global::Ngan.Dict.Core.Shared.StudyPlan.Models.Po.PreFilter.IdPreFilter";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.RecentUse.Models.Po.RecentUse.IdRecentUse))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.RecentUse.Models.Po.RecentUse.IdRecentUse))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_RecentUse_Models_Po_RecentUse_IdRecentUse = "global::Ngaq.Core.Shared.RecentUse.Models.Po.RecentUse.IdRecentUse";
+		//public static string Ngaq_Core_Shared_RecentUse_Models_Po_RecentUse_IdRecentUse = "global::Ngan.Dict.Core.Shared.RecentUse.Models.Po.RecentUse.IdRecentUse";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Model.Sys.Po.RefreshToken.IdRefreshToken))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Model.Sys.Po.RefreshToken.IdRefreshToken))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Model_Sys_Po_RefreshToken_IdRefreshToken = "global::Ngaq.Core.Model.Sys.Po.RefreshToken.IdRefreshToken";
+		//public static string Ngaq_Core_Model_Sys_Po_RefreshToken_IdRefreshToken = "global::Ngan.Dict.Core.Model.Sys.Po.RefreshToken.IdRefreshToken";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Model.Po.Role.IdRole))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Model.Po.Role.IdRole))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Model_Po_Role_IdRole = "global::Ngaq.Core.Model.Po.Role.IdRole";
+		//public static string Ngaq_Core_Model_Po_Role_IdRole = "global::Ngan.Dict.Core.Model.Po.Role.IdRole";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Model.Sys.Po.RolePermission.IdRolePermission))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Model.Sys.Po.RolePermission.IdRolePermission))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Model_Sys_Po_RolePermission_IdRolePermission = "global::Ngaq.Core.Model.Sys.Po.RolePermission.IdRolePermission";
+		//public static string Ngaq_Core_Model_Sys_Po_RolePermission_IdRolePermission = "global::Ngan.Dict.Core.Model.Sys.Po.RolePermission.IdRolePermission";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.StudyPlan.Models.Po.StudyPlan.IdStudyPlan))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.StudyPlan.Models.Po.StudyPlan.IdStudyPlan))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_StudyPlan_Models_Po_StudyPlan_IdStudyPlan = "global::Ngaq.Core.Shared.StudyPlan.Models.Po.StudyPlan.IdStudyPlan";
+		//public static string Ngaq_Core_Shared_StudyPlan_Models_Po_StudyPlan_IdStudyPlan = "global::Ngan.Dict.Core.Shared.StudyPlan.Models.Po.StudyPlan.IdStudyPlan";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.User.Models.Po.User.IdUser))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.User.Models.Po.User.IdUser))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_User_Models_Po_User_IdUser = "global::Ngaq.Core.Shared.User.Models.Po.User.IdUser";
+		//public static string Ngaq_Core_Shared_User_Models_Po_User_IdUser = "global::Ngan.Dict.Core.Shared.User.Models.Po.User.IdUser";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.Po.UserLang.IdUserLang))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.Po.UserLang.IdUserLang))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_Po_UserLang_IdUserLang = "global::Ngaq.Core.Shared.Word.Models.Po.UserLang.IdUserLang";
+		//public static string Ngaq_Core_Shared_Word_Models_Po_UserLang_IdUserLang = "global::Ngan.Dict.Core.Shared.Word.Models.Po.UserLang.IdUserLang";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Models.Sys.Po.UserRole.IdUserRole))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Models.Sys.Po.UserRole.IdUserRole))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Models_Sys_Po_UserRole_IdUserRole = "global::Ngaq.Core.Models.Sys.Po.UserRole.IdUserRole";
+		//public static string Ngaq_Core_Models_Sys_Po_UserRole_IdUserRole = "global::Ngan.Dict.Core.Models.Sys.Po.UserRole.IdUserRole";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.StudyPlan.Models.Po.WeightArg.IdWeightArg))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightArg.IdWeightArg))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_StudyPlan_Models_Po_WeightArg_IdWeightArg = "global::Ngaq.Core.Shared.StudyPlan.Models.Po.WeightArg.IdWeightArg";
+		//public static string Ngaq_Core_Shared_StudyPlan_Models_Po_WeightArg_IdWeightArg = "global::Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightArg.IdWeightArg";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.StudyPlan.Models.Po.WeightCalculator.IdWeightCalculator))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightCalculator.IdWeightCalculator))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_StudyPlan_Models_Po_WeightCalculator_IdWeightCalculator = "global::Ngaq.Core.Shared.StudyPlan.Models.Po.WeightCalculator.IdWeightCalculator";
+		//public static string Ngaq_Core_Shared_StudyPlan_Models_Po_WeightCalculator_IdWeightCalculator = "global::Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightCalculator.IdWeightCalculator";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.Po.Word.IdWord))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.Po.Word.IdWord))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_Po_Word_IdWord = "global::Ngaq.Core.Shared.Word.Models.Po.Word.IdWord";
+		//public static string Ngaq_Core_Shared_Word_Models_Po_Word_IdWord = "global::Ngan.Dict.Core.Shared.Word.Models.Po.Word.IdWord";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Model.Po.Learn_.IdWordLearn))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Model.Po.Learn_.IdWordLearn))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Model_Po_Learn___IdWordLearn = "global::Ngaq.Core.Model.Po.Learn_.IdWordLearn";
+		//public static string Ngaq_Core_Model_Po_Learn___IdWordLearn = "global::Ngan.Dict.Core.Model.Po.Learn_.IdWordLearn";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Model.Po.Kv.IdWordProp))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Model.Po.Kv.IdWordProp))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Model_Po_Kv_IdWordProp = "global::Ngaq.Core.Model.Po.Kv.IdWordProp";
+		//public static string Ngaq_Core_Model_Po_Kv_IdWordProp = "global::Ngan.Dict.Core.Model.Po.Kv.IdWordProp";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Infra.IF.IIdUInt128))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Infra.IF.IIdUInt128))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Infra_IF_IIdUInt128 = "global::Ngaq.Core.Infra.IF.IIdUInt128";
+		//public static string Ngaq_Core_Infra_IF_IIdUInt128 = "global::Ngan.Dict.Core.Infra.IF.IIdUInt128";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.IJnWord))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.IJnWord))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_IJnWord = "global::Ngaq.Core.Shared.Word.Models.IJnWord";
+		//public static string Ngaq_Core_Shared_Word_Models_IJnWord = "global::Ngan.Dict.Core.Shared.Word.Models.IJnWord";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Dictionary.Models.INormLang))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Dictionary.Models.INormLang))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Dictionary_Models_INormLang = "global::Ngaq.Core.Shared.Dictionary.Models.INormLang";
+		//public static string Ngaq_Core_Shared_Dictionary_Models_INormLang = "global::Ngan.Dict.Core.Shared.Dictionary.Models.INormLang";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Dictionary.Models.INormLangDetail))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Dictionary.Models.INormLangDetail))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Dictionary_Models_INormLangDetail = "global::Ngaq.Core.Shared.Dictionary.Models.INormLangDetail";
+		//public static string Ngaq_Core_Shared_Dictionary_Models_INormLangDetail = "global::Ngan.Dict.Core.Shared.Dictionary.Models.INormLangDetail";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Sync.IObjPackInfo))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Sync.IObjPackInfo))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Sync_IObjPackInfo = "global::Ngaq.Core.Shared.Sync.IObjPackInfo";
+		//public static string Ngaq_Core_Shared_Sync_IObjPackInfo = "global::Ngan.Dict.Core.Shared.Sync.IObjPackInfo";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Base.Models.Po.IPoBase))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Base.Models.Po.IPoBase))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Base_Models_Po_IPoBase = "global::Ngaq.Core.Shared.Base.Models.Po.IPoBase";
+		//public static string Ngaq_Core_Shared_Base_Models_Po_IPoBase = "global::Ngan.Dict.Core.Shared.Base.Models.Po.IPoBase";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.Po.Kv.IPoKv))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.Po.Kv.IPoKv))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_Po_Kv_IPoKv = "global::Ngaq.Core.Shared.Word.Models.Po.Kv.IPoKv";
+		//public static string Ngaq_Core_Shared_Word_Models_Po_Kv_IPoKv = "global::Ngan.Dict.Core.Shared.Word.Models.Po.Kv.IPoKv";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.Po.Word.IPoWord))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.Po.Word.IPoWord))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_Po_Word_IPoWord = "global::Ngaq.Core.Shared.Word.Models.Po.Word.IPoWord";
+		//public static string Ngaq_Core_Shared_Word_Models_Po_Word_IPoWord = "global::Ngan.Dict.Core.Shared.Word.Models.Po.Word.IPoWord";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.Learn_.IProp))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.Learn_.IProp))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_Learn___IProp = "global::Ngaq.Core.Shared.Word.Models.Learn_.IProp";
+		//public static string Ngaq_Core_Shared_Word_Models_Learn___IProp = "global::Ngan.Dict.Core.Shared.Word.Models.Learn_.IProp";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Base.Models.Req.IReq))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Base.Models.Req.IReq))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Base_Models_Req_IReq = "global::Ngaq.Core.Shared.Base.Models.Req.IReq";
+		//public static string Ngaq_Core_Shared_Base_Models_Req_IReq = "global::Ngan.Dict.Core.Shared.Base.Models.Req.IReq";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Dictionary.Models.IReqLlmDict))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Dictionary.Models.IReqLlmDict))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Dictionary_Models_IReqLlmDict = "global::Ngaq.Core.Shared.Dictionary.Models.IReqLlmDict";
+		//public static string Ngaq_Core_Shared_Dictionary_Models_IReqLlmDict = "global::Ngan.Dict.Core.Shared.Dictionary.Models.IReqLlmDict";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Base.Models.Resp.IResp))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Base.Models.Resp.IResp))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Base_Models_Resp_IResp = "global::Ngaq.Core.Shared.Base.Models.Resp.IResp";
+		//public static string Ngaq_Core_Shared_Base_Models_Resp_IResp = "global::Ngan.Dict.Core.Shared.Base.Models.Resp.IResp";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.Learn_.IWordForLearn))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.Learn_.IWordForLearn))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_Learn___IWordForLearn = "global::Ngaq.Core.Shared.Word.Models.Learn_.IWordForLearn";
+		//public static string Ngaq_Core_Shared_Word_Models_Learn___IWordForLearn = "global::Ngan.Dict.Core.Shared.Word.Models.Learn_.IWordForLearn";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.Dto.IWordsPackInfo))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.Dto.IWordsPackInfo))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_Dto_IWordsPackInfo = "global::Ngaq.Core.Shared.Word.Models.Dto.IWordsPackInfo";
+		//public static string Ngaq_Core_Shared_Word_Models_Dto_IWordsPackInfo = "global::Ngan.Dict.Core.Shared.Word.Models.Dto.IWordsPackInfo";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.StudyPlan.Models.JnStudyPlan))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.StudyPlan.Models.JnStudyPlan))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_StudyPlan_Models_JnStudyPlan = "global::Ngaq.Core.Shared.StudyPlan.Models.JnStudyPlan";
+		//public static string Ngaq_Core_Shared_StudyPlan_Models_JnStudyPlan = "global::Ngan.Dict.Core.Shared.StudyPlan.Models.JnStudyPlan";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.JnWord))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.JnWord))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_JnWord = "global::Ngaq.Core.Shared.Word.Models.JnWord";
+		//public static string Ngaq_Core_Shared_Word_Models_JnWord = "global::Ngan.Dict.Core.Shared.Word.Models.JnWord";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Svc.JsWeightResult))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Svc.JsWeightResult))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Svc_JsWeightResult = "global::Ngaq.Core.Shared.Word.Svc.JsWeightResult";
+		//public static string Ngaq_Core_Shared_Word_Svc_JsWeightResult = "global::Ngan.Dict.Core.Shared.Word.Svc.JsWeightResult";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.DictionaryApi.License))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.DictionaryApi.License))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_DictionaryApi_License = "global::Ngaq.Core.Shared.Word.Models.DictionaryApi.License";
+		//public static string Ngaq_Core_Shared_Word_Models_DictionaryApi_License = "global::Ngan.Dict.Core.Shared.Word.Models.DictionaryApi.License";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.DictionaryApi.Meaning))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.DictionaryApi.Meaning))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_DictionaryApi_Meaning = "global::Ngaq.Core.Shared.Word.Models.DictionaryApi.Meaning";
+		//public static string Ngaq_Core_Shared_Word_Models_DictionaryApi_Meaning = "global::Ngan.Dict.Core.Shared.Word.Models.DictionaryApi.Meaning";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Dictionary.Models.NormLang))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Dictionary.Models.NormLang))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Dictionary_Models_NormLang = "global::Ngaq.Core.Shared.Dictionary.Models.NormLang";
+		//public static string Ngaq_Core_Shared_Dictionary_Models_NormLang = "global::Ngan.Dict.Core.Shared.Dictionary.Models.NormLang";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Dictionary.Models.NormLangDetail))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Dictionary.Models.NormLangDetail))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Dictionary_Models_NormLangDetail = "global::Ngaq.Core.Shared.Dictionary.Models.NormLangDetail";
+		//public static string Ngaq_Core_Shared_Dictionary_Models_NormLangDetail = "global::Ngan.Dict.Core.Shared.Dictionary.Models.NormLangDetail";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Sync.ObjPackInfo))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Sync.ObjPackInfo))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Sync_ObjPackInfo = "global::Ngaq.Core.Shared.Sync.ObjPackInfo";
+		//public static string Ngaq_Core_Shared_Sync_ObjPackInfo = "global::Ngan.Dict.Core.Shared.Sync.ObjPackInfo";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.DictionaryApi.Phonetic))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.DictionaryApi.Phonetic))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_DictionaryApi_Phonetic = "global::Ngaq.Core.Shared.Word.Models.DictionaryApi.Phonetic";
+		//public static string Ngaq_Core_Shared_Word_Models_DictionaryApi_Phonetic = "global::Ngan.Dict.Core.Shared.Word.Models.DictionaryApi.Phonetic";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Base.Models.Po.PoBase))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Base.Models.Po.PoBase))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Base_Models_Po_PoBase = "global::Ngaq.Core.Shared.Base.Models.Po.PoBase";
+		//public static string Ngaq_Core_Shared_Base_Models_Po_PoBase = "global::Ngan.Dict.Core.Shared.Base.Models.Po.PoBase";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Base.Models.Po.PoBaseBizTime))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Base.Models.Po.PoBaseBizTime))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Base_Models_Po_PoBaseBizTime = "global::Ngaq.Core.Shared.Base.Models.Po.PoBaseBizTime";
+		//public static string Ngaq_Core_Shared_Base_Models_Po_PoBaseBizTime = "global::Ngan.Dict.Core.Shared.Base.Models.Po.PoBaseBizTime";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Kv.Models.PoKv))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Kv.Models.PoKv))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Kv_Models_PoKv = "global::Ngaq.Core.Shared.Kv.Models.PoKv";
+		//public static string Ngaq_Core_Shared_Kv_Models_PoKv = "global::Ngan.Dict.Core.Shared.Kv.Models.PoKv";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Dictionary.Models.Po.NormLang.PoNormLang))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Dictionary.Models.Po.NormLang.PoNormLang))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Dictionary_Models_Po_NormLang_PoNormLang = "global::Ngaq.Core.Shared.Dictionary.Models.Po.NormLang.PoNormLang";
+		//public static string Ngaq_Core_Shared_Dictionary_Models_Po_NormLang_PoNormLang = "global::Ngan.Dict.Core.Shared.Dictionary.Models.Po.NormLang.PoNormLang";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.Po.NormLangToUserLang.PoNormLangToUserLang))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.Po.NormLangToUserLang.PoNormLangToUserLang))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_Po_NormLangToUserLang_PoNormLangToUserLang = "global::Ngaq.Core.Shared.Word.Models.Po.NormLangToUserLang.PoNormLangToUserLang";
+		//public static string Ngaq_Core_Shared_Word_Models_Po_NormLangToUserLang_PoNormLangToUserLang = "global::Ngan.Dict.Core.Shared.Word.Models.Po.NormLangToUserLang.PoNormLangToUserLang";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Models.Sys.Po.Password.PoPassword))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Models.Sys.Po.Password.PoPassword))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Models_Sys_Po_Password_PoPassword = "global::Ngaq.Core.Models.Sys.Po.Password.PoPassword";
+		//public static string Ngaq_Core_Models_Sys_Po_Password_PoPassword = "global::Ngan.Dict.Core.Models.Sys.Po.Password.PoPassword";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Models.Sys.Po.Permission.PoPermission))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Models.Sys.Po.Permission.PoPermission))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Models_Sys_Po_Permission_PoPermission = "global::Ngaq.Core.Models.Sys.Po.Permission.PoPermission";
+		//public static string Ngaq_Core_Models_Sys_Po_Permission_PoPermission = "global::Ngan.Dict.Core.Models.Sys.Po.Permission.PoPermission";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.StudyPlan.Models.Po.PreFilter.PoPreFilter))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.StudyPlan.Models.Po.PreFilter.PoPreFilter))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_StudyPlan_Models_Po_PreFilter_PoPreFilter = "global::Ngaq.Core.Shared.StudyPlan.Models.Po.PreFilter.PoPreFilter";
+		//public static string Ngaq_Core_Shared_StudyPlan_Models_Po_PreFilter_PoPreFilter = "global::Ngan.Dict.Core.Shared.StudyPlan.Models.Po.PreFilter.PoPreFilter";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.RecentUse.Models.Po.RecentUse.PoRecentUse))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.RecentUse.Models.Po.RecentUse.PoRecentUse))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_RecentUse_Models_Po_RecentUse_PoRecentUse = "global::Ngaq.Core.Shared.RecentUse.Models.Po.RecentUse.PoRecentUse";
+		//public static string Ngaq_Core_Shared_RecentUse_Models_Po_RecentUse_PoRecentUse = "global::Ngan.Dict.Core.Shared.RecentUse.Models.Po.RecentUse.PoRecentUse";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.User.Models.Po.RefreshToken.PoRefreshToken))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.User.Models.Po.RefreshToken.PoRefreshToken))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_User_Models_Po_RefreshToken_PoRefreshToken = "global::Ngaq.Core.Shared.User.Models.Po.RefreshToken.PoRefreshToken";
+		//public static string Ngaq_Core_Shared_User_Models_Po_RefreshToken_PoRefreshToken = "global::Ngan.Dict.Core.Shared.User.Models.Po.RefreshToken.PoRefreshToken";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Models.Sys.Po.Role.PoRole))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Models.Sys.Po.Role.PoRole))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Models_Sys_Po_Role_PoRole = "global::Ngaq.Core.Models.Sys.Po.Role.PoRole";
+		//public static string Ngaq_Core_Models_Sys_Po_Role_PoRole = "global::Ngan.Dict.Core.Models.Sys.Po.Role.PoRole";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Models.Sys.Po.RolePermission.PoRolePermission))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Models.Sys.Po.RolePermission.PoRolePermission))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Models_Sys_Po_RolePermission_PoRolePermission = "global::Ngaq.Core.Models.Sys.Po.RolePermission.PoRolePermission";
+		//public static string Ngaq_Core_Models_Sys_Po_RolePermission_PoRolePermission = "global::Ngan.Dict.Core.Models.Sys.Po.RolePermission.PoRolePermission";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.StudyPlan.Models.Po.StudyPlan.PoStudyPlan))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.StudyPlan.Models.Po.StudyPlan.PoStudyPlan))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_StudyPlan_Models_Po_StudyPlan_PoStudyPlan = "global::Ngaq.Core.Shared.StudyPlan.Models.Po.StudyPlan.PoStudyPlan";
+		//public static string Ngaq_Core_Shared_StudyPlan_Models_Po_StudyPlan_PoStudyPlan = "global::Ngan.Dict.Core.Shared.StudyPlan.Models.Po.StudyPlan.PoStudyPlan";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.User.Models.Po.User.PoUser))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.User.Models.Po.User.PoUser))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_User_Models_Po_User_PoUser = "global::Ngaq.Core.Shared.User.Models.Po.User.PoUser";
+		//public static string Ngaq_Core_Shared_User_Models_Po_User_PoUser = "global::Ngan.Dict.Core.Shared.User.Models.Po.User.PoUser";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.Po.UserLang.PoUserLang))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.Po.UserLang.PoUserLang))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_Po_UserLang_PoUserLang = "global::Ngaq.Core.Shared.Word.Models.Po.UserLang.PoUserLang";
+		//public static string Ngaq_Core_Shared_Word_Models_Po_UserLang_PoUserLang = "global::Ngan.Dict.Core.Shared.Word.Models.Po.UserLang.PoUserLang";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.StudyPlan.Models.Po.WeightArg.PoWeightArg))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightArg.PoWeightArg))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_StudyPlan_Models_Po_WeightArg_PoWeightArg = "global::Ngaq.Core.Shared.StudyPlan.Models.Po.WeightArg.PoWeightArg";
+		//public static string Ngaq_Core_Shared_StudyPlan_Models_Po_WeightArg_PoWeightArg = "global::Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightArg.PoWeightArg";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.StudyPlan.Models.Po.WeightCalculator.PoWeightCalculator))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightCalculator.PoWeightCalculator))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_StudyPlan_Models_Po_WeightCalculator_PoWeightCalculator = "global::Ngaq.Core.Shared.StudyPlan.Models.Po.WeightCalculator.PoWeightCalculator";
+		//public static string Ngaq_Core_Shared_StudyPlan_Models_Po_WeightCalculator_PoWeightCalculator = "global::Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightCalculator.PoWeightCalculator";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.Po.Word.PoWord))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.Po.Word.PoWord))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_Po_Word_PoWord = "global::Ngaq.Core.Shared.Word.Models.Po.Word.PoWord";
+		//public static string Ngaq_Core_Shared_Word_Models_Po_Word_PoWord = "global::Ngan.Dict.Core.Shared.Word.Models.Po.Word.PoWord";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.Po.Learn.PoWordLearn))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.Po.Learn.PoWordLearn))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_Po_Learn_PoWordLearn = "global::Ngaq.Core.Shared.Word.Models.Po.Learn.PoWordLearn";
+		//public static string Ngaq_Core_Shared_Word_Models_Po_Learn_PoWordLearn = "global::Ngan.Dict.Core.Shared.Word.Models.Po.Learn.PoWordLearn";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.Po.Kv.PoWordProp))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.Po.Kv.PoWordProp))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_Po_Kv_PoWordProp = "global::Ngaq.Core.Shared.Word.Models.Po.Kv.PoWordProp";
+		//public static string Ngaq_Core_Shared_Word_Models_Po_Kv_PoWordProp = "global::Ngan.Dict.Core.Shared.Word.Models.Po.Kv.PoWordProp";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.StudyPlan.Models.PreFilter.PreFilter))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.StudyPlan.Models.PreFilter.PreFilter))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_StudyPlan_Models_PreFilter_PreFilter = "global::Ngaq.Core.Shared.StudyPlan.Models.PreFilter.PreFilter";
+		//public static string Ngaq_Core_Shared_StudyPlan_Models_PreFilter_PreFilter = "global::Ngan.Dict.Core.Shared.StudyPlan.Models.PreFilter.PreFilter";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.Learn_.Prop))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.Learn_.Prop))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_Learn___Prop = "global::Ngaq.Core.Shared.Word.Models.Learn_.Prop";
+		//public static string Ngaq_Core_Shared_Word_Models_Learn___Prop = "global::Ngan.Dict.Core.Shared.Word.Models.Learn_.Prop";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.Dto.ReqAddCompressedWords))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.Dto.ReqAddCompressedWords))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_Dto_ReqAddCompressedWords = "global::Ngaq.Core.Shared.Word.Models.Dto.ReqAddCompressedWords";
+		//public static string Ngaq_Core_Shared_Word_Models_Dto_ReqAddCompressedWords = "global::Ngan.Dict.Core.Shared.Word.Models.Dto.ReqAddCompressedWords";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.User.Models.Req.ReqAddUser))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.User.Models.Req.ReqAddUser))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_User_Models_Req_ReqAddUser = "global::Ngaq.Core.Shared.User.Models.Req.ReqAddUser";
+		//public static string Ngaq_Core_Shared_User_Models_Req_ReqAddUser = "global::Ngan.Dict.Core.Shared.User.Models.Req.ReqAddUser";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Dictionary.Models.ReqLlmDict))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Dictionary.Models.ReqLlmDict))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Dictionary_Models_ReqLlmDict = "global::Ngaq.Core.Shared.Dictionary.Models.ReqLlmDict";
+		//public static string Ngaq_Core_Shared_Dictionary_Models_ReqLlmDict = "global::Ngan.Dict.Core.Shared.Dictionary.Models.ReqLlmDict";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Dictionary.Models.ReqLlmDictEvt))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Dictionary.Models.ReqLlmDictEvt))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Dictionary_Models_ReqLlmDictEvt = "global::Ngaq.Core.Shared.Dictionary.Models.ReqLlmDictEvt";
+		//public static string Ngaq_Core_Shared_Dictionary_Models_ReqLlmDictEvt = "global::Ngan.Dict.Core.Shared.Dictionary.Models.ReqLlmDictEvt";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.User.Models.Req.ReqLogin))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.User.Models.Req.ReqLogin))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_User_Models_Req_ReqLogin = "global::Ngaq.Core.Shared.User.Models.Req.ReqLogin";
+		//public static string Ngaq_Core_Shared_User_Models_Req_ReqLogin = "global::Ngan.Dict.Core.Shared.User.Models.Req.ReqLogin";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Models.Sys.Req.ReqLogout))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Models.Sys.Req.ReqLogout))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Models_Sys_Req_ReqLogout = "global::Ngaq.Core.Models.Sys.Req.ReqLogout";
+		//public static string Ngaq_Core_Models_Sys_Req_ReqLogout = "global::Ngan.Dict.Core.Models.Sys.Req.ReqLogout";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.Dto.ReqLookup))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.Dto.ReqLookup))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_Dto_ReqLookup = "global::Ngaq.Core.Shared.Word.Models.Dto.ReqLookup";
+		//public static string Ngaq_Core_Shared_Word_Models_Dto_ReqLookup = "global::Ngan.Dict.Core.Shared.Word.Models.Dto.ReqLookup";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.Dto.ReqPackWords))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.Dto.ReqPackWords))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_Dto_ReqPackWords = "global::Ngaq.Core.Shared.Word.Models.Dto.ReqPackWords";
+		//public static string Ngaq_Core_Shared_Word_Models_Dto_ReqPackWords = "global::Ngan.Dict.Core.Shared.Word.Models.Dto.ReqPackWords";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.User.Models.Req.ReqRefreshTheToken))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.User.Models.Req.ReqRefreshTheToken))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_User_Models_Req_ReqRefreshTheToken = "global::Ngaq.Core.Shared.User.Models.Req.ReqRefreshTheToken";
+		//public static string Ngaq_Core_Shared_User_Models_Req_ReqRefreshTheToken = "global::Ngan.Dict.Core.Shared.User.Models.Req.ReqRefreshTheToken";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.Dto.ReqScltWordsOfLearnResultByTimeInterval))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.Dto.ReqScltWordsOfLearnResultByTimeInterval))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_Dto_ReqScltWordsOfLearnResultByTimeInterval = "global::Ngaq.Core.Shared.Word.Models.Dto.ReqScltWordsOfLearnResultByTimeInterval";
+		//public static string Ngaq_Core_Shared_Word_Models_Dto_ReqScltWordsOfLearnResultByTimeInterval = "global::Ngan.Dict.Core.Shared.Word.Models.Dto.ReqScltWordsOfLearnResultByTimeInterval";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Dictionary.Models.RespLlmDict))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Dictionary.Models.RespLlmDict))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Dictionary_Models_RespLlmDict = "global::Ngaq.Core.Shared.Dictionary.Models.RespLlmDict";
+		//public static string Ngaq_Core_Shared_Dictionary_Models_RespLlmDict = "global::Ngan.Dict.Core.Shared.Dictionary.Models.RespLlmDict";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.User.Models.Resp.RespLogin))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.User.Models.Resp.RespLogin))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_User_Models_Resp_RespLogin = "global::Ngaq.Core.Shared.User.Models.Resp.RespLogin";
+		//public static string Ngaq_Core_Shared_User_Models_Resp_RespLogin = "global::Ngan.Dict.Core.Shared.User.Models.Resp.RespLogin";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.Dto.RespLookup))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.Dto.RespLookup))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_Dto_RespLookup = "global::Ngaq.Core.Shared.Word.Models.Dto.RespLookup";
+		//public static string Ngaq_Core_Shared_Word_Models_Dto_RespLookup = "global::Ngan.Dict.Core.Shared.Word.Models.Dto.RespLookup";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.User.Models.Resp.RespRefreshBothToken))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.User.Models.Resp.RespRefreshBothToken))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_User_Models_Resp_RespRefreshBothToken = "global::Ngaq.Core.Shared.User.Models.Resp.RespRefreshBothToken";
+		//public static string Ngaq_Core_Shared_User_Models_Resp_RespRefreshBothToken = "global::Ngan.Dict.Core.Shared.User.Models.Resp.RespRefreshBothToken";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.Dto.RespScltWordsOfLearnResultByTimeInterval))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.Dto.RespScltWordsOfLearnResultByTimeInterval))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_Dto_RespScltWordsOfLearnResultByTimeInterval = "global::Ngaq.Core.Shared.Word.Models.Dto.RespScltWordsOfLearnResultByTimeInterval";
+		//public static string Ngaq_Core_Shared_Word_Models_Dto_RespScltWordsOfLearnResultByTimeInterval = "global::Ngan.Dict.Core.Shared.Word.Models.Dto.RespScltWordsOfLearnResultByTimeInterval";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.Learn_.WordForLearn))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.Learn_.WordForLearn))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_Learn___WordForLearn = "global::Ngaq.Core.Shared.Word.Models.Learn_.WordForLearn";
+		//public static string Ngaq_Core_Shared_Word_Models_Learn___WordForLearn = "global::Ngan.Dict.Core.Shared.Word.Models.Learn_.WordForLearn";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Word.Parser.WordListTxtMetadata))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Word.Parser.WordListTxtMetadata))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Word_Parser_WordListTxtMetadata = "global::Ngaq.Core.Word.Parser.WordListTxtMetadata";
+		//public static string Ngaq_Core_Word_Parser_WordListTxtMetadata = "global::Ngan.Dict.Core.Word.Parser.WordListTxtMetadata";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Shared.Word.Models.Dto.WordsPackInfo))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Shared.Word.Models.Dto.WordsPackInfo))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Shared_Word_Models_Dto_WordsPackInfo = "global::Ngaq.Core.Shared.Word.Models.Dto.WordsPackInfo";
+		//public static string Ngaq_Core_Shared_Word_Models_Dto_WordsPackInfo = "global::Ngan.Dict.Core.Shared.Word.Models.Dto.WordsPackInfo";
 	}
 }
 
-namespace Ngaq.Core.Infra{
+namespace Ngan.Dict.Core.Infra{
 using Tsinswreng.Srefl;
-	[SreflType(typeof(global::Ngaq.Core.Word.Models.Weight.WordWeightResult))]
+	[SreflType(typeof(global::Ngan.Dict.Core.Word.Models.Weight.WordWeightResult))]
 	public partial class CoreDictMapper{
-		//public static string Ngaq_Core_Word_Models_Weight_WordWeightResult = "global::Ngaq.Core.Word.Models.Weight.WordWeightResult";
+		//public static string Ngaq_Core_Word_Models_Weight_WordWeightResult = "global::Ngan.Dict.Core.Word.Models.Weight.WordWeightResult";
 	}
 }

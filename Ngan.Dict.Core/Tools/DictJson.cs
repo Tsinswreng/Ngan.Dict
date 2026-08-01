@@ -1,4 +1,4 @@
-// namespace Ngaq.Core.Tools;
+// namespace Ngan.Dict.Core.Tools;
 
 // using System.Text.Encodings.Web;
 // using System.Text.Json;

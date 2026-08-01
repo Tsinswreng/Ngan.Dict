@@ -1,7 +1,7 @@
-using Ngaq.Backend.Db.TswG.Migrations;
+using Ngan.Dict.Backend.Db.TswG.Migrations;
 using Tsinswreng.CsSql;
 
-namespace Ngaq.Backend.Db.TswG;
+namespace Ngan.Dict.Backend.Db.TswG;
 
 /// Local 端遷移清單註冊（僅保留業務選擇，不包含通用去重邏輯）。
 public static class LocalMigrations{

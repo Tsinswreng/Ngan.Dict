@@ -1,24 +1,24 @@
-using Ngaq.Core.Frontend.Kv;
-using Ngaq.Core.Infra;
-using Ngaq.Core.Infra.Errors;
-using Ngaq.Core.Model.Po.Kv;
-using Ngaq.Core.Model.Po.Learn_;
-using Ngaq.Core.Shared.Dictionary.Models;
-using Ngaq.Core.Shared.StudyPlan.Models.PreFilter;
-using Ngaq.Core.Shared.Sync;
-using Ngaq.Core.Shared.Word.Models;
-using Ngaq.Core.Shared.Word.Models.Dto;
-using Ngaq.Core.Shared.Word.Models.Learn_;
-using Ngaq.Core.Shared.Word.Models.Po.Kv;
-using Ngaq.Core.Shared.Word.Models.Po.Learn;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
-using Ngaq.Core.Word.Models.Po.Word;
+using Ngan.Dict.Core.Frontend.Kv;
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Infra.Errors;
+using Ngan.Dict.Core.Model.Po.Kv;
+using Ngan.Dict.Core.Model.Po.Learn_;
+using Ngan.Dict.Core.Shared.Dictionary.Models;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.PreFilter;
+using Ngan.Dict.Core.Shared.Sync;
+using Ngan.Dict.Core.Shared.Word.Models;
+using Ngan.Dict.Core.Shared.Word.Models.Dto;
+using Ngan.Dict.Core.Shared.Word.Models.Learn_;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Learn;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Core.Word.Models.Po.Word;
 using Tsinswreng.CsCtx;
 using Tsinswreng.CsPage;
 using Tsinswreng.CsSql;
 using Tsinswreng.CsTextWithBlob;
 
-namespace Ngaq.Core.Shared.Word.Svc;
+namespace Ngan.Dict.Core.Shared.Word.Svc;
 
 [Doc(@$"
 Word Service Version 2. for {nameof(JnWord)}

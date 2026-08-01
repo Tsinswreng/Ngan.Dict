@@ -1,12 +1,12 @@
 #import "@preview/tsinswreng-auto-heading:0.1.0": auto-heading
 #let H = auto-heading;
 
-#H[Ngaq.Server 雲服務器部署][
-本文記錄 `Ngaq.Server` Web 後端以單一 Native AOT 鏡像部署到雲服務器的流程。
+#H[Ngan.Dict.Server 雲服務器部署][
+本文記錄 `Ngan.Dict.Server` Web 後端以單一 Native AOT 鏡像部署到雲服務器的流程。
 ]
 
 #H[1. 目標][
-- 只使用一個鏡像: `ngaq-server:aot-slim`
+- 只使用一個鏡像: `ngan.dict-server:aot-slim`
 - 不在服務器編譯，僅在本地構建並上傳鏡像 tar 包
 - 同一鏡像支持兩種用法
   - 不傳 `migrate` 時，按原邏輯啓動 Web 服務
@@ -19,26 +19,26 @@
 ]
 
 #H[2. 關鍵文件][
-- `Ngaq.Server/Dockerfile-Aot`
-- `Ngaq.Server/Deploy/Cloud/docker-compose.aot-slim.yml`
-- `Ngaq.Server/ExternalRsrc/Ngaq.Server.cloud.docker.jsonc`
+- `Ngan.Dict.Server/Dockerfile-Aot`
+- `Ngan.Dict.Server/Deploy/Cloud/docker-compose.aot-slim.yml`
+- `Ngan.Dict.Server/ExternalRsrc/Ngan.Dict.Server.cloud.docker.jsonc`
 ]
 
 #H[3. 本地構建鏡像][
 在 Windows PowerShell 中通過 WSL 執行:
 
 ```powershell
-wsl.exe -d Ubuntu-20.04 -- sh -lc "cd /mnt/e/_code/CsNgaq && docker build -t ngaq-server:aot-slim -f ./Ngaq.Server/Dockerfile-Aot ."
+wsl.exe -d Ubuntu-20.04 -- sh -lc "cd /mnt/e/_code/CsNgan.Dict && docker build -t ngan.dict-server:aot-slim -f ./Ngan.Dict.Server/Dockerfile-Aot ."
 ```
 
 說明:
-- `docker build` 的上下文必須是倉庫根 `E:/_code/CsNgaq`
-- `Ngaq.Server.Http` 依賴 `Ngaq.Core`、`Ngaq.Backend`、`Tsinswreng.*` 多個相鄰項目
+- `docker build` 的上下文必須是倉庫根 `E:/_code/CsNgan.Dict`
+- `Ngan.Dict.Server.Http` 依賴 `Ngan.Dict.Core`、`Ngan.Dict.Backend`、`Tsinswreng.*` 多個相鄰項目
 ]
 
 #H[4. 導出鏡像][
 ```powershell
-wsl.exe -d Ubuntu-20.04 -- sh -lc "docker save ngaq-server:aot-slim | gzip -1 > /tmp/ngaq-server-aot-slim.tar.gz"
+wsl.exe -d Ubuntu-20.04 -- sh -lc "docker save ngan.dict-server:aot-slim | gzip -1 > /tmp/ngan.dict-server-aot-slim.tar.gz"
 ```
 ]
 
@@ -47,11 +47,11 @@ wsl.exe -d Ubuntu-20.04 -- sh -lc "docker save ngaq-server:aot-slim | gzip -1 > 
 
 ```bash
 # 鏡像
-scp /tmp/ngaq-server-aot-slim.tar.gz root@<server>:/opt/ngaq-server/upload/
+scp /tmp/ngan.dict-server-aot-slim.tar.gz root@<server>:/opt/ngan.dict-server/upload/
 # docker compose配置
-scp Ngaq.Server/Deploy/Cloud/docker-compose.aot-slim.yml root@<server>:/opt/ngaq-server/upload/
+scp Ngan.Dict.Server/Deploy/Cloud/docker-compose.aot-slim.yml root@<server>:/opt/ngan.dict-server/upload/
 # 業務配置文件
-scp Ngaq.Server/ExternalRsrc/Ngaq.Server.cloud.docker.jsonc root@<server>:/opt/ngaq-server/upload/
+scp Ngan.Dict.Server/ExternalRsrc/Ngan.Dict.Server.cloud.docker.jsonc root@<server>:/opt/ngan.dict-server/upload/
 ```
 ]
 
@@ -59,14 +59,14 @@ scp Ngaq.Server/ExternalRsrc/Ngaq.Server.cloud.docker.jsonc root@<server>:/opt/n
 在服務器上執行:
 
 ```bash
-mkdir -p /opt/ngaq-server/deploy /opt/ngaq-server/config
-mv /opt/ngaq-server/upload/docker-compose.aot-slim.yml /opt/ngaq-server/deploy/
-mv /opt/ngaq-server/upload/Ngaq.Server.cloud.docker.jsonc /opt/ngaq-server/config/
-docker load -i /opt/ngaq-server/upload/ngaq-server-aot-slim.tar.gz
+mkdir -p /opt/ngan.dict-server/deploy /opt/ngan.dict-server/config
+mv /opt/ngan.dict-server/upload/docker-compose.aot-slim.yml /opt/ngan.dict-server/deploy/
+mv /opt/ngan.dict-server/upload/Ngan.Dict.Server.cloud.docker.jsonc /opt/ngan.dict-server/config/
+docker load -i /opt/ngan.dict-server/upload/ngan.dict-server-aot-slim.tar.gz
 
-cd /opt/ngaq-server/deploy
+cd /opt/ngan.dict-server/deploy
 docker compose -f docker-compose.aot-slim.yml up -d postgres redis
-docker compose -f docker-compose.aot-slim.yml run --rm web migrate Ngaq.Server.cloud.docker.jsonc
+docker compose -f docker-compose.aot-slim.yml run --rm web migrate Ngan.Dict.Server.cloud.docker.jsonc
 docker compose -f docker-compose.aot-slim.yml up -d web
 ```
 
@@ -84,16 +84,16 @@ migrate：命令行傳參
 ]
 
 #H[7. migrate 參數行爲][
-同一鏡像的入口程序爲 `./Ngaq.Server.Http`。
+同一鏡像的入口程序爲 `./Ngan.Dict.Server.Http`。
 
 正常啓動:
 ```bash
-./Ngaq.Server.Http Ngaq.Server.cloud.docker.jsonc
+./Ngan.Dict.Server.Http Ngan.Dict.Server.cloud.docker.jsonc
 ```
 
 只跑遷移:
 ```bash
-./Ngaq.Server.Http migrate Ngaq.Server.cloud.docker.jsonc
+./Ngan.Dict.Server.Http migrate Ngan.Dict.Server.cloud.docker.jsonc
 ```
 
 其約定爲:

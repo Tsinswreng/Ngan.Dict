@@ -1,7 +1,7 @@
-using Ngaq.Core.Shared.Sync;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Core.Shared.Sync;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 
-namespace Ngaq.Core.Shared.Word.Models.Dto;
+namespace Ngan.Dict.Core.Shared.Word.Models.Dto;
 
 
 

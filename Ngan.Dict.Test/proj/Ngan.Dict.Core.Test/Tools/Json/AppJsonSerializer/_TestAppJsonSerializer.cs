@@ -1,0 +1,75 @@
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Shared.Word.Models;
+using Ngan.Dict.Core.Shared.Word.Models.Learn_;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Learn;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Core.Tools.Json;
+using Tsinswreng.CsTempus;
+using Tsinswreng.CsTreeTest;
+using Tsinswreng.CsTools;
+
+namespace Ngan.Dict.Core.Test.Tools.Json.AppJsonSerializerTests;
+
+public partial class TestAppJsonSerializer: ITester{
+	private readonly IJsonSerializer JsonSerializer;
+
+	public TestAppJsonSerializer(IJsonSerializer jsonSerializer){
+		JsonSerializer = jsonSerializer;
+	}
+
+	private static JnWord MkSampleJnWord(
+		ELearn learnResult = ELearn.Add
+	){
+		var wordId = new IdWord();
+		var owner = new IdUser();
+		const i64 t = 1776575044094;
+		return new JnWord{
+			Word = new PoWord{
+				Id = wordId,
+				Owner = owner,
+				Head = "alpha",
+				Lang = "en",
+				StoredAt = UnixMs.FromUnixMs(t + 1),
+				BizCreatedAt = UnixMs.FromUnixMs(t + 2),
+				BizUpdatedAt = UnixMs.FromUnixMs(t + 3),
+				DbCreatedAt = UnixMs.FromUnixMs(t + 4),
+				DbUpdatedAt = UnixMs.FromUnixMs(t + 5),
+			},
+			Props = [
+				new PoWordProp{
+					WordId = wordId,
+					KType = EKvType.Str,
+					KStr = "mean",
+					VType = EKvType.Str,
+					VStr = "value",
+					BizCreatedAt = UnixMs.FromUnixMs(t + 10),
+				}
+			],
+			Learns = [
+				new PoWordLearn{
+					WordId = wordId,
+					LearnResult = learnResult,
+					BizCreatedAt = UnixMs.FromUnixMs(t),
+					BizUpdatedAt = UnixMs.FromUnixMs(t + 20),
+				}
+			]
+		};
+	}
+
+	private static IDictionary<str, obj?> MustParseJsonToDict(str json){
+		var dict = ToolJson.JsonStrToDict(json);
+		if(dict is null){
+			throw new Exception("ToolJson.JsonStrToDict should not return null for valid json object.");
+		}
+		return dict;
+	}
+
+	public ITestNode RegisterTestsInto(ITestNode? Node){
+		Node ??= new TestNode();
+		RegisterStringify(Node);
+		RegisterParse(Node);
+		return Node;
+	}
+}

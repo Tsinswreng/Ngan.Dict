@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Shared.Word.Models.Dto;
+namespace Ngan.Dict.Core.Shared.Word.Models.Dto;
 
 public class ReqSearchWord{
 	public str RawStr { get; set; } = "";

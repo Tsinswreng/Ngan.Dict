@@ -1,9 +1,9 @@
-namespace Ngaq.Core.Shared.Word.Models.Learn_;
+namespace Ngan.Dict.Core.Shared.Word.Models.Learn_;
 
 using System.ComponentModel;
-using Ngaq.Core.Infra.IF;
-using Ngaq.Core.Shared.Base.Models.Po;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Core.Infra.IF;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 
 
 public partial interface IWordForLearn

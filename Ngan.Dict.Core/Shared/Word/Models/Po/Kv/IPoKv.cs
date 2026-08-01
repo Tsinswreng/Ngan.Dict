@@ -1,5 +1,5 @@
-namespace Ngaq.Core.Shared.Word.Models.Po.Kv;
-using Ngaq.Core.Infra.IF;
+namespace Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
+using Ngan.Dict.Core.Infra.IF;
 
 //分更好
 enum TestKvType2{

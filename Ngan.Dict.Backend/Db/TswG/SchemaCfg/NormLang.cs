@@ -1,9 +1,9 @@
-using Ngaq.Core.Infra.IF;
-using Ngaq.Core.Shared.Dictionary.Models;
-using Ngaq.Core.Shared.Dictionary.Models.Po.NormLang;
+using Ngan.Dict.Core.Infra.IF;
+using Ngan.Dict.Core.Shared.Dictionary.Models;
+using Ngan.Dict.Core.Shared.Dictionary.Models.Po.NormLang;
 using Tsinswreng.CsSql;
 
-namespace Ngaq.Backend.Db.TswG;
+namespace Ngan.Dict.Backend.Db.TswG;
 
 public partial class LocalTblMgrIniter{
 	public static ITblMgr InitNormLang(ITblMgr Mgr){

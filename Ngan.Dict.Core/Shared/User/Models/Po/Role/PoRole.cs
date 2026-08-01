@@ -1,8 +1,8 @@
 #define Impl
-namespace Ngaq.Core.Models.Sys.Po.Role;
+namespace Ngan.Dict.Core.Models.Sys.Po.Role;
 
-using Ngaq.Core.Shared.Base.Models.Po;
-using Ngaq.Core.Model.Po.Role;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Model.Po.Role;
 
 
 

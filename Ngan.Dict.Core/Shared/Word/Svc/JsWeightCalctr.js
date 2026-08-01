@@ -1,4 +1,4 @@
-// Ngaq JS weight calculator sample.
+// Ngan.Dict JS weight calculator sample.
 // Evaluate this script in Jint; it returns a JSON string.
 
 (function () {
@@ -18,8 +18,8 @@
 		return Number.isFinite(n) ? n : fallback;
 	}
 
-	var words = safeJsonParse(Ngaq.WordsJson ?? "[]", []);
-	var arg = safeJsonParse(Ngaq.CalcArgJson ?? "{}", {});
+	var words = safeJsonParse(Ngan.Dict.WordsJson ?? "[]", []);
+	var arg = safeJsonParse(Ngan.Dict.CalcArgJson ?? "{}", {});
 
 	var baseWeight = toNumber(arg.BaseWeight, 0);
 	var step = toNumber(arg.Step, 1);

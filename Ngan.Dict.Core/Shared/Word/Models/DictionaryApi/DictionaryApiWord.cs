@@ -1,6 +1,6 @@
-namespace Ngaq.Core.Shared.Word.Models.DictionaryApi;
+namespace Ngan.Dict.Core.Shared.Word.Models.DictionaryApi;
 
-using Ngaq.Core.Infra.IF;
+using Ngan.Dict.Core.Infra.IF;
 
 
 public class License:IAppSerializable{

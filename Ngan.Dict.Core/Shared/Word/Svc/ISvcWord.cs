@@ -1,17 +1,17 @@
-namespace Ngaq.Core.Shared.Word.Svc;
+namespace Ngan.Dict.Core.Shared.Word.Svc;
 
-using Ngaq.Core.Model.Po.Learn_;
-using Ngaq.Core.Tools.Io;
-using Ngaq.Core.Iter;
+using Ngan.Dict.Core.Model.Po.Learn_;
+using Ngan.Dict.Core.Tools.Io;
+using Ngan.Dict.Core.Iter;
 using Tsinswreng.CsPage;
 using Tsinswreng.CsTools;
-using Ngaq.Core.Shared.User.UserCtx;
-using Ngaq.Core.Shared.Word.Models;
-using Ngaq.Core.Shared.Word.Models.Dto;
-using Ngaq.Core.Tools;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
-using Ngaq.Core.Shared.Word.Models.Learn_;
-using Ngaq.Core.Shared.Word.Models.Po.Kv;
+using Ngan.Dict.Core.Shared.User.UserCtx;
+using Ngan.Dict.Core.Shared.Word.Models;
+using Ngan.Dict.Core.Shared.Word.Models.Dto;
+using Ngan.Dict.Core.Tools;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Core.Shared.Word.Models.Learn_;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
 using Tsinswreng.CsTempus;
 
 file class DirDoc{

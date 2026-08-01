@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Shared.Base.Models.Po;
+namespace Ngan.Dict.Core.Shared.Base.Models.Po;
 
 using Tsinswreng.CsTempus;
 

@@ -1,11 +1,11 @@
-﻿using Ngaq.Core.Frontend.Kv;
-using Ngaq.Core.Infra;
-using Ngaq.Core.Shared.Dictionary.Models;
-using Ngaq.Core.Shared.Dictionary.Models.Po.NormLang;
-using Ngaq.Core.Shared.Kv;
-using Ngaq.Core.Shared.User.UserCtx;
+using Ngan.Dict.Core.Frontend.Kv;
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Shared.Dictionary.Models;
+using Ngan.Dict.Core.Shared.Dictionary.Models.Po.NormLang;
+using Ngan.Dict.Core.Shared.Kv;
+using Ngan.Dict.Core.Shared.User.UserCtx;
 
-namespace Ngaq.Core.Shared.Dictionary.Svc;
+namespace Ngan.Dict.Core.Shared.Dictionary.Svc;
 
 
 [Doc("Llm Dictionary")]

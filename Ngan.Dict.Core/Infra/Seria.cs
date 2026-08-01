@@ -1,4 +1,4 @@
-// namespace Ngaq.Core.Infra;
+// namespace Ngan.Dict.Core.Infra;
 
 // using System.Collections;
 // using Tsinswreng.Srefl;

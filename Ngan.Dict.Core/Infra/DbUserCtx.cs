@@ -1,8 +1,8 @@
-using Ngaq.Core.Frontend.User;
-using Ngaq.Core.Shared.User.UserCtx;
+using Ngan.Dict.Core.Frontend.User;
+using Ngan.Dict.Core.Shared.User.UserCtx;
 using Tsinswreng.CsSql;
 
-namespace Ngaq.Core.Infra;
+namespace Ngan.Dict.Core.Infra;
 
 [Doc(@$"Service context, mostly used in the first param of service API methods")]
 public interface IDbUserCtx:IDbFnCtx{

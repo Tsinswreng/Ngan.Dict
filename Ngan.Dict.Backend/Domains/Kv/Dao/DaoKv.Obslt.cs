@@ -1,12 +1,12 @@
-namespace Ngaq.Backend.Domains.Kv.Dao;
+namespace Ngan.Dict.Backend.Domains.Kv.Dao;
 
-using Ngaq.Core.Shared.Kv.Models;
-using Ngaq.Core.Shared.User.Models;
-using Ngaq.Core.Shared.User.Models.Po.User;
-using Ngaq.Core.Shared.User.UserCtx;
-using Ngaq.Core.Shared.Word.Models.Po.Kv;
+using Ngan.Dict.Core.Shared.Kv.Models;
+using Ngan.Dict.Core.Shared.User.Models;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Shared.User.UserCtx;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
 
-using Ngaq.Backend.Db.TswG;
+using Ngan.Dict.Backend.Db.TswG;
 using Tsinswreng.CsCfg;
 using Tsinswreng.CsCore;
 using Tsinswreng.CsPage;

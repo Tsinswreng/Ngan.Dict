@@ -1,14 +1,14 @@
-using Ngaq.Core.Infra.IF;
-using Ngaq.Core.Shared.User.UserCtx;
-using Ngaq.Core.Shared.Word.Models;
-using Ngaq.Core.Shared.Word.Models.Po.Kv;
-using Ngaq.Core.Shared.Word.Models.Po.Learn;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
-using Ngaq.Backend.Db.TswG;
+using Ngan.Dict.Core.Infra.IF;
+using Ngan.Dict.Core.Shared.User.UserCtx;
+using Ngan.Dict.Core.Shared.Word.Models;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Learn;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Backend.Db.TswG;
 using Tsinswreng.CsSql;
 using Tsinswreng.CsTools;
 
-namespace Ngaq.Backend.Word.Dao;
+namespace Ngan.Dict.Backend.Word.Dao;
 using IStr_Any = System.Collections.Generic.IDictionary<str, obj?>;
 using Str_Any = System.Collections.Generic.Dictionary<str, obj?>;
 public partial class DaoWord{

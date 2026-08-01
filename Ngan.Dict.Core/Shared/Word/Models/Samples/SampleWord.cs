@@ -1,12 +1,12 @@
-namespace Ngaq.Core.Word.Models.Samples;
+namespace Ngan.Dict.Core.Word.Models.Samples;
 
-using Ngaq.Core.Model.Po.Kv;
-using Ngaq.Core.Model.Po.Learn_;
-using Ngaq.Core.Shared.Word.Models;
-using Ngaq.Core.Shared.Word.Models.Learn_;
-using Ngaq.Core.Shared.Word.Models.Po.Kv;
-using Ngaq.Core.Shared.Word.Models.Po.Learn;
-using Ngaq.Core.Word.Models;
+using Ngan.Dict.Core.Model.Po.Kv;
+using Ngan.Dict.Core.Model.Po.Learn_;
+using Ngan.Dict.Core.Shared.Word.Models;
+using Ngan.Dict.Core.Shared.Word.Models.Learn_;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Learn;
+using Ngan.Dict.Core.Word.Models;
 using Tsinswreng.CsTempus;
 
 public partial class SampleWord{

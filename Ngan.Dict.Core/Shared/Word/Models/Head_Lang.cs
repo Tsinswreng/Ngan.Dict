@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Shared.Word.Models;
+namespace Ngan.Dict.Core.Shared.Word.Models;
 
 public partial record struct Head_Lang(
 	str Head

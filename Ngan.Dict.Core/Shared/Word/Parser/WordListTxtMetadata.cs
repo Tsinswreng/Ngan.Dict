@@ -1,7 +1,7 @@
-using Ngaq.Core.Infra.IF;
-using Ngaq.Core.Tools;
+using Ngan.Dict.Core.Infra.IF;
+using Ngan.Dict.Core.Tools;
 
-namespace Ngaq.Core.Word.Parser;
+namespace Ngan.Dict.Core.Word.Parser;
 public partial class WordListTxtMetadata: IAppSerializable{
 	
 	/// 語言

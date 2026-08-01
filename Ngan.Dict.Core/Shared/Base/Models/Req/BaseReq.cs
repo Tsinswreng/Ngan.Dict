@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Shared.Base.Models.Req;
+namespace Ngan.Dict.Core.Shared.Base.Models.Req;
 
 public class BaseReq:IReq{
 

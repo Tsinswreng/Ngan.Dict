@@ -1,8 +1,8 @@
 //#define Impl
-namespace Ngaq.Core.Shared.Word.Models.Po.Word;
+namespace Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 
-using Ngaq.Core.Shared.Base.Models.Po;
-using Ngaq.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
 
 public partial interface IHeadLangWord
 	:I_Owner

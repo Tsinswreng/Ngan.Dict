@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Frontend.Hotkey;
+namespace Ngan.Dict.Core.Frontend.Hotkey;
 /// 快捷键修饰符枚举
 [Flags]
 public enum EHotkeyModifiers{

@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Shared.Word.Models.DictionaryApi;
+namespace Ngan.Dict.Core.Shared.Word.Models.DictionaryApi;
 
 public static class ExtnDictionaryApiWord{
 

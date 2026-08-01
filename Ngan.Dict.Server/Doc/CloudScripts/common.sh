@@ -1,15 +1,15 @@
 #!/bin/sh
 set -eu
 
-: "${NGAQ_HOST:?NGAQ_HOST is required}"
-: "${NGAQ_USER:?NGAQ_USER is required}"
-: "${NGAQ_SSH_PASS:?NGAQ_SSH_PASS is required}"
+: "${NGAN.DICT_HOST:?NGAN.DICT_HOST is required}"
+: "${NGAN.DICT_USER:?NGAN.DICT_USER is required}"
+: "${NGAN.DICT_SSH_PASS:?NGAN.DICT_SSH_PASS is required}"
 
 mk_askpass() {
   PASS_SCRIPT="$(mktemp)"
   cat > "$PASS_SCRIPT" <<EOF
 #!/bin/sh
-printf '%s\n' '$NGAQ_SSH_PASS'
+printf '%s\n' '$NGAN.DICT_SSH_PASS'
 EOF
   chmod 700 "$PASS_SCRIPT"
   export SSH_ASKPASS="$PASS_SCRIPT"
@@ -22,7 +22,7 @@ cleanup_askpass() {
 }
 
 run_ssh() {
-  ssh -o StrictHostKeyChecking=no "$NGAQ_USER@$NGAQ_HOST" "$@"
+  ssh -o StrictHostKeyChecking=no "$NGAN.DICT_USER@$NGAN.DICT_HOST" "$@"
 }
 
 run_scp() {

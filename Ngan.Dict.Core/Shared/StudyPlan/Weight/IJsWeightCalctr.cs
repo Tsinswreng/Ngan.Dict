@@ -1,6 +1,6 @@
-// using Ngaq.Core.Word.Svc;
+// using Ngan.Dict.Core.Word.Svc;
 
-// namespace Ngaq.Core.Shared.StudyPlan.Weight;
+// namespace Ngan.Dict.Core.Shared.StudyPlan.Weight;
 
 // public class ReqMkJsWeightCalctr{
 // 	public str JsCode{get;set;} = "";

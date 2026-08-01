@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Shared.Word;
+namespace Ngan.Dict.Core.Shared.Word;
 
 public class LuaExprWordFilter{
 

@@ -1,6 +1,6 @@
-using Ngaq.Core.Infra.IF;
+using Ngan.Dict.Core.Infra.IF;
 
-namespace Ngaq.Core.Shared.Dictionary.Models;
+namespace Ngan.Dict.Core.Shared.Dictionary.Models;
 
 [Doc(@$"Normalized Language")]
 public interface INormLang : IAppSerializable{

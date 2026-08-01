@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Shared.StudyPlan.Models.PreFilter;
+namespace Ngan.Dict.Core.Shared.StudyPlan.Models.PreFilter;
 [Doc($@"篩選值支持的數據類型")]
 public enum EValueType{
 	[Doc($@"")]

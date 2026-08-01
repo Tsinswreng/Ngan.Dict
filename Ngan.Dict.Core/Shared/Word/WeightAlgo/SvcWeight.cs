@@ -1,6 +1,6 @@
-using Ngaq.Core.Word.Svc;
+using Ngan.Dict.Core.Word.Svc;
 
-namespace Ngaq.Core.Shared.Word.WeightAlgo;
+namespace Ngan.Dict.Core.Shared.Word.WeightAlgo;
 
 
 public partial class SvcWeight

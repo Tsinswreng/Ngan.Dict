@@ -1,8 +1,8 @@
-using Ngaq.Core.Infra.Errors;
-using Ngaq.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Infra.Errors;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
 using Tsinswreng.CsErr;
 
-namespace Ngaq.Core.Shared.Base.Models.Po;
+namespace Ngan.Dict.Core.Shared.Base.Models.Po;
 
 public interface I_Owner{
 	public IdUser Owner{get;set;}

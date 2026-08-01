@@ -1,7 +1,7 @@
-namespace Ngaq.Core.Shared.Word.Models.Learn_;
+namespace Ngan.Dict.Core.Shared.Word.Models.Learn_;
 
-using Ngaq.Core.Shared.Word.Models.Po.Kv;
-using Ngaq.Core.Infra;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
+using Ngan.Dict.Core.Infra;
 using Tsinswreng.Srefl;
 
 

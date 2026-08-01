@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Shared.Word.Models.Learn_;
+namespace Ngan.Dict.Core.Shared.Word.Models.Learn_;
 
 public partial interface I_UnsavedLearnRecords{
 	public IList<ILearnRecord> UnsavedLearnRecords{get;set;}

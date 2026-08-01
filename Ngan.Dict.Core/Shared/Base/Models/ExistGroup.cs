@@ -1,5 +1,5 @@
 
-namespace Ngaq.Core.Shared.Base.Models;
+namespace Ngan.Dict.Core.Shared.Base.Models;
 
 public partial struct Existing_Dupli<T>{
 	public Existing_Dupli(

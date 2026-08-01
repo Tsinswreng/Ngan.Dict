@@ -1,7 +1,7 @@
-namespace Ngaq.Core.Shared.StudyPlan.Models.Po.WeightCalculator;
+namespace Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightCalculator;
 
 
-using Ngaq.Core.Shared.Base.Models.Consts;
+using Ngan.Dict.Core.Shared.Base.Models.Consts;
 using StronglyTypedIds;
 
 [StronglyTypedId(ConstStrongTypeIdTemplate.UInt128)]

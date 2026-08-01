@@ -1,9 +1,0 @@
-namespace Ngaq.Server.Domains.User.Dto;
-
-using Ngaq.Core.Shared.Base.Models.Req;
-
-
-public partial class ReqValidateAccessToken:BaseReq{
-	public string AccessToken { get; set; } = "";
-}
-

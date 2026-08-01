@@ -1,13 +1,13 @@
-using Ngaq.Core.Infra;
-using Ngaq.Core.Shared.Base.Models.Po;
-using Ngaq.Core.Shared.Word.Models;
-using Ngaq.Core.Shared.Word.Models.Po.Kv;
-using Ngaq.Core.Tools.Json;
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Shared.Word.Models;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
+using Ngan.Dict.Core.Tools.Json;
 using Tsinswreng.CsErr;
 using Tsinswreng.CsTextWithBlob;
 using Tsinswreng.CsTools;
 
-namespace Ngaq.Core.Shared.Sync;
+namespace Ngan.Dict.Core.Shared.Sync;
 
 
 public interface IPacker<T>{

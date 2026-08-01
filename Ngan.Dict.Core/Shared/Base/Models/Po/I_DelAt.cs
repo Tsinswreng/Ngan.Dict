@@ -1,9 +1,9 @@
-namespace Ngaq.Core.Shared.Base.Models.Po;
+namespace Ngan.Dict.Core.Shared.Base.Models.Po;
 
 using System.Collections;
 using System.Runtime.CompilerServices;
-using Ngaq.Core.Shared.User.Models.Po;
-using Ngaq.Core.Tools;
+using Ngan.Dict.Core.Shared.User.Models.Po;
+using Ngan.Dict.Core.Tools;
 
 public interface I_DelAt {
 	public IdDel DelAt{get;set;}

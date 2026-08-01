@@ -71,6 +71,12 @@
 	#RMd("./assets/4.md")
 ]
 
+#H[Output Example 5][
+	When translating the complete French sentence "Je suis heureux de vous voir." with target language Simplified Chinese (zh-CN), the output should be:
+
+	#RMd("./assets/5.md")
+]
+
 #H[Processing Rules][
 	#H[Language Processing][
 		- Determine the source language based on *OptLang.SrcLang* and parse the correct form of the word

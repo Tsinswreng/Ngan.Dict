@@ -1,8 +1,8 @@
 #import "@preview/tsinswreng-auto-heading:0.1.0": auto-heading
 #let H = auto-heading;
 
-#H[Ngaq.Server 雲端 PG 連接][
-本文記錄如何在本機連接部署於雲服務器上的 `Ngaq.Server` PostgreSQL。
+#H[Ngan.Dict.Server 雲端 PG 連接][
+本文記錄如何在本機連接部署於雲服務器上的 `Ngan.Dict.Server` PostgreSQL。
 ]
 
 #H[1. 現狀][
@@ -25,7 +25,7 @@
 本次已在本機實測通過:
 
 ```text
-db=ngaq; user=ngaq
+db=ngan.dict; user=ngan.dict
 ```
 
 本機 TCP 檢查:
@@ -44,9 +44,9 @@ db=ngaq; user=ngaq
 
 - Host: `127.0.0.1`
 - Port: `15432`
-- Database: `ngaq`
-- User: `ngaq`
-- Password: `NgaqDb2026!`
+- Database: `ngan.dict`
+- User: `ngan.dict`
+- Password: `Ngan.DictDb2026!`
 
 不要使用:
 
@@ -91,9 +91,9 @@ DataGrip 中數據庫連接填:
 
 - Host: `127.0.0.1`
 - Port: `15432`
-- Database: `ngaq`
-- User: `ngaq`
-- Password: `NgaqDb2026!`
+- Database: `ngan.dict`
+- User: `ngan.dict`
+- Password: `Ngan.DictDb2026!`
 
 有兩種用法:
 

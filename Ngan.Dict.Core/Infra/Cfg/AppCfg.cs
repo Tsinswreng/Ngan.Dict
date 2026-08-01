@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Infra.Cfg;
+namespace Ngan.Dict.Core.Infra.Cfg;
 using Tsinswreng.CsCfg;
 
 public partial class AppCfg: DualSrcCfg, ICfgAccessor{

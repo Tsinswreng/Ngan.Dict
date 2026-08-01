@@ -1,12 +1,12 @@
 #if false
 using System.Threading.Tasks;
-using Ngaq.Core.Infra;
-using Ngaq.Core.Model;
-using Ngaq.Core.Model.Po.Kv;
-using Ngaq.Core.Tools;
-using Ngaq.Backend.Db;
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Model;
+using Ngan.Dict.Core.Model.Po.Kv;
+using Ngan.Dict.Core.Tools;
+using Ngan.Dict.Backend.Db;
 
-namespace Ngaq.Backend.Tests;
+namespace Ngan.Dict.Backend.Tests;
 
 public  partial class TestFreeSql{
 	public async Task TestRepo(){

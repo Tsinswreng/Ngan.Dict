@@ -1,7 +1,7 @@
-using Ngaq.Core.Shared.Word.Models.Learn_;
+using Ngan.Dict.Core.Shared.Word.Models.Learn_;
 using Tsinswreng.CsSql;
 
-namespace Ngaq.Core.Shared.Base.Models.Po;
+namespace Ngan.Dict.Core.Shared.Base.Models.Po;
 
 
 

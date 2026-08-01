@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Word.Models.Weight;
+namespace Ngan.Dict.Core.Word.Models.Weight;
 
 [Doc(@$"weight calculation result for one word")]
 public partial interface IWordWeightResult{

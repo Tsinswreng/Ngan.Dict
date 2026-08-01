@@ -1,6 +1,6 @@
-using Ngaq.Core.Word.Models.Weight;
+using Ngan.Dict.Core.Word.Models.Weight;
 
-namespace Ngaq.Core.Shared.Word.Models.Weight;
+namespace Ngan.Dict.Core.Shared.Word.Models.Weight;
 
 public enum ESortBy{
 	Weight = 1,

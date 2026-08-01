@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Tools{
+namespace Ngan.Dict.Core.Tools{
 using Num = i64;
 public partial class ToolRandom {
 	private static readonly Random rnd = new Random();
@@ -62,7 +62,7 @@ public partial class ToolRandom {
 
 
 #region u64
-namespace Ngaq.Core.Tools{
+namespace Ngan.Dict.Core.Tools{
 using Num = u64;
 public partial class ToolRandom {
 	//private static readonly Random rnd = new Random();

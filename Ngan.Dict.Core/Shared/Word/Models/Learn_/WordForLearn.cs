@@ -1,14 +1,14 @@
 #define Impl
-namespace Ngaq.Core.Shared.Word.Models.Learn_;
+namespace Ngan.Dict.Core.Shared.Word.Models.Learn_;
 
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Ngaq.Core.Shared.User.Models.Po;
-using Ngaq.Core.Shared.User.Models.Po.User;
-using Ngaq.Core.Shared.Word.Models;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Core.Shared.User.Models.Po;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Shared.Word.Models;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 using Tsinswreng.CsTools;
-using Ngaq.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
 using Tsinswreng.CsTempus;
 
 public partial class WordForLearn

@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Tools.Encryption;
+namespace Ngan.Dict.Core.Tools.Encryption;
 
 public class EnciphererFactory: IEnciphererFactory{
 	public IEncipherer GetEncipherer(EEncryptionType Type){

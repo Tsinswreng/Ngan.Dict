@@ -1,6 +1,6 @@
 using Tsinswreng.CsTools;
 
-namespace Ngaq.Core.Tools.JsonMap;
+namespace Ngan.Dict.Core.Tools.JsonMap;
 public static class ExtnJsonMapItem{
 	extension(IUiJsonMapItem z){
 		public bool TryGetNode(IUiJsonMap Root, out IJsonNode R){

@@ -1,11 +1,11 @@
-namespace Ngaq.Core.Shared.Dictionary;
-using Ngaq.Core.Infra;
-using Ngaq.Core.Infra.Cfg;
-using Ngaq.Core.Shared.Dictionary.Models;
-using Ngaq.Core.Shared.Word.Models;
-using Ngaq.Core.Shared.Word.Models.Po.NormLangToUserLang;
-using Ngaq.Core.Shared.Word.Models.Po.UserLang;
-using Ngaq.Core.Tools;
+namespace Ngan.Dict.Core.Shared.Dictionary;
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Infra.Cfg;
+using Ngan.Dict.Core.Shared.Dictionary.Models;
+using Ngan.Dict.Core.Shared.Word.Models;
+using Ngan.Dict.Core.Shared.Word.Models.Po.NormLangToUserLang;
+using Ngan.Dict.Core.Shared.Word.Models.Po.UserLang;
+using Ngan.Dict.Core.Tools;
 using Tsinswreng.CsYamlMd;
 
 file class DirDoc{

@@ -1,7 +1,7 @@
-using Ngaq.Core.Shared.Word.Models.Weight;
+using Ngan.Dict.Core.Shared.Word.Models.Weight;
 using Tsinswreng.CsTools;
 
-namespace Ngaq.Core.Word.Models.Weight;
+namespace Ngan.Dict.Core.Word.Models.Weight;
 
 
 public partial interface IWeightResult{

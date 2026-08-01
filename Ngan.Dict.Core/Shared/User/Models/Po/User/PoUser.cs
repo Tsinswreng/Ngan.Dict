@@ -1,7 +1,7 @@
-namespace Ngaq.Core.Shared.User.Models.Po.User;
+namespace Ngan.Dict.Core.Shared.User.Models.Po.User;
 
-using Ngaq.Core.Shared.Base.Models.Po;
-using Ngaq.Core.Infra;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Infra;
 
 
 public partial class PoUser

@@ -1,11 +1,11 @@
 using System.Collections;
-using Ngaq.Core.Infra.IF;
-using Ngaq.Core.Tools;
-using Ngaq.Core.Tools.Json;
-using Ngaq.Core.Word.WeightAlgo.Models;
+using Ngan.Dict.Core.Infra.IF;
+using Ngan.Dict.Core.Tools;
+using Ngan.Dict.Core.Tools.Json;
+using Ngan.Dict.Core.Word.WeightAlgo.Models;
 using Tsinswreng.CsTools;
 
-namespace Ngaq.Core.Shared.Word.WeightAlgo.Models;
+namespace Ngan.Dict.Core.Shared.Word.WeightAlgo.Models;
 
 [Doc(@$"默認權重算法的配置模型。
 此類只負責描述「算法可調參數」，不直接執行計算。

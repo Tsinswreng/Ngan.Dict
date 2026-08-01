@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Infra.Log;
+namespace Ngan.Dict.Core.Infra.Log;
 
 using Microsoft.Extensions.Logging;
 using Tsinswreng.CsLog;

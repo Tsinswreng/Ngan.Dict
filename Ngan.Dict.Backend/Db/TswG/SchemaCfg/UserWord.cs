@@ -1,17 +1,17 @@
-using Ngaq.Core.Infra.IF;
-using Ngaq.Core.Model.Po.Kv;
-using Ngaq.Core.Model.Po.Learn_;
-using Ngaq.Core.Shared.User.Models.Po.User;
-using Ngaq.Core.Shared.Word.Models;
-using Ngaq.Core.Shared.Word.Models.Learn_;
-using Ngaq.Core.Shared.Word.Models.Po.Kv;
-using Ngaq.Core.Shared.Word.Models.Po.Learn;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Core.Infra.IF;
+using Ngan.Dict.Core.Model.Po.Kv;
+using Ngan.Dict.Core.Model.Po.Learn_;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Shared.Word.Models;
+using Ngan.Dict.Core.Shared.Word.Models.Learn_;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Learn;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 
-using Ngaq.Core.Word.Models.Po.Word;
+using Ngan.Dict.Core.Word.Models.Po.Word;
 using Tsinswreng.CsSql;
 
-namespace Ngaq.Backend.Db.TswG;
+namespace Ngan.Dict.Backend.Db.TswG;
 public partial class LocalTblMgrIniter{
 	public static ITblMgr InitWord(ITblMgr Mgr){
 		var Tbl_Word = Mk<PoWord>("Word");

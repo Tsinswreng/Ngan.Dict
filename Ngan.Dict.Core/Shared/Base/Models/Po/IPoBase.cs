@@ -1,10 +1,10 @@
 //#define Impl
-namespace Ngaq.Core.Shared.Base.Models.Po;
+namespace Ngan.Dict.Core.Shared.Base.Models.Po;
 
-using Ngaq.Core.Shared.User.Models.Po;
-using Ngaq.Core.Shared.User.Models.Po.User;
-using Ngaq.Core.Infra.IF;
-using Ngaq.Core.Tools;
+using Ngan.Dict.Core.Shared.User.Models.Po;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Infra.IF;
+using Ngan.Dict.Core.Tools;
 using Tsinswreng.CsTempus;
 
 public partial interface IPoBase

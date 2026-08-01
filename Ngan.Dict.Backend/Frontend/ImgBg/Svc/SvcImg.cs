@@ -1,14 +1,14 @@
-using Ngaq.Core.Frontend.ImgBg;
-using Ngaq.Core.Infra.Cfg;
-using Ngaq.Core.Infra.Errors;
-using Ngaq.Core.Infra.Url;
-using Ngaq.Core.Tools;
+using Ngan.Dict.Core.Frontend.ImgBg;
+using Ngan.Dict.Core.Infra.Cfg;
+using Ngan.Dict.Core.Infra.Errors;
+using Ngan.Dict.Core.Infra.Url;
+using Ngan.Dict.Core.Tools;
 using Tsinswreng.CsCfg;
 using Tsinswreng.CsCore;
 using Tsinswreng.CsErr;
 using Tsinswreng.CsTools;
 
-namespace Ngaq.Backend.ImplFrontend;
+namespace Ngan.Dict.Backend.ImplFrontend;
 
 public partial class SvcImg:IImgGetter{
 

@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace Ngaq.Core.Tools.Json;
+namespace Ngan.Dict.Core.Tools.Json;
 
 public interface IJsonSerializer{
 	public str Stringify<T>(T O);

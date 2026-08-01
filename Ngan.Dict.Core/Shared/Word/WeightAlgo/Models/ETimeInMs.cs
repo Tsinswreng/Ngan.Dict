@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Word.WeightAlgo.Models;
+namespace Ngan.Dict.Core.Word.WeightAlgo.Models;
 
 public  partial class ETimeInMs{
 	public const u64 Sec = 1000;

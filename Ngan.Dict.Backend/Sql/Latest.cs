@@ -1,14 +1,14 @@
-namespace Ngaq.Backend.Sql;
+namespace Ngan.Dict.Backend.Sql;
 
 using Tsinswreng.CsSql;
-using Ngaq.Backend.Db.TswG;
-using Ngaq.Core.Shared.User.Models.Po.Device;
-using Ngaq.Core.Shared.Kv.Models;
-using Ngaq.Core.Shared.Word.Models.Po.Kv;
-using Ngaq.Core.Frontend.Kv;
-using Ngaq.Core.Shared.Kv.Svc;
-using Ngaq.Core.Shared.User.Models.Po.User;
-using Ngaq.Core.Infra.IF;
+using Ngan.Dict.Backend.Db.TswG;
+using Ngan.Dict.Core.Shared.User.Models.Po.Device;
+using Ngan.Dict.Core.Shared.Kv.Models;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
+using Ngan.Dict.Core.Frontend.Kv;
+using Ngan.Dict.Core.Shared.Kv.Svc;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Infra.IF;
 using Tsinswreng.CsTools;
 
 

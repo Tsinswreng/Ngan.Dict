@@ -1,8 +1,8 @@
-using Ngaq.Core.Tools;
+using Ngan.Dict.Core.Tools;
 
-namespace Ngaq.Core.Frontend.Kv;
+namespace Ngan.Dict.Core.Frontend.Kv;
 
-using static Ngaq.Core.Tools.Url;
+using static Ngan.Dict.Core.Tools.Url;
 
 public partial class KeysClientSecretKv{
 	///臨時存。後宜移至系統級Essential

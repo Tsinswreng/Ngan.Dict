@@ -1,10 +1,10 @@
-﻿using Ngaq.Core.Infra;
-using Ngaq.Core.Shared.Dictionary.Models;
-using Ngaq.Core.Shared.Word.Models.Dto;
-using Ngaq.Core.Shared.Word.Models.Po.NormLangToUserLang;
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Shared.Dictionary.Models;
+using Ngan.Dict.Core.Shared.Word.Models.Dto;
+using Ngan.Dict.Core.Shared.Word.Models.Po.NormLangToUserLang;
 using Tsinswreng.CsPage;
 
-namespace Ngaq.Core.Shared.Word.Svc;
+namespace Ngan.Dict.Core.Shared.Word.Svc;
 
 [Doc($"{nameof(PoNormLangToUserLang)} 服務介面。")]
 public interface ISvcNormLangToUserLang{

@@ -1,6 +1,6 @@
-namespace Ngaq.Core.Shared.Dictionary.Models.Po.NormLang;
+namespace Ngan.Dict.Core.Shared.Dictionary.Models.Po.NormLang;
 
-using Ngaq.Core.Shared.Base.Models.Consts;
+using Ngan.Dict.Core.Shared.Base.Models.Consts;
 using StronglyTypedIds;
 
 [StronglyTypedId(ConstStrongTypeIdTemplate.UInt128)]

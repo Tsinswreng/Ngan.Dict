@@ -1,9 +1,9 @@
-namespace Ngaq.Backend.Domains.Sync;
+namespace Ngan.Dict.Backend.Domains.Sync;
 
-using Ngaq.Core.Infra;
-using Ngaq.Core.Infra.Errors;
-using Ngaq.Core.Shared.Base.Models.Po;
-using Ngaq.Core.Shared.Sync;
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Infra.Errors;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Shared.Sync;
 using Tsinswreng.CsErr;
 using Tsinswreng.CsSql;
 using Tsinswreng.CsTools;

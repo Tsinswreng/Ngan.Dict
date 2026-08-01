@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Shared.StudyPlan.Models.Po.PreFilter;
+namespace Ngan.Dict.Core.Shared.StudyPlan.Models.Po.PreFilter;
 
 [Doc($@"前置篩選器數據格式")]
 public enum EPreFilterType{

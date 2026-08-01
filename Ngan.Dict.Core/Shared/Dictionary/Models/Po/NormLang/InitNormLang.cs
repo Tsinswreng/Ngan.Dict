@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Shared.Dictionary.Models.Po.NormLang;
+namespace Ngan.Dict.Core.Shared.Dictionary.Models.Po.NormLang;
 
 public class InitNormLang {
 	public static INormLangDetail Mk(

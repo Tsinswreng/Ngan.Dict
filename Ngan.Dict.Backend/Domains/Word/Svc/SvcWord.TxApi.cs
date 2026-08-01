@@ -1,20 +1,20 @@
-namespace Ngaq.Backend.Domains.Word.Svc;
+namespace Ngan.Dict.Backend.Domains.Word.Svc;
 
-using Ngaq.Core.Tools.Io;
-using Ngaq.Backend.Db;
+using Ngan.Dict.Core.Tools.Io;
+using Ngan.Dict.Backend.Db;
 using Tsinswreng.CsCore;
 using Tsinswreng.CsPage;
-using Ngaq.Core.Infra;
+using Ngan.Dict.Core.Infra;
 using Tsinswreng.CsTools;
-using Ngaq.Backend.Db.TswG;
-using Ngaq.Core.Shared.User.UserCtx;
-using Ngaq.Core.Shared.Word.Models.Learn_;
-using Ngaq.Core.Shared.Word.Models;
-using Ngaq.Core.Word.Svc;
-using Ngaq.Core.Shared.Word.Models.Dto;
-using Ngaq.Core.Tools;
+using Ngan.Dict.Backend.Db.TswG;
+using Ngan.Dict.Core.Shared.User.UserCtx;
+using Ngan.Dict.Core.Shared.Word.Models.Learn_;
+using Ngan.Dict.Core.Shared.Word.Models;
+using Ngan.Dict.Core.Word.Svc;
+using Ngan.Dict.Core.Shared.Word.Models.Dto;
+using Ngan.Dict.Core.Tools;
 using Tsinswreng.CsSql;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 using Tsinswreng.CsTempus;
 
 public partial class SvcWord{

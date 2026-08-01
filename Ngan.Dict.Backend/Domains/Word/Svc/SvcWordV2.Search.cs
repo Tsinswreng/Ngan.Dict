@@ -1,15 +1,15 @@
-namespace Ngaq.Backend.Domains.Word.Svc;
+namespace Ngan.Dict.Backend.Domains.Word.Svc;
 
-using Ngaq.Core.Infra;
-using Ngaq.Core.Infra.IF;
-using Ngaq.Core.Model.Po.Kv;
-using Ngaq.Core.Model.Po.Learn_;
-using Ngaq.Core.Shared.Base.Models.Po;
-using Ngaq.Core.Shared.Word.Models;
-using Ngaq.Core.Shared.Word.Models.Dto;
-using Ngaq.Core.Shared.Word.Models.Po.Kv;
-using Ngaq.Core.Shared.Word.Models.Po.Learn;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Infra.IF;
+using Ngan.Dict.Core.Model.Po.Kv;
+using Ngan.Dict.Core.Model.Po.Learn_;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Shared.Word.Models;
+using Ngan.Dict.Core.Shared.Word.Models.Dto;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Learn;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 using Tsinswreng.CsPage;
 using Tsinswreng.CsSql;
 

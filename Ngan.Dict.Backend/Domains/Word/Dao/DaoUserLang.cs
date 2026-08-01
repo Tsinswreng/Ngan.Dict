@@ -1,11 +1,11 @@
-using Ngaq.Core.Shared.User.Models.Po.User;
-using Ngaq.Core.Shared.Word.Models.Dto;
-using Ngaq.Core.Shared.Word.Models.Po.UserLang;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Shared.Word.Models.Dto;
+using Ngan.Dict.Core.Shared.Word.Models.Po.UserLang;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 using Tsinswreng.CsPage;
 using Tsinswreng.CsSql;
 
-namespace Ngaq.Backend.Domains.Word.Dao;
+namespace Ngan.Dict.Backend.Domains.Word.Dao;
 
 public class DaoUserLang(
 	ITblMgr TblMgr

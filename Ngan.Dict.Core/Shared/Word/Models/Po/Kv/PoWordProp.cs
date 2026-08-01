@@ -1,12 +1,12 @@
 #define Impl
-namespace Ngaq.Core.Shared.Word.Models.Po.Kv;
+namespace Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
 
-using Ngaq.Core.Shared.Base.Models.Po;
-using Ngaq.Core.Infra;
-using Ngaq.Core.Model.Po.Kv;
-using Ngaq.Core.Models.Po;
-using Ngaq.Core.Word.Models.Po.Word;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Model.Po.Kv;
+using Ngan.Dict.Core.Models.Po;
+using Ngan.Dict.Core.Word.Models.Po.Word;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 
 
 //TODO 分組㕥辨一詞多義? group, groupId, groupCnt

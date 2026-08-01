@@ -306,7 +306,7 @@ const a: TI18nKv = {
 			DictionaryLookupHotkeyModifiers_: "Dictionary Lookup Hotkey Modifiers",
 			DictionaryLookupHotkeyKey: "Dictionary Lookup Hotkey Key",
 			WordEditorOpenerNotReady: "Word Editor Opener not ready",
-			NgaqDictionaryLookup: "Dictionary Lookup",
+			Ngan.DictDictionaryLookup: "Dictionary Lookup",
 			TapReadClipboardAndAutoLookup: "Tap to read clipboard and auto lookup",
 			WeightAlgorithmPluginDoc: "Weight Algorithm Plugin Documentation",
 			TakeEffectAfterTheProgramIsRestarted: "Take effect after the program is restarted",

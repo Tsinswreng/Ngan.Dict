@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Service.Parser.Model;
+namespace Ngan.Dict.Core.Service.Parser.Model;
 public  partial interface I_DateBlock{
 	public I_StrSegment Date{get;set;}
 	public IList<I_WordBlock> Words{get;set;}

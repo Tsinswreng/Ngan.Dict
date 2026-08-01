@@ -1,7 +1,7 @@
-namespace Ngaq.Backend.Infra;
+namespace Ngan.Dict.Backend.Infra;
 
-using Ngaq.Core.Infra.Cfg;
-using Ngaq.Core.Infra.Url;
+using Ngan.Dict.Core.Infra.Cfg;
+using Ngan.Dict.Core.Infra.Url;
 using Tsinswreng.CsCfg;
 using Tsinswreng.CsCore;
 

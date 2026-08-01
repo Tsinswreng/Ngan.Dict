@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Infra.Url;
+namespace Ngan.Dict.Core.Infra.Url;
 
 public partial interface I_GetBaseUrl {
 	

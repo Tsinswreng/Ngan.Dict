@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Service.Parser.Model;
+namespace Ngan.Dict.Core.Service.Parser.Model;
 public  partial interface I_WordBlock{
 	
 	/// 詞頭 對應WordFormId

@@ -1,7 +1,7 @@
-using Ngaq.Core.Shared.Word.Models.Po.Word;
-using Ngaq.Core.Shared.Word.Svc;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Core.Shared.Word.Svc;
 
-namespace Ngaq.Core.Shared.Word.Models.Dto;
+namespace Ngan.Dict.Core.Shared.Word.Models.Dto;
 
 [Doc(@$"
 更改業務層唯一標識 結果枚舉

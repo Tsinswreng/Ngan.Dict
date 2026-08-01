@@ -1,6 +1,6 @@
-namespace Ngaq.Core.Shared.Base.Models.Req;
+namespace Ngan.Dict.Core.Shared.Base.Models.Req;
 
-using Ngaq.Core.Infra.IF;
+using Ngan.Dict.Core.Infra.IF;
 
 //參數對象、多用于服務類之參數DTO 未必潙httpʹ請求對象
 public interface IReq:IAppSerializable{

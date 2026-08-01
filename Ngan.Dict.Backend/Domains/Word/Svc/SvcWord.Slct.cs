@@ -1,29 +1,29 @@
-namespace Ngaq.Backend.Domains.Word.Svc;
+namespace Ngan.Dict.Backend.Domains.Word.Svc;
 
-using Ngaq.Core.Infra.IF;
-using Ngaq.Core.Infra.Errors;
+using Ngan.Dict.Core.Infra.IF;
+using Ngan.Dict.Core.Infra.Errors;
 using Tsinswreng.CsPage;
-using Ngaq.Core.Infra;
-using Ngaq.Core.Word.Models.Dto;
-using Ngaq.Core.Model.Po.Kv;
-using Ngaq.Core.Model.Po.Learn_;
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Word.Models.Dto;
+using Ngan.Dict.Core.Model.Po.Kv;
+using Ngan.Dict.Core.Model.Po.Learn_;
 using Tsinswreng.CsTools;
-using Ngaq.Backend.Db.TswG;
-using Ngaq.Core.Shared.Base.Models;
-using Ngaq.Core.Shared.User.UserCtx;
-using Ngaq.Core.Shared.Word.Models.Po.Kv;
-using Ngaq.Core.Shared.Word.Models;
-using Ngaq.Core.Shared.Word.Models.Po.Learn;
-using Ngaq.Core.Shared.Word.Models.Dto;
-using Ngaq.Core.Tools;
+using Ngan.Dict.Backend.Db.TswG;
+using Ngan.Dict.Core.Shared.Base.Models;
+using Ngan.Dict.Core.Shared.User.UserCtx;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
+using Ngan.Dict.Core.Shared.Word.Models;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Learn;
+using Ngan.Dict.Core.Shared.Word.Models.Dto;
+using Ngan.Dict.Core.Tools;
 using System.IO.Compression;
 using System.Text;
 using System.Collections;
 using Tsinswreng.CsSql;
-using Ngaq.Core.Shared.Word;
+using Ngan.Dict.Core.Shared.Word;
 using Tsinswreng.CsCore;
 using Tsinswreng.CsErr;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 using Tsinswreng.CsTempus;
 
 public partial class SvcWord{

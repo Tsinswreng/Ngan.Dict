@@ -1,20 +1,20 @@
-using Ngaq.Core.Shared.StudyPlan.Models.Po.StudyPlan;
-using Ngaq.Core.Shared.StudyPlan.Models.Req;
-using Ngaq.Core.Shared.StudyPlan.Models.Po.PreFilter;
-using Ngaq.Core.Shared.StudyPlan.Models.Po.WeightArg;
-using Ngaq.Core.Shared.StudyPlan.Models.Po.WeightCalculator;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.StudyPlan;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Req;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.PreFilter;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightArg;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightCalculator;
 using Tsinswreng.CsPage;
-using Ngaq.Core.Infra;
-using Ngaq.Core.Word.Svc;
-using Ngaq.Core.Shared.StudyPlan.Models;
-using Ngaq.Core.Shared.Word.WeightAlgo;
-using Ngaq.Core.Frontend.Kv;
-using Ngaq.Core.Shared.User.UserCtx;
-using Ngaq.Core.Shared.Base.Models.Po;
-using Ngaq.Core.Shared.Word.WeightAlgo.Models;
-using Ngaq.Core.Infra.Errors;
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Word.Svc;
+using Ngan.Dict.Core.Shared.StudyPlan.Models;
+using Ngan.Dict.Core.Shared.Word.WeightAlgo;
+using Ngan.Dict.Core.Frontend.Kv;
+using Ngan.Dict.Core.Shared.User.UserCtx;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Shared.Word.WeightAlgo.Models;
+using Ngan.Dict.Core.Infra.Errors;
 
-namespace Ngaq.Core.Shared.StudyPlan.Svc;
+namespace Ngan.Dict.Core.Shared.StudyPlan.Svc;
 
 [Doc(@$"
 名詞辯析:

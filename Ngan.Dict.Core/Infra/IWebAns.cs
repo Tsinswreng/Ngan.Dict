@@ -1,8 +1,8 @@
-namespace Ngaq.Core.Infra;
+namespace Ngan.Dict.Core.Infra;
 
 using System.Text.Json;
-using Ngaq.Core.Infra.Errors;
-using Ngaq.Core.Infra.IF;
+using Ngan.Dict.Core.Infra.Errors;
+using Ngan.Dict.Core.Infra.IF;
 using Tsinswreng.CsErr;
 
 public static class ExtnWebAns2{

@@ -1,10 +1,10 @@
-using Ngaq.Core.Shared.Base.Models.Po;
-using Ngaq.Core.Shared.Dictionary.Models;
-using Ngaq.Core.Shared.User.Models.Po.User;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Shared.Dictionary.Models;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 using Tsinswreng.CsSql;
 
-namespace Ngaq.Core.Shared.Word.Models.Po.NormLangToUserLang;
+namespace Ngan.Dict.Core.Shared.Word.Models.Po.NormLangToUserLang;
 
 [Doc(@$"
 此實體中定義 標準語言 與 用戶自定義的語言(即 {nameof(PoWord.Lang)}) 之映射。

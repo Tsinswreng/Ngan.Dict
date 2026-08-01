@@ -1,9 +1,9 @@
-using Ngaq.Core.Infra;
-using Ngaq.Core.Infra.IF;
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Infra.IF;
 using Tsinswreng.CsTempus;
 using Tsinswreng.CsTextWithBlob;
 
-namespace Ngaq.Core.Shared.Sync;
+namespace Ngan.Dict.Core.Shared.Sync;
 
 
 

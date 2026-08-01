@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Infra.Errors;
+namespace Ngan.Dict.Core.Infra.Errors;
 [Obsolete]
 public partial class EnumErr{
 	public static OldAppErr Mk(str Id, str? Ns = null){

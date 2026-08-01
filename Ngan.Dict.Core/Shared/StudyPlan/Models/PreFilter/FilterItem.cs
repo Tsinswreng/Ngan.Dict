@@ -1,6 +1,6 @@
-using Ngaq.Core.Shared.StudyPlan.Models.PreFilter;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.PreFilter;
 
-namespace Ngaq.Core.Shared.StudyPlan.Models.PreFilter;
+namespace Ngan.Dict.Core.Shared.StudyPlan.Models.PreFilter;
 [Doc($@"單條篩選條件")]
 public class FilterItem{
 	[Doc($@"比較/匹配操作")]

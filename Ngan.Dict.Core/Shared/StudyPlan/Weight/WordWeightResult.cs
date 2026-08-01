@@ -1,6 +1,6 @@
-using Ngaq.Core.Infra.IF;
+using Ngan.Dict.Core.Infra.IF;
 
-namespace Ngaq.Core.Word.Models.Weight;
+namespace Ngan.Dict.Core.Word.Models.Weight;
 
 
 public partial struct WordWeightResult

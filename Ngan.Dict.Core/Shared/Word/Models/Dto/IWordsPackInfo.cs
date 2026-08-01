@@ -1,7 +1,7 @@
-namespace Ngaq.Core.Shared.Word.Models.Dto;
-using Ngaq.Core.Infra;
-using Ngaq.Core.Infra.IF;
-using Ngaq.Core.Tools;
+namespace Ngan.Dict.Core.Shared.Word.Models.Dto;
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Infra.IF;
+using Ngan.Dict.Core.Tools;
 using Tsinswreng.CsTempus;
 
 public enum EWordsPack{

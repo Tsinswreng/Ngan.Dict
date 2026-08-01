@@ -1,6 +1,6 @@
-namespace Ngaq.Core.Model.Sys.Po.RefreshToken;
+namespace Ngan.Dict.Core.Model.Sys.Po.RefreshToken;
 
-using Ngaq.Core.Shared.Base.Models.Consts;
+using Ngan.Dict.Core.Shared.Base.Models.Consts;
 using StronglyTypedIds;
 
 [StronglyTypedId(ConstStrongTypeIdTemplate.UInt128)]

@@ -1,6 +1,6 @@
-using Ngaq.Core.Frontend.User;
+using Ngan.Dict.Core.Frontend.User;
 
-namespace Ngaq.Core.Shared.User.UserCtx;
+namespace Ngan.Dict.Core.Shared.User.UserCtx;
 
 /// 似乎唯前端用及
 [Obsolete(@$"use {nameof(IFrontendUserCtxMgr)}")]

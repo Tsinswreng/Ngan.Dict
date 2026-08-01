@@ -1,8 +1,8 @@
-// using Ngaq.Core.Model.Bo;
-// using Ngaq.Core.Model.Po.Kv;
-// using Ngaq.Core.Model.Po.Word;
+// using Ngan.Dict.Core.Model.Bo;
+// using Ngan.Dict.Core.Model.Po.Kv;
+// using Ngan.Dict.Core.Model.Po.Word;
 
-// namespace Ngaq.Backend.Service.Word;
+// namespace Ngan.Dict.Backend.Service.Word;
 
 
 

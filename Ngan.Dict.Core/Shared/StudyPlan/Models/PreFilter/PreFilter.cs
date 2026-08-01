@@ -1,8 +1,8 @@
-using Ngaq.Core.Infra.IF;
-using Ngaq.Core.Shared.StudyPlan.Models.Po.PreFilter;
-using Ngaq.Core.Tools;
+using Ngan.Dict.Core.Infra.IF;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.PreFilter;
+using Ngan.Dict.Core.Tools;
 
-namespace Ngaq.Core.Shared.StudyPlan.Models.PreFilter;
+namespace Ngan.Dict.Core.Shared.StudyPlan.Models.PreFilter;
 
 [Doc(@$"業務模型
 與{nameof(PoPreFilter)}之區別:

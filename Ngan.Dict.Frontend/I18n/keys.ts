@@ -314,7 +314,7 @@ const Full = {
 			DictionaryLookupHotkeyModifiers_: K,
 			DictionaryLookupHotkeyKey: K,
 			WordEditorOpenerNotReady: K,
-			NgaqDictionaryLookup: K,
+			Ngan.DictDictionaryLookup: K,
 			TapReadClipboardAndAutoLookup: K,
 			WeightAlgorithmPluginDoc: K,
 			File: K,

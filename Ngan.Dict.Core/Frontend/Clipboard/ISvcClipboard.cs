@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Frontend.Clipboard;
+namespace Ngan.Dict.Core.Frontend.Clipboard;
 
 public interface ISvcClipboard{
 	[Doc(@$"

@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Tools.Json;
+namespace Ngan.Dict.Core.Tools.Json;
 
 
 [Doc(@$"

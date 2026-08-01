@@ -1,5 +1,5 @@
-namespace Ngaq.Core.Frontend.User.Svc;
-using Ngaq.Core.Shared.User.Models.Po.User;
+namespace Ngan.Dict.Core.Frontend.User.Svc;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
 
 using Tsinswreng.CsTempus;
 

@@ -1,6 +1,6 @@
-using Ngaq.Core.Shared.Dictionary.Models;
+using Ngan.Dict.Core.Shared.Dictionary.Models;
 
-namespace Ngaq.Core.Shared.Word.Models.DictionaryApi;
+namespace Ngan.Dict.Core.Shared.Word.Models.DictionaryApi;
 
 public static class ExtnPhonetic{
 	extension(Phonetic z){

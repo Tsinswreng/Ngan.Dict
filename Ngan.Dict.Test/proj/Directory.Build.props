@@ -23,8 +23,8 @@
 		<!-- <ProjectReference Include="../../../Tsinswreng.CsCore/proj/Tsinswreng.CsCore/Tsinswreng.CsCore.csproj" /> -->
 		<!-- <ProjectReference Include="../../../Tsinswreng.CsTools/proj/Tsinswreng.CsTools/Tsinswreng.CsTools.csproj" /> -->
 		<!-- <ProjectReference Include="../../../Tsinswreng.CsCfg/proj/Tsinswreng.CsCfg/Tsinswreng.CsCfg.csproj" /> -->
-		<ProjectReference Include="../../../Ngaq.Core/Ngaq.Core.csproj" />
-		<ProjectReference Include="../../../Ngaq.Backend/Ngaq.Backend.csproj" />
+		<ProjectReference Include="../../../Ngan.Dict.Core/Ngan.Dict.Core.csproj" />
+		<ProjectReference Include="../../../Ngan.Dict.Backend/Ngan.Dict.Backend.csproj" />
 	</ItemGroup>
 
 

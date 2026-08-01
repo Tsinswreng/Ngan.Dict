@@ -1,19 +1,19 @@
-using Ngaq.Core.Infra;
-using Ngaq.Core.Infra.Errors;
-using Ngaq.Core.Shared.Base.Models.Po;
-using Ngaq.Core.Shared.Dictionary.Models;
-using Ngaq.Core.Shared.User.Models.Po.User;
-using Ngaq.Core.Shared.Word.Models.Dto;
-using Ngaq.Core.Shared.Word.Models.Po.UserLang;
-using Ngaq.Core.Shared.Word.Svc;
-using Ngaq.Backend.Db.TswG;
-using Ngaq.Backend.Domains.Word.Dao;
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Infra.Errors;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Shared.Dictionary.Models;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Shared.Word.Models.Dto;
+using Ngan.Dict.Core.Shared.Word.Models.Po.UserLang;
+using Ngan.Dict.Core.Shared.Word.Svc;
+using Ngan.Dict.Backend.Db.TswG;
+using Ngan.Dict.Backend.Domains.Word.Dao;
 using Tsinswreng.CsErr;
 using Tsinswreng.CsPage;
 using Tsinswreng.CsSql;
 using Tsinswreng.CsTools;
 
-namespace Ngaq.Backend.Domains.Word.Svc;
+namespace Ngan.Dict.Backend.Domains.Word.Svc;
 
 public class SvcUserLang : ISvcUserLang {
 	private readonly DaoUserLang Dao;

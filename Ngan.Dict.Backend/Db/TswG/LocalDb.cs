@@ -1,9 +1,9 @@
-namespace Ngaq.Backend.Db.TswG;
+namespace Ngan.Dict.Backend.Db.TswG;
 
 using System.Data;
 using Microsoft.Data.Sqlite;
-using Ngaq.Core.Infra.Cfg;
-using Ngaq.Core.Infra.Url;
+using Ngan.Dict.Core.Infra.Cfg;
+using Ngan.Dict.Core.Infra.Url;
 using Tsinswreng.CsCfg;
 using Tsinswreng.CsSql;
 using Tsinswreng.CsTools;

@@ -1,0 +1,186 @@
+namespace Ngan.Dict.Ui.Views.Word.WordManage.StudyPlan.PreFilterPage;
+
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.Models.TreeDataGrid;
+using Avalonia.Controls.Primitives;
+using Avalonia.Data;
+using Avalonia.Input;
+using Avalonia.Interactivity;
+using Avalonia.Media;
+using Avalonia.Styling;
+using CommunityToolkit.Mvvm.Input;
+using Ngan.Dict.Ui;
+using Ngan.Dict.Ui.Components.PageBar;
+using Ngan.Dict.Ui.Icons;
+using Ngan.Dict.Ui.Infra;
+using Ngan.Dict.Ui.Infra.Ctrls;
+using Ngan.Dict.Ui.Tools;
+using Ngan.Dict.Ui.Views.Word.WordManage.StudyPlan.PreFilterEdit.PreFilterVisualEdit;
+using Ngan.Dict.Ui.Views.Word.WordManage.StudyPlan.PreFilterEdit.PreFilterVisualEditV2;
+using Tsinswreng.Avln.Grid;
+using Tsinswreng.AvlnTools.Dsl;
+using Tsinswreng.AvlnTools.Tools;
+using Tsinswreng.CsI18n;
+using Ctx = VmPreFilterPage;
+using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
+public partial class ViewPreFilterPage
+	:AppViewBase<Ctx>
+{
+
+	public ViewPreFilterPage(){
+		Ctx = App.DiOrMk<Ctx>();
+		if(Ctx is not null){
+			Ctx.OnOpenDetailRequested += OpenDetail;
+		}
+		Style();
+		Render();
+		InitDataGrid();
+		Loaded += async(s,e)=>{
+			_ = Ctx?.InitSearch(default);
+		};
+	}
+
+	public partial class Cls{
+		public static str FullStretch = nameof(FullStretch);
+	}
+
+
+	protected nil Style(){
+		var S = Styles;
+		S.A(
+			Sty.Is<Control>(
+				x=>x.Class(Cls.FullStretch)
+			)
+			.Set(x=>x.HorizontalAlignment, HAlign.Stretch)
+			.Set(x=>x.VerticalAlignment, VAlign.Stretch)
+		);
+		return NIL;
+	}
+
+
+	GridStack Root = new(IsRow: true);
+	TreeDataGrid? PreFilterGrid;
+	FlatTreeDataGridSource<Ctx.RowPreFilter>? GridSource;
+
+	protected nil Render(){
+		this.Content = Root.Grid;
+		Root.SetRowDefs([
+			new(1, GUT.Auto),
+			new(1, GUT.Star),
+			new(1, GUT.Auto),
+		]);
+
+		Root.A(MkTopBar());
+		Root.A(MkGridHost());
+		Root.A(MkPageBarHost());
+		return NIL;
+	}
+
+	protected Control MkTopBar(){
+		var top = new GridStack(IsRow:false);
+		top.Grid.SetColDefs([
+			new(7, GUT.Star),
+			new(1, GUT.Star),
+			new(1, GUT.Star),
+		]);
+		var searchBtn = new OpBtn();
+		top.A(new TextBox(), o=>{
+			o.CBind<Ctx>(
+				o.PropText,
+				x=>x.Input
+			);
+			o.KeyBindings.Add(new KeyBinding{
+				Gesture = new KeyGesture(Key.Enter),
+				Command = new RelayCommand(()=>searchBtn.PerformClick()),
+			});
+		})
+		.A(searchBtn, o=>{
+			o.Classes.Add(Cls.FullStretch);
+			o.BtnContent = Icons.Search().ToIcon();
+			o._Button.Background = UiCfg.Inst.MainColor;
+			o.SetExe((Ct)=>Ctx?.InitSearch(Ct)!);
+		})
+		.A(new Button(), o=>{
+			o.Classes.Add(Cls.FullStretch);
+			o.CBind<Ctx>(IsVisibleProperty, x=>x.CanCreate, Mode: BindingMode.OneWay);
+			o.Content = Icons.Add().ToIcon();
+			o.Click += (s,e)=>Ctx?.OpenDetail();
+		});
+		return top.Grid;
+	}
+
+	protected Control MkGridHost(){
+		PreFilterGrid = new TreeDataGrid{
+			MinHeight = 280,
+			HorizontalAlignment = HAlign.Stretch,
+		};
+		PreFilterGrid.Styles.Add(
+			Sty.OfType<TreeDataGridRow>(x=>x.Class(":pointerover"))
+			.Set(x=>x.Background, new SolidColorBrush(Color.FromRgb(46, 46, 46)))
+		);
+		PreFilterGrid.Styles.Add(
+			Sty.OfType<TreeDataGridRow>(x=>x.Class(":pressed"))
+			.Set(x=>x.Background, new SolidColorBrush(Color.FromRgb(70, 70, 70)))
+		);
+		PreFilterGrid.AddHandler(InputElement.TappedEvent, OnGridTapped, RoutingStrategies.Bubble, true);
+		return PreFilterGrid;
+	}
+
+	protected Control MkPageBarHost(){
+		var pageBar = new ViewPageBar();
+		if(Ctx is not null){
+			pageBar.Ctx = Ctx.PageBar;
+		}
+		return pageBar;
+	}
+
+	protected nil InitDataGrid(){
+		if(Ctx is null || PreFilterGrid is null){
+			return NIL;
+		}
+		GridSource = new FlatTreeDataGridSource<Ctx.RowPreFilter>(Ctx.Rows){
+			Columns = {
+				new TextColumn<Ctx.RowPreFilter, str>("", x=>x.UiIdxText, width: new GridLength(1, GUT.Auto)),
+				new TextColumn<Ctx.RowPreFilter, str>(I[K.Name], x=>x.Name, width: new GridLength(1, GUT.Auto)),
+				new TextColumn<Ctx.RowPreFilter, str>(I[K.ModifiedTime], x=>x.ModifiedTime, width: new GridLength(1, GUT.Star)),
+			},
+		};
+		PreFilterGrid.Source = GridSource;
+		return NIL;
+	}
+
+	protected void OnGridTapped(object? sender, TappedEventArgs e){
+		if(Ctx is null || PreFilterGrid is null){
+			return;
+		}
+		if(e.Source is not StyledElement src){
+			return;
+		}
+		for(StyledElement? cur = src; cur is not null; cur = cur.Parent){
+			if(cur is ToggleButton){
+				return;
+			}
+			if(cur is TreeDataGridRow row){
+				if(row.DataContext is Ctx.RowPreFilter vmRow){
+					Ctx.OpenDetail(vmRow);
+					e.Handled = true;
+				}
+				return;
+			}
+		}
+	}
+
+	/// <summary>
+	/// 普通模式下打开编辑页；选择模式下不会进入该分支。
+	/// </summary>
+	void OpenDetail(Ctx.RowPreFilter? row){
+		var view = new ViewPreFilterVisualEditV2();
+		view.Ctx?.SetCreateMode(row is null);
+		view.Ctx?.FromPoPreFilter(row?.Raw);
+		var title = row?.Raw?.UniqName ?? I[K.NewPreFilter];
+		var titled = ToolView.WithTitle(title, view);
+		ViewNavi?.GoTo(titled);
+	}
+}
+

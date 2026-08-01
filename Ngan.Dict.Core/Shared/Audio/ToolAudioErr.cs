@@ -1,6 +1,6 @@
-namespace Ngaq.Core.Shared.Audio;
+namespace Ngan.Dict.Core.Shared.Audio;
 
-using Ngaq.Core.Infra.Errors;
+using Ngan.Dict.Core.Infra.Errors;
 using Tsinswreng.CsErr;
 
 /// 音頻模塊統一錯誤工廠。

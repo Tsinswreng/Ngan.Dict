@@ -1,15 +1,15 @@
 using System.Diagnostics.Contracts;
-using Ngaq.Core.Infra;
-using Ngaq.Core.Infra.Errors;
-using Ngaq.Core.Shared.Base.Models.Po;
-using Ngaq.Core.Shared.StudyPlan.Models.Po.StudyPlan;
-using Ngaq.Core.Shared.Word.Models;
-using Ngaq.Core.Shared.Word.Models.Po.Kv;
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Infra.Errors;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.StudyPlan;
+using Ngan.Dict.Core.Shared.Word.Models;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
 using Tsinswreng.CsErr;
 using Tsinswreng.CsSql;
 using Tsinswreng.CsTextWithBlob;
 
-namespace Ngaq.Core.Shared.Sync;
+namespace Ngan.Dict.Core.Shared.Sync;
 
 public class EntitySyncerInMem<T>: IEntitySyncerInMem<T>
 	where T: IPoBase, IBizCreateUpdateTime

@@ -1,6 +1,6 @@
-namespace Ngaq.Core.Shared.StudyPlan.Models.Po.StudyPlan;
+namespace Ngan.Dict.Core.Shared.StudyPlan.Models.Po.StudyPlan;
 
-using Ngaq.Core.Shared.Base.Models.Consts;
+using Ngan.Dict.Core.Shared.Base.Models.Consts;
 using StronglyTypedIds;
 
 [StronglyTypedId(ConstStrongTypeIdTemplate.UInt128)]

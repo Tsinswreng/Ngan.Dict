@@ -1,9 +1,9 @@
 #define Impl
-namespace Ngaq.Core.Shared.Word.Models.Po.Word;
+namespace Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 
-using Ngaq.Core.Shared.Base.Models.Po;
-using Ngaq.Core.Shared.User.Models.Po.User;
-using Ngaq.Core.Infra;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Infra;
 using Tsinswreng.CsSql;
 using Tsinswreng.Srefl;
 using Tsinswreng.CsTempus;

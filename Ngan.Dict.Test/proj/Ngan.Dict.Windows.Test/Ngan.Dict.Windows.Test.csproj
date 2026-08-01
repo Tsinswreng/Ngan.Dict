@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net10.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<PublishAot>true</PublishAot>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<ProjectReference Include="../Ngan.Dict.Core.Test/Ngan.Dict.Core.Test.csproj" />
+		<ProjectReference Include="../Ngan.Dict.Backend.Test/Ngan.Dict.Backend.Test.csproj" />
+	</ItemGroup>
+
+</Project>

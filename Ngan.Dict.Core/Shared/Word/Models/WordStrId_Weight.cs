@@ -1,4 +1,4 @@
-// namespace Ngaq.Core.Word.Models;
+// namespace Ngan.Dict.Core.Word.Models;
 
 // public enum ESortBy:i64{
 // 	Weight

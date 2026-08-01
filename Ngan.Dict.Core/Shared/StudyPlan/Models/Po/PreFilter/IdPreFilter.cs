@@ -1,6 +1,6 @@
-namespace Ngaq.Core.Shared.StudyPlan.Models.Po.PreFilter;
+namespace Ngan.Dict.Core.Shared.StudyPlan.Models.Po.PreFilter;
 
-using Ngaq.Core.Shared.Base.Models.Consts;
+using Ngan.Dict.Core.Shared.Base.Models.Consts;
 using StronglyTypedIds;
 
 [StronglyTypedId(ConstStrongTypeIdTemplate.UInt128)]

@@ -1,24 +1,24 @@
-﻿namespace Ngaq.Core.Shared.Word;
+namespace Ngan.Dict.Core.Shared.Word;
 
-using Ngaq.Core.Shared.User.UserCtx;
-using Ngaq.Core.Shared.Word.Models;
-using Ngaq.Core.Shared.Word.Models.Learn_;
-using Ngaq.Core.Infra.Errors;
-using Ngaq.Core.Word.Models.Weight;
-using Ngaq.Core.Word.Svc;
+using Ngan.Dict.Core.Shared.User.UserCtx;
+using Ngan.Dict.Core.Shared.Word.Models;
+using Ngan.Dict.Core.Shared.Word.Models.Learn_;
+using Ngan.Dict.Core.Infra.Errors;
+using Ngan.Dict.Core.Word.Models.Weight;
+using Ngan.Dict.Core.Word.Svc;
 using Tsinswreng.CsTools;
-using Ngaq.Core.Frontend.User;
+using Ngan.Dict.Core.Frontend.User;
 using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 using Tsinswreng.CsErr;
-using Ngaq.Core.Shared.Word.Models.Weight;
-using Ngaq.Core.Infra.IF;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
-using Ngaq.Core.Shared.Word.Svc;
-using Ngaq.Core.Shared.Word.Models.Dto;
+using Ngan.Dict.Core.Shared.Word.Models.Weight;
+using Ngan.Dict.Core.Infra.IF;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Core.Shared.Word.Svc;
+using Ngan.Dict.Core.Shared.Word.Models.Dto;
 using System.Collections;
-using Ngaq.Core.Shared.StudyPlan.Svc;
-using Ngaq.Core.Shared.Word.WeightAlgo;
+using Ngan.Dict.Core.Shared.StudyPlan.Svc;
+using Ngan.Dict.Core.Shared.Word.WeightAlgo;
 
 public enum ELearnOpRtn{
 	Learn = 0

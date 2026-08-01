@@ -1,9 +1,9 @@
 #define Impl
-namespace Ngaq.Core.Word.WeightAlgo.Models;
+namespace Ngan.Dict.Core.Word.WeightAlgo.Models;
 
 using System.Runtime.CompilerServices;
-using Ngaq.Core.Shared.Word.Models.Learn_;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Core.Shared.Word.Models.Learn_;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 
 public  partial class WeightWord
 	: IWeightWord

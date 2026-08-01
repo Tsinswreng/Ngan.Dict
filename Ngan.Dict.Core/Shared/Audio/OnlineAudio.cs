@@ -3,10 +3,10 @@ using System.IO;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Ngaq.Core.Infra.Errors;
+using Ngan.Dict.Core.Infra.Errors;
 using Tsinswreng.CsErr;
 
-namespace Ngaq.Core.Shared.Audio;
+namespace Ngan.Dict.Core.Shared.Audio;
 
 public class OnlineAudio {
 	private static readonly HttpClient _http = new HttpClient {

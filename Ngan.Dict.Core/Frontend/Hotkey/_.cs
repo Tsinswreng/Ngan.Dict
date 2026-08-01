@@ -1,4 +1,4 @@
-using Ngaq.Core.Frontend.Hotkey;
+using Ngan.Dict.Core.Frontend.Hotkey;
 file class DirDoc{
 	str Doc =
 $$"""
@@ -12,18 +12,18 @@ $$"""
 
 ## 架构
 
-### 核心接口 （位于 Ngaq.Core）
+### 核心接口 （位于 Ngan.Dict.Core）
 - `IHotkeyListener`：平台无关监听器 + 管理接口。
 - `EHotkeyModifiers`：修饰符枚举（Ctrl/Shift/Alt/Win）。
 - `EHotkeyKey`：键枚举（字母、数字、功能键、特殊键等）。
 
-### 服务实现 (Ngaq.Ui)
+### 服务实现 (Ngan.Dict.Ui)
 - `IHotkeyListener` 本身通过 DI 注入各平台实现，已足够使用。
 
 ### 平台注册接口
 
 为了避免平台判断代码散落在公共组件，新添加了 `{{nameof(I_RegisterGlobalHotKeys)}}` 接口。
-此接口位于 `Ngaq.Ui.Infra.Hotkey`，由各平台专用程序集提供实现，负责在
+此接口位于 `Ngan.Dict.Ui.Infra.Hotkey`，由各平台专用程序集提供实现，负责在
 对应平台启动时统一注册所有需要的全局快捷键。例如 Windows 实现为
 `WinGlobalHotkeyRegistrar`，Linux 实现为 `LinuxGlobalHotkeyRegistrar`。
 接口定义简单：

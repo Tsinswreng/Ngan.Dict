@@ -1,30 +1,30 @@
-﻿using Ngaq.Core.Shared.Dictionary.Models;
-using Ngaq.Core.Shared.Dictionary.Svc;
-using Ngaq.Core.Shared.User.UserCtx;
-using Ngaq.Core.Infra.Cfg;
-using Ngaq.Core.Tools.Json;
-using Ngaq.Core.Infra.Errors;
+using Ngan.Dict.Core.Shared.Dictionary.Models;
+using Ngan.Dict.Core.Shared.Dictionary.Svc;
+using Ngan.Dict.Core.Shared.User.UserCtx;
+using Ngan.Dict.Core.Infra.Cfg;
+using Ngan.Dict.Core.Tools.Json;
+using Ngan.Dict.Core.Infra.Errors;
 using Tsinswreng.CsCfg;
 using Tsinswreng.CsErr;
 using Tsinswreng.CsCore;
 using Tsinswreng.CsTools;
 using System.Net.Http.Headers;
 using System.Text;
-using Ngaq.Core.Tools;
+using Ngan.Dict.Core.Tools;
 using Tsinswreng.CsYamlMd;
 using Microsoft.Extensions.Logging;
-using Ngaq.Core.Infra;
-using Ngaq.Core.Shared.Dictionary.Models.Po.NormLang;
-using Ngaq.Core.Shared.Kv;
-using Ngaq.Core.Shared.Kv.Models;
-using Ngaq.Core.Shared.Kv.Svc;
-using Ngaq.Core.Shared.Word.Models.Po.Kv;
-using Ngaq.Core.Shared.Word.Svc;
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Shared.Dictionary.Models.Po.NormLang;
+using Ngan.Dict.Core.Shared.Kv;
+using Ngan.Dict.Core.Shared.Kv.Models;
+using Ngan.Dict.Core.Shared.Kv.Svc;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
+using Ngan.Dict.Core.Shared.Word.Svc;
 using Tsinswreng.CsSql;
 
 
 
-namespace Ngaq.Backend.Domains.Dictionary.Svc;
+namespace Ngan.Dict.Backend.Domains.Dictionary.Svc;
 using Kv = System.Collections.Generic.Dictionary<string, object?>;
 using IKv = System.Collections.Generic.IDictionary<string, object?>;
 

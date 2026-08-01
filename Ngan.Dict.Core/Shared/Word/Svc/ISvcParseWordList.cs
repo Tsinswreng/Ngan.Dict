@@ -1,10 +1,10 @@
-namespace Ngaq.Core.Shared.Word.Svc;
+namespace Ngan.Dict.Core.Shared.Word.Svc;
 
 using System.Text;
-using Ngaq.Core.Shared.Word.Models;
-using Ngaq.Core.Model;
-using Ngaq.Core.Iter;
-using Ngaq.Core.Tools.Io;
+using Ngan.Dict.Core.Shared.Word.Models;
+using Ngan.Dict.Core.Model;
+using Ngan.Dict.Core.Iter;
+using Ngan.Dict.Core.Tools.Io;
 
 
 /// 從 路經/字串/字節生產者 解析單詞表文本、得Bo_Word列表。

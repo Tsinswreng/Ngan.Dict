@@ -1,2 +1,2 @@
-namespace Ngaq.Core.Shared.StudyPlan.Models.Dto;
+namespace Ngan.Dict.Core.Shared.StudyPlan.Models.Dto;
 

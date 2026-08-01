@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Word.Models.Po.Kv;
+namespace Ngan.Dict.Core.Word.Models.Po.Kv;
 
 
 /// 只關注數據類型、不關注生成方式

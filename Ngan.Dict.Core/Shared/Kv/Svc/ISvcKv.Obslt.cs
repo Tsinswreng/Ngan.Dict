@@ -1,7 +1,7 @@
-// namespace Ngaq.Core.Shared.Kv.Svc;
+// namespace Ngan.Dict.Core.Shared.Kv.Svc;
 
-// using Ngaq.Core.Shared.Kv.Models;
-// using Ngaq.Core.Shared.User.Models.Po.User;
+// using Ngan.Dict.Core.Shared.Kv.Models;
+// using Ngan.Dict.Core.Shared.User.Models.Po.User;
 // using Tsinswreng.CsSql;
 // using Tsinswreng.CsTools;
 

@@ -1,8 +1,8 @@
 using Tsinswreng.CsTools;
 using System.Text.Json;
-using Ngaq.Core.Infra;
+using Ngan.Dict.Core.Infra;
 
-namespace Ngaq.Core.Tools.Json;
+namespace Ngan.Dict.Core.Tools.Json;
 
 public class AppJsonSerializer
 	:IJsonSerializer

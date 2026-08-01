@@ -1,6 +1,6 @@
-// using Ngaq.Core.Stream;
+// using Ngan.Dict.Core.Stream;
 
-// namespace Ngaq.Core.Service.Parser;
+// namespace Ngan.Dict.Core.Service.Parser;
 // public  partial interface I_Iter_u8 : I_Iter<u8>{
 
 // }

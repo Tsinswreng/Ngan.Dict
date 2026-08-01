@@ -1,8 +1,8 @@
-﻿using Ngaq.Core.Shared.Dictionary.Models.Po.NormLang;
-using Ngaq.Core.Shared.Word.Models.Po.NormLangToUserLang;
+using Ngan.Dict.Core.Shared.Dictionary.Models.Po.NormLang;
+using Ngan.Dict.Core.Shared.Word.Models.Po.NormLangToUserLang;
 using Tsinswreng.CsPage;
 
-namespace Ngaq.Core.Shared.Word.Models.Dto;
+namespace Ngan.Dict.Core.Shared.Word.Models.Dto;
 
 [Doc(@$"
 {nameof(PoNormLangToUserLang)} 分頁查詢入參。

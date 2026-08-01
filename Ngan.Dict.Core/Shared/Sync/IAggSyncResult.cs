@@ -1,6 +1,6 @@
-using Ngaq.Core.Shared.Word.Models;
+using Ngan.Dict.Core.Shared.Word.Models;
 
-namespace Ngaq.Core.Shared.Sync;
+namespace Ngan.Dict.Core.Shared.Sync;
 
 [Doc(@$"一對聚合實體(也可能是單個Po)同步結果。
 Remote合入Local。

@@ -1,9 +1,9 @@
-namespace Ngaq.Core.Shared.Dictionary.Models;
+namespace Ngan.Dict.Core.Shared.Dictionary.Models;
 
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using Ngaq.Core.Shared.Base.Models.Req;
+using Ngan.Dict.Core.Shared.Base.Models.Req;
 using Tsinswreng.CsTempus;
 
 public class DtoOnNewSeg{

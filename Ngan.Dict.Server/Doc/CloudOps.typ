@@ -1,17 +1,17 @@
 #import "@preview/tsinswreng-auto-heading:0.1.0": auto-heading
 #let H = auto-heading;
 
-#H[Ngaq.Server 雲端運維速查][
-本文是針對當前 `Ngaq.Server` 雲端部署場景的常用運維命令速查。
+#H[Ngan.Dict.Server 雲端運維速查][
+本文是針對當前 `Ngan.Dict.Server` 雲端部署場景的常用運維命令速查。
 ]
 
 #H[1. 當前場景固定信息][
 - 雲服務器 IP: `8.136.34.211`
 - SSH 用戶: `root`
-- 部署目錄: `/opt/ngaq-server/deploy`
-- 配置目錄: `/opt/ngaq-server/config`
-- Compose 文件: `/opt/ngaq-server/deploy/docker-compose.aot-slim.yml`
-- Web 鏡像: `ngaq-server:aot-slim`
+- 部署目錄: `/opt/ngan.dict-server/deploy`
+- 配置目錄: `/opt/ngan.dict-server/config`
+- Compose 文件: `/opt/ngan.dict-server/deploy/docker-compose.aot-slim.yml`
+- Web 鏡像: `ngan.dict-server:aot-slim`
 - 對外 Web 端口: `2341`
 ]
 
@@ -25,7 +25,7 @@ ssh root@8.136.34.211
 進入部署目錄後執行:
 
 ```bash
-cd /opt/ngaq-server/deploy
+cd /opt/ngan.dict-server/deploy
 docker compose -f docker-compose.aot-slim.yml ps
 ```
 
@@ -40,7 +40,7 @@ docker ps
 推薦:
 
 ```bash
-cd /opt/ngaq-server/deploy
+cd /opt/ngan.dict-server/deploy
 docker compose -f docker-compose.aot-slim.yml logs -f --tail=200 web
 ```
 
@@ -53,7 +53,7 @@ docker logs -f --tail=200 deploy-web-1
 
 #H[5. 看 PG / Redis 日誌][
 ```bash
-cd /opt/ngaq-server/deploy
+cd /opt/ngan.dict-server/deploy
 docker compose -f docker-compose.aot-slim.yml logs -f --tail=200 postgres
 docker compose -f docker-compose.aot-slim.yml logs -f --tail=200 redis
 ```
@@ -63,7 +63,7 @@ docker compose -f docker-compose.aot-slim.yml logs -f --tail=200 redis
 只重啓 Web:
 
 ```bash
-cd /opt/ngaq-server/deploy
+cd /opt/ngan.dict-server/deploy
 docker compose -f docker-compose.aot-slim.yml restart web
 ```
 
@@ -84,7 +84,7 @@ docker compose -f docker-compose.aot-slim.yml restart
 停止全部:
 
 ```bash
-cd /opt/ngaq-server/deploy
+cd /opt/ngan.dict-server/deploy
 docker compose -f docker-compose.aot-slim.yml down
 ```
 
@@ -105,12 +105,12 @@ docker compose -f docker-compose.aot-slim.yml up -d postgres redis
 當需要手動跑遷移時:
 
 ```bash
-cd /opt/ngaq-server/deploy
-docker compose -f docker-compose.aot-slim.yml run --rm web migrate Ngaq.Server.cloud.docker.jsonc
+cd /opt/ngan.dict-server/deploy
+docker compose -f docker-compose.aot-slim.yml run --rm web migrate Ngan.Dict.Server.cloud.docker.jsonc
 ```
 
 說明:
-- 這裏用的是同一個 `ngaq-server:aot-slim` 鏡像
+- 這裏用的是同一個 `ngan.dict-server:aot-slim` 鏡像
 - 第一個參數是 `migrate` 時，只執行遷移，結束後退出
 ]
 
@@ -163,16 +163,16 @@ ssh -L 15432:172.18.0.3:5432 root@8.136.34.211
 
 - Host: `127.0.0.1`
 - Port: `15432`
-- Database: `ngaq`
-- User: `ngaq`
-- Password: `NgaqDb2026!`
+- Database: `ngan.dict`
+- User: `ngan.dict`
+- Password: `Ngan.DictDb2026!`
 ]
 
 #H[12. 一條命令在本機看 Web 日誌][
 若不想先手動 SSH 登錄，可在本機直接執行:
 
 ```powershell
-ssh root@8.136.34.211 "cd /opt/ngaq-server/deploy && docker compose -f docker-compose.aot-slim.yml logs -f --tail=200 web"
+ssh root@8.136.34.211 "cd /opt/ngan.dict-server/deploy && docker compose -f docker-compose.aot-slim.yml logs -f --tail=200 web"
 ```
 ]
 

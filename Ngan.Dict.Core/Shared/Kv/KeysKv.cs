@@ -1,12 +1,12 @@
-using Ngaq.Core.Frontend.Kv;
-using Ngaq.Core.Shared.Dictionary.Models;
-using Ngaq.Core.Shared.Dictionary.Models.Po.NormLang;
-using Ngaq.Core.Shared.Word.Models.Po.NormLangToUserLang;
-using Ngaq.Core.Tools;
+using Ngan.Dict.Core.Frontend.Kv;
+using Ngan.Dict.Core.Shared.Dictionary.Models;
+using Ngan.Dict.Core.Shared.Dictionary.Models.Po.NormLang;
+using Ngan.Dict.Core.Shared.Word.Models.Po.NormLangToUserLang;
+using Ngan.Dict.Core.Tools;
 
-namespace Ngaq.Core.Shared.Kv;
+namespace Ngan.Dict.Core.Shared.Kv;
 
-using static Ngaq.Core.Tools.SlashSepKey;
+using static Ngan.Dict.Core.Tools.SlashSepKey;
 using K = SlashSepKey;
 
 [Doc(@$"鍵值。

@@ -1,9 +1,9 @@
-namespace Ngaq.Backend.Db.TswG;
+namespace Ngan.Dict.Backend.Db.TswG;
 
 using Tsinswreng.CsSql;
-using Ngaq.Core.Infra;
+using Ngan.Dict.Core.Infra;
 using Tsinswreng.CsCore;
-using Ngaq.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
 using Tsinswreng.Srefl;
 using Tsinswreng.CsTempus;
 

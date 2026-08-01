@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace Ngaq.Core.Tools.Io;
+namespace Ngan.Dict.Core.Tools.Io;
 
 public  partial struct Path_Encode(){
 	public str Path{get;set;} = "";

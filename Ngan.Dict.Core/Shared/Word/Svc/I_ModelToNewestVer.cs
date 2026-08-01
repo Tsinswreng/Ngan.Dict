@@ -1,6 +1,6 @@
-using Ngaq.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
 
-namespace Ngaq.Core.Shared.Word.Svc;
+namespace Ngan.Dict.Core.Shared.Word.Svc;
 
 public partial interface I_ModelToNewestVer<TModel>
 	where TModel: I_BizTimeVer

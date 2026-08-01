@@ -1,6 +1,6 @@
 using Tsinswreng.CsPage;
 
-namespace Ngaq.Core.Shared.Word.Models.Dto;
+namespace Ngan.Dict.Core.Shared.Word.Models.Dto;
 
 public class ReqPageUserLang{
 	public IPageQry PageQry{get;set;}

@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Tools.JsonMap;
+namespace Ngan.Dict.Core.Tools.JsonMap;
 public enum EValueMapper{
 	None,
 	UnixMsToDate,

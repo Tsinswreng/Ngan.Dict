@@ -1,14 +1,14 @@
-using Ngaq.Core.Infra;
-using Ngaq.Core.Infra.IF;
-using Ngaq.Core.Shared.StudyPlan.Models.Po.PreFilter;
-using Ngaq.Core.Shared.StudyPlan.Models.Po.StudyPlan;
-using Ngaq.Core.Shared.StudyPlan.Models.Po.WeightArg;
-using Ngaq.Core.Shared.StudyPlan.Models.Po.WeightCalculator;
-using Ngaq.Core.Word.Svc;
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Infra.IF;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.PreFilter;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.StudyPlan;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightArg;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightCalculator;
+using Ngan.Dict.Core.Word.Svc;
 using Tsinswreng.CsSql;
 using Tsinswreng.CsTools;
 using Tsinswreng.Srefl;
-namespace Ngaq.Core.Shared.StudyPlan.Models;
+namespace Ngan.Dict.Core.Shared.StudyPlan.Models;
 
 [Doc($@"學習方案聚合")]
 public class JnStudyPlan

@@ -1,6 +1,6 @@
-using Ngaq.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
 
-namespace Ngaq.Core.Shared.StudyPlan.Models;
+namespace Ngan.Dict.Core.Shared.StudyPlan.Models;
 
 public static class Consts{
 	[Doc(@$"作 各實體的 {nameof(I_UniqName.UniqName)} 的 內置前綴")]

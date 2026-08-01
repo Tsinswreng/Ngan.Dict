@@ -1,6 +1,6 @@
-namespace Ngaq.Core.Shared.RecentUse.Models.Po.RecentUse;
+namespace Ngan.Dict.Core.Shared.RecentUse.Models.Po.RecentUse;
 
-using Ngaq.Core.Shared.Base.Models.Consts;
+using Ngan.Dict.Core.Shared.Base.Models.Consts;
 using StronglyTypedIds;
 
 /// <summary>

@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Shared.StudyPlan.Models.PreFilter;
+namespace Ngan.Dict.Core.Shared.StudyPlan.Models.PreFilter;
 
 [Doc($@"字段集合對應的篩選條件集合")]
 public class FieldsFilter{

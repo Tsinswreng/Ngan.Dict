@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Frontend.Hotkey;
+namespace Ngan.Dict.Core.Frontend.Hotkey;
 /// 快捷键枚举
 public enum EHotkeyKey{
 	// 字母键

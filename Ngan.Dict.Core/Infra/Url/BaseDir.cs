@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Infra.Url;
+namespace Ngan.Dict.Core.Infra.Url;
 
 public class BaseDirMgr:I_GetBaseDir{
 	protected static BaseDirMgr? _Inst = null;

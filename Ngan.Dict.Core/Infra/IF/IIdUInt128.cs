@@ -1,6 +1,6 @@
-namespace Ngaq.Core.Infra.IF;
+namespace Ngan.Dict.Core.Infra.IF;
 
-using Ngaq.Core.Infra.IF;
+using Ngan.Dict.Core.Infra.IF;
 //using Tsinswreng.CsTools;
 using Tsinswreng.CsU128Id;
 

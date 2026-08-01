@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Shared.Sync;
+namespace Ngan.Dict.Core.Shared.Sync;
 
 [Doc(@$"比較單個實體。
 用于同步。

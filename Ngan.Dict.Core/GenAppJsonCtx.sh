@@ -3,8 +3,8 @@
 # JsonSerializable註解須寫在一起、不能散落在分散之partial class、否則json源生成器不輸出
 
 mkdir -p Tsinswreng.SrcGen
-../Tsinswreng.CsIfaceGen.Cli Ngaq.Core.csproj  Tsinswreng.SrcGen
-# > Ngaq.Core/Tsinswreng.SrcGen/AppJsonCtx.g.cs
+../Tsinswreng.CsIfaceGen.Cli Ngan.Dict.Core.csproj  Tsinswreng.SrcGen
+# > Ngan.Dict.Core/Tsinswreng.SrcGen/AppJsonCtx.g.cs
 
 # 把分散之json序列化註解 集到一個文件中
 mkdir -p Tsinswreng.SrcGen/Tsinswreng.CsIfaceGen/
@@ -14,7 +14,7 @@ cd Tsinswreng.SrcGen/Tsinswreng.CsIfaceGen/
 IAppSerializable=IAppSerializable.g.cs
 
 cat > $IAppSerializable <<'EOF'
-namespace Ngaq.Core.Infra;
+namespace Ngan.Dict.Core.Infra;
 using System.Text.Json.Serialization;
 EOF
 
@@ -53,7 +53,7 @@ rm IAppSerializable/*
 IRawValueSerializable=IRawValueSerializable.g.cs
 
 cat > $IRawValueSerializable <<'EOF'
-namespace Ngaq.Core.Infra;
+namespace Ngan.Dict.Core.Infra;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -76,11 +76,11 @@ EOF
 IRawValueSerializableList=IRawValueSerializableList.g.cs
 
 cat > $IRawValueSerializableList <<'EOF'
-namespace Ngaq.Core.Infra;
+namespace Ngan.Dict.Core.Infra;
 using System.Text.Json.Serialization;
 public partial class AppJsonCtx : JsonSerializerContext {
 	public static IList<JsonConverter> JsonConverters = [
-	new global::Ngaq.Core.Tools.JsonConvtr_Tempus(),
+	new global::Ngan.Dict.Core.Tools.JsonConvtr_Tempus(),
 EOF
 
 cat IRawValueSerializableList/* >> $IRawValueSerializableList

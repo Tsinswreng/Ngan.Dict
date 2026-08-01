@@ -1,6 +1,6 @@
-using Ngaq.Backend.Db.TswG;
+using Ngan.Dict.Backend.Db.TswG;
 
-namespace Ngaq.Backend.Domains.Sample.Dao;
+namespace Ngan.Dict.Backend.Domains.Sample.Dao;
 public class DaoSample{
 	public DaoSample(
 		//IAppRepo<>

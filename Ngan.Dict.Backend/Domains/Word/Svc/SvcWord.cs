@@ -8,40 +8,40 @@
 - OldWord.Upd(NeoWord) 把 OldWord 改珹 NeoWord。
 #endif
 
-namespace Ngaq.Backend.Domains.Word.Svc;
+namespace Ngan.Dict.Backend.Domains.Word.Svc;
 
-using Ngaq.Core.Infra.IF;
-using Ngaq.Core.Model.Po.Kv;
-using Ngaq.Core.Model.Po.Learn_;
+using Ngan.Dict.Core.Infra.IF;
+using Ngan.Dict.Core.Model.Po.Kv;
+using Ngan.Dict.Core.Model.Po.Learn_;
 
-using Ngaq.Core.Infra.Errors;
+using Ngan.Dict.Core.Infra.Errors;
 using Tsinswreng.CsTools;
 using Tsinswreng.CsSql;
 
-using Ngaq.Core.Infra;
+using Ngan.Dict.Core.Infra;
 
-using Ngaq.Backend.Word.Dao;
-using Ngaq.Backend.Db.TswG;
-using Ngaq.Core.Tools.Json;
+using Ngan.Dict.Backend.Word.Dao;
+using Ngan.Dict.Backend.Db.TswG;
+using Ngan.Dict.Core.Tools.Json;
 
-using Ngaq.Core.Shared.User.UserCtx;
-using Ngaq.Core.Shared.Word.Models.Po.Kv;
-using Ngaq.Core.Shared.Word.Models.Learn_;
-using Ngaq.Core.Shared.Word.Models;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
-using Ngaq.Core.Shared.Word.Models.Po.Learn;
-using Ngaq.Core.Shared.Word.Models.Dto;
-using Ngaq.Core.Shared.Word.Svc;
-using Ngaq.Core.Tools;
+using Ngan.Dict.Core.Shared.User.UserCtx;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
+using Ngan.Dict.Core.Shared.Word.Models.Learn_;
+using Ngan.Dict.Core.Shared.Word.Models;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Learn;
+using Ngan.Dict.Core.Shared.Word.Models.Dto;
+using Ngan.Dict.Core.Shared.Word.Svc;
+using Ngan.Dict.Core.Tools;
 using System.Collections;
-using Ngaq.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
 using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 using Tsinswreng.CsCore;
 using Tsinswreng.CsErr;
-using Ngaq.Core.Frontend.Kv;
-using Ngaq.Core.Shared.StudyPlan.Models.Po.PreFilter;
-using Ngaq.Core.Shared.StudyPlan.Models.PreFilter;
+using Ngan.Dict.Core.Frontend.Kv;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.PreFilter;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.PreFilter;
 using Tsinswreng.CsTempus;
 
 public partial class SvcWord(

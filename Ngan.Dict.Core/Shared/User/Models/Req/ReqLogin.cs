@@ -1,9 +1,9 @@
-using Ngaq.Core.Shared.User.Models.Bo.Device;
-using Ngaq.Core.Shared.User.Models.Po.Device;
-using Ngaq.Core.Infra.IF;
+using Ngan.Dict.Core.Shared.User.Models.Bo.Device;
+using Ngan.Dict.Core.Shared.User.Models.Po.Device;
+using Ngan.Dict.Core.Infra.IF;
 
-namespace Ngaq.Core.Shared.User.Models.Req {
-	using Ngaq.Core.Shared.Base.Models.Req;
+namespace Ngan.Dict.Core.Shared.User.Models.Req {
+	using Ngan.Dict.Core.Shared.Base.Models.Req;
 // [MkFactory(
 // 	For = typeof(ReqLogin)
 // 	,MethodName = "Mk"

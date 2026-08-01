@@ -1,8 +1,8 @@
-using Ngaq.Core.Infra;
-using Ngaq.Core.Shared.RecentUse.Models;
-using Ngaq.Core.Shared.RecentUse.Models.Po.RecentUse;
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Shared.RecentUse.Models;
+using Ngan.Dict.Core.Shared.RecentUse.Models.Po.RecentUse;
 
-namespace Ngaq.Core.Shared.RecentUse.Svc;
+namespace Ngan.Dict.Core.Shared.RecentUse.Svc;
 
 [Doc($"{nameof(PoRecentUse)} 服務介面。")]
 public interface ISvcRecentUse{

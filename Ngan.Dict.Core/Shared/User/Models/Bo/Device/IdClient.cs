@@ -1,6 +1,6 @@
-namespace Ngaq.Core.Shared.User.Models.Po.Device;
+namespace Ngan.Dict.Core.Shared.User.Models.Po.Device;
 
-using Ngaq.Core.Shared.Base.Models.Consts;
+using Ngan.Dict.Core.Shared.Base.Models.Consts;
 using StronglyTypedIds;
 
 [StronglyTypedId(ConstStrongTypeIdTemplate.UInt128)]

@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Tools.Algo;
+namespace Ngan.Dict.Core.Tools.Algo;
 public partial class Algo{
 /**
  * 取差集 支持 Map 和 Set(暫不支持)

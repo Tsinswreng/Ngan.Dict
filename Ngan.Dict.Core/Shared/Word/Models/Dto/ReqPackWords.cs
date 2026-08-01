@@ -1,8 +1,8 @@
 #define Impl
-namespace Ngaq.Core.Shared.Word.Models.Dto;
+namespace Ngan.Dict.Core.Shared.Word.Models.Dto;
 
-using Ngaq.Core.Infra;
-using Ngaq.Core.Shared.Base.Models.Req;
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Shared.Base.Models.Req;
 using Tsinswreng.CsTempus;
 
 public class ReqPackWords : BaseReq, IWordsPackInfo{

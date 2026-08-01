@@ -1,6 +1,6 @@
-namespace Ngaq.Core.Shared.User.UserCtx;
+namespace Ngan.Dict.Core.Shared.User.UserCtx;
 
-using Ngaq.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
 
 
 public partial interface IUserCtx{

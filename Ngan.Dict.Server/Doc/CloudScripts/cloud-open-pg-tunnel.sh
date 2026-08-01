@@ -19,6 +19,6 @@ setsid ssh -f -N \
   -o ExitOnForwardFailure=yes \
   -o StrictHostKeyChecking=no \
   -L "$LOCAL_PORT:$PG_IP:5432" \
-  "$NGAQ_USER@$NGAQ_HOST"
+  "$NGAN.DICT_USER@$NGAN.DICT_HOST"
 
 ss -ltn | grep ":$LOCAL_PORT "

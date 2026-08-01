@@ -1,10 +1,10 @@
-using Ngaq.Core.Shared.Word.Models;
-using Ngaq.Core.Shared.Word.Models.Po.Kv;
-using Ngaq.Core.Infra.Errors;
-using Ngaq.Core.Service.Parser.Model;
-using Ngaq.Core.Word.Parser;
+using Ngan.Dict.Core.Shared.Word.Models;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
+using Ngan.Dict.Core.Infra.Errors;
+using Ngan.Dict.Core.Service.Parser.Model;
+using Ngan.Dict.Core.Word.Parser;
 
-namespace Ngaq.Core.Service.Parser;
+namespace Ngan.Dict.Core.Service.Parser;
 
 
 /// 單詞表文本解析結果轉Bo_Word

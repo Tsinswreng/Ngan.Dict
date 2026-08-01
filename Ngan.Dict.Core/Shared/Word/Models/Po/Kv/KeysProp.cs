@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Shared.Word.Models.Po.Kv;
+namespace Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
 
 
 public partial struct EItemProp(str V){

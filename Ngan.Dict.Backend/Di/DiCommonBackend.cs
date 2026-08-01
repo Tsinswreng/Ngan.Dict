@@ -1,21 +1,21 @@
 using Microsoft.Extensions.DependencyInjection;
-using Ngaq.Core.Shared.Dictionary.Svc;
-using Ngaq.Core.Shared.Kv.Svc;
-using Ngaq.Core.Shared.StudyPlan.Svc;
-using Ngaq.Core.Shared.Word.Svc;
-using Ngaq.Backend.Domains.Dictionary.Svc;
-using Ngaq.Backend.Domains.Kv.Dao;
-using Ngaq.Backend.Domains.Kv.Svc;
-using Ngaq.Backend.Domains.StudyPlan.Dao;
-using Ngaq.Backend.Domains.StudyPlan.Svc;
-using Ngaq.Backend.Domains.Word.Dao;
-using Ngaq.Backend.Domains.Word.Svc;
-using Ngaq.Backend.Word.Dao;
+using Ngan.Dict.Core.Shared.Dictionary.Svc;
+using Ngan.Dict.Core.Shared.Kv.Svc;
+using Ngan.Dict.Core.Shared.StudyPlan.Svc;
+using Ngan.Dict.Core.Shared.Word.Svc;
+using Ngan.Dict.Backend.Domains.Dictionary.Svc;
+using Ngan.Dict.Backend.Domains.Kv.Dao;
+using Ngan.Dict.Backend.Domains.Kv.Svc;
+using Ngan.Dict.Backend.Domains.StudyPlan.Dao;
+using Ngan.Dict.Backend.Domains.StudyPlan.Svc;
+using Ngan.Dict.Backend.Domains.Word.Dao;
+using Ngan.Dict.Backend.Domains.Word.Svc;
+using Ngan.Dict.Backend.Word.Dao;
 using Tsinswreng.CsCore;
 using Microsoft.Extensions.Logging;
-using Ngaq.Core.Infra.Log;
+using Ngan.Dict.Core.Infra.Log;
 
-namespace Ngaq.Backend.Di;
+namespace Ngan.Dict.Backend.Di;
 
 public static class DiCommonBackend{
 	

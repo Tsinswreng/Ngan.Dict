@@ -1,10 +1,10 @@
-using Ngaq.Core.Infra.IF;
-using Ngaq.Core.Shared.Base.Models.Po;
-using Ngaq.Core.Shared.User.Models.Po.User;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Core.Infra.IF;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 using Tsinswreng.CsSql;
 
-namespace Ngaq.Core.Shared.Dictionary.Models.Po.NormLang;
+namespace Ngan.Dict.Core.Shared.Dictionary.Models.Po.NormLang;
 
 [Doc(@$"
 User Defined Normalized Language

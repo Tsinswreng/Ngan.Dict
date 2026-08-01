@@ -1,6 +1,6 @@
-using Ngaq.Core.Iter;
+using Ngan.Dict.Core.Iter;
 
-namespace Ngaq.Core.Tools.Io;
+namespace Ngan.Dict.Core.Tools.Io;
 
 public  partial class StrByteReader: IIterable<u8>{
 	public str Str{get;set;}
@@ -22,9 +22,9 @@ public  partial class StrByteReader: IIterable<u8>{
 
 
 // using System.Collections;
-// using Ngaq.Core.Stream;
+// using Ngan.Dict.Core.Stream;
 
-// namespace Ngaq.Core.Util.Io;
+// namespace Ngan.Dict.Core.Util.Io;
 
 // public  partial class StrByteReader
 // 	:I_Iter<u8>

@@ -1,20 +1,20 @@
-namespace Ngaq.Core.Shared.Word.WeightAlgo;
+namespace Ngan.Dict.Core.Shared.Word.WeightAlgo;
 
 using System.Runtime.CompilerServices;
-using Ngaq.Core.Word.Models;
-using Ngaq.Core.Word.Models.Weight;
-using Ngaq.Core.Word.Svc;
-using Ngaq.Core.Word.WeightAlgo.Models;
+using Ngan.Dict.Core.Word.Models;
+using Ngan.Dict.Core.Word.Models.Weight;
+using Ngan.Dict.Core.Word.Svc;
+using Ngan.Dict.Core.Word.WeightAlgo.Models;
 
 using System.Threading.Channels;
 using System.Threading.Tasks.Dataflow;
-using Ngaq.Core.Infra.Errors;
-using Ngaq.Core.Shared.Word.Models.Learn_;
-using Ngaq.Core.Tools.Json;
+using Ngan.Dict.Core.Infra.Errors;
+using Ngan.Dict.Core.Shared.Word.Models.Learn_;
+using Ngan.Dict.Core.Tools.Json;
 using Tsinswreng.CsErr;
 using Tsinswreng.CsTools;
-using Ngaq.Core.Shared.Word.Models.Weight;
-using Ngaq.Core.Shared.Word.WeightAlgo.Models;
+using Ngan.Dict.Core.Shared.Word.Models.Weight;
+using Ngan.Dict.Core.Shared.Word.WeightAlgo.Models;
 
 [Doc(@$"默認內置權重算法")]
 public partial class DfltWeightCalculator : IWeightCalctr {

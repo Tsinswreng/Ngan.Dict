@@ -3,9 +3,9 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization.Metadata;
-using Ngaq.Core.Infra;
-using Ngaq.Core.Tools.Json;
-namespace Ngaq.Core.Tools;
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Tools.Json;
+namespace Ngan.Dict.Core.Tools;
 
 
 public static class JSON {

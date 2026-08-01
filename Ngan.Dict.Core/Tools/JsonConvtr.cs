@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Tools;
+namespace Ngan.Dict.Core.Tools;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using Tsinswreng.CsTempus;

@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Shared.Word.Models.Learn_;
+namespace Ngan.Dict.Core.Shared.Word.Models.Learn_;
 using System.Diagnostics.CodeAnalysis;
 
 

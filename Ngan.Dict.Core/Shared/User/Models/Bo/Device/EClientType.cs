@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Shared.User.Models.Bo.Device;
+namespace Ngan.Dict.Core.Shared.User.Models.Bo.Device;
 
 //[DoNotRenameMembers("Persistence")]
 //member order changable

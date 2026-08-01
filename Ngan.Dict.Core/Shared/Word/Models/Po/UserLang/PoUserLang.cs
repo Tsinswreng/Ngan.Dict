@@ -1,10 +1,10 @@
-using Ngaq.Core.Shared.Base.Models.Po;
-using Ngaq.Core.Shared.Dictionary.Models;
-using Ngaq.Core.Shared.User.Models.Po.User;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Shared.Dictionary.Models;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 using Tsinswreng.CsSql;
 
-namespace Ngaq.Core.Shared.Word.Models.Po.UserLang;
+namespace Ngan.Dict.Core.Shared.Word.Models.Po.UserLang;
 
 [Doc(@$"
 (這個實體目前基本沒有用處)。

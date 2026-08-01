@@ -11,7 +11,7 @@ trap cleanup_askpass EXIT
 
 run_ssh "
 set -eu
-cd /opt/ngaq-server/deploy
+cd /opt/ngan.dict-server/deploy
 echo '=== web logs ==='
 docker compose -f docker-compose.aot-slim.yml logs --tail=$TAIL_LINES web
 echo

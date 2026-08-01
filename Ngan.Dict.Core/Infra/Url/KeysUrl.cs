@@ -1,7 +1,7 @@
-namespace Ngaq.Core.Infra.Url;
+namespace Ngan.Dict.Core.Infra.Url;
 
-using Ngaq.Core.Tools;
-using static Ngaq.Core.Tools.Url;
+using Ngan.Dict.Core.Tools;
+using static Ngan.Dict.Core.Tools.Url;
 
 
 [Doc(@$"http api url鍵定義。

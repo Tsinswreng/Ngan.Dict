@@ -1,6 +1,6 @@
-using Ngaq.Core.Shared.Word.Models.Learn_;
+using Ngan.Dict.Core.Shared.Word.Models.Learn_;
 
-namespace Ngaq.Core.Word.WeightAlgo.Models;
+namespace Ngan.Dict.Core.Word.WeightAlgo.Models;
 
 
 public partial interface IWeightWord

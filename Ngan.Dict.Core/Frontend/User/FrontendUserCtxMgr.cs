@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Frontend.User;
+namespace Ngan.Dict.Core.Frontend.User;
 public class FrontendUserCtxMgr:
 	IFrontendUserCtxMgr
 {

@@ -1,0 +1,137 @@
+namespace Ngan.Dict.Server.Db.TswG;
+using Tsinswreng.CsTempus;
+using Ngan.Dict.Core.Shared.User.Models.Po.Device;
+using Ngan.Dict.Core.Shared.User.Models.Po.RefreshToken;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Shared.User.Models.Po;
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Model.Po;
+using Ngan.Dict.Core.Model.Po.Role;
+using Ngan.Dict.Core.Model.Sys.Po.Password;
+using Ngan.Dict.Core.Model.Sys.Po.RefreshToken;
+using Ngan.Dict.Core.Models.Sys.Po.Password;
+using Ngan.Dict.Core.Models.Sys.Po.Permission;
+using Ngan.Dict.Core.Models.Sys.Po.Role;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Backend.Db.TswG;
+using Tsinswreng.CsSql;
+using Tsinswreng.CsTools;
+using Ngan.Dict.Core.Shared.User.Models.Bo.Device;
+using Tsinswreng.CsCore;
+using Ngan.Dict.Core.Infra.IF;
+
+public partial class ServerTblMgrIniter{
+
+	public ITblMgr Mgr{get;set;}
+	LocalTblMgrIniter LocalTblMgrIniter;
+	public ServerTblMgrIniter(
+		ITblMgr Mgr
+		,LocalTblMgrIniter LocalTblMgrIniter
+	){
+		this.Mgr = Mgr;
+		this.LocalTblMgrIniter = LocalTblMgrIniter;
+	}
+
+	public static IUpperTypeMapFnT<i64,UnixMs> MapTempus(){
+		return UpperTypeMapFnT<i64, UnixMs>.Mk(
+			raw=>new UnixMs(raw)
+			,tempus=>tempus.Value
+		);
+	}
+
+	public static IUpperTypeMapFnT<i64?,UnixMs?> MapTempusN(){
+		return UpperTypeMapFnT<i64?, UnixMs?>.Mk(
+			val=>val==null?null:new UnixMs(val.Value)
+			,tempus=>tempus?.Value
+		);
+	}
+
+	public ITblSetter<T> Mk<T>(str DbTblName){
+		return LocalTblMgrIniter.Mk<T>(DbTblName);
+	}
+
+	public ITblSetter<T> CfgPoBase<T>(ITblSetter<T> Tbl)
+		where T:IPoBase, new()
+	{
+		return LocalTblMgrIniter.CfgPoBase(Tbl);
+	}
+
+	protected bool _Inited{get;set;} = false;
+
+	public nil Init(){
+		Mgr.AddTbl(new SchemaHistoryTblMkr().MkTbl());
+		LocalTblMgrIniter.Mgr = Mgr;
+		LocalTblMgrIniter.Init();
+
+
+		var TblUser = Mk<PoUser>("User");
+		Mgr.AddTbl(TblUser.Tbl);
+		{
+			var o = TblUser;
+			CfgPoBase(o);
+			LocalTblMgrIniter.CfgBizCreateUpdateTime(o);
+			o.Col(nameof(PoUser.Id)).MapType(IdUser.MkTypeMapFn());
+			var optUxUniqName = new OptMkIdx{
+				Unique = true
+				, Where =
+					o.Tbl.SqlIsNonDel()
+					+ $" AND {o.Tbl.QtCol(nameof(PoUser.UniqName))} IS NOT NULL"
+					+ $" AND {o.Tbl.QtCol(nameof(PoUser.UniqName))} <> ''"
+			};
+			o.Idx(optUxUniqName, [nameof(PoUser.UniqName)]);
+
+			var optUxEmail = new OptMkIdx{Unique = true, Where = o.Tbl.SqlIsNonDel()};
+			o.Idx(optUxEmail, [nameof(PoUser.Email)]);
+		}
+
+		var TblPassword = Mk<PoPassword>("Password");
+		Mgr.AddTbl(TblPassword);
+		{
+			var o = TblPassword;
+			CfgPoBase(o);
+			o.Col(nameof(PoPassword.Id)).MapType(IdPassword.MkTypeMapFn());
+			o.Col(nameof(PoPassword.Algo)).MapEnumToInt32<PoPassword.EAlgo>();
+			o.Col(nameof(PoPassword.UserId)).MapType(IdUser.MkTypeMapFn());
+		}
+
+		var TblRole = Mk<PoRole>("Role");
+		Mgr.AddTbl(TblRole);
+		{
+			var o = TblRole;
+			CfgPoBase(o);
+			o.Col(nameof(PoRole.Id)).MapType(IdRole.MkTypeMapFn());
+			o.Col(nameof(PoRole.Status)).MapEnumToInt32<PoRole.ERoleStatus>();
+			o.Idx(new OptMkIdx{Unique = true}, [nameof(PoRole.Code)]);
+		}
+
+		var TblPermission = Mk<PoPermission>("Permission");
+		Mgr.AddTbl(TblPermission);
+		{
+			var o = TblPermission;
+			CfgPoBase(o);
+			o.Col(nameof(PoPermission.Id)).MapType(IdPermission.MkTypeMapFn());
+			o.Idx(new OptMkIdx{Unique = true}, [nameof(PoPermission.Code)]);
+		}
+
+		var TblRefreshToken = Mk<PoRefreshToken>("RefreshToken");
+		Mgr.AddTbl(TblRefreshToken);
+		{
+			var o = TblRefreshToken;
+			CfgPoBase(o);
+			LocalTblMgrIniter.CfgBizCreateUpdateTime(o);
+			o.Col(nameof(PoRefreshToken.Id)).MapType(IdRefreshToken.MkTypeMapFn());
+			o.Col(nameof(PoRefreshToken.UserId)).MapType(IdUser.MkTypeMapFn());
+			o.Col(nameof(PoRefreshToken.ClientId)).MapType(IdClient.MkTypeMapFn());
+			o.Col(nameof(PoRefreshToken.ExpireAt)).MapType(MapTempus());
+			o.Col(nameof(PoRefreshToken.RevokeAt)).MapType(MapTempus());
+			o.Col(nameof(PoRefreshToken.LastUsedAt)).MapType(MapTempus());
+			o.Col(nameof(PoRefreshToken.TokenValueType)).MapEnumToStr<PoRefreshToken.ETokenValueType>();
+			o.Col(nameof(PoRefreshToken.ClientType)).MapEnumToStr<EClientType>();
+			o.IdxExpr(null, x=>x.UserId);
+
+		}
+
+		_Inited = true;
+		return NIL;
+	}
+}

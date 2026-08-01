@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Ngaq.Backend.Di;
+namespace Ngan.Dict.Backend.Di;
 
 
 // public static class DiTswgSql{

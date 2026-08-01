@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 
 using System.Diagnostics;
-using Ngaq.Core.Service.Parser.Model;
+using Ngan.Dict.Core.Service.Parser.Model;
 
-using I_Iter_u8 = Ngaq.Core.Iter.IIterable<byte>;
-using Ngaq.Core.Word.Parser;
+using I_Iter_u8 = Ngan.Dict.Core.Iter.IIterable<byte>;
+using Ngan.Dict.Core.Word.Parser;
 
 
-namespace Ngaq.Core.Service.Parser;
+namespace Ngan.Dict.Core.Service.Parser;
 
 //靜態多態
 using W = byte;

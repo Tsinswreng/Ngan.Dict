@@ -1,6 +1,6 @@
-using Ngaq.Core.Shared.Word.Models;
+using Ngan.Dict.Core.Shared.Word.Models;
 
-namespace Ngaq.Core.Shared.Sync;
+namespace Ngan.Dict.Core.Shared.Sync;
 [Doc(@$"
 適用于當{nameof(EDiffByBizIdResultForSync.RemoteIsNewer)}時。
 聚合類的比較情況、用于同步。

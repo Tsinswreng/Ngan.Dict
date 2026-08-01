@@ -1,15 +1,15 @@
-using Ngaq.Core.Infra.IF;
-using Ngaq.Core.Shared.StudyPlan.Models;
-using Ngaq.Core.Shared.StudyPlan.Models.Po.PreFilter;
-using Ngaq.Core.Shared.StudyPlan.Models.Po.StudyPlan;
-using Ngaq.Core.Shared.StudyPlan.Models.Po.WeightArg;
-using Ngaq.Core.Shared.StudyPlan.Models.Po.WeightCalculator;
-using Ngaq.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Infra.IF;
+using Ngan.Dict.Core.Shared.StudyPlan.Models;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.PreFilter;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.StudyPlan;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightArg;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightCalculator;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
 
-using Ngaq.Core.Tools;
+using Ngan.Dict.Core.Tools;
 using Tsinswreng.CsSql;
 
-namespace Ngaq.Backend.Db.TswG;
+namespace Ngan.Dict.Backend.Db.TswG;
 public partial class LocalTblMgrIniter{
 	public static ITblMgr InitStudyPlan(ITblMgr Mgr){
 		var Tbl_StudyPlan = Mk<PoStudyPlan>("StudyPlan");

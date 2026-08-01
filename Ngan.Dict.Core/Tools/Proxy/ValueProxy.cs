@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Tools.Proxy;
+namespace Ngan.Dict.Core.Tools.Proxy;
 public class ValueProxy:IFnProxy{
 	public obj? ValueObj{get;set;} = null;
 	public Type? Type = null;

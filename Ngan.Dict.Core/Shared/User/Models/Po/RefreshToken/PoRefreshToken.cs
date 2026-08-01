@@ -1,12 +1,12 @@
-namespace Ngaq.Core.Shared.User.Models.Po.RefreshToken;
+namespace Ngan.Dict.Core.Shared.User.Models.Po.RefreshToken;
 
-using Ngaq.Core.Shared.Base.Models.Po;
-using Ngaq.Core.Shared.User.Models.Bo.Device;
-using Ngaq.Core.Shared.User.Models.Bo.Jwt;
-using Ngaq.Core.Shared.User.Models.Po.Device;
-using Ngaq.Core.Shared.User.Models.Po.User;
-using Ngaq.Core.Model.Sys.Po.RefreshToken;
-using Ngaq.Core.Models.Po;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Shared.User.Models.Bo.Device;
+using Ngan.Dict.Core.Shared.User.Models.Bo.Jwt;
+using Ngan.Dict.Core.Shared.User.Models.Po.Device;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Model.Sys.Po.RefreshToken;
+using Ngan.Dict.Core.Models.Po;
 using System.Security.Cryptography;
 using System.Text;
 using Tsinswreng.CsTempus;

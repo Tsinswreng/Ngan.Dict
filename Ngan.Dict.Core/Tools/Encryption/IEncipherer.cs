@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Tools.Encryption;
+namespace Ngan.Dict.Core.Tools.Encryption;
 
 public interface IEncipherer{
 	public u8[] Encrypt(Span<u8> Data, Span<u8> Key);

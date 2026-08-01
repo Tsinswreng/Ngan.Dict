@@ -1,10 +1,10 @@
-using Ngaq.Core.Service.Parser;
-using Ngaq.Core.Shared.Word;
-using Ngaq.Core.Shared.Word.Models;
-using Ngaq.Core.Shared.Word.Models.Po.Kv;
-using Ngaq.Core.Shared.Word.Models.Po.Learn;
-using Ngaq.Core.Shared.Word.Models.Po.UserLang;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Core.Service.Parser;
+using Ngan.Dict.Core.Shared.Word;
+using Ngan.Dict.Core.Shared.Word.Models;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Learn;
+using Ngan.Dict.Core.Shared.Word.Models.Po.UserLang;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 
 file class DirDoc{
 	str Doc =
@@ -13,7 +13,7 @@ $$"""
 
 ]
 #Descr[
-单词学习系统代码（Ngaq.Core/Shared/Word模块），包含单词模型定义、学习记录管理、权重计算、文本解析、服务接口等
+单词学习系统代码（Ngan.Dict.Core/Shared/Word模块），包含单词模型定义、学习记录管理、权重计算、文本解析、服务接口等
 
 单词聚合根（{{nameof(JnWord)}}）：作为单词的核心聚合根，实现了深克隆、ID重置、按时间/ID对比差异、同步等核心能力。
 - `{{nameof(PoWord)}}`（单词基础信息）

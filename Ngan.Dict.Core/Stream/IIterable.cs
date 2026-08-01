@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Iter;
+namespace Ngan.Dict.Core.Iter;
 
 public partial interface IIterable<out T> {
 	bool HasNext();

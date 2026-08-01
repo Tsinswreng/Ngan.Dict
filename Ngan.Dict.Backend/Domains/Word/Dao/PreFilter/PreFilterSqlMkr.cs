@@ -1,13 +1,13 @@
 using System.Text;
-using Ngaq.Core.Infra;
-using Ngaq.Core.Shared.StudyPlan.Models.PreFilter;
-using Ngaq.Core.Shared.User.Models.Po.User;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
-using Ngaq.Backend.Db.TswG;
+using Ngan.Dict.Core.Infra;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.PreFilter;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Backend.Db.TswG;
 using Tsinswreng.CsSql;
 using Tsinswreng.CsTempus;
-using StudyPreFilter = Ngaq.Core.Shared.StudyPlan.Models.PreFilter.PreFilter;
-namespace Ngaq.Backend.Word.Dao;
+using StudyPreFilter = Ngan.Dict.Core.Shared.StudyPlan.Models.PreFilter.PreFilter;
+namespace Ngan.Dict.Backend.Word.Dao;
 
 public sealed class PreFilterSqlMkr{
 	i32 _prmSeq = 0;

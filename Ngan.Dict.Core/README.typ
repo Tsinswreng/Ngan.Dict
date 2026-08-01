@@ -6,7 +6,7 @@
 - `GlobalUsing.cs`
 - `Infra/`
 - `Models/`
-- `Ngaq.Core.csproj`
+- `Ngan.Dict.Core.csproj`
 - `obj/`
 - `README.typ`
 - `Service/`

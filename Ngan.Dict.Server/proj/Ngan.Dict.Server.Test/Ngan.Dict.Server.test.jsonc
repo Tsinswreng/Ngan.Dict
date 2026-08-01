@@ -1,0 +1,26 @@
+{
+	"Port": 5500,
+	"Db": {
+		"Postgres": {
+			"ConnectionString": "",
+			"Server": "127.0.0.1",
+			"Port": 5432,
+			"Database": "ngan.dict_server_test",
+			"UserId": "postgres",
+			"Password": "Tsinswreng"
+		},
+		"Redis": {
+			"Host": "127.0.0.1",
+			"Port": 6379,
+			"InstanceName": "CsNgan.Dict.Server.Test",
+			"Password": ""
+		}
+	},
+	"Auth": {
+		"JwtSecret": "TsinswrengTsinswrengTsinswrengTsinswrengTsinswrengTsinswrengTsinswrengTsinswrengTsinswreng",
+		"AccessTokenExpiryMs": 1800000,
+		"RefreshTokenExpiryMs": 604800000,
+		"JwtIssuer": "Ngan.Dict.Server.Test",
+		"JwtAudience": "Ngan.Dict.Client.Test"
+	}
+}

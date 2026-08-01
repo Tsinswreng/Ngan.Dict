@@ -1,9 +1,9 @@
-namespace Ngaq.Core.Shared.User.UserCtx;
+namespace Ngan.Dict.Core.Shared.User.UserCtx;
 
-using Ngaq.Core.Infra.Errors;
-using Ngaq.Core.Infra.IF;
-using Ngaq.Core.Shared.User.Models.Po.User;
-using Ngaq.Core.Tools;
+using Ngan.Dict.Core.Infra.Errors;
+using Ngan.Dict.Core.Infra.IF;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Tools;
 using Tsinswreng.CsErr;
 
 public partial class UserCtx

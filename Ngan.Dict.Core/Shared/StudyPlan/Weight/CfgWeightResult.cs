@@ -1,5 +1,5 @@
 #define Impl
-namespace Ngaq.Core.Shared.Word.Models.Weight;
+namespace Ngan.Dict.Core.Shared.Word.Models.Weight;
 
 public partial class OptWeightResult: IOptWeightResult{
 	//ICfgWeight.ESortBy ICfgWeight.SortBy{get;set;}

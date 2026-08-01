@@ -1,9 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
-using Ngaq.Core.Infra;
+using Ngan.Dict.Core.Infra;
 using Tsinswreng.CsSql;
 using Tsinswreng.CsTempus;
 
-namespace Ngaq.Backend.Db.TswG.Migrations;
+namespace Ngan.Dict.Backend.Db.TswG.Migrations;
 using Self = M2026_0428_225820;
 
 /// Local 端新增 StudyPlan 結構的增量遷移。

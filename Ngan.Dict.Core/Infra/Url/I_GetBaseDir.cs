@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Infra.Url;
+namespace Ngan.Dict.Core.Infra.Url;
 
 public interface I_GetBaseDir{
 	

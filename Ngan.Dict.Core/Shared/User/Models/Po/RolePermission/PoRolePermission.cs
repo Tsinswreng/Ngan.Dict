@@ -1,9 +1,9 @@
-namespace Ngaq.Core.Models.Sys.Po.RolePermission;
+namespace Ngan.Dict.Core.Models.Sys.Po.RolePermission;
 
-using Ngaq.Core.Shared.Base.Models.Po;
-using Ngaq.Core.Model.Po.Role;
-using Ngaq.Core.Model.Sys.Po.RolePermission;
-using Ngaq.Core.Models.Sys.Po.Permission;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Model.Po.Role;
+using Ngan.Dict.Core.Model.Sys.Po.RolePermission;
+using Ngan.Dict.Core.Models.Sys.Po.Permission;
 
 public class PoRolePermission
 	:PoBase

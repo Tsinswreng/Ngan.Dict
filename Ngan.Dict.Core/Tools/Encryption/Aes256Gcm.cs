@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Tools.Encryption;
+namespace Ngan.Dict.Core.Tools.Encryption;
 
 using System;
 using System.Security.Cryptography;

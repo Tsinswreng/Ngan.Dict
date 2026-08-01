@@ -1,7 +1,7 @@
-using Ngaq.Core.Shared.StudyPlan.Models.Po.PreFilter;
-using Ngaq.Core.Shared.StudyPlan.Models.PreFilter;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.PreFilter;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.PreFilter;
 
-namespace Ngaq.Core.Shared.StudyPlan.Models;
+namespace Ngan.Dict.Core.Shared.StudyPlan.Models;
 
 public class BoPreFilter{
 	public PoPreFilter PoPreFilter { get; set; } = new();

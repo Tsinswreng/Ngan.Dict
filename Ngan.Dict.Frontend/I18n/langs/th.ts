@@ -306,7 +306,7 @@ const a: TI18nKv = {
 			DictionaryLookupHotkeyModifiers_: "ปุ่มปรับแต่งปุ่มลัดค้นหาพจนานุกรม",
 			DictionaryLookupHotkeyKey: "ปุ่มลัดค้นหาพจนานุกรม",
 			WordEditorOpenerNotReady: "ตัวเปิดแก้ไขคำศัพท์ยังไม่พร้อม",
-			NgaqDictionaryLookup: "ค้นหาพจนานุกรม",
+			Ngan.DictDictionaryLookup: "ค้นหาพจนานุกรม",
 			TapReadClipboardAndAutoLookup: "แตะเพื่ออ่านคลิปบอร์ดและค้นหาอัตโนมัติ",
 			WeightAlgorithmPluginDoc: "เอกสารการพัฒนาปลั๊กอินอัลกอริทึมน้ำหนัก"
 		},//~Common

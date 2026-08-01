@@ -1,6 +1,6 @@
-using Ngaq.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
 
-namespace Ngaq.Core.Models.Sys.Po.Permission;
+namespace Ngan.Dict.Core.Models.Sys.Po.Permission;
 
 
 public class PoPermission

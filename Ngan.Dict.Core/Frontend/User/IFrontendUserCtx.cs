@@ -1,8 +1,8 @@
-namespace Ngaq.Core.Frontend.User;
+namespace Ngan.Dict.Core.Frontend.User;
 
-using Ngaq.Core.Shared.User.Models.Po.Device;
-using Ngaq.Core.Shared.User.Models.Po.User;
-using Ngaq.Core.Shared.User.UserCtx;
+using Ngan.Dict.Core.Shared.User.Models.Po.Device;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Shared.User.UserCtx;
 using Tsinswreng.CsTempus;
 
 

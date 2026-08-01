@@ -1,12 +1,12 @@
-// using Ngaq.Core.Model.Po;
-// using Ngaq.Core.Model.Po.Kv;
-// using Ngaq.Core.Model.Po.Word;
+// using Ngan.Dict.Core.Model.Po;
+// using Ngan.Dict.Core.Model.Po.Kv;
+// using Ngan.Dict.Core.Model.Po.Word;
 // using Tsinswreng.CsDictMapper.Dict;
 // using Tsinswreng.CsDictMapper.Dict.Attributes;
 // using Tsinswreng.CsDictMapper.Dict.CodeGenerator.Ctx;
 
 
-// namespace Ngaq.Core.Test;
+// namespace Ngan.Dict.Core.Test;
 
 
 // public  partial class ClassA{

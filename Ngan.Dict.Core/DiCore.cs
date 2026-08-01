@@ -1,13 +1,13 @@
 using Microsoft.Extensions.DependencyInjection;
-using Ngaq.Core.Shared.User.UserCtx;
-using Ngaq.Core.Infra.Cfg;
-using Ngaq.Core.Tools.Json;
-using Ngaq.Core.Word.Svc;
+using Ngan.Dict.Core.Shared.User.UserCtx;
+using Ngan.Dict.Core.Infra.Cfg;
+using Ngan.Dict.Core.Tools.Json;
+using Ngan.Dict.Core.Word.Svc;
 using Tsinswreng.CsCfg;
-using Ngaq.Core.Shared.Word;
+using Ngan.Dict.Core.Shared.Word;
 using Microsoft.Extensions.Logging;
-using Ngaq.Core.Shared.Word.WeightAlgo;
-namespace Ngaq.Core;
+using Ngan.Dict.Core.Shared.Word.WeightAlgo;
+namespace Ngan.Dict.Core;
 public static class DiCore{
 	public static IServiceCollection SetupCore(this IServiceCollection z){
 		z.AddSingleton<ICfgAccessor>(AppCfg.Inst);

@@ -1,8 +1,8 @@
-namespace Ngaq.Core.Infra.Errors;
+namespace Ngan.Dict.Core.Infra.Errors;
 
 using K = Tsinswreng.CsErr.IErrNode;
 using static Tsinswreng.CsErr.ErrNode;
-using Ngaq.Core.Shared.Word.Models.Po.NormLangToUserLang;
+using Ngan.Dict.Core.Shared.Word.Models.Po.NormLangToUserLang;
 
 [Doc(@$"異常項
 內部類按領域劃分

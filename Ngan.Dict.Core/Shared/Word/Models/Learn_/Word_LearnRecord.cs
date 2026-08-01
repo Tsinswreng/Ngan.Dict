@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Shared.Word.Models.Learn_;
+namespace Ngan.Dict.Core.Shared.Word.Models.Learn_;
 public partial struct Word_LearnRecord{
 	public IWordForLearn Word{get;set;}
 	public LearnRecord LearnRecord{get;set;}

@@ -1,0 +1,12 @@
+namespace Ngan.Dict.Server.Http;
+
+public static class DiWeb{
+	public static IServiceCollection SetupWeb(
+		this IServiceCollection z
+	){
+		//z.AddSingleton<IRouteGroup, RouteGroup>();
+
+		return z;
+	}
+}
+

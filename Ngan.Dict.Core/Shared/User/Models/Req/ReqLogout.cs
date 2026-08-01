@@ -1,6 +1,6 @@
-using Ngaq.Core.Shared.Base.Models.Req;
+using Ngan.Dict.Core.Shared.Base.Models.Req;
 
-namespace Ngaq.Core.Models.Sys.Req;
+namespace Ngan.Dict.Core.Models.Sys.Req;
 
 public partial class ReqLogout:IReq{
 

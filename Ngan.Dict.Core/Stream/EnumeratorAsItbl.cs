@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Iter;
+namespace Ngan.Dict.Core.Iter;
 public partial class EnumeratorAsItbl<T> : IIterable<T> {
 	private readonly IEnumerator<T> _enumerator;
 	private bool _hasNext;

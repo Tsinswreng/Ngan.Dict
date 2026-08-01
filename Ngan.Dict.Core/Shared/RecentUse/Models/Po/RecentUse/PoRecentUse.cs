@@ -1,10 +1,10 @@
-using Ngaq.Core.Infra.IF;
-using Ngaq.Core.Shared.Base.Models.Po;
-using Ngaq.Core.Shared.User.Models.Po.User;
+using Ngan.Dict.Core.Infra.IF;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Core.Shared.User.Models.Po.User;
 using Tsinswreng.CsSql;
 using Tsinswreng.CsTempus;
 
-namespace Ngaq.Core.Shared.RecentUse.Models.Po.RecentUse;
+namespace Ngan.Dict.Core.Shared.RecentUse.Models.Po.RecentUse;
 
 /// 通用「最近使用」記錄。
 /// 一條記錄表示：某用戶在某業務場景下，最近一次使用了某個實體鍵。

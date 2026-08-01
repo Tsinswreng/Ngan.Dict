@@ -1,17 +1,17 @@
-namespace Ngaq.Backend.Word.Dao;
+namespace Ngan.Dict.Backend.Word.Dao;
 
-using Ngaq.Core.Model.Po.Kv;
-using Ngaq.Core.Model.Po.Learn_;
+using Ngan.Dict.Core.Model.Po.Kv;
+using Ngan.Dict.Core.Model.Po.Learn_;
 using Tsinswreng.CsSql;
 using Str_Any = System.Collections.Generic.Dictionary<str, obj?>;
 using IStr_Any = System.Collections.Generic.IDictionary<str, obj?>;
 using Tsinswreng.CsPage;
 using Tsinswreng.CsTools;
-using Ngaq.Backend.Db.TswG;
-using Ngaq.Core.Shared.Word.Models.Po.Kv;
-using Ngaq.Core.Shared.Word.Models.Po.Word;
-using Ngaq.Core.Shared.Word.Models.Po.Learn;
-using Ngaq.Core.Shared.Base.Models.Po;
+using Ngan.Dict.Backend.Db.TswG;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
+using Ngan.Dict.Core.Shared.Word.Models.Po.Learn;
+using Ngan.Dict.Core.Shared.Base.Models.Po;
 using Tsinswreng.CsCore;
 
 public partial class DaoWord(

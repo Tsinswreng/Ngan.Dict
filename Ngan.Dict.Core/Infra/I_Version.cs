@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Infra;
+namespace Ngan.Dict.Core.Infra;
 
 public interface I_ClassVer{
 	public static abstract Version ClassVer{get;}

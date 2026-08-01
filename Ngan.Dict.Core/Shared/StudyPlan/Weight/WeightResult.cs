@@ -1,7 +1,7 @@
 #define Impl
-using Ngaq.Core.Shared.Word.Models.Weight;
+using Ngan.Dict.Core.Shared.Word.Models.Weight;
 
-namespace Ngaq.Core.Word.Models.Weight;
+namespace Ngan.Dict.Core.Word.Models.Weight;
 public partial class WeightResult: IWeightResult{
 	public IOptWeightResult Opt{get;set;}
 	#if Impl

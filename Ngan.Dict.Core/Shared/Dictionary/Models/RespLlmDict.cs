@@ -1,6 +1,6 @@
-using Ngaq.Core.Shared.Base.Models.Resp;
+using Ngan.Dict.Core.Shared.Base.Models.Resp;
 
-namespace Ngaq.Core.Shared.Dictionary.Models;
+namespace Ngan.Dict.Core.Shared.Dictionary.Models;
 
 [Doc(@$"大模型詞典 查詢結果。
 簡易 通用版、不支持按義項區分/獨立例句字段 等

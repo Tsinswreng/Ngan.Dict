@@ -305,7 +305,7 @@ const a: TI18nKv = {
 			DictionaryLookupHotkeyModifiers_: "Modificadores da tecla de atalho para consulta no dicionário",
 			DictionaryLookupHotkeyKey: "Tecla de atalho para consulta no dicionário",
 			WordEditorOpenerNotReady: "O abridor do editor de palavras não está pronto",
-			NgaqDictionaryLookup: "Consulta no dicionário",
+			Ngan.DictDictionaryLookup: "Consulta no dicionário",
 			TapReadClipboardAndAutoLookup: "Toque para ler a área de transferência e consultar automaticamente",
 			WeightAlgorithmPluginDoc: "Documentação do plugin de algoritmo de peso",
 			TakeEffectAfterTheProgramIsRestarted: "Toma efeito após o programa ser reiniciado"

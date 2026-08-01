@@ -1,5 +1,5 @@
 #if false
-// Ngaq JS weight calculator sample.
+// Ngan.Dict JS weight calculator sample.
 // Evaluate this script in Jint; it returns a JSON string.
 
 (function () {
@@ -19,8 +19,8 @@
 		return Number.isFinite(n) ? n : fallback;
 	}
 
-	var words = safeJsonParse(Ngaq.WordsJson ?? "[]", []);
-	var arg = safeJsonParse(Ngaq.CalcArgJson ?? "{}", {});
+	var words = safeJsonParse(Ngan.Dict.WordsJson ?? "[]", []);
+	var arg = safeJsonParse(Ngan.Dict.CalcArgJson ?? "{}", {});
 
 	var baseWeight = toNumber(arg.BaseWeight, 0);
 	var step = toNumber(arg.Step, 1);
@@ -59,13 +59,13 @@
 	});
 })();
 #endif
-using Ngaq.Core.Infra.IF;
-using Ngaq.Core.Shared.Word.Models.Learn_;
-using Ngaq.Core.Shared.Word.Models.Weight;
-using Ngaq.Core.Infra.Errors;
-using Ngaq.Core.Tools.Json;
-using Ngaq.Core.Word.Models.Weight;
-using Ngaq.Core.Word.Svc;
+using Ngan.Dict.Core.Infra.IF;
+using Ngan.Dict.Core.Shared.Word.Models.Learn_;
+using Ngan.Dict.Core.Shared.Word.Models.Weight;
+using Ngan.Dict.Core.Infra.Errors;
+using Ngan.Dict.Core.Tools.Json;
+using Ngan.Dict.Core.Word.Models.Weight;
+using Ngan.Dict.Core.Word.Svc;
 using Jint;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,7 +75,7 @@ using Tsinswreng.CsErr;
 using Tsinswreng.CsTools;
 using Microsoft.Extensions.Logging;
 
-namespace Ngaq.Core.Shared.Word.Svc;
+namespace Ngan.Dict.Core.Shared.Word.Svc;
 
 [Doc(@$"Jint Js引擎 權重算法。Js代碼來自用戶編寫。")]
 public class JsWeightCalctr : IWeightCalctr{
@@ -115,7 +115,7 @@ public class JsWeightCalctr : IWeightCalctr{
 				jsLog = message => Logger.LogInformation("[JsWeightCalctr] {JsLog}", message);
 			}
 
-			engine.SetValue("Ngaq", new {
+			engine.SetValue("Ngan.Dict", new {
 				WordsJson = wordsJson,
 				CalcArgJson = CalcArg is null ? "null" : JsonSerializer.Stringify(CalcArg),
 			});

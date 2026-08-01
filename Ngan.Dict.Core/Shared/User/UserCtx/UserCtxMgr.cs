@@ -1,4 +1,4 @@
-namespace Ngaq.Core.Shared.User.UserCtx;
+namespace Ngan.Dict.Core.Shared.User.UserCtx;
 
 public partial class UserCtxMgr : IUserCtxMgr {
 	[Obsolete]
