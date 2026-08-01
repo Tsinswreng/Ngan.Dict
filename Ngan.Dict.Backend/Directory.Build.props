@@ -1,0 +1,36 @@
+<Project>
+	<PropertyGroup>
+		<AllowMissingPrunePackageData>true</AllowMissingPrunePackageData>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net10.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+		<!-- 如于此開Aot則publish旹報錯 无法推断属性“SelfContained”的运行时标识符。显式指定 rid。 -->
+		<!-- <PublishAot>true</PublishAot> -->
+		<NoWarn>CS1998;</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<!-- 启用 AOT 源生成器 -->
+		<EnableAotCompilation>true</EnableAotCompilation>
+		<!-- 自动生成所有类型的序列化元数据 -->
+		<GenerateSerializationMetadata>true</GenerateSerializationMetadata>
+	</PropertyGroup>
+
+
+	<PropertyGroup>
+		<InterceptorsNamespaces>$(InterceptorsPreviewNamespaces);Microsoft.EntityFrameworkCore.GeneratedInterceptors</InterceptorsNamespaces>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+		<Compile Include="../Tsinswreng.CsTypeAlias/TypeAlias.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="../Ngaq.Core/Ngaq.Core.csproj" />
+	</ItemGroup>
+
+</Project>

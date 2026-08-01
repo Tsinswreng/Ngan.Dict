@@ -1,0 +1,560 @@
+namespace Ngaq.Backend.Word.Dao;
+
+using System.Diagnostics;
+using System.Threading.Tasks;
+using Ngaq.Core.Infra;
+using Ngaq.Core.Infra.IF;
+using Ngaq.Core.Model.Po.Kv;
+using Ngaq.Core.Model.Po.Learn_;
+using Ngaq.Core.Shared.Base.Models.Po;
+using Ngaq.Core.Shared.User.UserCtx;
+using Ngaq.Core.Shared.Word.Models;
+using Ngaq.Core.Shared.Word.Models.Dto;
+using Ngaq.Core.Shared.Word.Models.Po.Kv;
+using Ngaq.Core.Shared.Word.Models.Po.Learn;
+using Ngaq.Core.Shared.Word.Models.Po.Word;
+using Ngaq.Core.Word.Models.Po.Word;
+using Ngaq.Backend.Db.TswG;
+using Tsinswreng.CsCore;
+using Tsinswreng.CsPage;
+using Tsinswreng.CsSql;
+using Tsinswreng.CsTempus;
+using Tsinswreng.CsTools;
+using IStr_Any = System.Collections.Generic.IDictionary<str, obj?>;
+using Str_Any = System.Collections.Generic.Dictionary<str, obj?>;
+
+
+public partial class DaoWord{
+
+
+	
+	
+	public IAsyncEnumerable<JnWord?> BatSlctJnWordByIdWithDel(
+		IDbFnCtx Ctx
+		,IAsyncEnumerable<IdWord> Ids
+		,CT Ct
+	){
+		return RepoWord.OrdGetAggByIdWithDel<JnWord>(Ctx, Ids, Ct);
+	}
+
+	static str SqlFilterDel(
+		ITable Tbl,
+		bool IncludeDel
+	){
+		return IncludeDel
+			? ""
+			: $"AND {Tbl.SqlIsNonDel()}";
+	}
+
+	public async Task<Func<
+		IdWord
+		,IPageQry
+		,CT
+		,Task<IPageAsyE<IStr_Any>>
+	>> FnPageByWordIdOld(
+		IDbFnCtx Ctx
+		,ITable Tbl
+		,OptQry CfgQry
+		,CT Ct
+	){
+		var T = Tbl;
+		var TW = TblMgr.GetTbl<PoWord>();
+		var PWordId = T.Prm(nameof(I_WordId.WordId));
+		var FilterDel = SqlFilterDel(T, CfgQry.IncludeDeleted);
+		var Sql =
+$"""
+SELECT * FROM {Tbl.Qt(Tbl.DbTblName)}
+WHERE 1=1
+{FilterDel}
+AND {T.Eq(PWordId)}
+{Tbl.SqlMkr.ParamLimOfst(out var PLmt, out var POfst)}
+""";
+		var SqlCmd = await Ctx.PrepareToDispose(SqlCmdMkr, Sql, Ct);
+		return async(IdWord, PageQry ,Ct)=>{
+			var Arg = ArgDict.Mk(T)
+			.AddT(PWordId, IdWord)
+			.AddPageQry(PageQry, PLmt, POfst);
+			var DbDict = Ctx.RunCmd(SqlCmd, Arg).AsyE1d(Ct);
+			u64 Cnt = 0;
+			//if(PageQry.HasTotalCount){Cnt = await FnCnt(Ct);}
+			IPageAsyE<IStr_Any> R = new PageAsyE<IStr_Any>{
+				PageQry=PageQry,
+				TotCnt=Cnt,
+				DataAsyE=DbDict,
+			};
+			return R;
+		};
+	}
+
+
+	public async Task<Func<
+		IList<IdWord>
+		,IPageQry
+		,CT
+		,Task<IPageAsyE<IStr_Any>>
+	>> FnPageByWordId(
+		IDbFnCtx Ctx
+		,ITable Tbl
+		,OptQry OptQry
+		,CT Ct
+	){
+		var T = Tbl;
+		var TW = TblMgr.GetTbl<PoWord>();
+		var PWordId = T.Prm(nameof(I_WordId.WordId));
+		var FilterDel = SqlFilterDel(T, OptQry.IncludeDeleted);
+		var numParams = T.NumParamsEndStart(OptQry.InParamCnt);
+		var Sql =
+$"""
+SELECT * FROM {Tbl.Qt(Tbl.DbTblName)}
+WHERE 1=1
+{FilterDel}
+AND {T.QtCol(PWordId)} IN ({str.Join(",", numParams)})
+{Tbl.SqlMkr.ParamLimOfst(out var PLmt, out var POfst)}
+""";
+		var SqlCmd = await Ctx.PrepareToDispose(SqlCmdMkr, Sql, Ct);
+		return async(IdWords, PageQry ,Ct)=>{
+			var Arg = ArgDict.Mk(T)
+			.AddManyT(numParams, IdWords)
+			.AddPageQry(PageQry, PLmt, POfst);
+			var DbDict = Ctx.RunCmd(SqlCmd, Arg).AsyE1d(Ct);
+			u64 Cnt = 0;
+			//if(PageQry.HasTotalCount){Cnt = await FnCnt(Ct);}
+			IPageAsyE<IStr_Any> R = new PageAsyE<IStr_Any>{
+				PageQry=PageQry,
+				TotCnt=Cnt,
+				DataAsyE=DbDict,
+			};
+			return R;
+		};
+	}
+
+
+	public async Task<Func<
+		IList<IdWord>
+		,CT
+		,IAsyncEnumerable<IStr_Any>
+	>> FnScltAllByWordIds(
+		IDbFnCtx Ctx
+		,ITable Tbl
+		,OptQry OptQry
+		,CT Ct
+	){
+
+		var T = Tbl;
+		var TW = TblMgr.GetTbl<PoWord>();
+		var PWordId = T.Prm(nameof(I_WordId.WordId));
+		var FilterDel = SqlFilterDel(T, OptQry.IncludeDeleted);
+		var numParams = T.NumParamsEndStart(OptQry.InParamCnt);
+		var Sql =
+$"""
+SELECT * FROM {Tbl.Qt(Tbl.DbTblName)}
+WHERE 1=1
+{FilterDel}
+AND {T.QtCol(PWordId)} IN ({str.Join(",", numParams)})
+""";
+		var SqlCmd = await Ctx.PrepareToDispose(SqlCmdMkr, Sql, Ct);
+		return (IdWords ,Ct)=>{
+			var Arg = ArgDict.Mk(T)
+			.AddManyT(numParams, IdWords);
+			var DbDict = Ctx.RunCmd(SqlCmd, Arg).AsyE1d(Ct);
+			return DbDict;
+		};
+	}
+
+
+
+
+	public async Task<Func<
+		IUserCtx
+		,IPageQry
+		,CT
+		,Task<IPageAsyE<PoWord>>
+	>> FnPagePoWords(
+		IDbFnCtx Ctx
+		,OptQry CfgQry
+		,CT Ct
+	){
+		var T = TblMgr.GetTbl<PoWord>();
+		var N = new PoWord.N();
+		//var POwner = T.Prm(N.Owner);
+var Sql = T.SqlSplicer().Select("*").From()
+	.Where1()
+	.Raw(SqlFilterDel(T, CfgQry.IncludeDeleted))
+	.And(x=>x.Owner, "=", out var POwner)
+	.OrderByDesc(x=>x.BizCreatedAt)
+	.LimOfst(out var PLim, out var POfst)
+	.ToSqlStr()
+;
+
+		var SqlCmd = await Ctx.PrepareToDispose(SqlCmdMkr, Sql, Ct);
+		var FnCnt = await RepoWord.FnCount(Ctx, Ct);
+		return async(UserCtx, PageQry ,Ct)=>{
+			var Arg = ArgDict.Mk(T)
+			.AddT(POwner, UserCtx.UserId)
+			.AddPageQry(PageQry, PLim, POfst);
+
+			var RawDbDicts = SqlCmd.Args(Arg).AsyE1d(Ct);
+			var PoWords = RawDbDicts.Select(
+				(Raw)=>T.DbDictToEntity<PoWord>(Raw)
+			);
+			var Cnt = PageQry.WantTotCnt?  await FnCnt(Ct)  :  0;
+			IPageAsyE<PoWord> R = new PageAsyE<PoWord>{
+				PageQry = PageQry,
+				TotCnt = Cnt,
+				DataAsyE = PoWords
+			};
+			return R;
+		};
+	}
+
+
+	public async Task<Func<
+		IUserCtx
+		,IPageQry
+		,CT
+		,Task<IPageAsyE<IJnWord>>
+	>> FnPageWordsOld(
+		IDbFnCtx Ctx
+		,OptQry CfgQry
+		,CT Ct
+	){
+		var TK = TblMgr.GetTbl<PoWordProp>();
+		var TL = TblMgr.GetTbl<PoWordLearn>();
+		var PagePoWords = await FnPagePoWords(Ctx, CfgQry, Ct);
+		var PageKvByFKey = await FnPageByWordIdOld(Ctx, TK, CfgQry, Ct);
+		var PageLearnByFKey = await FnPageByWordIdOld(Ctx, TL, CfgQry, Ct);
+
+		return async(UserCtx, PageQry, Ct)=>{
+			var PoWordsPage = await PagePoWords(UserCtx, PageQry, Ct);
+			var R = PageAsyE<IJnWord>.Mk(PageQry, null, true, PoWordsPage.TotCnt);
+			if(PoWordsPage.DataAsyE == null){
+				return R;
+			}
+			var syncPoWordsPage = await PoWordsPage.ToListPage(Ct);//先全部載入內存、否則pg報錯不支持併發查
+
+			async IAsyncEnumerable<IJnWord> fn(
+				IEnumerable<PoWord> poWords
+			){
+				foreach(var PoWord in poWords){
+					var KvPage = await PageKvByFKey(PoWord.Id, TK.PageSlctAll(), Ct);
+					var syncKvPage = await KvPage.ToListPage(Ct);
+					var Kvs = await _PageToList<PoWordProp>(syncKvPage, TK);
+
+					var LearnPage = await PageLearnByFKey(PoWord.Id, TL.PageSlctAll(), Ct);
+					var syncLearnPage = await LearnPage.ToListPage(Ct);
+					var Learns = await _PageToList<PoWordLearn>(syncLearnPage, TL);
+
+					var ua = new JnWord(PoWord, Kvs, Learns);
+					yield return ua;
+				}
+			}
+
+			R.DataAsyE = fn(syncPoWordsPage.Data??[]);
+
+
+#if false // Sqlite支持 但pg不支持在同一个连接上并发执行命令。
+			var JnWordsTasks = PoWordsPage.Data.Select(async (PoWord)=>{
+				try{
+					var KvPage = await PageKvByFKey(PoWord.Id, TK.PageSlctAll(), Ct);
+					var Kvs = await _PageToList<PoWordProp>(KvPage, TK);
+
+					var LearnPage = await PageLearnByFKey(PoWord.Id, TL.PageSlctAll(), Ct);
+					var Learns = await _PageToList<PoWordLearn>(LearnPage, TL);
+
+					var R = new JnWord(PoWord, Kvs, Learns);
+					return R;
+				}
+				catch (System.Exception e){
+					System.Console.Error.WriteLine(e);//t
+					throw;
+				}
+			});
+			R.Data = await Task.WhenAll(JnWordsTasks);
+#endif
+			return R;
+		};
+	}
+
+
+	public async Task<Func<
+		IUserCtx
+		,IPageQry
+		,CT
+		,Task<IPageAsyE<IJnWord>>
+	>> FnPageWords(
+		IDbFnCtx Ctx
+		,OptQry OptQry
+		,CT Ct
+	){
+		var PagePoWords = await FnPagePoWords(Ctx, OptQry, Ct);
+		return async(UserCtx, PageQry, Ct)=>{
+			var PoWordsPage = await PagePoWords(UserCtx, PageQry, Ct);
+			var R = PageAsyE<IJnWord>.Mk(PageQry, null, true, PoWordsPage.TotCnt);
+			if(PoWordsPage.DataAsyE == null){
+				return R;
+			}
+			var syncPoWordsPage = await PoWordsPage.ToListPage(Ct);//先全部載入內存、否則pg報錯不支持併發查
+			await using var batch = new BatchCollector<PoWord, IList<IJnWord>>(async(PoWords, Ct)=>{
+				var Ids = PoWords.Select(x=>x.Id).ToList();
+				var NWordId = nameof(I_WordId.WordId);
+				var optQry2 = OptQry with { InParamCnt = (u64)Ids.Count };
+
+				var propsById = await RepoWord.IncludeEntitysByKeys(Ctx, NWordId, optQry2, Ids, x=>x.WordId , TP, Ct);
+				var learnsById = await RepoWord.IncludeEntitysByKeys(Ctx, NWordId, optQry2, Ids, x=>x.WordId , TL, Ct);
+
+				var result = new List<IJnWord>();
+				foreach(var poWord in PoWords){
+					var p = propsById.GetValueOrDefault(poWord.Id, []);
+					var l = learnsById.GetValueOrDefault(poWord.Id, []);
+					result.Add(new JnWord(poWord, p, l));
+				}
+				return result;
+			});
+			var poWords = syncPoWordsPage.Data??[];
+			var s2d =  batch.AddToEnd(poWords, Ct);
+			R.DataAsyE = s2d.Flat();
+			return R;
+		};
+	}
+
+
+/// 頁查 某時後 改˪ʹ 及 新增ʹ 諸詞 之id
+	public async Task<Func<
+		IUserCtx
+		,IPageQry
+		,UnixMs
+		,CT
+		,Task<IPageAsyE<IdWord>>
+	>> FnPageChangedWordIdsWithDelWordsAfterTime(IDbFnCtx Ctx, CT Ct){
+var T = TblMgr.GetTbl<PoWord>();
+
+IParam PTempus=null!;
+var Sql = T.SqlSplicer()
+.Select(x=>x.Id).From().Where1()
+.And(x=>x.Owner, "=", out var POwner)
+.And().Paren(b=>
+	b.Bool(x=>x.BizUpdatedAt, ">", out var PTempus)
+	.Or().Bool(x=>x.StoredAt, ">", PTempus)
+).LimOfst(out var Lmt, out var Ofst).ToSqlStr();
+
+
+str NId = nameof(PoWord.Id);
+
+// """;//考慮同步後 一方ʃ新增、此旹無UpdatedAt 只有CreatedAt
+		var SqlCmd = await Ctx.PrepareToDispose(SqlCmdMkr, Sql, Ct);
+		return async(UserCtx, PageQry, Tempus, Ct)=>{
+			var RawDictAsy = SqlCmd.AttachCtxTxn(Ctx).Args(ArgDict.Mk(T)
+				.AddT(PTempus, Tempus)
+				.AddT(POwner, UserCtx.UserId)
+				.AddPageQry(PageQry, Lmt, Ofst)
+			).AsyE1d(Ct);
+			var WordIds = RawDictAsy.Select(x => T.RawToUpper<IdWord>(x[NId], NId));
+			var R = PageAsyE<IdWord>.Mk(PageQry, WordIds);
+			R.HasTotCnt = false;
+			return R;
+		};
+	}
+
+	public async Task<Func<
+		IUserCtx
+		,IPageQry
+		,ReqSearchWord
+		,CT
+		,Task<IPageAsyE<IdWord>>
+	>> FnPageSearchWordIdsByHeadPrefixWithDel(IDbFnCtx Ctx, CT Ct){
+var T = TblMgr.GetTbl<PoWord>();
+var N = new PoWord.N();
+var PPrefix = T.Prm("Prefix"); var POwner = T.Prm(N.Owner); var PLang = T.Prm(N.Lang);
+/*
+T.Select(x=>x.Id)
+.And(x=>x.Head, $"LIKE {PPrefix} || '%' ")
+.And(x=>x.Owner, $"={POwner}")
+//also: //.And(x=>x.Owner, "=", out var POwner)
+.OrderBy(x=>x.Head)
+.LimOfst(out var PLim, out var POfst2)
+ */
+
+;
+var Sql =
+$"""
+SELECT {N.Id} FROM {T.DbTblName}
+WHERE 1=1
+AND {T.QtCol(x=>x.Head)} LIKE {PPrefix} || '%'
+AND {T.Eq(POwner)}
+ORDER BY {T.QtCol(N.Head)} ASC
+{T.SqlMkr.ParamLimOfst(out var PLmt, out var POfst)}
+"""; // AND {T.Fld(NLang)} = {PLang}
+		var SqlCmd = await SqlCmdMkr.Prepare(Ctx, Sql, Ct);
+		Ctx?.AddToDispose(SqlCmd);
+		return async(User, PageQry, Req, Ct)=>{
+			var Arg = ArgDict.Mk(T)
+			.AddRaw(PPrefix, Req.RawStr)
+			.AddRaw(PLang, Req.Lang)
+			.AddT(POwner, User.UserId)
+			.AddPageQry(PageQry, PLmt, POfst)
+			;
+			var RawDicts = SqlCmd.AttachCtxTxn(Ctx).Args(Arg).AsyE1d(Ct);
+			var WordIds = RawDicts.Select(d=>{
+				var Id = d[N.Id];
+				return T.RawToUpper<IdWord>(Id, N.Id);
+			});
+			var R = PageAsyE<IdWord>.Mk(PageQry, WordIds);
+			R.HasTotCnt = false;
+			return R;
+		};
+	}
+
+	public async Task<Func<
+		obj
+		,CT
+		,Task<IdWord?>
+	>> FnSlctRootIdByUpperId(IDbFnCtx? Ctx, ITable Tbl, CT Ct){
+var NWordId = nameof(I_WordId.WordId); var NId = nameof(I_Id<nil>.Id);
+var PId = Tbl.Prm(NId);
+
+var Sql =
+$"""
+SELECT {Tbl.QtCol(NWordId)} AS {Tbl.Qt(NWordId)} FROM {Tbl.DbTblName}
+WHERE 1=1
+AND {Tbl.Eq(PId)}
+""";
+		var SqlCmd = await SqlCmdMkr.Prepare(Ctx, Sql, Ct);
+		return async (Id, Ct)=>{
+			var Arg = ArgDict.Mk()
+			.AddRaw(PId, Tbl.UpperToRaw(Id, NId));
+			var RawDicts = await SqlCmd.Args(Arg).All1d(Ct);
+			if(RawDicts.Count == 0){
+				return null;
+			}
+			var RawWordId = RawDicts.First()[NWordId];
+			return Tbl.RawToUpper<IdWord>(RawWordId, NWordId);
+		};
+	}
+
+	public async Task<Func<
+		IdWordProp
+		,CT
+		,Task<IdWord?>
+	>> FnSlctRootIdByPropId(IDbFnCtx? Ctx, CT Ct){
+		var Fn = await FnSlctRootIdByUpperId(Ctx, TblMgr.GetTbl<PoWordProp>(), Ct);
+		return async(PropId, Ct)=>{
+			return await Fn(PropId, Ct);
+		};
+	}
+
+	public async Task<Func<
+		IdWordLearn
+		,CT
+		,Task<IdWord?>
+	>> FnSlctRootIdByLearnId(IDbFnCtx? Ctx, CT Ct){
+		var Fn = await FnSlctRootIdByUpperId(Ctx, TblMgr.GetTbl<PoWordLearn>(), Ct);
+		return async(LearnId, Ct)=>{
+			return await Fn(LearnId, Ct);
+		};
+	}
+
+	public async Task<Func<
+		CT, Task<nil>
+	>> FnTextMultiSelect(IDbFnCtx Ctx, CT Ct){
+		var sqls = new List<str>();
+for(var i = 0; i < 500; i++){
+	sqls.Add($"""
+SELECT "Head", "Lang" FROM "Word" WHERE "Head" = '{i}';
+""");
+}
+var Sql = str.Join("\n", sqls);
+var Cmd = await SqlCmdMkr.Prepare(Ctx, Sql, Ct);
+		return async(Ct)=>{
+			var sw = Stopwatch.StartNew();
+			var R2d = await Cmd.All2d(Ct);
+			sw.Stop();
+			if(R2d is null){return NIL;}
+			foreach(var R1d in R2d){
+				foreach(var Dict in R1d){
+					System.Console.WriteLine(
+						str.Join(",", Dict.Values)
+					);
+				}
+			}
+			//($"耗时 {sw.ElapsedMilliseconds} ms");
+			//System.Console.WriteLine(R2d.Count);
+			return NIL;
+		};
+	}
+
+
+
+
+	public async Task<Func<
+		ReqScltWordsOfLearnResultByTimeInterval
+		,CT, Task<RespScltWordsOfLearnResultByTimeInterval>
+	>> FnScltAddedWordsByTimeInterval(IDbFnCtx Ctx, CT Ct){
+var T = TblMgr.GetTbl<PoWordLearn>();
+var NWordId = nameof(PoWordLearn.WordId);var NLearnResult = nameof(PoWordLearn.LearnResult); var NBizCreatedAt = nameof(PoWordLearn.BizCreatedAt);
+var NStartTime = "StartTime"; var NEndTime = "EndTime"; var NNewWords = "NewWords";
+var PTimeStart = T.Prm("TimeStart");var PTimeEnd = T.Prm("TimeEnd"); var PTimeInterval = T.Prm("TimeInterval");
+var PLearnResult = T.Prm("LearnResult");
+
+var Sql = $"""
+WITH RECURSIVE ts_range AS (
+	-- 1. 先把时间轴切出来
+	SELECT
+		{PTimeStart} AS start_ts,
+		{PTimeStart} + {PTimeInterval} AS end_ts
+	UNION ALL
+	SELECT
+		end_ts,
+		end_ts + {PTimeInterval}
+	FROM ts_range
+	WHERE end_ts < {PTimeEnd}
+),
+first_ AS (
+	-- 2. 每个单词第一次被 $LearnResult 的时间
+	SELECT
+		WordId,
+		MIN({T.QtCol(NBizCreatedAt)}) AS first_ts
+	FROM {T.Qt(T.DbTblName)}
+	WHERE {T.QtCol(NLearnResult)} = {PLearnResult}
+	AND {T.QtCol(NBizCreatedAt)} >= {PTimeStart}          -- 只关心 tFrom 之后
+	GROUP BY {T.QtCol(NWordId)}
+)
+-- 3. 把单词落到对应区间里计数
+SELECT
+	r.start_ts as {T.Qt(NStartTime)},
+	r.end_ts as {T.Qt(NEndTime)},
+	COUNT(f.{T.QtCol(NWordId)}) AS {T.Qt(NNewWords)}
+FROM ts_range r
+LEFT JOIN first_ f
+	ON f.first_ts >= r.start_ts
+	AND f.first_ts <  r.end_ts
+GROUP BY r.start_ts, r.end_ts
+ORDER BY r.start_ts --DESC
+{T.SqlMkr.ParamLimOfst(out var Lmt, out var Ofst)}
+;
+""";
+var Cmd = await SqlCmdMkr.Prepare(Ctx, Sql, Ct);
+		return async(Req, Ct)=>{
+			var Arg = ArgDict.Mk(T)
+			.AddT(PTimeStart, Req.TimeStart)
+			.AddT(PTimeEnd, Req.TimeEnd)
+			.AddT(PTimeInterval, Req.TimeInterval)
+			.AddT(PLearnResult, Req.LearnResult)
+			.AddPageQry(Req.PageQry, Lmt, Ofst);
+			var RawDicts = Cmd.AttachCtxTxn(Ctx).Args(Arg).AsyE1d(Ct);
+			var Intervals = RawDicts.Select(x=>{
+				return new TimeIntervalCnt{
+					TimeStart = new UnixMs(Convert.ToInt64(x[NStartTime])),
+					TimeEnd = new UnixMs(Convert.ToInt64(x[NEndTime])),
+					Cnt = Convert.ToInt64(x[NNewWords])
+				};
+			});
+			//Req.PageQry,
+			var RPage = PageAsyE<TimeIntervalCnt>.Mk(Req.PageQry, Intervals, false);
+			var R = new RespScltWordsOfLearnResultByTimeInterval{
+				IntervalPage = RPage
+			};
+			return R;
+		};
+	}
+
+}

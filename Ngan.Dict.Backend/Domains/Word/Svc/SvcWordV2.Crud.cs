@@ -1,0 +1,495 @@
+namespace Ngaq.Backend.Domains.Word.Svc;
+
+using System.Runtime.CompilerServices;
+using Ngaq.Backend.Domains.Word.Dao;
+using Ngaq.Core.Infra;
+using Ngaq.Core.Infra.Errors;
+using Ngaq.Core.Model.Po.Kv;
+using Ngaq.Core.Model.Po.Learn_;
+using Ngaq.Core.Shared.Base.Models.Po;
+using Ngaq.Core.Shared.Dictionary.Models;
+using Ngaq.Core.Shared.User.Models.Po.User;
+using Ngaq.Core.Shared.Word.Models;
+using Ngaq.Core.Shared.Word.Models.Dto;
+using Ngaq.Core.Shared.Word.Models.Learn_;
+using Ngaq.Core.Shared.Word.Models.Po.Kv;
+using Ngaq.Core.Shared.Word.Models.Po.Learn;
+using Ngaq.Core.Shared.Word.Models.Po.Word;
+using Ngaq.Core.Shared.Word.Svc;
+using Ngaq.Core.Tools;
+using Tsinswreng.CsErr;
+using Tsinswreng.CsSql;
+using Tsinswreng.CsTempus;
+using Tsinswreng.CsTools;
+
+public partial class SvcWordV2
+{
+	public async Task<nil> OrdAddNewLearnRecord(
+		IDbUserCtx Ctx
+		,IAsyncEnumerable<PoWordLearn> PoWordLearnAsyE, CT Ct
+	){
+		return await SqlCmdMkr.EnsureTxn(Ctx.DbFnCtx, Ct, async(DbCtx)=>{
+			await using var Batch = new BatchCollector<PoWordLearn, nil>(async(Learns, Ct)=>{
+				var DistinctIds = DistinctWordIds(Learns.Select(x=>x.WordId).ToList());
+				if(DistinctIds.Count == 0){
+					return NIL;
+				}
+				await EnsureOwner(DbCtx, Ctx.UserCtx.UserId, DistinctIds, Ct);
+				await RepoLearn.OrdAdd(DbCtx, ToAsyE(Learns), Ct);
+				await DaoWordV2.BatAltWordAfterUpd(DbCtx, ToAsyE(DistinctIds), Ct);
+				return NIL;
+			});
+
+			await foreach(var One in PoWordLearnAsyE){
+				await Batch.Add(One, Ct);
+			}
+			await Batch.End(Ct);
+			return NIL;
+		});
+	}
+	
+	public async Task<nil> SoftDelJnWordInId(
+		IDbUserCtx Ctx,
+		IAsyncEnumerable<IdWord> Ids, CT Ct
+	){
+		return await SqlCmdMkr.EnsureTxn(Ctx.DbFnCtx, Ct, async(DbCtx)=>{
+			await using var Batch = new BatchCollector<IdWord, nil>(async(IdBatch, Ct)=>{
+				var DistinctIds = DistinctWordIds(IdBatch);
+				if(DistinctIds.Count == 0){
+					return NIL;
+				}
+				await EnsureOwner(DbCtx, Ctx.UserCtx.UserId, DistinctIds, Ct);
+				await RepoWord.SoftDelAggInId<JnWord>(DbCtx, ToAsyE(DistinctIds), Ct);
+				return NIL;
+			});
+
+			await foreach(var One in Ids){
+				await Batch.Add(One, Ct);
+			}
+			await Batch.End(Ct);
+			return NIL;
+		});
+	}
+
+	/// 只軟刪聚合根，不動資產刪除狀態。
+	public async Task<nil> SoftDelPoWordInId(
+		IDbUserCtx Ctx,
+		IAsyncEnumerable<IdWord> Ids, CT Ct
+	){
+		return await SqlCmdMkr.EnsureTxn(Ctx.DbFnCtx, Ct, async(DbCtx)=>{
+			await using var Batch = new BatchCollector<IdWord, nil>(async(IdBatch, Ct)=>{
+				var DistinctIds = DistinctWordIds(IdBatch);
+				if(DistinctIds.Count == 0){
+					return NIL;
+				}
+				await EnsureOwner(DbCtx, Ctx.UserCtx.UserId, DistinctIds, Ct);
+				await RepoWord.OrdSoftDelById(DbCtx, ToAsyE(DistinctIds), Ct);
+				return NIL;
+			});
+
+			await foreach(var One in Ids){
+				await Batch.Add(One, Ct);
+			}
+			await Batch.End(Ct);
+			return NIL;
+		});
+	}
+
+	/// 清理當前用戶詞庫中全部已軟刪除數據（根詞與資產）。
+	public async Task<nil> HardDelSoftDeleted(IDbUserCtx Ctx, CT Ct){
+		return await SqlCmdMkr.EnsureTxn(Ctx.DbFnCtx, Ct, async(DbCtx)=>{
+			return await DaoWordV2.HardDelSoftDeletedByOwner(DbCtx, Ctx.UserCtx.UserId, Ct);
+		});
+	}
+
+	async Task<nil> EnsureOwner(
+		IDbFnCtx Ctx
+		,IdUser UserId
+		,IReadOnlyList<IdWord> Ids
+		,CT Ct
+	){
+		var Got = DaoWordV2.BatGetPoWordByIdWithDel(Ctx, ToAsyE(Ids), Ct);
+		var i = 0;
+		await foreach(var Po in Got){
+			if(i >= Ids.Count){
+				break;
+			}
+			var Id = Ids[i];
+			if(Po is null || Po.Owner != UserId){
+				throw KeysErr.Word.__And__IsNotSameUserWord.ToErr(Id, UserId);
+			}
+			i++;
+		}
+
+		if(i != Ids.Count){
+			throw KeysErr.Word.__And__IsNotSameUserWord.ToErr(UserId);
+		}
+		return NIL;
+	}
+
+	public async Task<JnWord> LlmDictWordToJnWord(IDbUserCtx Ctx, IReqLlmDict Req, IRespLlmDict LlmDict, CT Ct){
+		var SrcLang = Req.OptLang.SrcLang;
+		var NormLangType = SrcLang.Type == ELangIdentType.Unknown ? ELangIdentType.Bcp47 : SrcLang.Type;
+		var NormLangCode = string.IsNullOrWhiteSpace(SrcLang.Code) ? "en" : SrcLang.Code.Trim();
+		var Lang = await ResolveUserLangByNormLang(Ctx, NormLangType, NormLangCode, Ct);
+		var Now = UnixMs.Now();
+
+		var R = new JnWord{
+			Word = new PoWord{
+				Owner = Ctx.UserCtx.UserId,
+				Head = (LlmDict.Head ?? "").Trim(),
+				Lang = Lang,
+				StoredAt = Now,
+				BizCreatedAt = Now,
+				BizUpdatedAt = Now,
+			},
+			Props = [],
+			Learns = [],
+		};
+
+		AppendDescrProps(R.Props, LlmDict.Descrs, Now);
+		AppendPronunciationProps(R.Props, LlmDict.Pronunciations, Now);
+		R.EnsureForeignId();
+		return R;
+	}
+	
+	public async Task<JnWord> LlmDictWordToJnWordWithLearn(
+		IDbUserCtx Ctx
+		,IReqLlmDict Req
+		,IRespLlmDict LlmDict, CT Ct
+	){
+		var Jnword = await LlmDictWordToJnWord(Ctx, Req, LlmDict, Ct);
+		var learn = new PoWordLearn{
+			WordId = Jnword.Word.Id,
+			LearnResult = ELearn.Add,
+			BizCreatedAt = UnixMs.Now(),
+		};
+		Jnword.Learns.Add(learn);
+		return Jnword;
+	}
+
+	/// 批量新增整詞聚合。先統一 Owner，再確保資產外鍵指向聚合根。
+	public Task<nil> OrdAddJnWord(IDbUserCtx Ctx, IAsyncEnumerable<JnWord> Words, CT Ct){
+		return SqlCmdMkr.EnsureTxn(Ctx.DbFnCtx, Ct, async(DbCtx)=>{
+			var owner = Ctx.UserCtx.UserId;
+			var normalized = Words.Select(w=>{
+				w.Owner = owner;
+				w.EnsureForeignId();
+				return w;
+			});
+			try{
+				await RepoWord.OrdAddAgg<JnWord>(DbCtx, normalized, Ct);
+			}catch(Exception e){
+				throw KeysErr.Common.DataIllegalOrConflict.ToErr(e.Message);
+			}
+			return NIL;
+		});
+	}
+
+	/// 批量更新屬性資產。需先校驗全部屬性所屬單詞的 Owner。
+	public Task<nil> OrdUpdWordProp(IDbUserCtx Ctx, IAsyncEnumerable<PoWordProp> WordProps, CT Ct){
+		return SqlCmdMkr.EnsureTxn(Ctx.DbFnCtx, Ct, async(DbCtx)=>{
+			await using var batch = new BatchCollector<PoWordProp, nil>(async(propBatch, Ct)=>{
+				if(propBatch.Count == 0){
+					return NIL;
+				}
+				var wordIds = DistinctWordIds(propBatch.Select(x=>x.WordId).ToList());
+				if(wordIds.Count == 0){
+					return NIL;
+				}
+				await EnsureOwner(DbCtx, Ctx.UserCtx.UserId, wordIds, Ct);
+				await RepoProp.OrdUpd(DbCtx, ToAsyE(propBatch), Ct);
+				await DaoWordV2.BatAltWordAfterUpd(DbCtx, ToAsyE(wordIds), Ct);
+				return NIL;
+			});
+			await batch.ConsumeAll(WordProps, Ct);
+			return NIL;
+		});
+	}
+
+	/// 批量軟刪屬性資產，並觸碰其聚合根 BizUpdatedAt。
+	public Task<nil> DelWordPropInId(IDbUserCtx Ctx, IAsyncEnumerable<IdWordProp> Ids, CT Ct){
+		return SqlCmdMkr.EnsureTxn(Ctx.DbFnCtx, Ct, async(DbCtx)=>{
+			await using var batch = new BatchCollector<IdWordProp, nil>(async(idBatch, Ct)=>{
+				if(idBatch.Count == 0){
+					return NIL;
+				}
+				var props = await RepoProp.OrdGetByIdWithDel(DbCtx, ToAsyE(idBatch), Ct).ToListAsync(Ct);
+				var wordIds = DistinctWordIds(props.Where(x=>x is not null).Select(x=>x!.WordId).ToList());
+				if(wordIds.Count > 0){
+					await EnsureOwner(DbCtx, Ctx.UserCtx.UserId, wordIds, Ct);
+				}
+				await RepoProp.SoftDelInId(DbCtx, ToAsyE(idBatch), Ct);
+				if(wordIds.Count > 0){
+					await DaoWordV2.BatAltWordAfterUpd(DbCtx, ToAsyE(wordIds), Ct);
+				}
+				return NIL;
+			});
+			await batch.ConsumeAll(Ids, Ct);
+			return NIL;
+		});
+	}
+
+	/// 批量軟刪學習資產，並觸碰其聚合根 BizUpdatedAt。
+	public Task<nil> DelWordLearnInId(IDbUserCtx Ctx, IAsyncEnumerable<IdWordLearn> Ids, CT Ct){
+		return SqlCmdMkr.EnsureTxn(Ctx.DbFnCtx, Ct, async(DbCtx)=>{
+			await using var batch = new BatchCollector<IdWordLearn, nil>(async(idBatch, Ct)=>{
+				if(idBatch.Count == 0){
+					return NIL;
+				}
+				var learns = await RepoLearn.OrdGetByIdWithDel(DbCtx, ToAsyE(idBatch), Ct).ToListAsync(Ct);
+				var wordIds = DistinctWordIds(learns.Where(x=>x is not null).Select(x=>x!.WordId).ToList());
+				if(wordIds.Count > 0){
+					await EnsureOwner(DbCtx, Ctx.UserCtx.UserId, wordIds, Ct);
+				}
+				await RepoLearn.SoftDelInId(DbCtx, ToAsyE(idBatch), Ct);
+				if(wordIds.Count > 0){
+					await DaoWordV2.BatAltWordAfterUpd(DbCtx, ToAsyE(wordIds), Ct);
+				}
+				return NIL;
+			});
+			await batch.ConsumeAll(Ids, Ct);
+			return NIL;
+		});
+	}
+
+	/// 先按 Head/Lang 需要時遷移目標詞，再更新其餘字段。
+	public Task<IAsyncEnumerable<RespUpdPoWord>> OrdUpdPoWord(IDbUserCtx Ctx, IAsyncEnumerable<PoWord> PoWords, CT Ct){
+		return SqlCmdMkr.EnsureTxn(Ctx.DbFnCtx, Ct, async(DbCtx)=>{
+			var results = new List<RespUpdPoWord>();
+			await foreach(var arg in PoWords.WithCancellation(Ct)){
+				var old = await DaoWordV2.BatGetPoWordByIdWithDel(DbCtx, ToAsyE([arg.Id]), Ct).FirstOrDefaultAsync(Ct);
+				if(old is null){
+					throw KeysErr.Word.WordOfId__NotFound.ToErr(arg.Id);
+				}
+				old.CheckOwner(Ctx.UserCtx.UserId);
+
+				var hasUpdatedBizId = old.Head != arg.Head || old.Lang != arg.Lang;
+				IdWord finalId = arg.Id;
+				RespUpdBizId? respUpdBizId = null;
+				if(hasUpdatedBizId){
+					var headLangR = await BatUpdHeadLangCore(DbCtx, Ctx.UserCtx.UserId, ToAsyE([arg]), Ct);
+					if(headLangR.Count > 0){
+						respUpdBizId = headLangR[0];
+						finalId = respUpdBizId.FinalId;
+					}
+				}
+
+				var upd = new Dictionary<str, obj?>{
+					[nameof(PoWord.Owner)] = Ctx.UserCtx.UserId,
+					[nameof(PoWord.StoredAt)] = arg.StoredAt,
+					[nameof(PoWord.BizCreatedAt)] = arg.BizCreatedAt,
+					[nameof(PoWord.BizUpdatedAt)] = arg.BizUpdatedAt,
+				};
+				await RepoWord.OrdUpdByCodeDict(DbCtx, ToAsyE([finalId]), ToAsyE([upd]), Ct);
+				await DaoWordV2.BatAltWordAfterUpd(DbCtx, ToAsyE([finalId]), Ct);
+				results.Add(new RespUpdPoWord{
+					HasUpdatedBizId = hasUpdatedBizId,
+					RespUpdBizId = respUpdBizId,
+					FinalId = finalId,
+				});
+			}
+			return ToAsyE(results);
+		});
+	}
+
+	/// 批量改主鍵，並同步遷移資產外鍵。
+	public Task<nil> OrdChangeId(IDbUserCtx Ctx, IAsyncEnumerable<(IdWord Old, IdWord New)> Ids, CT Ct){
+		return SqlCmdMkr.EnsureTxn(Ctx.DbFnCtx, Ct, async(DbCtx)=>{
+			await using var batch = new BatchCollector<(IdWord Old, IdWord New), nil>(async(idBatch, Ct)=>{
+				var moves = idBatch.Where(x=>x.Old != x.New).ToList();
+				if(moves.Count == 0){
+					return NIL;
+				}
+
+				// step 1: 檢查 old 一定存在且屬於當前用戶；new 不能已存在於庫中。
+				foreach(var (oldId, newId) in moves){
+					var old = await DaoWordV2.BatGetPoWordByIdWithDel(DbCtx, ToAsyE([oldId]), Ct).FirstOrDefaultAsync(Ct);
+					if(old is null){
+						throw KeysErr.Word.WordOfId__NotFound.ToErr(oldId);
+					}
+					old.CheckOwner(Ctx.UserCtx.UserId);
+
+					var neo = await DaoWordV2.BatGetPoWordByIdWithDel(DbCtx, ToAsyE([newId]), Ct).FirstOrDefaultAsync(Ct);
+					if(neo is not null){
+						throw KeysErr.Common.DataIllegalOrConflict.ToErr(oldId, newId);
+					}
+				}
+
+				// step 2: 主鍵與資產外鍵一併遷移。
+				await DaoWordV2.BatChangeWordId(DbCtx, ToAsyE(moves), Ct);
+				return NIL;
+			});
+			await batch.ConsumeAll(Ids, Ct);
+			return NIL;
+		});
+	}
+
+	/// 批量更新 Head/Lang，遇到衝突時按接口注釋要求做資產合併。
+	public async IAsyncEnumerable<RespUpdBizId> OrdUpdHeadLang(
+		IDbUserCtx Ctx,
+		IAsyncEnumerable<PoWord> PoWords,
+		[EnumeratorCancellation] CT Ct
+	){
+		var r = await SqlCmdMkr.EnsureTxn(Ctx.DbFnCtx, Ct, async(DbCtx)=>{
+			return await BatUpdHeadLangCore(DbCtx, Ctx.UserCtx.UserId, PoWords, Ct);
+		});
+		foreach(var one in r){
+			yield return one;
+		}
+	}
+
+	async Task<List<RespUpdBizId>> BatUpdHeadLangCore(
+		IDbFnCtx DbCtx,
+		IdUser UserId,
+		IAsyncEnumerable<PoWord> PoWords,
+		CT Ct
+	){
+		await using var batch = new BatchCollector<PoWord, IList<RespUpdBizId>>(async(args, Ct)=>{
+			if(args.Count == 0){
+				return [];
+			}
+
+			// step 1: 批量查當前 Id 對應的舊詞，按位置對齊校驗存在與權限。
+			var inputIds = args.Select(x=>x.Id).ToList();
+			var wordsOfId = await DaoWordV2.BatGetPoWordByIdWithDel(DbCtx, ToAsyE(inputIds), Ct).ToListAsync(Ct);
+			// step 2: 批量查目標 (Head,Lang) 對應詞（含軟刪），後續按索引一一處理。
+			var keys = args.Select(x=>new Head_Lang(x.Head, x.Lang)).ToList();
+			var targets = await DaoWordV2.BatGetPoWordByOwnerHeadLangWithDel(DbCtx, UserId, ToAsyE(keys), Ct).ToListAsync(Ct);
+
+			var r = new List<RespUpdBizId>(args.Count);
+			var updHeadLangArgs = new List<(IdWord Id, str Head, str Lang)>();
+			var restoreIds = new List<IdWord>();
+			var softDelIds = new List<IdWord>();
+			var moveAssetsArgs = new List<(IdWord Old, IdWord New)>();
+			var touchIds = new List<IdWord>();
+
+			for(var i = 0; i < args.Count; i++){
+				var arg = args[i];
+				var wordOfId = wordsOfId[i];
+				if(wordOfId is null){
+					throw KeysErr.Word.WordOfId__NotFound.ToErr(arg.Id);
+				}
+				wordOfId.CheckOwner(UserId);
+
+				if(wordOfId.Head == arg.Head && wordOfId.Lang == arg.Lang){
+					r.Add(new RespUpdBizId{
+						Result = EUpdBizIdResult.BizIdAlreadyEqual,
+						FinalId = wordOfId.Id,
+					});
+					continue;
+				}
+
+				var target = targets[i];
+				if(target is null){
+					updHeadLangArgs.Add((wordOfId.Id, arg.Head, arg.Lang));
+					r.Add(new RespUpdBizId{
+						Result = EUpdBizIdResult.DataOfBizIdNotExist,
+						FinalId = wordOfId.Id,
+					});
+					continue;
+				}
+
+				if(!target.DelAt.IsNullOrDefault()){
+					restoreIds.Add(target.Id);
+				}
+
+				// step 3: 目標已存在時，按規則軟刪舊詞並遷移資產。
+				softDelIds.Add(wordOfId.Id);
+				moveAssetsArgs.Add((wordOfId.Id, target.Id));
+				touchIds.Add(wordOfId.Id);
+				touchIds.Add(target.Id);
+				r.Add(new RespUpdBizId{
+					Result = EUpdBizIdResult.BizIdNotEqual,
+					FinalId = target.Id,
+				});
+			}
+
+			if(updHeadLangArgs.Count > 0){
+				await DaoWordV2.BatUpdHeadLangById(DbCtx, ToAsyE(updHeadLangArgs), Ct);
+			}
+			if(restoreIds.Count > 0){
+				await DaoWordV2.BatRestoreInId(DbCtx, ToAsyE(restoreIds.Distinct()), Ct);
+			}
+			if(softDelIds.Count > 0){
+				await RepoWord.OrdSoftDelById(DbCtx, ToAsyE(softDelIds.Distinct()), Ct);
+			}
+			if(moveAssetsArgs.Count > 0){
+				await DaoWordV2.BatMoveAssetsToWordId(DbCtx, ToAsyE(moveAssetsArgs), Ct);
+			}
+			if(touchIds.Count > 0){
+				await DaoWordV2.BatAltWordAfterUpd(DbCtx, ToAsyE(touchIds.Distinct()), Ct);
+			}
+			return r;
+		});
+
+		var ans = await batch.ConsumeAll(PoWords, Ct);
+		return ans.SelectMany(x=>x).ToList();
+	}
+	
+	/// 批量新增屬性資產。需先校驗全部屬性所屬單詞的 Owner。
+	public Task<nil> OrdAddWordProp(IDbUserCtx Ctx, IAsyncEnumerable<PoWordProp> WordProps, CT Ct){
+		return SqlCmdMkr.EnsureTxn(Ctx.DbFnCtx, Ct, async(DbCtx)=>{
+			await using var batch = new BatchCollector<PoWordProp, nil>(async(propBatch, Ct)=>{
+				if(propBatch.Count == 0){
+					return NIL;
+				}
+				var wordIds = DistinctWordIds(propBatch.Select(x=>x.WordId).ToList());
+				if(wordIds.Count == 0){
+					return NIL;
+				}
+				await EnsureOwner(DbCtx, Ctx.UserCtx.UserId, wordIds, Ct);
+				await RepoProp.OrdAdd(DbCtx, ToAsyE(propBatch), Ct);
+				await DaoWordV2.BatAltWordAfterUpd(DbCtx, ToAsyE(wordIds), Ct);
+				return NIL;
+			});
+			await batch.ConsumeAll(WordProps, Ct);
+			return NIL;
+		});
+	}
+
+	/// 批量新增學習資產。需先校驗全部學習記錄所屬單詞的 Owner。
+	public Task<nil> OrdAddWordLearn(IDbUserCtx Ctx, IAsyncEnumerable<PoWordLearn> WordLearns, CT Ct){
+		return SqlCmdMkr.EnsureTxn(Ctx.DbFnCtx, Ct, async(DbCtx)=>{
+			await using var batch = new BatchCollector<PoWordLearn, nil>(async(learnBatch, Ct)=>{
+				if(learnBatch.Count == 0){
+					return NIL;
+				}
+				var wordIds = DistinctWordIds(learnBatch.Select(x=>x.WordId).ToList());
+				if(wordIds.Count == 0){
+					return NIL;
+				}
+				await EnsureOwner(DbCtx, Ctx.UserCtx.UserId, wordIds, Ct);
+				await RepoLearn.OrdAdd(DbCtx, ToAsyE(learnBatch), Ct);
+				await DaoWordV2.BatAltWordAfterUpd(DbCtx, ToAsyE(wordIds), Ct);
+				return NIL;
+			});
+			await batch.ConsumeAll(WordLearns, Ct);
+			return NIL;
+		});
+	}
+
+	/// 批量更新學習資產。需先校驗全部學習記錄所屬單詞的 Owner。
+	public Task<nil> OrdUpdWordLearn(IDbUserCtx Ctx, IAsyncEnumerable<PoWordLearn> WordLearns, CT Ct){
+		return SqlCmdMkr.EnsureTxn(Ctx.DbFnCtx, Ct, async(DbCtx)=>{
+			await using var batch = new BatchCollector<PoWordLearn, nil>(async(learnBatch, Ct)=>{
+				if(learnBatch.Count == 0){
+					return NIL;
+				}
+				var wordIds = DistinctWordIds(learnBatch.Select(x=>x.WordId).ToList());
+				if(wordIds.Count == 0){
+					return NIL;
+				}
+				await EnsureOwner(DbCtx, Ctx.UserCtx.UserId, wordIds, Ct);
+				await RepoLearn.OrdUpd(DbCtx, ToAsyE(learnBatch), Ct);
+				await DaoWordV2.BatAltWordAfterUpd(DbCtx, ToAsyE(wordIds), Ct);
+				return NIL;
+			});
+			await batch.ConsumeAll(WordLearns, Ct);
+			return NIL;
+		});
+	}
+
+	
+	
+}
