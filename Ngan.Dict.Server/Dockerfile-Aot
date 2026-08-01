@@ -1,0 +1,46 @@
+# pwd=倉庫根目錄
+# docker build -t ngaq-server:aot -f ./Ngaq.Server/Dockerfile-Aot .
+
+# syntax=docker/dockerfile:1
+
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+WORKDIR /src
+
+# Native AOT toolchain
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    clang \
+    zlib1g-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Restore requires the full local project dependency chain.
+COPY ["Ngaq.Core/", "Ngaq.Core/"]
+COPY ["Ngaq.Backend/", "Ngaq.Backend/"]
+COPY ["Ngaq.Server/", "Ngaq.Server/"]
+COPY ["Tsinswreng.CsCore/", "Tsinswreng.CsCore/"]
+COPY ["Tsinswreng.CsIfaceGen/", "Tsinswreng.CsIfaceGen/"]
+COPY ["Tsinswreng.CsSql/", "Tsinswreng.CsSql/"]
+COPY ["Tsinswreng.CsTypeAlias/", "Tsinswreng.CsTypeAlias/"]
+COPY ["Tsinswreng.CsYamlMd/", "Tsinswreng.CsYamlMd/"]
+COPY ["Tsinswreng.Srefl/", "Tsinswreng.Srefl/"]
+
+RUN dotnet restore "Ngaq.Server/proj/Ngaq.Server.Http/Ngaq.Server.Http.csproj"
+
+# This image is for the backend only; exclude bundled frontend static assets.
+RUN rm -rf "Ngaq.Server/proj/Ngaq.Server.Http/wwwroot"
+
+# AOT publish
+RUN dotnet publish "Ngaq.Server/proj/Ngaq.Server.Http/Ngaq.Server.Http.csproj" \
+    -c Release \
+    -r linux-x64 \
+    -o /app/publish \
+    -p:StripSymbols=true
+
+RUN find /app/publish -type f \( -name '*.dbg' -o -name '*.pdb' \) -delete
+
+FROM mcr.microsoft.com/dotnet/runtime-deps:10.0-noble-chiseled AS runtime
+WORKDIR /app
+
+COPY --from=build /app/publish ./
+
+EXPOSE 2341
+ENTRYPOINT ["./Ngaq.Server.Http"]

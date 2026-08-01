@@ -1,0 +1,8 @@
+obj/
+bin/
+*.sln
+_Ngaq.Server.Http/
+*.sqlite
+*-wal
+*-shm
+wwwroot/

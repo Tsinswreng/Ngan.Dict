@@ -1,0 +1,37 @@
+// wsl -e sh -c "ip addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'"
+{
+	"Port": 5000
+	,"Db":{
+		"Postgres":{
+			"ConnectionString": ""//若有值則優先用此
+			,"Server":"172.22.21.187"
+			,"Port":5432
+			,"Database":"postgres"
+			,"UserId":"postgres"
+			,"Password":"Tsinswreng"
+		},
+		"Sqlite": {
+			"Path": "Ngaq_Server.sqlite"
+		},
+		"Redis": {
+			"Host": "172.22.21.187"
+			,"Port": 6379 // 須與docker-compose.yml中之設定一致
+			,"InstanceName": "CsNgaq"
+		}
+	},
+	"Auth":{
+		//注意: 小於256字節則報錯
+		"JwtSecret": "TsinswrengTsinswrengTsinswrengTsinswrengTsinswrengTsinswrengTsinswrengTsinswrengTsinswreng"
+		// "AccessTokenExpiryMs":
+		// ,"RefreshTokenExpiryMs":
+		// ,"JwtIssuer":
+		// ,"JwtAudience":
+	},
+	"Debug":{
+		"Auth":{
+			"UserId": "1"
+			,"AllowedAccessToken": "TsinswrengAccessToken"
+			,"AllowedRefreshToken": "TsinswrengRefreshToken"
+		}
+	}
+}
