@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WebAssembly">
+	<PropertyGroup>
+		<TargetFramework>net10.0-browser</TargetFramework>
+		<OutputType>Exe</OutputType>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<Nullable>enable</Nullable>
+		<WasmAllowUndefinedSymbols>true</WasmAllowUndefinedSymbols>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Avalonia.Browser" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Ngaq.Ui\Ngaq.Ui.csproj" />
+		<ProjectReference Include="../Ngaq.Client/Ngaq.Client.csproj" />
+		<PackageReference Include="SkiaSharp.NativeAssets.WebAssembly" />
+	</ItemGroup>
+
+
+</Project>

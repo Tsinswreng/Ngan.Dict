@@ -1,0 +1,39 @@
+<Project>
+	<PropertyGroup>
+		<AllowMissingPrunePackageData>true</AllowMissingPrunePackageData>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net10.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<!-- <LangVersion>preview<LangVersion/> 設此則報錯 NuGet.targets(186,5): error : 无效的
+框架标识符“”。 -->
+		<NoWarn>CS1998</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Include="../../../Tsinswreng.CsTypeAlias/TypeAlias.cs"/>
+		<Compile Include="../GlobalUsing.cs"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Tsinswreng.Avln.Dsl" />
+		<PackageReference Include="Tsinswreng.Avln.Grid" />
+		<PackageReference Include="Tsinswreng.Avln.Navi" />
+		<!-- Avalonia 12 support is provided by the published DSL package. -->
+		<!-- <ProjectReference Include="../../../Tsinswreng.Avln.Navi/proj/Tsinswreng.Avln.Navi/Tsinswreng.Avln.Navi.csproj" /> -->
+		<!-- <ProjectReference Include="../../../Tsinswreng.Avln.Grid/proj/Tsinswreng.Avln.Grid/Tsinswreng.Avln.Grid.csproj" /> -->
+		<ProjectReference Include="../../../Tsinswreng.AvlnTools/proj/Tsinswreng.AvlnTools/Tsinswreng.AvlnTools.csproj" />
+		<!-- <ProjectReference Include="../../../Tsinswreng.CsCore/proj/Tsinswreng.CsCore/Tsinswreng.CsCore.csproj" /> -->
+		<!-- <ProjectReference Include="../../../Tsinswreng.CsTools/proj/Tsinswreng.CsTools/Tsinswreng.CsTools.csproj" /> -->
+		<!-- <ProjectReference Include="../../../Tsinswreng.CsCfg/proj/Tsinswreng.CsCfg/Tsinswreng.CsCfg.csproj" /> -->
+		<ProjectReference Include="../../../Ngaq.Core/Ngaq.Core.csproj" />
+	</ItemGroup>
+
+
+
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection"/>
+	</ItemGroup>
+</Project>
