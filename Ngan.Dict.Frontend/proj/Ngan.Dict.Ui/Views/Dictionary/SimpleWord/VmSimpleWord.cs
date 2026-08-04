@@ -1,6 +1,7 @@
 namespace Ngan.Dict.Ui.Views.Dictionary.SimpleWord;
 
 using System.Collections.ObjectModel;
+using Ngan.Dict.Core.Frontend.Clipboard;
 using Ngan.Dict.Core.Frontend.User;
 using Ngan.Dict.Core.Shared.Audio;
 using Ngan.Dict.Core.Shared.Dictionary.Models;
@@ -46,13 +47,16 @@ int.	說得對
 	ISvcDictionary? SvcDictionary;
 	/// 前端用戶上下文：取得字典服務所需的數據庫上下文。
 	IFrontendUserCtxMgr? FrontendUserCtxMgr;
+	/// 跨平臺剪貼板服務：將本次查詞的釋義文本交由當前平臺寫入系統剪貼板。
+	ISvcClipboard? SvcClipboard;
 
 	/// 注入讀音播放所需的服務。
 	public partial VmSimpleWord(
 		ISvcTts? SvcTts,
 		IAudioPlayer? AudioPlayer,
 		ISvcDictionary? SvcDictionary,
-		IFrontendUserCtxMgr? FrontendUserCtxMgr
+		IFrontendUserCtxMgr? FrontendUserCtxMgr,
+		ISvcClipboard? SvcClipboard
 	);
 
 	/// 用最終結構化響應更新詞頭、讀音與釋義，並關閉流式寫入窗口。
@@ -65,6 +69,9 @@ int.	說得對
 	public partial nil StopStreaming();
 	/// 按當前源語言合成並播放詞頭讀音。
 	public partial Task<nil> PlayHead(CT Ct);
+	/// 將當前結果的全部 Descr 依原有換行格式拼接後寫入系統剪貼板。
+	/// 結果尚未產生可複製文本或當前平臺沒有剪貼板服務時，不進行寫入。
+	public partial Task<nil> CopyDescription(CT Ct);
 
 	/// 當前查詞結果的詞頭。
 	public str Head{

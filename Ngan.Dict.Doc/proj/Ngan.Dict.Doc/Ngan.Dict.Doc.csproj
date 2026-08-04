@@ -7,8 +7,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="../../../Ngan.Dict.Core/Ngan.Dict.Core.csproj" />
-		<ProjectReference Include="../../../Ngan.Dict.Backend/Ngan.Dict.Backend.csproj" />
+		<ProjectReference Include="../../../Ngan.Dict.Core/proj/Ngan.Dict.Core/Ngan.Dict.Core.csproj" />
+		<ProjectReference Include="../../../Ngan.Dict.Backend/proj/Ngan.Dict.Backend/Ngan.Dict.Backend.csproj" />
 		<ProjectReference Include="../../../Ngan.Dict.Frontend/proj/Ngan.Dict.Ui/Ngan.Dict.Ui.csproj" />
 	</ItemGroup>
 

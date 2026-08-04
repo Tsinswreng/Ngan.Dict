@@ -1,6 +1,7 @@
 namespace Ngan.Dict.Ui.Views.Dictionary.SimpleWord;
 
 using System.Collections.ObjectModel;
+using Ngan.Dict.Core.Frontend.Clipboard;
 using Ngan.Dict.Core.Frontend.User;
 using Ngan.Dict.Core.Infra;
 using Ngan.Dict.Core.Shared.Audio;
@@ -24,11 +25,13 @@ public partial class VmSimpleWord{
 			,IAudioPlayer? AudioPlayer
 			,ISvcDictionary? SvcDictionary
 			,IFrontendUserCtxMgr? FrontendUserCtxMgr
+			,ISvcClipboard? SvcClipboard
 		){
 			this.SvcTts = SvcTts;
 			this.AudioPlayer = AudioPlayer;
 			this.SvcDictionary = SvcDictionary;
 			this.FrontendUserCtxMgr = FrontendUserCtxMgr;
+			this.SvcClipboard = SvcClipboard;
 		}
 
 	public partial nil FromRespLlmDict(IRespLlmDict Resp){
@@ -70,6 +73,16 @@ public partial class VmSimpleWord{
 			return NIL;
 		}
 
+	public async partial Task<nil> CopyDescription(CT Ct){
+		Ct.ThrowIfCancellationRequested();
+		// Description 是解析階段以換行拼接的全部 Descr；流式尚未產生內容時不覆蓋用戶剪貼板。
+		if(str.IsNullOrWhiteSpace(Description) || SvcClipboard is null){
+			return NIL;
+		}
+		await SvcClipboard.SetText(Description, Ct);
+		return NIL;
+	}
+
 	public async partial Task<nil> PlayHead(CT Ct){
 			if(str.IsNullOrWhiteSpace(Head)){
 				LogWarn($"{nameof(PlayHead)} skipped: Head is empty.");
@@ -78,7 +91,7 @@ public partial class VmSimpleWord{
 			if(AnyNull(SvcTts, AudioPlayer, SvcDictionary, FrontendUserCtxMgr)){
 				return NIL;
 			}
-	
+
 			try{
 				str UsedLangCode = "en";
 				// Android 對主線程網絡請求有限制；這裡把「取音頻 + 播放」整段放到後台執行。
@@ -99,13 +112,13 @@ public partial class VmSimpleWord{
 						LogWarn($"{nameof(PlayHead)}: CurSrcNormLang is null, fallback to en.");
 					}
 					UsedLangCode = Lang.Code;
-	
+
 					// step 2: 把詞頭傳給 ISvcTts，獲取音頻數據。
 					var Audio = await SvcTts.GetAudio(
 						Head.Trim(),
 						Lang
 					);
-	
+
 					// step 3: 調用播放器播放（按返回音頻類型自動處理）。
 					await AudioPlayer.Play(Audio, Ct);
 				}, Ct);
@@ -114,8 +127,7 @@ public partial class VmSimpleWord{
 				LogError($"{nameof(PlayHead)} failed. Head={Head.Trim()}");
 				HandleErr(Ex);
 			}
-	
+
 			return NIL;
 		}
 }
-

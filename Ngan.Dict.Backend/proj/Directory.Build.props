@@ -26,11 +26,11 @@
 
 
 	<ItemGroup>
-		<Compile Include="../Tsinswreng.CsTypeAlias/TypeAlias.cs" />
+		<Compile Include="$(MSBuildThisFileDirectory)TypeAlias.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="../Ngan.Dict.Core/Ngan.Dict.Core.csproj" />
+		<ProjectReference Include="$(MSBuildThisFileDirectory)..\..\Ngan.Dict.Core\proj\Ngan.Dict.Core\Ngan.Dict.Core.csproj" />
 	</ItemGroup>
 
 </Project>

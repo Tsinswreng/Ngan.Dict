@@ -32,7 +32,7 @@
 		只在 Android 主項目內把腳本開關轉成 NativeAOT 屬性。
 		避免命令列的 PublishAot 全局屬性傳入 netstandard 與源生成器 ProjectReference。
 	-->
-	<PropertyGroup Condition="'$(Ngan.DictAndroidNativeAot)' == 'true'">
+	<PropertyGroup Condition="'$(NganDictAndroidNativeAot)' == 'true'">
 		<UseMonoRuntime>false</UseMonoRuntime>
 		<AndroidEnableAot>true</AndroidEnableAot>
 		<PublishAot>true</PublishAot>
@@ -61,7 +61,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="../Ngan.Dict.Ui/Ngan.Dict.Ui.csproj" />
-		<ProjectReference Include="../../../Ngan.Dict.Backend/Ngan.Dict.Backend.csproj" />
+		<ProjectReference Include="../../../Ngan.Dict.Backend/proj/Ngan.Dict.Backend/Ngan.Dict.Backend.csproj" />
 		<ProjectReference Include="../Ngan.Dict.Client/Ngan.Dict.Client.csproj" />
 	</ItemGroup>
 </Project>

@@ -2,9 +2,7 @@ namespace Ngan.Dict.Android;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Ngan.Dict.Android.Domains.Clipboard;
 using Ngan.Dict.Core.Android.Audio;
-using Ngan.Dict.Core.Frontend.Clipboard;
 using Ngan.Dict.Core.Infra.Log;
 using Ngan.Dict.Core.Shared.Audio;
 
@@ -17,8 +15,6 @@ adb logcat Tsinswreng.Ngan.Dict:V *:S -v time
  */
 		z.AddSingleton<ILogger>(_=>AppLog.Inst);
 		z.AddSingleton<IAudioPlayer, AndroidAudioPlayer>();
-		// 覆蓋 UI 層默認剪貼板服務，改用 Android 原生 ClipboardManager。
-		z.AddSingleton<ISvcClipboard, AndroidSvcClipboard>();
 		return z;
 	}
 }

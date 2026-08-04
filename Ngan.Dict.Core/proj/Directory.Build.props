@@ -1,0 +1,6 @@
+<Project>
+	<ItemGroup>
+		<Compile Include="$(MSBuildThisFileDirectory)TypeAlias.cs" />
+		<Compile Include="$(MSBuildThisFileDirectory)GlobalUsing.cs" />
+	</ItemGroup>
+</Project>

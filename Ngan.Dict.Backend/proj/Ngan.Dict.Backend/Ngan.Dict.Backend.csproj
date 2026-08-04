@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<ItemGroup>
-		<ProjectReference Include="../Tsinswreng.CsSql/proj/Tsinswreng.CsSql/Tsinswreng.CsSql.csproj" />
-		<ProjectReference Include="../Tsinswreng.CsSql/proj/Tsinswreng.CsSql.Sqlite/Tsinswreng.CsSql.Sqlite.csproj" />
-		<ProjectReference Include="../Tsinswreng.CsYamlMd/proj/Tsinswreng.CsYamlMd/Tsinswreng.CsYamlMd.csproj" />
+		<ProjectReference Include="../../../../Tsinswreng.CsSql/proj/Tsinswreng.CsSql/Tsinswreng.CsSql.csproj" />
+		<ProjectReference Include="../../../../Tsinswreng.CsSql/proj/Tsinswreng.CsSql.Sqlite/Tsinswreng.CsSql.Sqlite.csproj" />
+		<ProjectReference Include="../../../../Tsinswreng.CsYamlMd/proj/Tsinswreng.CsYamlMd/Tsinswreng.CsYamlMd.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="../Tsinswreng.Srefl/proj/Tsinswreng.Srefl/Tsinswreng.Srefl.csproj" />
-		<ProjectReference Include="../Tsinswreng.Srefl/proj/Tsinswreng.Srefl.SrcGen/Tsinswreng.Srefl.SrcGen.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<ProjectReference Include="../../../../Tsinswreng.Srefl/proj/Tsinswreng.Srefl/Tsinswreng.Srefl.csproj" />
+		<ProjectReference Include="../../../../Tsinswreng.Srefl/proj/Tsinswreng.Srefl.SrcGen/Tsinswreng.Srefl.SrcGen.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	</ItemGroup>
 
 	<ItemGroup>

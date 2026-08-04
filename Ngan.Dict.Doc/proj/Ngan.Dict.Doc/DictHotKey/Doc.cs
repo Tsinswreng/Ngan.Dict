@@ -99,7 +99,7 @@ using Tsinswreng.CsCore;
 
 #H[當前約束][
 	- 快捷鍵查詞會優先保留首頁底欄體驗，不再通過 `ToolView` 額外包裝字典頁。
-	- 剪貼板服務保持接口抽象；Windows/Avalonia 由 {{nameof(Ngan.Dict.Ui.SvcClipboard)}} 實現，Android 由 {{nameof(Ngan.Dict.Android.Domains.Clipboard.AndroidSvcClipboard)}} 實現。
+	- 剪貼板服務保持接口抽象；所有 Avalonia 平臺由 {{nameof(Ngan.Dict.Ui.SvcClipboard)}} 通過當前 TopLevel 實現。
 	- Android 通知查詞必須等 Activity 拿到窗口焦點後再讀剪貼板，否則新系統版本上可能因系統剪貼板限制拿到空值。
 	- Linux 路徑依賴 X11/XWayland；純 Wayland 且無 XWayland 時，全局熱鍵註冊會失敗並返回錯誤。
 ]

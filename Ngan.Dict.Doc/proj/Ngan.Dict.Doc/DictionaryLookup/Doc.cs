@@ -177,6 +177,21 @@ using Tsinswreng.CsCore;
 	- 若尚未查詞，點收藏按鈕則直接進入自由加詞頁，並預填當前源語言。
 ]
 
+#H[查詞釋義複製][
+	{{nameof(Ngan.Dict.Ui.Views.Dictionary.SimpleWord.ViewSimpleWord)}}
+	在釋義下方提供複製按鈕。
+	點擊後由
+	{{nameof(Ngan.Dict.Ui.Views.Dictionary.SimpleWord.VmSimpleWord)}}
+	將已按換行合併的全部 `Descr` 寫入系統剪貼板；
+	詞頭與讀音不納入複製文本。
+
+	剪貼板通過
+	{{nameof(Ngan.Dict.Core.Frontend.Clipboard.ISvcClipboard)}}
+	抽象，由
+	{{nameof(Ngan.Dict.Ui.SvcClipboard)}}
+	從當前 Avalonia TopLevel 取得剪貼板服務，桌面與 Android 共用同一套適配邏輯。
+]
+
 #H[源語言快捷標籤欄][
 	{{nameof(Ngan.Dict.Ui.Views.Dictionary.ViewDictionary)}}
 	在原有源語言 / 目標語言選擇列上方提供可橫向捲動的源語言快捷標籤欄。

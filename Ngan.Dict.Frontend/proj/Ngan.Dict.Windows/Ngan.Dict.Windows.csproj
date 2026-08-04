@@ -41,7 +41,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="../../../Ngan.Dict.Backend/Ngan.Dict.Backend.csproj" />
+		<ProjectReference Include="../../../Ngan.Dict.Backend/proj/Ngan.Dict.Backend/Ngan.Dict.Backend.csproj" />
 	</ItemGroup>
 
 

@@ -2,6 +2,7 @@ namespace Ngan.Dict.Ui.Views.Dictionary.SimpleWord;
 
 using Avalonia.Controls;
 using Ngan.Dict.Ui.Infra;
+using Ngan.Dict.Ui.Infra.Ctrls;
 using Tsinswreng.Avln.Grid;
 using Ctx = VmSimpleWord;
 
@@ -18,6 +19,8 @@ public partial class ViewSimpleWord: AppViewBase<Ctx>{
 
 	/// 按詞頭、讀音與釋義順序排列內容的根版面。
 	GridStack Root = new(IsRow: true);
+	/// 將本次查詞所有釋義拼接文本寫入系統剪貼板的操作按鈕。
+	public OpBtn CopyDescriptionBtn = new();
 
 	/// 建立允許選取且自動換行的文本控件。
 	private partial SelectableTextBlock Txt();

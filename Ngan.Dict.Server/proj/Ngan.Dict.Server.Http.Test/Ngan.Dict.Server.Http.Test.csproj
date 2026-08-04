@@ -10,7 +10,7 @@
 	<ItemGroup>
 		<ProjectReference Include="../Ngan.Dict.Server/Ngan.Dict.Server.csproj" />
 		<ProjectReference Include="../Ngan.Dict.Server.Http/Ngan.Dict.Server.Http.csproj" />
-		<ProjectReference Include="../../../Ngan.Dict.Test/Ngan.Dict.Test.csproj" />
+		<ProjectReference Include="../../../Ngan.Dict.Test/proj/Ngan.Dict.Test/Ngan.Dict.Test.csproj" />
 	</ItemGroup>
 
 </Project>

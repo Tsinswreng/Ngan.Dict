@@ -38,6 +38,7 @@ public partial class ViewSimpleWord{
 				new(1, GUT.Auto),
 				new(1, GUT.Auto),
 				new(1, GUT.Auto),
+				new(1, GUT.Auto),
 			]);
 			Root
 			.A(Txt(), o=>{
@@ -48,6 +49,16 @@ public partial class ViewSimpleWord{
 			.A(Txt(), o=>{
 				Ctx.Bind(o,o=>o.Text,x=>x.Description);
 			})
+			.A(CopyDescriptionBtn, o=>{
+				// 使用需求指定的 Vaadin Copy 路徑，避免在實現階段再擴大圖標宣告範圍。
+				Svg CopySvg = "M384 960v-192h192zM576 704h-256v256h-320v-768h576zM832 704v-192h192zM768 704h-128v-576h-192v-192h576v512h-256z";
+				o.BtnContent = CopySvg.ToIcon();
+				o._Button.Width = UiCfg.Inst.BaseFontSize*2;
+				o._Button.Height = UiCfg.Inst.BaseFontSize*2;
+				o._Button.HorizontalAlignment = HAlign.Right;
+				o.HorizontalAlignment = HAlign.Right;
+				o.SetExe(Ct=>Ctx?.CopyDescription(Ct));
+			})
 			;
 			return NIL;
 		}
@@ -57,7 +68,7 @@ public partial class ViewSimpleWord{
 			R.Bind(
 				R.PropItemsSource, CBE.Mk<Ctx>(x=>x.Pronunciations)
 			);
-	
+
 			R.SetItemTemplate<Pronunciation>((p,b)=>{
 				var Row = new GridStack(IsRow: false);
 				Row.SetColDefs([
@@ -89,8 +100,7 @@ public partial class ViewSimpleWord{
 					HorizontalAlignment = HAlign.Left,
 				};
 			});
-	
+
 			return R;
 		}
 }
-

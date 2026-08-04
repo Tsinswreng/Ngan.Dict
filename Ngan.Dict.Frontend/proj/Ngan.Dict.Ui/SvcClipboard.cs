@@ -21,15 +21,33 @@ public class SvcClipboard : ISvcClipboard{
 		return await clipboard.TryGetTextAsync();
 	}
 
+	/// 將純文本寫入桌面系統剪貼板。
+	/// 剪貼板尚未就緒時靜默返回，避免頁面尚未掛載窗口時使複製按鈕失敗。
+	public async Task<nil> SetText(str Text, CT Ct){
+		Ct.ThrowIfCancellationRequested();
+
+		var Clipboard = ResolveClipboard();
+		if(Clipboard is null){
+			return NIL;
+		}
+		await Clipboard.SetTextAsync(Text);
+		return NIL;
+	}
+
 	/// 從桌面主窗口對應的 TopLevel 拿到 Avalonia Clipboard。
 	/// <returns>剪貼板實例；若當前無窗口則返回 null。</returns>
 	private static Avalonia.Input.Platform.IClipboard? ResolveClipboard(){
 		var desktop = Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
 		var mainWindow = desktop?.MainWindow;
-		if(mainWindow is null){
-			return null;
+		if(mainWindow is not null){
+			var topLevel = TopLevel.GetTopLevel(mainWindow);
+			return topLevel?.Clipboard ?? mainWindow.Clipboard;
 		}
-		var topLevel = TopLevel.GetTopLevel(mainWindow);
-		return topLevel?.Clipboard ?? mainWindow?.Clipboard;
+
+		// Android 使用单视图生命周期；从 MainView 取得其 TopLevel，
+		// 这样读写剪贴板仍由 Avalonia 平台适配层统一完成。
+		var singleView = Application.Current?.ApplicationLifetime as ISingleViewApplicationLifetime;
+		var mainView = singleView?.MainView;
+		return mainView is null ? null : TopLevel.GetTopLevel(mainView)?.Clipboard;
 	}
 }

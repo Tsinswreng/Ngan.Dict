@@ -8,9 +8,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="../../../Ngan.Dict.Core/Ngan.Dict.Core.csproj" />
+		<ProjectReference Include="../../../Ngan.Dict.Core/proj/Ngan.Dict.Core/Ngan.Dict.Core.csproj" />
 		<ProjectReference Include="../../../Ngan.Dict.Frontend/proj/Ngan.Dict.Ui/Ngan.Dict.Ui.csproj" />
-		<ProjectReference Include="../../../Tsinswreng.CsSql/proj/Tsinswreng.CsSql/Tsinswreng.CsSql.csproj" />
+		<ProjectReference Include="../../../../Tsinswreng.CsSql/proj/Tsinswreng.CsSql/Tsinswreng.CsSql.csproj" />
 	</ItemGroup>
 
 </Project>

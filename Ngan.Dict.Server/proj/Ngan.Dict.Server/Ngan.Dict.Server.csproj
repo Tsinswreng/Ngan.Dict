@@ -6,11 +6,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="../../../Tsinswreng.CsSql/proj/Tsinswreng.CsSql/Tsinswreng.CsSql.csproj" />
-		<ProjectReference Include="../../../Tsinswreng.CsSql/proj/Tsinswreng.CsSql.Sqlite/Tsinswreng.CsSql.Sqlite.csproj" />
-		<ProjectReference Include="../../../Tsinswreng.CsSql/proj/Tsinswreng.CsSql.Postgres/Tsinswreng.CsSql.Postgres.csproj" />
-		<!-- <ProjectReference Include="../../../Tsinswreng.CsSql/proj/Tsinswreng.CsSql.EFCore/Tsinswreng.CsSql.EFCore.csproj" /> -->
-		<ProjectReference Include="../../../Ngan.Dict.Backend/Ngan.Dict.Backend.csproj" />
+		<ProjectReference Include="../../../../Tsinswreng.CsSql/proj/Tsinswreng.CsSql/Tsinswreng.CsSql.csproj" />
+		<ProjectReference Include="../../../../Tsinswreng.CsSql/proj/Tsinswreng.CsSql.Sqlite/Tsinswreng.CsSql.Sqlite.csproj" />
+		<ProjectReference Include="../../../../Tsinswreng.CsSql/proj/Tsinswreng.CsSql.Postgres/Tsinswreng.CsSql.Postgres.csproj" />
+		<!-- <ProjectReference Include="../../../../Tsinswreng.CsSql/proj/Tsinswreng.CsSql.EFCore/Tsinswreng.CsSql.EFCore.csproj" /> -->
+		<ProjectReference Include="../../../Ngan.Dict.Backend/proj/Ngan.Dict.Backend/Ngan.Dict.Backend.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

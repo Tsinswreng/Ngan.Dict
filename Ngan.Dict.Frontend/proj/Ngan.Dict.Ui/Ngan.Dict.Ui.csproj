@@ -12,7 +12,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="../../../Tsinswreng.Avln.StrokeText/proj/Tsinswreng.Avln.StrokeText/Tsinswreng.Avln.StrokeText.csproj" />
+		<ProjectReference Include="../../../../Tsinswreng.Avln.StrokeText/proj/Tsinswreng.Avln.StrokeText/Tsinswreng.Avln.StrokeText.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

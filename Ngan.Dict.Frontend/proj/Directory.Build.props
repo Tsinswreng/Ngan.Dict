@@ -12,8 +12,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Compile Include="../../../Tsinswreng.CsTypeAlias/TypeAlias.cs"/>
-		<Compile Include="../GlobalUsing.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)TypeAlias.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)GlobalUsing.cs"/>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -23,11 +23,11 @@
 		<!-- Avalonia 12 support is provided by the published DSL package. -->
 		<!-- <ProjectReference Include="../../../Tsinswreng.Avln.Navi/proj/Tsinswreng.Avln.Navi/Tsinswreng.Avln.Navi.csproj" /> -->
 		<!-- <ProjectReference Include="../../../Tsinswreng.Avln.Grid/proj/Tsinswreng.Avln.Grid/Tsinswreng.Avln.Grid.csproj" /> -->
-		<ProjectReference Include="../../../Tsinswreng.AvlnTools/proj/Tsinswreng.AvlnTools/Tsinswreng.AvlnTools.csproj" />
+		<ProjectReference Include="$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.AvlnTools\proj\Tsinswreng.AvlnTools\Tsinswreng.AvlnTools.csproj" />
 		<!-- <ProjectReference Include="../../../Tsinswreng.CsCore/proj/Tsinswreng.CsCore/Tsinswreng.CsCore.csproj" /> -->
 		<!-- <ProjectReference Include="../../../Tsinswreng.CsTools/proj/Tsinswreng.CsTools/Tsinswreng.CsTools.csproj" /> -->
 		<!-- <ProjectReference Include="../../../Tsinswreng.CsCfg/proj/Tsinswreng.CsCfg/Tsinswreng.CsCfg.csproj" /> -->
-		<ProjectReference Include="../../../Ngan.Dict.Core/Ngan.Dict.Core.csproj" />
+		<ProjectReference Include="$(MSBuildThisFileDirectory)..\..\Ngan.Dict.Core\proj\Ngan.Dict.Core\Ngan.Dict.Core.csproj" />
 	</ItemGroup>
 
 

@@ -8,32 +8,32 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<Compile Include='$(MSBuildThisFileDirectory)TypeAlias.cs' />
-		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Ngan.Dict.Core\Ngan.Dict.Core.csproj' />
+		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Ngan.Dict.Core\proj\Ngan.Dict.Core\Ngan.Dict.Core.csproj' />
 		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Ngan.Dict.Frontend\proj\Ngan.Dict.Ui\Ngan.Dict.Ui.csproj' />
 		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Ngan.Dict.Frontend\proj\Ngan.Dict.Windows\Ngan.Dict.Windows.csproj' />
 		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Ngan.Dict.Server\proj\Ngan.Dict.Server.Http\Ngan.Dict.Server.Http.csproj' />
-		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Thesis\proj\Thesis\Thesis.csproj' />
-		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Tsinswreng.Avln.StrokeText\proj\Tsinswreng.Avln.StrokeText\Tsinswreng.Avln.StrokeText.csproj' />
-		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Tsinswreng.AvlnTools\proj\Tsinswreng.AvlnTools\Tsinswreng.AvlnTools.csproj' />
-		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Tsinswreng.CsCfg\proj\Tsinswreng.CsCfg\Tsinswreng.CsCfg.csproj' />
-		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Tsinswreng.CsDecl\proj\TestCsprojCases\Test1\Test1.csproj' />
-		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Tsinswreng.CsDecl\proj\Tsinswreng.CsDecl\Tsinswreng.CsDecl.csproj' />
-		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Tsinswreng.CsDictMapper\proj\Tsinswreng.CsDictMapper.SrcGen\Tsinswreng.CsDictMapper.SrcGen.csproj' />
-		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Tsinswreng.CsDictMapper\proj\Tsinswreng.CsDictMapper\Tsinswreng.CsDictMapper.csproj' />
+		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Thesis\proj\Thesis\Thesis.csproj' />
+		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.Avln.StrokeText\proj\Tsinswreng.Avln.StrokeText\Tsinswreng.Avln.StrokeText.csproj' />
+		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.AvlnTools\proj\Tsinswreng.AvlnTools\Tsinswreng.AvlnTools.csproj' />
+		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.CsCfg\proj\Tsinswreng.CsCfg\Tsinswreng.CsCfg.csproj' />
+		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.CsDecl\proj\TestCsprojCases\Test1\Test1.csproj' />
+		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.CsDecl\proj\Tsinswreng.CsDecl\Tsinswreng.CsDecl.csproj' />
+		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.CsDictMapper\proj\Tsinswreng.CsDictMapper.SrcGen\Tsinswreng.CsDictMapper.SrcGen.csproj' />
+		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.CsDictMapper\proj\Tsinswreng.CsDictMapper\Tsinswreng.CsDictMapper.csproj' />
 		<!-- <ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Tsinswreng.CsFactoryMkr\proj\Tsinswreng.CsFactoryMkr.SrcGen\Tsinswreng.CsFactoryMkr.SrcGen.csproj' /> -->
-		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Tsinswreng.CsI18n\proj\Tsinswreng.CsI18n\Tsinswreng.CsI18n.csproj' />
-		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Tsinswreng.CsIfaceGen\proj\Tsinswreng.CsIfaceGen.Cli\Tsinswreng.CsIfaceGen.Cli.csproj' />
-		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Tsinswreng.CsIfaceGen\proj\Tsinswreng.CsIfaceGen.SrcGen\Tsinswreng.CsIfaceGen.SrcGen.csproj' />
-		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Tsinswreng.CsJson\proj\Tsinswreng.CsJson\Tsinswreng.CsJson.csproj' />
-		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Tsinswreng.CsPage\proj\Tsinswreng.CsPage\Tsinswreng.CsPage.csproj' />
-		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Tsinswreng.CsSql\proj\Tsinswreng.CsSql.BaseImpl\Tsinswreng.CsSql.BaseImpl.csproj' />
-		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Tsinswreng.CsTempus\proj\Tsinswreng.CsTempus\Tsinswreng.CsTempus.csproj' />
-		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Tsinswreng.CsTextWithBlob\proj\Tsinswreng.CsTextWithBlob\Tsinswreng.CsTextWithBlob.csproj' />
-		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Tsinswreng.CsU128Id\proj\Tsinswreng.CsU128Id\Tsinswreng.CsU128Id.csproj' />
-		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Tsinswreng.CsYamlMd\proj\Tsinswreng.CsYamlMd\Tsinswreng.CsYamlMd.csproj' />
-		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Tsinswreng.OpenXmlTools\proj\Tsinswreng.OpenXmlTools\Tsinswreng.OpenXmlTools.csproj' />
-		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Tsinswreng.Srefl\proj\Tsinswreng.Srefl.SrcGen\Tsinswreng.Srefl.SrcGen.csproj' />
-		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Tsinswreng.Srefl\proj\Tsinswreng.Srefl\Tsinswreng.Srefl.csproj' />
+		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.CsI18n\proj\Tsinswreng.CsI18n\Tsinswreng.CsI18n.csproj' />
+		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.CsIfaceGen\proj\Tsinswreng.CsIfaceGen.Cli\Tsinswreng.CsIfaceGen.Cli.csproj' />
+		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.CsIfaceGen\proj\Tsinswreng.CsIfaceGen.SrcGen\Tsinswreng.CsIfaceGen.SrcGen.csproj' />
+		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.CsJson\proj\Tsinswreng.CsJson\Tsinswreng.CsJson.csproj' />
+		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.CsPage\proj\Tsinswreng.CsPage\Tsinswreng.CsPage.csproj' />
+		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.CsSql\proj\Tsinswreng.CsSql.BaseImpl\Tsinswreng.CsSql.BaseImpl.csproj' />
+		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.CsTempus\proj\Tsinswreng.CsTempus\Tsinswreng.CsTempus.csproj' />
+		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.CsTextWithBlob\proj\Tsinswreng.CsTextWithBlob\Tsinswreng.CsTextWithBlob.csproj' />
+		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.CsU128Id\proj\Tsinswreng.CsU128Id\Tsinswreng.CsU128Id.csproj' />
+		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.CsYamlMd\proj\Tsinswreng.CsYamlMd\Tsinswreng.CsYamlMd.csproj' />
+		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.OpenXmlTools\proj\Tsinswreng.OpenXmlTools\Tsinswreng.OpenXmlTools.csproj' />
+		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.Srefl\proj\Tsinswreng.Srefl.SrcGen\Tsinswreng.Srefl.SrcGen.csproj' />
+		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.Srefl\proj\Tsinswreng.Srefl\Tsinswreng.Srefl.csproj' />
 	</ItemGroup>
 </Project>
 

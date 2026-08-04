@@ -9,12 +9,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Compile Include="../Tsinswreng.CsTypeAlias/TypeAlias.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="../Ngan.Dict.Core/Ngan.Dict.Core.csproj" />
-		<ProjectReference Include="../Ngan.Dict.Backend/Ngan.Dict.Backend.csproj" />
+		<ProjectReference Include="../../../Ngan.Dict.Core/proj/Ngan.Dict.Core/Ngan.Dict.Core.csproj" />
+		<ProjectReference Include="../../../Ngan.Dict.Backend/proj/Ngan.Dict.Backend/Ngan.Dict.Backend.csproj" />
 		<!-- <ProjectReference Include="../Tsinswreng.CsTreeTest/proj/Tsinswreng.CsTreeTest/Tsinswreng.CsTreeTest.csproj" /> -->
 		<!-- <PackageReference Include="Tsinswreng.CsTreeTest" Version="0.1.1-alpha" /> -->
 	</ItemGroup>
