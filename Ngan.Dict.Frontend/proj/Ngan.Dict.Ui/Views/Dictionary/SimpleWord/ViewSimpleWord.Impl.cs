@@ -33,14 +33,18 @@ public partial class ViewSimpleWord{
 		}
 
 	protected partial nil Render(){
-			Content = Root.Grid;
-			Root.SetRowDefs([
-				new(1, GUT.Auto),
+			// 結果內容保持原有縱向排列；右側預留複製按鈕位置，避免首行詞頭被按鈕遮擋。
+			var Content = new GridStack(IsRow: true);
+			Content.SetRowDefs([
 				new(1, GUT.Auto),
 				new(1, GUT.Auto),
 				new(1, GUT.Auto),
 			]);
-			Root
+			this.SetContent(Root);
+			Root.A(Content.Grid, o=>{
+				o.Margin = new (0, 0, UiCfg.Inst.BaseFontSize*2.2, 0);
+			});
+			Content
 			.A(Txt(), o=>{
 				o.FontSize = UiCfg.Inst.BaseFontSize*1.5;
 				Ctx.Bind(o, o=>o.Text,x=>x.Head);
@@ -49,14 +53,16 @@ public partial class ViewSimpleWord{
 			.A(Txt(), o=>{
 				Ctx.Bind(o,o=>o.Text,x=>x.Description);
 			})
-			.A(CopyDescriptionBtn, o=>{
-				// 使用需求指定的 Vaadin Copy 路徑，避免在實現階段再擴大圖標宣告範圍。
-				Svg CopySvg = "M384 960v-192h192zM576 704h-256v256h-320v-768h576zM832 704v-192h192zM768 704h-128v-576h-192v-192h576v512h-256z";
-				o.BtnContent = CopySvg.ToIcon();
+			;
+			Root.A(CopyDescriptionBtn, o=>{
+				o.BtnContent = Icons.Copy().ToIcon();
 				o._Button.Width = UiCfg.Inst.BaseFontSize*2;
 				o._Button.Height = UiCfg.Inst.BaseFontSize*2;
 				o._Button.HorizontalAlignment = HAlign.Right;
+				o._Button.VerticalAlignment = VAlign.Top;
 				o.HorizontalAlignment = HAlign.Right;
+				o.VerticalAlignment = VAlign.Top;
+				o.ZIndex = 1;
 				o.SetExe(Ct=>Ctx?.CopyDescription(Ct));
 			})
 			;

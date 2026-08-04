@@ -179,7 +179,7 @@ using Tsinswreng.CsCore;
 
 #H[查詞釋義複製][
 	{{nameof(Ngan.Dict.Ui.Views.Dictionary.SimpleWord.ViewSimpleWord)}}
-	在釋義下方提供複製按鈕。
+	在結果區右上角提供固定的複製按鈕；按鈕不隨釋義長度落到末尾。
 	點擊後由
 	{{nameof(Ngan.Dict.Ui.Views.Dictionary.SimpleWord.VmSimpleWord)}}
 	將已按換行合併的全部 `Descr` 寫入系統剪貼板；

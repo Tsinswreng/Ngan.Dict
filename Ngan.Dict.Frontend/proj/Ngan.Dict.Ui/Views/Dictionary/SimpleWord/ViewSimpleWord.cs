@@ -17,8 +17,9 @@ public partial class ViewSimpleWord: AppViewBase<Ctx>{
 	/// 初始化此視圖專屬樣式；目前沒有額外樣式。
 	protected partial nil Style();
 
-	/// 按詞頭、讀音與釋義順序排列內容的根版面。
-	GridStack Root = new(IsRow: true);
+	/// 疊放結果內容與右上複製按鈕的根版面。
+	/// 內容本體與按鈕同屬結果視圖，按鈕不再額外佔用釋義末尾的一行。
+	Grid Root = new();
 	/// 將本次查詞所有釋義拼接文本寫入系統剪貼板的操作按鈕。
 	public OpBtn CopyDescriptionBtn = new();
 

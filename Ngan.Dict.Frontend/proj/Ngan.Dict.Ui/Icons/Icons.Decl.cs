@@ -81,6 +81,8 @@ public partial class Icons{
 	public static partial Icon MoreV();
 	//<iconPacks:PackIconMaterialDesign Kind="DeleteForeverSharp" />
 	public static partial Icon Delete();
+	//<iconPacks:PackIconVaadinIcons Kind="Copy" />
+	public static partial Icon Copy();
 
 	//<iconPacks:PackIconForkAwesome Kind="Calendar" />
 	public static partial Icon Calendar();
