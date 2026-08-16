@@ -17,13 +17,13 @@ internal static partial class ScriptContext{
 	internal static async partial Task<object?> CopyContents(string Source, string Destination, CancellationToken Ct) {
 		await Mkdir(Destination, Ct);
 		await foreach (var Entry in Find(Source / "**/*", Ct)) {
-			var Relative = Path.GetRelativePath(Source, Entry.Path).Replace('\\', '/');
+			var Relative = Path.GetRelativePath(Source, Entry.FullName).Replace('\\', '/');
 			var Target = Destination / Relative;
-			if (Entry.IsDir) {
+			if (Entry is DirectoryInfo) {
 				await Mkdir(Target, Ct);
 				continue;
 			}
-			await using var Content = await Read(Entry.Path, Ct);
+			await using var Content = await Read(Entry.FullName, Ct);
 			await Write(Target, Content, Ct);
 		}
 		return null;

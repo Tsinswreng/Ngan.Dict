@@ -22,7 +22,7 @@ internal static partial class PublishWin{
 		await Rm(PublishNoPdbDir, Ct);
 		await ScriptContext.CopyContents(PublishDir, PublishNoPdbDir, Ct);
 		await foreach (var Entry in Find(PublishNoPdbDir / "**/*.pdb", Ct))
-			await Rm(Entry.Path, Ct);
+			await Rm(Entry.FullName, Ct);
 		await Rm(ArchivePath, Ct);
 		await ScriptContext.XTerm($"tar -czf \"{ArchivePath}\" .", new(Cwd: PublishNoPdbDir), Ct);
 		await Mv(ArchivePath, PublishNoPdbDir / "Ngan.Dict.Windows.tar.gz", Ct);
