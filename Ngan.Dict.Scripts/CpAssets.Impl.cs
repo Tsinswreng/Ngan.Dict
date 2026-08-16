@@ -1,4 +1,4 @@
-using static Tsinswreng.CsSh.Sh;
+using static Tsinswreng.CsSh.ShGlobal;
 
 namespace Ngan.Dict.Scripts;
 
