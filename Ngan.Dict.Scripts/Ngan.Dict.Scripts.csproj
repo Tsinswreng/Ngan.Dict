@@ -5,7 +5,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-	<!-- 各具名腳本保留 Main(CancellationToken) 供 dispatcher 呼叫；只有 Program.Main 是 CLR entry point。 -->
+	<!-- 各具名腳本保留 Main(Root, CancellationToken) 供 dispatcher 呼叫；只有 Program.Main 是 CLR entry point。 -->
 	<NoWarn>CS0028</NoWarn>
   </PropertyGroup>
 

@@ -1,5 +1,7 @@
 namespace Ngan.Dict.Scripts;
 
+using System.Runtime.CompilerServices;
+
 /// Ngan.Dict 維護腳本的命令列入口。
 /// 第一個引數選擇具體腳本；其餘引數保留給該腳本未來的專用選項。
 internal static partial class Program{
@@ -16,24 +18,28 @@ internal static partial class Program{
 		}
 
 		var Ct = CtSource.Token;
+		var CallerPath = OwnPath();
+		var CallerDir = Path.GetDirectoryName(CallerPath)!;
+		// Program.cs is at <root>/Ngan.Dict/Ngan.Dict.Scripts; walk up from its caller path, never from cwd.
+		var Root = Path.GetFullPath(CallerDir / "../..").Replace('\\', '/');
 		switch (Args[0]) {
 			case nameof(PublishWeb):
-				await PublishWeb.Main(Ct);
+				await PublishWeb.Main(Root, Ct);
 				break;
 			case nameof(PublishWin):
-				await PublishWin.Main(Ct);
+				await PublishWin.Main(Root, Ct);
 				break;
 			case nameof(PublishLinux):
-				await PublishLinux.Main(Ct);
+				await PublishLinux.Main(Root, Ct);
 				break;
 			case nameof(PublishAndroid):
-				await PublishAndroid.Main(Ct);
+				await PublishAndroid.Main(Root, Ct);
 				break;
 			case nameof(PublishAndroidNativeAot):
-				await PublishAndroidNativeAot.Main(Ct);
+				await PublishAndroidNativeAot.Main(Root, Ct);
 				break;
 			case nameof(CpAssets):
-				await CpAssets.Main(Ct);
+				await CpAssets.Main(Root, Ct);
 				break;
 			default:
 				throw new ArgumentException($"Unknown Ngan.Dict script: {Args[0]}.", nameof(Args));
@@ -44,5 +50,10 @@ internal static partial class Program{
 	private static void PrintUsage() {
 		Console.Error.WriteLine("Usage: dotnet run --project Ngan.Dict/Ngan.Dict.Scripts -- <entry>");
 		Console.Error.WriteLine("Entries: PublishWeb, PublishWin, PublishLinux, PublishAndroid, PublishAndroidNativeAot, CpAssets");
+	}
+
+	/// 讓編譯器把這個 dispatcher 原始檔路徑填入；CLR 的 Main 本身不會填 CallerFilePath。
+	private static string OwnPath([CallerFilePath] string CallerPath = "") {
+		return CallerPath;
 	}
 }

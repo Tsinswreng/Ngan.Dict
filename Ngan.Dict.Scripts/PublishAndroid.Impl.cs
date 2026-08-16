@@ -1,10 +1,12 @@
+using static Tsinswreng.CsSh.Sh;
+
 namespace Ngan.Dict.Scripts;
 
 /// Implements the regular Android publishing entry point.
 internal static partial class PublishAndroid{
-	internal static async partial Task<object?> Main(CancellationToken Ct) {
-		var ProjectDir = ScriptContext.FrontendProjects / "Ngan.Dict.Android";
-		await ScriptContext.XTerm("dotnet publish -c Release -p:AllowMissingPrunePackageData=true", new(Cwd: ProjectDir), Ct);
-		return null;
+	internal static async partial Task Main(string Root, CancellationToken Ct) {
+		var ProjectDir = Root / "Ngan.Dict/Ngan.Dict.Frontend/proj/Ngan.Dict.Android";
+		Cd(ProjectDir);
+		await X("dotnet publish -c Release -p:AllowMissingPrunePackageData=true", Ct).Out(Ct);
 	}
 }

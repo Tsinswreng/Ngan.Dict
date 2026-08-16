@@ -10,6 +10,9 @@ using Tsinswreng.CsCore;
 
 	從 Ngan 工作區執行格式為：
 	`dotnet run --project Ngan.Dict/Ngan.Dict.Scripts -- <入口>`。
+	腳本根目錄由 `Program.cs` 的 CallerFilePath 向上推得，
+	不依賴呼叫時的目前工作目錄。
+	外部命令由 `X(...)` 建立，預設不轉送輸出；需要顯示終端輸出時使用 `await X(..., Ct).Out(Ct)`。
 ]
 
 #H[可用入口][

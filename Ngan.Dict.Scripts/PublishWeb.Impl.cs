@@ -4,9 +4,9 @@ namespace Ngan.Dict.Scripts;
 
 /// Implements the browser publishing entry point.
 internal static partial class PublishWeb{
-	internal static async partial Task<object?> Main(CancellationToken Ct) {
-		var ProjectDir = ScriptContext.FrontendProjects / "Ngan.Dict.Browser";
-		await ScriptContext.XTerm("dotnet publish -c Release", new(Cwd: ProjectDir), Ct);
-		return null;
+	internal static async partial Task Main(string Root, CancellationToken Ct) {
+		var ProjectDir = Root / "Ngan.Dict/Ngan.Dict.Frontend/proj/Ngan.Dict.Browser";
+		Cd(ProjectDir);
+		await X("dotnet publish -c Release", Ct).Out(Ct);
 	}
 }
