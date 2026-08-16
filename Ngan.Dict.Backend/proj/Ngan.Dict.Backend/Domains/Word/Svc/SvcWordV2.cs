@@ -1,16 +1,13 @@
-namespace Ngan.Dict.Backend.Domains.Word.Svc;
-
 using System.Runtime.CompilerServices;
-using Ngan.Dict.Core.Frontend.Kv;
+using Ngan.Dict.Backend.Domains.Word.Dao;
 using Ngan.Dict.Core.Infra;
 using Ngan.Dict.Core.Infra.Errors;
 using Ngan.Dict.Core.Model.Po.Kv;
 using Ngan.Dict.Core.Model.Po.Learn_;
-using Ngan.Dict.Core.Tools;
-using Ngan.Dict.Core.Shared.Sync;
-using Ngan.Dict.Core.Shared.StudyPlan.Models.PreFilter;
+using Ngan.Dict.Core.Shared.Dictionary.Models;
 using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.PreFilter;
 using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.StudyPlan;
+using Ngan.Dict.Core.Shared.StudyPlan.Models.PreFilter;
 using Ngan.Dict.Core.Shared.StudyPlan.Svc;
 using Ngan.Dict.Core.Shared.User.Models.Po.User;
 using Ngan.Dict.Core.Shared.Word.Models;
@@ -19,20 +16,14 @@ using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
 using Ngan.Dict.Core.Shared.Word.Models.Po.Learn;
 using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 using Ngan.Dict.Core.Shared.Word.Svc;
-using Ngan.Dict.Backend.Db.TswG;
-using Tsinswreng.CsErr;
-using Tsinswreng.CsCore;
-using Tsinswreng.CsSql;
-using Tsinswreng.CsTools;
+using Ngan.Dict.Core.Tools;
 using Ngan.Dict.Core.Tools.Json;
-using Ngan.Dict.Core.Shared.Dictionary.Models;
-using Ngan.Dict.Core.Shared.Word.Models.Dto;
-using Ngan.Dict.Core.Shared.Base.Models.Po;
-using Ngan.Dict.Backend.Domains.Word;
-using Ngan.Dict.Backend.Domains.Word.Dao;
+using Tsinswreng.CsErr;
+using Tsinswreng.CsSql;
 using Tsinswreng.CsTempus;
-using Tsinswreng.CsCtx;
+using Tsinswreng.CsTools;
 
+namespace Ngan.Dict.Backend.Domains.Word.Svc;
 public partial class SvcWordV2(
 	ISqlCmdMkr SqlCmdMkr
 	,DaoWordV2 DaoWordV2
@@ -58,6 +49,16 @@ public partial class SvcWordV2(
 	ISvcNormLangToUserLang SvcNormLangToUserLang = SvcNormLangToUserLang;
 	ISvcWordInMem SvcWordInMem = SvcWordInMem;
 
+	// public async IAsyncEnumerable<JnWord> GetWordsToLearn( // deprecated
+	// 	IFnCtx Ctx, [EnumeratorCancellation] CT Ct
+	// ){
+	// 	Ctx.DbFnCtx ??= new DbFnCtx();
+	// 	var preFilter = await GetCurStudyPlanPreFilter(Ctx, Ct);
+	// 	await foreach(var word in GetWordsToLearn(Ctx, preFilter, Ct).WithCancellation(Ct)){
+	// 		yield return word;
+	// 	}
+	// }
+
 	public async IAsyncEnumerable<JnWord> GetWordsToLearn(
 		IDbUserCtx Ctx, [EnumeratorCancellation] CT Ct
 	){
@@ -68,16 +69,7 @@ public partial class SvcWordV2(
 		}
 	}
 	
-	// public async IAsyncEnumerable<JnWord> GetWordsToLearn(
-	// 	IFnCtx Ctx, [EnumeratorCancellation] CT Ct
-	// ){
-	// 	Ctx.DbFnCtx ??= new DbFnCtx();
-	// 	var preFilter = await GetCurStudyPlanPreFilter(Ctx, Ct);
-	// 	await foreach(var word in GetWordsToLearn(Ctx, preFilter, Ct).WithCancellation(Ct)){
-	// 		yield return word;
-	// 	}
-	// }
-
+	
 	public IAsyncEnumerable<JnWord> GetWordsToLearn(
 		IDbUserCtx Ctx, PreFilter? Prefilter, CT Ct
 	){
@@ -404,4 +396,7 @@ public partial class SvcWordV2(
 		f64 VF64,
 		str? VBinaryBase64
 	);
+	
+
+
 }

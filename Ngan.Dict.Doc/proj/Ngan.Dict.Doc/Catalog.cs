@@ -15,6 +15,10 @@ using Tsinswreng.CsCore;
 	應用全局日誌入口
 ]
 
+#H[{{nameof(Ngan.Dict.Doc.Scripts)}}][
+	Ngan.Dict 發布與資源同步腳本
+]
+
 #H[{{nameof(Ngan.Dict.Doc.UserAuth)}}][
 	用戶認證
 ]

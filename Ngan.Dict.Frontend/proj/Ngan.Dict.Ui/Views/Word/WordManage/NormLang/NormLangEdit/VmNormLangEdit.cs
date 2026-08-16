@@ -12,7 +12,8 @@ using Ngan.Dict.Core.Shared.Dictionary.Models.Po.NormLang;
 using Ngan.Dict.Core.Shared.Word.Svc;
 using Ngan.Dict.Ui.Infra;
 using Tsinswreng.CsTools;
-using Ctx = VmNormLangEdit;using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
+using Ctx = VmNormLangEdit;
+using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 /// NormLang 編輯頁 ViewModel。
 public partial class VmNormLangEdit: ViewModelBase, IMk<Ctx>{
@@ -32,15 +33,16 @@ public partial class VmNormLangEdit: ViewModelBase, IMk<Ctx>{
 		#endif
 	}
 
-	ISvcNormLang? SvcNormLang{get;set;}
-	IFrontendUserCtxMgr? UserCtxMgr{get;set;}
+	ISvcNormLang SvcNormLang = default!;
+	IFrontendUserCtxMgr UserCtxMgr = default!;
 
 	public VmNormLangEdit(
-		ISvcNormLang? SvcNormLang
-		,IFrontendUserCtxMgr? UserCtxMgr
+		ISvcNormLang SvcNormLang
+		,IFrontendUserCtxMgr UserCtxMgr
 	){
 		this.SvcNormLang = SvcNormLang;
 		this.UserCtxMgr = UserCtxMgr;
+		base.Init();
 	}
 
 	public bool IsCreateMode{
@@ -118,9 +120,6 @@ public partial class VmNormLangEdit: ViewModelBase, IMk<Ctx>{
 	}
 
 	public async Task<nil> Save(CT Ct = default){
-		if(AnyNull(SvcNormLang, UserCtxMgr)){
-			return NIL;
-		}
 		try{
 			var po = BuildPoFromFields();
 			var dbCtx = UserCtxMgr.GetDbUserCtx();
@@ -146,9 +145,6 @@ public partial class VmNormLangEdit: ViewModelBase, IMk<Ctx>{
 	}
 
 	public async Task<nil> Delete(CT Ct = default){
-		if(AnyNull(SvcNormLang, UserCtxMgr)){
-			return NIL;
-		}
 		try{
 			var po = BuildPoFromFields();
 			if(!IsCreateMode){

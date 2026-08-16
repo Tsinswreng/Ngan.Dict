@@ -188,24 +188,6 @@ public partial class ViewWordListCard
 
 	public GridStack Root{get;set;} = new GridStack(IsRow:true);
 
-	protected nil Style(){
-		//Styles.Add(SugarStyle.GridShowLines());
-		Styles.A(
-			Sty.Is<TextBlock>()
-			.Set(
-				x=>x.Effect
-				,new DropShadowDirectionEffect{
-					Color = Colors.Black
-					,BlurRadius = 4
-					,ShadowDepth = 4
-					//,Direction = 315 //高度 315是左上角
-					,Direction = 330
-					,Opacity = 0.5
-				}
-			)
-		);
-		return NIL;
-	}
 
 	protected nil Render(){
 		this.SetContent(Root.Grid, o=>{
@@ -312,6 +294,27 @@ public partial class ViewWordListCard
 
 		return R.Grid;
 	}
+
+	protected nil Style(){
+		//Styles.Add(SugarStyle.GridShowLines());
+		Styles.A(
+			Sty.Is<TextBlock>()
+			.Set(
+				x=>x.Effect
+				,new DropShadowDirectionEffect{
+					Color = Colors.Black
+					,BlurRadius = 4
+					,ShadowDepth = 4
+					//,Direction = 315 //高度 315是左上角
+					,Direction = 330
+					,Opacity = 0.5
+				}
+			)
+		);
+		return NIL;
+	}
+
+
 }
 
 
