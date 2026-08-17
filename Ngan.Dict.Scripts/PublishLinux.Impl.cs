@@ -17,17 +17,17 @@ internal static partial class PublishLinux{
 		await Rm(OldPublishDir, Ct);
 		if (await Exists(PublishDir, Ct))
 			await Mv(PublishDir, OldPublishDir, Ct);
-		await X("dotnet publish -c Release -r linux-x64", Ct).Out(Ct);
+		await Exe("dotnet", ["publish", "-c", "Release", "-r", "linux-x64"], Ct);
 		await Rm(OldPublishDir, Ct);
 		await CpAssets.Main(Root, Ct);
 
 		await Rm(PublishNoPdbDir, Ct);
 		await Cp(PublishDir / "*", PublishNoPdbDir, Ct);
-		await foreach (var Entry in Find(PublishNoPdbDir / "**/*.pdb", Ct))
+		await foreach (var Entry in Glob(PublishNoPdbDir / "**/*.pdb", Ct))
 			await Rm(Entry.FullName, Ct);
 		await Rm(ArchivePath, Ct);
 		Cd(PublishNoPdbDir);
-		await X($"tar -czf \"{ArchivePath}\" .", Ct).Out(Ct);
+		await Exe("tar", ["-czf", ArchivePath, "."], Ct);
 		await Mv(ArchivePath, PublishNoPdbDir / "Ngan.Dict.Linux.tar.gz", Ct);
 	}
 }
