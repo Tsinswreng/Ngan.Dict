@@ -12,16 +12,20 @@ internal static partial class Program{
 			Event.Cancel = true;
 			CtSource.Cancel();
 		};
+		
+
+		var Ct = CtSource.Token;
+		var CallerPath = OwnPath();
+		
+		var CallerDir = System.IO.Path.GetDirectoryName(CallerPath)!;
+		// Program.cs is at <root>/Ngan.Dict/Ngan.Dict.Scripts; walk up from its caller path, never from cwd.
+		var Root = System.IO.Path.GetFullPath(CallerDir/"../../..")/"";//NganDict/
+		
 		if (Args.Length == 0) {
 			PrintUsage();
 			return;
 		}
 
-		var Ct = CtSource.Token;
-		var CallerPath = OwnPath();
-		var CallerDir = Path.GetDirectoryName(CallerPath)!;
-		// Program.cs is at <root>/Ngan.Dict/Ngan.Dict.Scripts; walk up from its caller path, never from cwd.
-		var Root = Path.GetFullPath(CallerDir / "../..").Replace('\\', '/');
 		switch (Args[0]) {
 			case nameof(PublishWeb):
 				await PublishWeb.Main(Root, Ct);
