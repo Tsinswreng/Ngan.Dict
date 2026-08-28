@@ -9,7 +9,8 @@
 	<ItemGroup>
 		<PackageReference Include="Tsinswreng.CsCore" Version="0.0.1-alpha" />
 		<Compile Include="../TypeAlias.cs" />
-		<ProjectReference Include="../../../../Tsinswreng.CsSh/proj/Tsinswreng.CsSh/Tsinswreng.CsSh.csproj" />
+		<!-- CsSh 固定從 NuGet 引用、不依賴工作區源碼 -->
+		<PackageReference Include="Tsinswreng.CsSh" Version="0.3.0-alpha" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.8"/>

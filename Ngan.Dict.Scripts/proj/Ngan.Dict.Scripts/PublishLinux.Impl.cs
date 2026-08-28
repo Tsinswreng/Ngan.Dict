@@ -23,8 +23,8 @@ internal static partial class PublishLinux{
 
 		await Rm(PublishNoPdbDir, Ct);
 		await Cp(PublishDir / "*", PublishNoPdbDir, Ct);
-		await foreach (var Entry in Glob(PublishNoPdbDir / "**/*.pdb", Ct))
-			await Rm(Entry.FullName, Ct);
+		foreach (var Entry in Glob(PublishNoPdbDir / "**/*.pdb"))
+			await Rm(Entry, Ct);
 		await Rm(ArchivePath, Ct);
 		Cd(PublishNoPdbDir);
 		await Exe("tar", ["-czf", ArchivePath, "."], Ct);

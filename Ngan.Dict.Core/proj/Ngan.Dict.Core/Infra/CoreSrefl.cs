@@ -1,35 +1,33 @@
 using Ngan.Dict.Core.Infra.IF;
-using Tsinswreng.CsIfaceGen;
 using Tsinswreng.Srefl;
 namespace Ngan.Dict.Core.Infra;
 
-public class CfgIfaceGen{
-	public const str OutDir = nameof(Tsinswreng)+"."+nameof(Tsinswreng.CsIfaceGen)+"/";
-}
 
-
-[IfaceGen(
-	ParentType = typeof(IAppSerializable)
-	,Name = nameof(CoreDictMapper)
-	,PhFullType = "TYPE"
-	,PhIdentifierSafeFullType = "ID"
-	,OutDir = CfgIfaceGen.OutDir+nameof(CoreDictMapper)
-	,Template =
-"""
-
-namespace Ngan.Dict.Core.Infra{
-using Tsinswreng.Srefl;
-	[SreflType(typeof(TYPE))]
-	public partial class CoreDictMapper{
-		//public static string ID = "TYPE";
-	}
-}
-
-"""
-)]
-public interface IIfaceGenCfg_CoreDictMapper{
-
-}
+// IfaceGen 已移除：CoreDictMapper 的 [SreflType] 註冊改由 Ngan.Dict.Scripts 的 GenAppJsonCtx 生成
+#region IfaceGen 舊配置（僅留檔）
+// [IfaceGen(
+// 	ParentType = typeof(IAppSerializable)
+// 	,Name = nameof(CoreDictMapper)
+// 	,PhFullType = "TYPE"
+// 	,PhIdentifierSafeFullType = "ID"
+// 	,OutDir = CfgIfaceGen.OutDir+nameof(CoreDictMapper)
+// 	,Template =
+// """
+//
+// namespace Ngan.Dict.Core.Infra{
+// using Tsinswreng.Srefl;
+// 	[SreflType(typeof(TYPE))]
+// 	public partial class CoreDictMapper{
+// 		//public static string ID = "TYPE";
+// 	}
+// }
+//
+// """
+// )]
+// public interface IIfaceGenCfg_CoreDictMapper{
+//
+// }
+#endregion
 
 #if false
 [DictType(typeof(PoCfg))]
@@ -45,7 +43,7 @@ public interface IIfaceGenCfg_CoreDictMapper{
 
 
 [Doc(@$"
-Ngan.Dict.Core/GenAppJsonCtx.sh 中 引用了此類的名稱
+Ngan.Dict.Scripts 的 GenAppJsonCtx 生成之代碼中 引用了此類的名稱
 故謹慎重命名、留作CoreDictMapper
 ")]
 public partial class CoreDictMapper{

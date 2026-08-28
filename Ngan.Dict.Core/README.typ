@@ -2,7 +2,7 @@
 - `bin/`
 - `DiCore.cs` 依賴注入配置
 - `FrontendIF/` 蔿前端之接口
-- `GenAppJsonCtx.sh` 用IfaceGen生成AppJsonCtx與CoreDictMapper之DictType特性之腳本
+- `GenAppJsonCtx`（Ngan.Dict.Scripts 之入口）生成 AppJsonCtx與CoreDictMapper之註冊代碼（輸出至 Tsinswreng.SrcGen/Ngan.Dict.Gen.g.cs）
 - `GlobalUsing.cs`
 - `Infra/`
 - `Models/`

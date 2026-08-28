@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<AllowMissingPrunePackageData>true</AllowMissingPrunePackageData>
 		<OutputType>Library</OutputType>
@@ -73,8 +73,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="../../../../Tsinswreng.CsIfaceGen/proj/Tsinswreng.CsIfaceGen/Tsinswreng.CsIfaceGen.csproj" />
-		<!-- <ProjectReference Include="../Tsinswreng.CsIfaceGen/proj/Tsinswreng.CsIfaceGen.SrcGen/Tsinswreng.CsIfaceGen.SrcGen.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" /> -->
+		<!-- CsIfaceGen 已移除：JsonSerializable/SreflType 註冊改由 Ngan.Dict.Scripts 的 GenAppJsonCtx 生成 -->
 	</ItemGroup>
 
 	<ItemGroup>

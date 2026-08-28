@@ -22,6 +22,12 @@ using Tsinswreng.CsCore;
 	- `PublishAndroid`：以 Mono runtime 發布 Android APK。
 	- `PublishAndroidNativeAot`：以 WSL/Linux Android SDK、NDK 發布 NativeAOT APK。
 	- `CpAssets`：同步外部資源到各目標輸出目錄。
+	- `GenAppJsonCtx`：用 Roslyn 分析 Ngan.Dict.Core，
+	  收集 `IAppSerializable`/`IRawValueSerializable` 之實現者，
+	  生成 AppJsonCtx（JsonSerializable/JsonSourceGenerationOptions/JsonConverters）與
+	  CoreDictMapper（SreflType）之註冊代碼到
+	  `Ngan.Dict.Core/Tsinswreng.SrcGen/Ngan.Dict.Gen.g.cs`（單文件）。
+	  替代舊的 `GenAppJsonCtx.sh` + Tsinswreng.CsIfaceGen.Cli 流程。
 ]
 
 #H[NativeAOT 約束][

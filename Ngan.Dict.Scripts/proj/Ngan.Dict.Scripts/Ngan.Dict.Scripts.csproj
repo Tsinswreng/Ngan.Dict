@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
@@ -9,5 +9,12 @@
 		<NoWarn>CS0028</NoWarn>
 	</PropertyGroup>
 
+	<ItemGroup>
+		<!-- Roslyn Workspaces：GenAppJsonCtx 用 MSBuildWorkspace 載入 Ngan.Dict.Core 專案、
+		     以語法/語義分析收集標記接口之實現者。版本與 Tsinswreng.CsIfaceGen.Cli 一致。 -->
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.8.0" />
+		<PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="4.8.0" />
+		<PackageReference Include="Microsoft.Build.Locator" Version="1.6.10" />
+	</ItemGroup>
 
 </Project>

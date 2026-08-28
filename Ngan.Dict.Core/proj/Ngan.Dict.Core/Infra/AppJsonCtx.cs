@@ -9,7 +9,6 @@ using Ngan.Dict.Core.Infra.IF;
 using Ngan.Dict.Core.Shared.User.Models.Po;
 using Ngan.Dict.Core.Shared.User.Models.Po.User;
 using Ngan.Dict.Core.Tools;
-using Tsinswreng.CsIfaceGen;
 using Tsinswreng.CsTools;
 
 interface INull{
@@ -17,50 +16,11 @@ interface INull{
 }
 
 //JsonSerializable註解須寫在一起、不能散落在分散之partial class、否則json源生成器不輸出
-//執行Ngan.Dict.Core\GenAppJsonCtx.sh㕥自動生成帶註解ʹAppJsonCtx分部類
-[IfaceGen(
-	ParentType = typeof(IAppSerializable)
-	//ParentType = typeof(INull)
-	,Name = nameof(IAppSerializable)
-	,OutDir = CfgIfaceGen.OutDir+nameof(IAppSerializable)
-	,PhFullType = "TYPE"
-	,PhIdentifierSafeFullType = "ID"
-	,Template =
-"""
-
-[JsonSerializable(typeof(TYPE))]
-[JsonSerializable(typeof(global::System.Collections.Generic.IList<TYPE>))]
-
-"""
-
-)]
-public interface IIfaceGenCfg_AppJsonCtx{
-
-}
-
+//執行 Ngan.Dict.Scripts 的 GenAppJsonCtx 以自動生成帶註解ʹAppJsonCtx分部類（輸出至 Tsinswreng.SrcGen/Ngan.Dict.Gen.g.cs）
 /// ASP.net 內置Json序列化器專用。
 /// 縱既配opt =>opt.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonCtx.Default);
 /// 猶需手上 opt.SerializerOptions.Converters.Add(new MyConverter()......)
 /// 佢不認AppJsonCtx中 用註解配˪ʹ Converters
-
-[IfaceGen(
-	ParentType = typeof(IRawValueSerializable)
-	//ParentType = typeof(INull)
-	,Name = nameof(IRawValueSerializable)+"List"
-	,OutDir = CfgIfaceGen.OutDir+nameof(IRawValueSerializable)+"List"
-	,PhFullType = "TYPE"
-	,PhIdentifierSafeFullType = "ID"
-	,Template =
-"""
-new global::Ngan.Dict.Core.Tools.JsonConvtr<TYPE>(),
-
-"""
-
-)]
-public interface IIfaceGenCfg_JsonCustomConverterList{
-
-}
-
 
 //此註解已加在 IRawValueSerializableListʃ生成ʹ代碼中、勿複手動添
 // [JsonSourceGenerationOptions(
@@ -97,7 +57,7 @@ public partial class AppJsonCtx : JsonSerializerContext {
 }
 
 
-#if false //額外類型 自己手動複製粘貼到 Ngan.Dict.Core/GenAppJsonCtx.sh
+#if false //額外類型 已搬入 Ngan.Dict.Scripts 的 GenAppJsonCtx 之 ExtraJsonTypes
 
 [JsonSerializable(typeof(global::Tsinswreng.CsErr.IWebAns<obj>))]
 [JsonSerializable(typeof(global::Tsinswreng.CsErr.IAppErrView))]
