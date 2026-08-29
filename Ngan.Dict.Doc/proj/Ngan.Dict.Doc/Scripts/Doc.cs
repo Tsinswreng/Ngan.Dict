@@ -28,6 +28,8 @@ using Tsinswreng.CsCore;
 	  CoreDictMapper（SreflType）之註冊代碼到
 	  `Ngan.Dict.Core/Tsinswreng.SrcGen/Ngan.Dict.Gen.g.cs`（單文件）。
 	  替代舊的 `GenAppJsonCtx.sh` + Tsinswreng.CsIfaceGen.Cli 流程。
+	- `TestWinAot`：發布 `Ngan.Dict.Windows.Test` 為 win-x64 NativeAOT 並運行測試 exe，
+	  在 AOT 剪裁環境下驗證測試全部通過。
 ]
 
 #H[NativeAOT 約束][
