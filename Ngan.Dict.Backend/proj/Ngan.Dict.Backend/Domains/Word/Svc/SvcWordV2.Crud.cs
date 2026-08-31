@@ -293,16 +293,21 @@ public partial class SvcWordV2
 		});
 	}
 
-	/// 批量改主鍵，並同步遷移資產外鍵。
+	/// 批量改主鍵(Old→New)，並同步遷移資產外鍵(見 DaoWordV2.BatChangeWordId)。
+	/// 主要用途：同步 IdNotEqual 衝突收斂後、把庫中行遷到「保留 Id」上；New 必須全庫空位。
+	/// 校驗口徑：含軟刪行(已刪詞仍佔用 Id/BizId 語義)；Old 必須屬當前用戶、New 必須不存在，違例即拋。
+	/// 注：step 1 目前逐條點查(N 元素 = 2N 次往返)、「介面批量、實現退化單條」的現狀樣本。
 	public Task<nil> OrdChangeId(IDbUserCtx Ctx, IAsyncEnumerable<(IdWord Old, IdWord New)> Ids, CT Ct){
 		return SqlCmdMkr.EnsureTxn(Ctx.DbFnCtx, Ct, async(DbCtx)=>{
 			await using var batch = new BatchCollector<(IdWord Old, IdWord New), nil>(async(idBatch, Ct)=>{
+				// Old==New 的 noop 先剔除，避免對主鍵列做無意義的自我 UPDATE
 				var moves = idBatch.Where(x=>x.Old != x.New).ToList();
 				if(moves.Count == 0){
 					return NIL;
 				}
 
 				// step 1: 檢查 old 一定存在且屬於當前用戶；new 不能已存在於庫中。
+				// 單元素調用 BatGetPoWordByIdWithDel(同構批量、查無補 null)即退化為點查。
 				foreach(var (oldId, newId) in moves){
 					var old = await DaoWordV2.BatGetPoWordByIdWithDel(DbCtx, ToAsyE([oldId]), Ct).FirstOrDefaultAsync(Ct);
 					if(old is null){

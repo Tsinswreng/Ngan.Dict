@@ -249,7 +249,8 @@ public interface ISvcWordV2{
 		BizId指業務層面之唯一標識、而非Id字段
 		
 		對每個元素:
-		先去數據庫中 按({nameof(PoWord.Owner)},{nameof(PoWord.Head)},{nameof(PoWord.Lang)}) 查到舊詞Local(可能爲null);
+		先去數據庫中 按({nameof(PoWord.Owner)},{nameof(PoWord.Head)},{nameof(PoWord.Lang)})
+		查到舊詞Local(可能爲null);
 		
 		然後調用{nameof(ISvcWordInMem.SyncJnWord)}。
 		然後調用{nameof(OrdSyncByDto)}。

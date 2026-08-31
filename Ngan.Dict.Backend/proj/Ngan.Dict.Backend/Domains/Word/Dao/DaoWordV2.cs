@@ -37,6 +37,9 @@ public partial class DaoWordV2(
 	IRepo<PoWordLearn, IdWordLearn> RepoLearn = RepoLearn;
 	PreFilterSqlMkr PreFilterSqlMkr = new();
 
+	/// 常規聚合修改(新增/更新/刪除資產、遷移等)後的統一收尾：
+	/// 按根 Id 批量把 PoWord.BizUpdatedAt 置為當前時間(DB 側生成)。
+	/// ISvcWordV2 文檔頭約定：凡動過 JnWord(含資產)必須經此觸碰——同步端以 BizUpdatedAt 判新舊，漏觸碰=丟改動。
 	public Task<nil> BatAltWordAfterUpd(
 		IDbFnCtx Ctx, IAsyncEnumerable<IdWord> Ids, CT Ct
 	){
@@ -81,6 +84,7 @@ AND {TW.QtCol(nameof(PoWord.Owner))} = {pOwner};
 		return NIL;
 	}
 
+	/// 批量按 Id 取單詞主體(含軟刪)。Ord 語義：出參與入參 Ids 位置一一對應、查無補 null。
 	public IAsyncEnumerable<PoWord?> BatGetPoWordByIdWithDel(
 		IDbFnCtx Ctx
 		,IAsyncEnumerable<IdWord> Ids
@@ -89,6 +93,8 @@ AND {TW.QtCol(nameof(PoWord.Owner))} = {pOwner};
 		return RepoWord.OrdGetByIdWithDel(Ctx, Ids, Ct);
 	}
 
+	/// 批量按 Id 取完整聚合(根+Props+Learns、含軟刪)。Ord 語義：出參與入參位置一一對應、查無補 null。
+	/// 與 BatGetPoWordByIdWithDel 的分工：先按 BizId 命中根、再用本函數按根 Id 回讀明細(見同步鏈路 step2/3)。
 	public IAsyncEnumerable<JnWord?> BatGetJnWordByIdWithDel(
 		IDbFnCtx Ctx
 		,IAsyncEnumerable<IdWord> Ids
@@ -121,7 +127,10 @@ AND {TW.QtCol(nameof(PoWord.Owner))} = {pOwner};
 		});
 	}
 	
-	/// 批量按 (Owner, Head, Lang) 查單詞（含已軟刪除），返回順序與入參一一對應。
+	/// 批量按 (Owner, Head, Lang) 查單詞主體（含已軟刪除），返回順序與入參一一對應。
+	/// 實現要點：SqlSplicer 構造「一條模板 SQL」——Owner 用 One(常量綁定)、Head/Lang 用 Many(取自入參流)；
+	/// RunDupliSql 同構批量執行：每入參元素實例化一條等值 SQL、按批拼進一個 CommandText 一次往返，
+	/// 每個結果集取首行、空補 null——這正是「IN 子句做不到」的複合鍵保序查詢(BizId 匹配的地基)。
 	public IAsyncEnumerable<PoWord?> BatGetPoWordByOwnerHeadLangWithDel(
 		IDbFnCtx Ctx,
 		IdUser Owner,
@@ -186,6 +195,8 @@ AND {TW.QtCol(nameof(PoWord.Owner))} = {pOwner};
 	}
 
 	/// 批量把資產 (WordProp/WordLearn) 的 WordId 從 Old 移到 New。
+	/// 「移動」洏非「複製」：搬完後 Old 名下不再有任何資產；Old 通常已/將被軟刪(見 OrdUpdHeadLang 衝突分支)。
+	/// 先讀後寫是必要的：改外鍵要先知道名下有哪些資產行(Upsert/Upd 都需要完整實體)。
 	public async Task<nil> BatMoveAssetsToWordId(
 		IDbFnCtx Ctx,
 		IAsyncEnumerable<(IdWord Old, IdWord New)> Moves,
@@ -195,6 +206,9 @@ AND {TW.QtCol(nameof(PoWord.Owner))} = {pOwner};
 			if(moveBatch.Count == 0){
 				return NIL;
 			}
+			// step 1: 按外鍵列批量拉取 Old 名下全部資產(含軟刪、避免漏搬)。
+			// IncludeEntitysByKeys：跨表按 WordId IN(...) 一批取回、回 Dictionary<IdWord, IList<資產>>；
+			// OptQry.InParamCnt 告知預期 IN 數量、由庫按 DB 決定切批(sqlite 參數上限敏感)。
 			var oldIds = moveBatch.Select(x=>x.Old).Distinct().ToList();
 			var opt = new OptQry{
 				InParamCnt = (u64)oldIds.Count,
@@ -219,6 +233,8 @@ AND {TW.QtCol(nameof(PoWord.Owner))} = {pOwner};
 				Ct
 			);
 
+			// step 2: 內存改掛——逐條 (Old,New) 把名下實體的 WordId 就地改成 New、聚成待回寫清單。
+			// 註：moveBatch 中同一 Old 理論上不該重複出現；若重複、第二輪讀到的已是改掛後狀態。
 			var updProps = new List<PoWordProp>();
 			var updLearns = new List<PoWordLearn>();
 			foreach(var (oldId, newId) in moveBatch){
@@ -231,6 +247,8 @@ AND {TW.QtCol(nameof(PoWord.Owner))} = {pOwner};
 					updLearns.Add(learn);
 				}
 			}
+			// step 3: 整行回寫(OrdUpd 含軟刪資產原狀態一併覆蓋、只換外鍵)、兩表各自一次同構批量。
+			// 不動資產 BizUpdatedAt：內容未變、僅歸屬變(接口文檔明示)，聚合根的觸碰由調用方負責。
 			if(updProps.Count > 0){
 				await RepoProp.OrdUpd(Ctx, ToolAsyE.ToAsyE(updProps), Ct);
 			}
@@ -244,6 +262,9 @@ AND {TW.QtCol(nameof(PoWord.Owner))} = {pOwner};
 	}
 
 	/// 批量更改 Word 主鍵 Id，並同步把全部資產外鍵一起遷移。
+	/// 調用前提(OrdChangeId 已校驗)：Old 存在、New 全庫不存在。
+	/// 注意：手拼多語句 SQL 走 Prepare+RawArgs 逃逸通道——Repo 更新系 API 一律忽略主鍵列、無法改 Id，
+	/// 這是目前庫能力下「改主鍵」的唯一寫法(CsSql 改造時此場景為剛需)。
 	public async Task<nil> BatChangeWordId(
 		IDbFnCtx Ctx,
 		IAsyncEnumerable<(IdWord Old, IdWord New)> Moves,
@@ -255,6 +276,8 @@ AND {TW.QtCol(nameof(PoWord.Owner))} = {pOwner};
 				return NIL;
 			}
 
+			// step 1: 每對 (Old,New) 實例化一條 UPDATE 主鍵語句、以 ';' 拼成一個命令一次往返；
+			// 參數名帶下標避免碰撞、值經 UpperToRaw 轉強類型 Id 的庫側表示(BLOB/bytea)。
 			// 直接更新主鍵 Id。Repo.BatUpdByCodeDict 會忽略 Id 欄位，不能用於主鍵變更。
 			var stmts = new List<str>(normalized.Count);
 			var arg = new Dictionary<str, obj?>();
@@ -275,6 +298,8 @@ AND {TW.QtCol(nameof(PoWord.Owner))} = {pOwner};
 			Ctx.AddToDispose(cmd);
 			await cmd.RawArgs(arg).AsyE1d(Ct).FirstOrDefaultAsync(Ct);
 
+			// step 2: 根主鍵改完後立刻搬資產——此刻資產外鍵仍指向 Old，必須跟進到新 Id。
+			// step 3: 觸碰新 Id 的 BizUpdatedAt(遷移視同變更；Old 行已改名、無從觸碰)。
 			await BatMoveAssetsToWordId(Ctx, ToolAsyE.ToAsyE(normalized), Ct);
 			await BatAltWordAfterUpd(Ctx, ToolAsyE.ToAsyE(normalized.Select(x=>x.New)), Ct);
 			return NIL;

@@ -22,8 +22,6 @@
 		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.CsDictMapper\proj\Tsinswreng.CsDictMapper\Tsinswreng.CsDictMapper.csproj' />
 		<!-- <ProjectReference Include='$(MSBuildThisFileDirectory)..\..\Tsinswreng.CsFactoryMkr\proj\Tsinswreng.CsFactoryMkr.SrcGen\Tsinswreng.CsFactoryMkr.SrcGen.csproj' /> -->
 		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.CsI18n\proj\Tsinswreng.CsI18n\Tsinswreng.CsI18n.csproj' />
-		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.CsIfaceGen\proj\Tsinswreng.CsIfaceGen.Cli\Tsinswreng.CsIfaceGen.Cli.csproj' />
-		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.CsIfaceGen\proj\Tsinswreng.CsIfaceGen.SrcGen\Tsinswreng.CsIfaceGen.SrcGen.csproj' />
 		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.CsJson\proj\Tsinswreng.CsJson\Tsinswreng.CsJson.csproj' />
 		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.CsPage\proj\Tsinswreng.CsPage\Tsinswreng.CsPage.csproj' />
 		<ProjectReference Include='$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.CsSql\proj\Tsinswreng.CsSql.BaseImpl\Tsinswreng.CsSql.BaseImpl.csproj' />

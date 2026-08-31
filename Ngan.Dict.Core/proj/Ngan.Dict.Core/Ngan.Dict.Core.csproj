@@ -17,7 +17,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<!-- <Compile Include="obj/Generated/Tsinswreng.CsIfaceGen.SrcGen/Tsinswreng.CsIfaceGen.SrcGen.Generator/*.cs" /> -->
 	</ItemGroup>
 
 	<ItemGroup>
