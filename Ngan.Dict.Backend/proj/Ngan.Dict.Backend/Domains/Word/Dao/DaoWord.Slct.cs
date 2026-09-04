@@ -67,7 +67,7 @@ SELECT * FROM {Tbl.Qt(Tbl.DbTblName)}
 WHERE 1=1
 {FilterDel}
 AND {T.Eq(PWordId)}
-{Tbl.SqlMkr.ParamLimOfst(out var PLmt, out var POfst)}
+{Tbl.SqlDialect.ParamLimOfst(out var PLmt, out var POfst)}
 """;
 		var SqlCmd = await Ctx.PrepareToDispose(SqlCmdMkr, Sql, Ct);
 		return async(IdWord, PageQry ,Ct)=>{
@@ -109,7 +109,7 @@ SELECT * FROM {Tbl.Qt(Tbl.DbTblName)}
 WHERE 1=1
 {FilterDel}
 AND {T.QtCol(PWordId)} IN ({str.Join(",", numParams)})
-{Tbl.SqlMkr.ParamLimOfst(out var PLmt, out var POfst)}
+{Tbl.SqlDialect.ParamLimOfst(out var PLmt, out var POfst)}
 """;
 		var SqlCmd = await Ctx.PrepareToDispose(SqlCmdMkr, Sql, Ct);
 		return async(IdWords, PageQry ,Ct)=>{
@@ -382,7 +382,7 @@ WHERE 1=1
 AND {T.QtCol(x=>x.Head)} LIKE {PPrefix} || '%'
 AND {T.Eq(POwner)}
 ORDER BY {T.QtCol(N.Head)} ASC
-{T.SqlMkr.ParamLimOfst(out var PLmt, out var POfst)}
+{T.SqlDialect.ParamLimOfst(out var PLmt, out var POfst)}
 """; // AND {T.Fld(NLang)} = {PLang}
 		var SqlCmd = await SqlCmdMkr.Prepare(Ctx, Sql, Ct);
 		Ctx?.AddToDispose(SqlCmd);
@@ -529,7 +529,7 @@ LEFT JOIN first_ f
 	AND f.first_ts <  r.end_ts
 GROUP BY r.start_ts, r.end_ts
 ORDER BY r.start_ts --DESC
-{T.SqlMkr.ParamLimOfst(out var Lmt, out var Ofst)}
+{T.SqlDialect.ParamLimOfst(out var Lmt, out var Ofst)}
 ;
 """;
 var Cmd = await SqlCmdMkr.Prepare(Ctx, Sql, Ct);

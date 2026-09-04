@@ -110,6 +110,7 @@ AND {TW.QtCol(nameof(PoWord.Owner))} = {pOwner};
 		,IAsyncEnumerable<Head_Lang> HeadLangs
 		,CT Ct
 	){
+		
 		var hl = HeadLangs;
 		var Sql = TW.SqlSplicer().Select(x=>x.Id).From().Where1()
 		.And(TW.SqlIsNonDel())
@@ -144,6 +145,34 @@ AND {TW.QtCol(nameof(PoWord.Owner))} = {pOwner};
 			.AndEq(x=>x.Lang, y=>y.Many(hl, z=>z.Lang))
 		;
 		return SqlCmdMkr.RunDupliSql(Ctx, TW, sql, Ct);
+	}
+
+	// ■ _2 對標（SqlMkr 重寫）：複合鍵 (Owner, Head, Lang) 批量查。
+	// 對照：原 BatGetPoWordByOwnerHeadLangWithDel 用 SqlSplicer + One(常量)/Many(每元素) binder + RunDupliSql；
+	// 新寫法 AndEq(Owner 常量) + AndKeys(每行一個鍵字典) 收整批 IList（函數只管一批），
+	// 每元素一條 `... AND Head=@Head__i AND Lang=@Lang__i` 語句、' ;' 拼一命令，AsyE1dWithNull 保序補 null。
+	public async Task<IList<PoWord?>> BatGetPoWordByOwnerHeadLangWithDel_2(
+		IDbFnCtx Ctx,
+		IdUser Owner,
+		IList<Head_Lang> HeadLangs,
+		CT Ct
+	){
+		var keys = HeadLangs.Select(x=>new Dictionary<str, obj?>{
+			[nameof(PoWord.Head)] = x.Head,
+			[nameof(PoWord.Lang)] = x.Lang,
+		}).Cast<IStr_Obj>().ToList();
+		var Stmt = TW.SqlMkr().Select("*").From().Where1()
+			.AndEq(nameof(PoWord.Owner), Owner)
+			.AndKeys(keys)
+			.Build();
+
+		var Cmd = await SqlCmdMkr.Prepare(Ctx, Stmt.Sql, Ct);
+		Ctx.AddToDispose(Cmd);
+		var Ans = new List<PoWord?>(HeadLangs.Count);
+		await foreach(var Dict in Cmd.RawArgs(Stmt.Args.ToDict()).AsyE1dWithNull(Ct).WithCancellation(Ct)){
+			Ans.Add(Dict is null ? null : TW.DbDictToEntity<PoWord>(Dict));
+		}
+		return Ans;
 	}
 
 	/// 批量更新單詞主體的 Head/Lang，並同步觸發 BizUpdatedAt。
@@ -308,6 +337,39 @@ AND {TW.QtCol(nameof(PoWord.Owner))} = {pOwner};
 		return NIL;
 	}
 
+	// ■ _2 對標（SqlMkr 重寫）：批量改主鍵。
+	// 對照：原 BatChangeWordId 手拼 `old_{i}`/`new_{i}` 參數逐對 UPDATE（Repo 更新系 API 忽略主鍵列、只能走逃逸通道）；
+	// 新寫法 Update().AddRow 每對 (Old, New)：WHERE 主鍵 = Old、SET 列集含主鍵列(新值)——「改主鍵」正好是
+	// SqlMkr Update 原生語義(dict 鍵 = SET 列集、Id 鍵 = WHERE)，對序前綴/Upper→Raw 由庫內部吸收。
+	public async Task<nil> BatChangeWordId_2(
+		IDbFnCtx Ctx,
+		IList<(IdWord Old, IdWord New)> Moves,
+		CT Ct
+	){
+		var normalized = Moves.Where(x=>x.Old != x.New).ToList();
+		if(normalized.Count == 0){
+			return NIL;
+		}
+
+		// step 1: 每對 (Old,New) 一條 UPDATE 主鍵(SET Id = New WHERE Id = Old)，' ;' 拼一命令一次往返
+		var Upd = TW.SqlMkr().Update();
+		foreach(var (oldId, newId) in normalized){
+			Upd.AddRow(nameof(PoWord.Id), oldId, new Dictionary<str, obj?>{
+				[nameof(PoWord.Id)] = newId,
+			});
+		}
+		var Stmt = Upd.Build();
+		var Cmd = await SqlCmdMkr.Prepare(Ctx, Stmt.Sql, Ct);
+		Ctx.AddToDispose(Cmd);
+		await Cmd.RawArgs(Stmt.Args.ToDict()).AsyE1d(Ct).FirstOrDefaultAsync(Ct);
+
+		// step 2: 根主鍵改完後立刻搬資產——此刻資產外鍵仍指向 Old，必須跟進到新 Id。
+		// step 3: 觸碰新 Id 的 BizUpdatedAt(遷移視同變更；Old 行已改名、無從觸碰)。
+		await BatMoveAssetsToWordId(Ctx, ToolAsyE.ToAsyE(normalized), Ct);
+		await BatAltWordAfterUpd(Ctx, ToolAsyE.ToAsyE(normalized.Select(x=>x.New)), Ct);
+		return NIL;
+	}
+
 	public IAsyncEnumerable<JnWord> GetWordsByOwner(
 		IDbFnCtx Ctx
 		,IdUser Owner
@@ -368,7 +430,7 @@ AND {TW.SqlIsNonDel()}
 AND {TW.QtCol(nameof(PoWord.Owner))} = {pOwner}
 AND {whereHead}
 ORDER BY {TW.QtCol(nameof(PoWord.Head))} ASC, {TW.QtCol(nameof(PoWord.Id))} ASC
-{TW.SqlMkr.ParamLimOfst(out var pLim, out var pOfst)}
+{TW.SqlDialect.ParamLimOfst(out var pLim, out var pOfst)}
 """;
 		var arg = ArgDict.Mk(TW)
 			.AddT(pOwner, Owner)

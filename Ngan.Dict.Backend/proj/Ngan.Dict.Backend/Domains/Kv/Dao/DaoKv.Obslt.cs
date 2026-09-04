@@ -97,7 +97,7 @@ var Sql = $"""
 SELECT * FROM {T.Qt(T.DbTblName)}
 WHERE {T.Qt(NOwner)} = {POwner}
 AND {T.Qt(NKStr)} = {PKStr}
-{T.SqlMkr.ParamLimOfst(out var Lmt, out var Ofst)}
+{T.SqlDialect.ParamLimOfst(out var Lmt, out var Ofst)}
 """;
 		var SqlCmd = await SqlCmdMkr.Prepare(Ctx, Sql, Ct);
 		Ctx?.AddToDispose(SqlCmd);
