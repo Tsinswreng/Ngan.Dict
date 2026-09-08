@@ -21,7 +21,7 @@ public class DaoNormLangToUserLang(
 		str NormLang,
 		CT Ct
 	){
-		var Sql = T.SqlSplicer().Select(x=>x.UserLang).From().WhereNonDel()
+		var Sql = T.SqlSplicer().Select(x=>x.UserLang).FromT().WhereNonDel()
 			.AndEq(x=>x.Owner, x=>x.One(Owner))
 			.AndEq(x=>x.NormLangType, x=>x.One(NormLangType))
 			.AndEq(x=>x.NormLang, x=>x.One(NormLang))
@@ -39,7 +39,7 @@ public class DaoNormLangToUserLang(
 		ReqPageNormLangToUserLang Req,
 		CT Ct
 	){
-		var Sql = T.SqlSplicer().Select("*").From().WhereNonDel()
+		var Sql = T.SqlSplicer().Select("*").FromT().WhereNonDel()
 			.AndEq(x=>x.Owner, x=>x.One(Owner))
 		;
 		var SearchText = Req.SearchText?.Trim();

@@ -20,7 +20,7 @@ public class DaoNormLang(
 		CT Ct
 	){
 		var tc = Type_Code;
-		var Sql = T.SqlSplicer().Select("*").From().WhereNonDel()
+		var Sql = T.SqlSplicer().Select("*").FromT().WhereNonDel()
 			.AndEq(x=>x.Owner, x=>x.One(Owner))
 			.AndEq(x=>x.Type, x=>x.Many(tc, x=>x.Type))
 			.AndEq(x=>x.Code, x=>x.Many(tc, x=>x.Code))
@@ -34,7 +34,7 @@ public class DaoNormLang(
 		ReqPageNormLang Req,
 		CT Ct
 	){
-		var Sql = T.SqlSplicer().Select("*").From().WhereNonDel()
+		var Sql = T.SqlSplicer().Select("*").FromT().WhereNonDel()
 			.AndEq(x=>x.Owner, x=>x.One(Owner))
 		;
 		var SearchText = (Req.SearchText ?? "").Trim();

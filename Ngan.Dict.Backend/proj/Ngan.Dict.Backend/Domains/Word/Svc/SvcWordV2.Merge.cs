@@ -34,134 +34,173 @@ using Tsinswreng.CsTempus;
 
 public partial class SvcWordV2
 {
-	/// 先按 BizId(Owner+Head+Lang) 查庫，再計算 Remote 合入 Local 的結果。
-	public async IAsyncEnumerable<IJnWordMergeResult> GetWordMergeResult(
+	/// 先按 BizId(Owner+Head+Lang) 查庫，再計算 Remote 合入 Local 的結果。純讀、不落庫、無事務。
+	/// ■ 流式版(對外入口):SqlFlow.Batches 切批逐批調 IList 批核心、按批順序攤平輸出。
+	public IAsyncEnumerable<IJnWordMergeResult> GetWordMergeResult(
 		IDbUserCtx Ctx,
 		IAsyncEnumerable<JnWord> Words,
-		[EnumeratorCancellation] CT Ct
+		CT Ct
 	){
-		Ctx.DbFnCtx ??= new DbFnCtx();
-		await using var batch = new BatchCollector<JnWord, IAsyncEnumerable<IJnWordMergeResult>>(async(remotes, Ct)=>{
-			if(remotes.Count == 0){
-				return ToAsyE(Array.Empty<IJnWordMergeResult>());
-			}
+		return SqlFlow.Batches<JnWord, IJnWordMergeResult>(
+			Words, async(batch, ct2)=> (IEnumerable<IJnWordMergeResult>)(await GetWordMergeResult(Ctx, batch, ct2)), Ct
+		);
+	}
 
-			foreach(var remote in remotes){
-				remote.Owner = Ctx.UserCtx.UserId;
-				remote.EnsureForeignId();
-			}
-
-			var headLangs = remotes.Select(x=>new Head_Lang(x.Head, x.Lang)).ToList();
-			var localPos = await DaoWordV2.BatGetPoWordByOwnerHeadLangWithDel(
-				Ctx.DbFnCtx,
-				Ctx.UserCtx.UserId,
-				ToAsyE(headLangs),
-				Ct
-			).ToListAsync(Ct);
-			var ids = localPos.Where(x=>x is not null).Select(x=>x!.Id).Distinct().ToList();
-			var localById = new Dictionary<IdWord, JnWord?>();
-			if(ids.Count > 0){
-				var locals = await DaoWordV2.BatGetJnWordByIdWithDel(Ctx.DbFnCtx, ToAsyE(ids), Ct).ToListAsync(Ct);
-				for(var i = 0; i < ids.Count; i++){
-					localById[ids[i]] = locals[i];
-				}
-			}
-
-			var ans = new List<IJnWordMergeResult>(remotes.Count);
-			for(var i = 0; i < remotes.Count; i++){
-				JnWord? local = null;
-				var localPo = localPos[i];
-				if(localPo is not null){
-					local = localById.GetValueOrDefault(localPo.Id);
-				}
-				ans.Add(SvcWordInMem.Merge(local, remotes[i]));
-			}
-			return ToAsyE(ans);
-		});
-		var all = batch.AllFlat(Words, Ct);
-		await foreach(var one in all.WithCancellation(Ct)){
-			yield return one;
+	/// ■ IList 批核心:函數只管一批——歸一化 → 查根/查聚合、位置對齊 → 逐條算合併結果。
+	public async Task<IList<IJnWordMergeResult>> GetWordMergeResult(
+		IDbUserCtx Ctx,
+		IList<JnWord> Words,
+		CT Ct
+	){
+		if(Words.Count == 0){
+			return [];
 		}
+
+		// 純讀、無事務:惰性建裸 DbFnCtx(與原流式版一致),後續 Dao/Repo 直接使用。
+		Ctx.DbFnCtx ??= new DbFnCtx();
+
+		foreach(var remote in Words){
+			remote.Owner = Ctx.UserCtx.UserId;
+			remote.EnsureForeignId();
+		}
+
+		var headLangs = new List<Head_Lang>(Words.Count);
+		foreach(var r in Words){
+			headLangs.Add(new Head_Lang(r.Head, r.Lang));
+		}
+		var localPos = await DaoWordV2.BatGetPoWordByOwnerHeadLangWithDel(
+			Ctx.DbFnCtx,
+			Ctx.UserCtx.UserId,
+			headLangs,
+			Ct
+		);
+		var ids = localPos.Where(x=>x is not null).Select(x=>x!.Id).Distinct().ToList();
+		var localById = new Dictionary<IdWord, JnWord?>();
+		if(ids.Count > 0){
+			var locals = await DaoWordV2.BatGetJnWordByIdWithDel(Ctx.DbFnCtx, ids, Ct);
+			for(var i = 0; i < ids.Count; i++){
+				localById[ids[i]] = locals[i];
+			}
+		}
+
+		var ans = new List<IJnWordMergeResult>(Words.Count);
+		for(var i = 0; i < Words.Count; i++){
+			JnWord? local = null;
+			var localPo = localPos[i];
+			if(localPo is not null){
+				local = localById.GetValueOrDefault(localPo.Id);
+			}
+			ans.Add(SvcWordInMem.Merge(local, Words[i]));
+		}
+		return ans;
 	}
 
 	/// 實際把合併結果落庫：新增整詞、或把新增資產追加到已有單詞。
+	/// ■ 流式版(對外入口):整流一個事務,逐批調 IList 批核心。
 	public Task<nil> MergeWord(IDbUserCtx Ctx, IAsyncEnumerable<IJnWordMergeResult> Words, CT Ct){
+		return SqlCmdMkr.EnsureTxn(Ctx.DbFnCtx, Ct, DbCtx => {
+			var localCtx = new DbUserCtx(Ctx.UserCtx, DbCtx);
+			return SqlFlow.BatchesInOnly(Words, (batch, ct2)=> MergeWord(localCtx, batch, ct2), Ct);
+		});
+	}
+
+	/// ■ IList 批核心:函數只管一批——五堆分流後各一次同構批量寫,整批一次事務。
+	public Task<nil> MergeWord(IDbUserCtx Ctx, IList<IJnWordMergeResult> Words, CT Ct){
 		return SqlCmdMkr.EnsureTxn(Ctx.DbFnCtx, Ct, async(DbCtx)=>{
-			await using var batch = new BatchCollector<IJnWordMergeResult, nil>(async(results, Ct)=>{
-				if(results.Count == 0){
-					return NIL;
-				}
-
-				var neoAggs = new List<JnWord>();
-				var updRoots = new List<PoWord>();
-				var neoProps = new List<PoWordProp>();
-				var neoLearns = new List<PoWordLearn>();
-				var touchIds = new List<IdWord>();
-				foreach(var item in results){
-					if(item.Result == EJnWordMergeResult.NoChange){
-						continue;
-					}
-					var merged = item.Merged;
-					merged.Owner = Ctx.UserCtx.UserId;
-					merged.EnsureForeignId();
-					if(item.Result == EJnWordMergeResult.LocalNotExist){
-						neoAggs.Add(merged);
-						continue;
-					}
-
-					updRoots.Add(merged.Word);
-					var newAssets = item.NewAssets;
-					if(newAssets is null){
-						continue;
-					}
-					foreach(var p in newAssets.Props){
-						p.WordId = merged.Id;
-						neoProps.Add(p);
-					}
-					foreach(var l in newAssets.Learns){
-						l.WordId = merged.Id;
-						neoLearns.Add(l);
-					}
-					touchIds.Add(merged.Id);
-				}
-
-				if(neoAggs.Count > 0){
-					await RepoWord.OrdAddAgg<JnWord>(DbCtx, ToAsyE(neoAggs), Ct);
-				}
-				if(updRoots.Count > 0){
-					await RepoWord.OrdUpd(DbCtx, ToAsyE(updRoots), Ct);
-				}
-				if(neoProps.Count > 0){
-					await RepoProp.OrdAdd(DbCtx, ToAsyE(neoProps), Ct);
-				}
-				if(neoLearns.Count > 0){
-					await RepoLearn.OrdAdd(DbCtx, ToAsyE(neoLearns), Ct);
-				}
-				if(touchIds.Count > 0){
-					await DaoWordV2.BatAltWordAfterUpd(DbCtx, ToAsyE(touchIds.Distinct()), Ct);
-				}
+			if(Words.Count == 0){
 				return NIL;
-			});
-			await batch.ConsumeAll(Words, Ct);
+			}
+
+			var neoAggs = new List<JnWord>();
+			var updRoots = new List<PoWord>();
+			var neoProps = new List<PoWordProp>();
+			var neoLearns = new List<PoWordLearn>();
+			var touchIds = new List<IdWord>();
+			foreach(var item in Words){
+				if(item.Result == EJnWordMergeResult.NoChange){
+					continue;
+				}
+				var merged = item.Merged;
+				merged.Owner = Ctx.UserCtx.UserId;
+				merged.EnsureForeignId();
+				if(item.Result == EJnWordMergeResult.LocalNotExist){
+					neoAggs.Add(merged);
+					continue;
+				}
+
+				updRoots.Add(merged.Word);
+				var newAssets = item.NewAssets;
+				if(newAssets is null){
+					continue;
+				}
+				foreach(var p in newAssets.Props){
+					p.WordId = merged.Id;
+					neoProps.Add(p);
+				}
+				foreach(var l in newAssets.Learns){
+					l.WordId = merged.Id;
+					neoLearns.Add(l);
+				}
+				touchIds.Add(merged.Id);
+			}
+
+			if(neoAggs.Count > 0){
+				await RepoWord.OrdAddAgg<JnWord>(DbCtx, neoAggs, Ct);
+			}
+			if(updRoots.Count > 0){
+				await RepoWord.OrdUpd(DbCtx, updRoots, Ct);
+			}
+			if(neoProps.Count > 0){
+				await RepoProp.OrdAdd(DbCtx, neoProps, Ct);
+			}
+			if(neoLearns.Count > 0){
+				await RepoLearn.OrdAdd(DbCtx, neoLearns, Ct);
+			}
+			if(touchIds.Count > 0){
+				await DaoWordV2.BatAltWordAfterUpd(DbCtx, touchIds.Distinct().ToList(), Ct);
+			}
 			return NIL;
 		});
 	}
 
 	/// 先算合併結果，再把結果寫入數據庫。
+	/// ■ 流式版(對外入口):整流一個事務,其內 GetWordMergeResult(純讀、批)後 MergeWord(批)合為一個事務。
 	public Task<nil> MergeWord(IDbUserCtx Ctx, IAsyncEnumerable<JnWord> Words, CT Ct){
-		var mergeResult = GetWordMergeResult(Ctx, Words, Ct);
-		return MergeWord(Ctx, mergeResult, Ct);
+		return SqlCmdMkr.EnsureTxn(Ctx.DbFnCtx, Ct, DbCtx => {
+			var localCtx = new DbUserCtx(Ctx.UserCtx, DbCtx);
+			return SqlFlow.BatchesInOnly(Words, async(batch, ct2)=>{
+				await MergeWord(localCtx, await GetWordMergeResult(localCtx, batch, ct2), ct2);
+				return NIL;
+			}, Ct);
+		});
+	}
+
+	/// ■ IList 批核心:函數只管一批——先算結果(純讀)再整批落庫,整批一次事務(EnsureTxn 可嵌套)。
+	public Task<nil> MergeWord(IDbUserCtx Ctx, IList<JnWord> Words, CT Ct){
+		return SqlCmdMkr.EnsureTxn(Ctx.DbFnCtx, Ct, async(DbCtx)=>{
+			var localCtx = new DbUserCtx(Ctx.UserCtx, DbCtx);
+			var mergeResults = await GetWordMergeResult(localCtx, Words, Ct);
+			await MergeWord(localCtx, mergeResults, Ct);
+			return NIL;
+		});
 	}
 
 	/// 在 Merge 的基礎上，將「Remote 新增的 description」轉成 ELearn.Add 記錄。
+	/// ■ 流式版(對外入口):整流一個事務,逐批調 IList 批核心。
 	public Task<nil> MergeWord_NewDescrAsAdd(IDbUserCtx Ctx, IAsyncEnumerable<JnWord> Words, CT Ct){
+		return SqlCmdMkr.EnsureTxn(Ctx.DbFnCtx, Ct, DbCtx => {
+			var localCtx = new DbUserCtx(Ctx.UserCtx, DbCtx);
+			return SqlFlow.BatchesInOnly(Words, (batch, ct2)=> MergeWord_NewDescrAsAdd(localCtx, batch, ct2), Ct);
+		});
+	}
+
+	/// ■ IList 批核心:函數只管一批——先算結果、收集 description 轉成的 Add 學習記錄,再同批落庫,整批一次事務。
+	public Task<nil> MergeWord_NewDescrAsAdd(IDbUserCtx Ctx, IList<JnWord> Words, CT Ct){
 		return SqlCmdMkr.EnsureTxn(Ctx.DbFnCtx, Ct, async(DbCtx)=>{
 			var localCtx = new DbUserCtx(Ctx.UserCtx, DbCtx);
-			var mergeResults = new List<IJnWordMergeResult>();
+			var mergeResults = await GetWordMergeResult(localCtx, Words, Ct);
 			var addLearns = new List<PoWordLearn>();
-
-			await foreach(var one in GetWordMergeResult(localCtx, Words, Ct).WithCancellation(Ct)){
-				mergeResults.Add(one);
+			foreach(var one in mergeResults){
 				var wordId = one.Merged.Id;
 				foreach(var p in one.NewAssets?.Props ?? []){
 					if(!IsDescription(p)){
@@ -171,12 +210,12 @@ public partial class SvcWordV2
 				}
 			}
 
-			await MergeWord(localCtx, ToAsyE(mergeResults), Ct);
+			await MergeWord(localCtx, mergeResults, Ct);
 			if(addLearns.Count > 0){
-				await RepoLearn.OrdAdd(DbCtx, ToAsyE(addLearns), Ct);
+				await RepoLearn.OrdAdd(DbCtx, addLearns, Ct);
 				await DaoWordV2.BatAltWordAfterUpd(
 					DbCtx,
-					ToAsyE(addLearns.Select(x=>x.WordId).Distinct()),
+					addLearns.Select(x=>x.WordId).Distinct().ToList(),
 					Ct
 				);
 			}

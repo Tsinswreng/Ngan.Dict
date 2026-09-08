@@ -27,7 +27,7 @@ public sealed class PreFilterSqlMkr{
 	){
 		_prmSeq = 0;
 		var where = new StringBuilder("1=1");
-		where.Append("\nAND ").Append(tblWord.SqlIsNonDel());
+		where.Append("\n").Append(tblWord.AndSqlIsNonDel());
 
 		var pOwner = tblWord.Prm(nameof(PoWord.Owner));
 		where.Append($"\nAND {tblWord.QtCol(nameof(PoWord.Owner))} = {pOwner}");

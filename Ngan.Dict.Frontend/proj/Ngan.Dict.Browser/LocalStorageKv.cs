@@ -16,11 +16,23 @@ public class LocalStorageKv : ISvcKv {
 		throw new NotImplementedException();
 	}
 
+	public Task<IList<PoKv?>> OrdGetByOwnerEtKI64(IDbFnCtx? Ctx, IList<(IdUser, long)> Owner_Key, CT Ct) {
+		throw new NotImplementedException();
+	}
+
 	public IAsyncEnumerable<PoKv?> OrdGetByOwnerEtKStr(IDbFnCtx? Ctx, IAsyncEnumerable<(IdUser, string)> Owner_Key, CT Ct) {
 		throw new NotImplementedException();
 	}
 
+	public Task<IList<PoKv?>> OrdGetByOwnerEtKStr(IDbFnCtx? Ctx, IList<(IdUser, string)> Owner_Key, CT Ct) {
+		throw new NotImplementedException();
+	}
+
 	public Task<nil> OrdSet(IDbFnCtx? Ctx, IAsyncEnumerable<PoKv> Kvs, CT Ct) {
+		throw new NotImplementedException();
+	}
+
+	public Task<nil> OrdSet(IDbFnCtx? Ctx, IList<PoKv> Kvs, CT Ct) {
 		throw new NotImplementedException();
 	}
 

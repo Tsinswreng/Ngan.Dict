@@ -61,6 +61,7 @@ public partial class TestISvcKv: ITester{
 
 		RegisterBatGetByOwnerEtKI64(Node);
 		RegisterBatGetByOwnerEtKStr(Node);
+		RegisterBatGetByOwnerEtIList(Node);
 
 		R("SvcKv_Cleanup_AllInsertedData", async(o)=>{
 			await CleanupData();
@@ -171,6 +172,113 @@ public partial class TestISvcKv: ITester{
 	Task<TRtn> RunNoTxn<TRtn>(Func<IDbFnCtx, Task<TRtn>> Fn){
 		IDbFnCtx Ctx = new DbFnCtx();
 		return Fn(Ctx);
+	}
+
+	/// <summary>
+	/// IList 批核心入口(新範式)測試:
+	/// 直接調 SvcKv 的 IList 重載(不入流式、不切批)，驗證整批一次完成、位置對齊。
+	/// </summary>
+	void RegisterBatGetByOwnerEtIList(ITestNode Node){
+		var register = Node.MkTestFnRegister(
+			typeof(TestISvcKv),
+			[typeof(ISvcKv)],
+			[
+				nameof(ISvcKv.OrdGetByOwnerEtKStr),
+				nameof(ISvcKv.OrdGetByOwnerEtKI64),
+				nameof(ISvcKv.OrdSet),
+			],
+			nameof(TestISvcKv)
+		);
+		var R = register.Register;
+
+		R("OrdGetByOwnerEtKStr_ImList_Should_KeepOrderAndNullForMiss", async(o)=>{
+			var keyA = _token + "_k_a";
+			var got = await SvcKv.OrdGetByOwnerEtKStr(null, [
+				(_ownerA, keyA),
+				(_ownerA, _token + "_k_missing"), // miss
+				(_ownerB, keyA),
+				(new IdUser(), keyA),             // miss
+			], CT.None);
+
+			if(got.Count != 4){
+				throw new Exception($"Expected 4 results, got {got.Count}");
+			}
+			if(got[0] is null || got[0]!.Id != _kvA_Str_A.Id){
+				throw new Exception("Index 0 should match ownerA/keyA.");
+			}
+			if(got[1] is not null){
+				throw new Exception("Index 1 should be null for missing key.");
+			}
+			if(got[2] is null || got[2]!.Id != _kvB_Str_A.Id){
+				throw new Exception("Index 2 should match ownerB/keyA.");
+			}
+			if(got[3] is not null){
+				throw new Exception("Index 3 should be null for missing owner.");
+			}
+
+			return NIL;
+		});
+
+		R("OrdGetByOwnerEtKI64_ImList_Should_KeepOrderAndNullForMiss", async(o)=>{
+			var got = await SvcKv.OrdGetByOwnerEtKI64(null, [
+				(_ownerA, 11),
+				(_ownerA, 999_999), // miss
+				(_ownerB, 11),
+				(new IdUser(), 11), // miss
+			], CT.None);
+
+			if(got.Count != 4){
+				throw new Exception($"Expected 4 results, got {got.Count}");
+			}
+			if(got[0] is null || got[0]!.Id != _kvA_I64_11.Id){
+				throw new Exception("Index 0 should match ownerA/key11.");
+			}
+			if(got[1] is not null){
+				throw new Exception("Index 1 should be null for missing key.");
+			}
+			if(got[2] is null || got[2]!.Id != _kvB_I64_11.Id){
+				throw new Exception("Index 2 should match ownerB/key11.");
+			}
+			if(got[3] is not null){
+				throw new Exception("Index 3 should be null for missing owner.");
+			}
+
+			return NIL;
+		});
+
+		R("OrdSet_ImList_Should_Upsert_InsertThenUpdate", async(o)=>{
+			// step 1: IList 版插入(整批一次事務)
+			var key = _token + "_k_upsert";
+			var kv = new PoKv{
+				Id = new IdKv(),
+				Owner = _ownerA,
+				KType = EKvType.Str,
+				KStr = key,
+				VType = EKvType.Str,
+				VStr = "v1",
+			};
+			await SvcKv.OrdSet(null, [kv], CT.None);
+			_ids.Add(kv.Id);
+
+			var got1 = await SvcKv.OrdGetByOwnerEtKStr(null, [(_ownerA, key)], CT.None);
+			if(got1.Count != 1 || got1[0] is null || got1[0]!.VStr != "v1"){
+				throw new Exception("After insert, value should be v1.");
+			}
+
+			// step 2: 同 Id 再 Upsert = 更新(不新增行)
+			kv.VStr = "v2";
+			await SvcKv.OrdSet(null, [kv], CT.None);
+
+			var got2 = await SvcKv.OrdGetByOwnerEtKStr(null, [(_ownerA, key)], CT.None);
+			if(got2.Count != 1 || got2[0] is null || got2[0]!.VStr != "v2"){
+				throw new Exception("After update, value should be v2.");
+			}
+			if(got2[0]!.Id != kv.Id){
+				throw new Exception("Update should keep the same row id.");
+			}
+
+			return NIL;
+		});
 	}
 
 	static async IAsyncEnumerable<T> AsyE<T>(params T[] Items){

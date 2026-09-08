@@ -21,8 +21,8 @@ public partial class DaoUser(
 		,CT Ct
 	){
 var T = TblMgr.GetTbl<PoUser>();
-var Sql = T.SqlSplicer().Select("*").From()
-.Where1().And(T.SqlIsNonDel()).AndEq(x=>x.UniqName, out var PUniqName).ToSqlStr();
+var Sql = T.SqlSplicer().Select("*").FromT()
+.WhereNonDel().AndEq(x=>x.UniqName, out var PUniqName).ToSqlStr();
 
 var Cmd = await SqlCmdMkr.Prepare(Ctx, Sql, Ct);
 Ctx?.AddToDispose(Cmd);
@@ -48,7 +48,7 @@ var T = TblMgr.GetTbl<PoUser>();
 // WHERE 1=1
 // AND {T.Eq(PEmail)}
 // """;
-var Sql = T.SqlSplicer().Select("*").From()
+var Sql = T.SqlSplicer().Select("*").FromT()
 .Where1().AndEq(x=>x.Email, out var PEmail).ToSqlStr();
 
 var Cmd = await SqlCmdMkr.Prepare(Ctx, Sql, Ct);
@@ -67,8 +67,8 @@ Ctx?.AddToDispose(Cmd);
 		,CT Ct
 	){
 var T = TblMgr.GetTbl<PoPassword>();
-var Sql = T.SqlSplicer().Select("*").From()
-.Where1().And(T.SqlIsNonDel()).AndEq(x=>x.UserId, out var PUserId).ToSqlStr();
+var Sql = T.SqlSplicer().Select("*").FromT()
+.WhereNonDel().AndEq(x=>x.UserId, out var PUserId).ToSqlStr();
 // var PUserId = T.Prm(nameof(PoPassword.UserId));
 // var Sql =
 // $"""

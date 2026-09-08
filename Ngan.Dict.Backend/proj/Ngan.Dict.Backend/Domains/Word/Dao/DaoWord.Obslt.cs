@@ -25,7 +25,7 @@ public partial class DaoWord{
 	){
 		var PWordId = TP.Prm(nameof(PoWordProp.WordId));
 		var Sql_SeekByFKey = (str QuotedTblName)=>{
-			var Sql = TW.SqlSplicer().Select("*").From(QuotedTblName)
+			var Sql = TW.SqlSplicer().Select("*").Raw($"FROM {QuotedTblName}")
 			.Where1().And(TP.Eq(PWordId)).ToSqlStr();
 			return Sql;
 		};
@@ -67,7 +67,7 @@ public partial class DaoWord{
 		,Task<IdWord?>
 	>>
 	FnSlctIdByOwnerHeadLangWithDel(IDbFnCtx Ctx,CT Ct){
-var Sql = T.SqlSplicer().Select(x=>x.Id).From().Where1()
+var Sql = T.SqlSplicer().Select(x=>x.Id).FromT().Where1()
 .AndEq(x=>x.Owner, out var POwner)
 .AndEq(x=>x.Head, out var PHead)
 .AndEq(x=>x.Lang, out var PLang)

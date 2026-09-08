@@ -32,7 +32,7 @@ public class DaoUserLang(
 	){
 		// 將 Owner 與 UniqName 綁成同一條輸入流，避免對可迭代參數的多次消費。
 		var Owner_UniqName = UniqNames.Select(x=>(Owner, UniqName: x));
-		var Sql = T.SqlSplicer().Select("*").From().WhereNonDel()
+		var Sql = T.SqlSplicer().Select("*").FromT().WhereNonDel()
 			.AndEq(x=>x.Owner, x=>x.Many(Owner_UniqName, x=>x.Owner))
 			.AndEq(x=>x.UniqName, x=>x.Many(Owner_UniqName, x=>x.UniqName))
 		;
@@ -42,7 +42,7 @@ public class DaoUserLang(
 	public async Task<IPageAsyE<PoUserLang>> PageUserLang(
 		IDbFnCtx Ctx, IdUser Owner, ReqPageUserLang Req, CT Ct
 	){
-		var Sql = T.SqlSplicer().Select("*").From().WhereNonDel()
+		var Sql = T.SqlSplicer().Select("*").FromT().WhereNonDel()
 		.AndEq(x=>x.Owner, x=>x.One(Owner));
 		if(!string.IsNullOrEmpty(Req.UniqNameSearch)){
 			Sql.And();

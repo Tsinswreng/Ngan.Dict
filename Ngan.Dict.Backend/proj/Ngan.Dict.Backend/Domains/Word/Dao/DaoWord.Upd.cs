@@ -18,7 +18,7 @@ public partial class DaoWord{
 	>> FnUpdPoWordHeadLang(IDbFnCtx Ctx, CT Ct){
 		var UpdUpd = await FnTriggerOnRootAfterUpd(Ctx,Ct);
 
-var Sql = T.SqlSplicer().UpdateSet()
+var Sql = T.SqlSplicer().UpdateT().Set()
 .Eq(x=>x.Head, out var PHead)
 .C().Eq(x=>x.Lang, out var PLang)
 .Where1().AndEq(x=>x.Id, out var PId).ToSqlStr();

@@ -43,6 +43,14 @@ using Tsinswreng.CsCore;
 	背單詞流程
 ]
 
+#H[{{nameof(Ngan.Dict.Doc.Word.Svc)}}][
+	SvcWordV2 批處理範式與事務邊界
+]
+
+#H[{{nameof(Ngan.Dict.Doc.Shared.Kv)}}][
+	ISvcKv 鍵值服務與批處理範式
+]
+
 
 """)]
 file class _{

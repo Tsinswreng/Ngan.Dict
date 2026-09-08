@@ -26,8 +26,8 @@ public class DaoToken(
 		,u8[] TokenValue
 		,CT Ct
 	){
-var Sql = T.SqlSplicer().Select("*").From()
-.Where1().And(T.SqlIsNonDel()).AndEq(x=>x.TokenValue, out var PTokenValue).ToSqlStr();
+var Sql = T.SqlSplicer().Select("*").FromT()
+.WhereNonDel().AndEq(x=>x.TokenValue, out var PTokenValue).ToSqlStr();
 var Cmd = await Ctx.PrepareToDispose(SqlCmdMkr, Sql, Ct);
 		var Arg = ArgDict.Mk(T).AddT(PTokenValue, TokenValue);
 		var R = await Ctx.RunCmd(Cmd, Arg).FirstOrDefault<PoRefreshToken>(T, Ct);
@@ -44,8 +44,8 @@ var Cmd = await Ctx.PrepareToDispose(SqlCmdMkr, Sql, Ct);
 		,CT Ct
 	){
 
-var Sql = T.SqlSplicer().Select("*").From()
-.Where1().And(T.SqlIsNonDel())
+var Sql = T.SqlSplicer().Select("*").FromT()
+.WhereNonDel()
 .AndEq(x=>x.UserId, out var PUserId)
 .AndEq(x=>x.ClientId, out var PClientId)
 .OrderByDesc(x=>x.DbCreatedAt).ToSqlStr();

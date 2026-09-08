@@ -71,7 +71,15 @@ public class MockSvcWordV2 : ISvcWordV2 {
 		throw new NotImplementedException();
 	}
 
+	public Task<object> OrdAddJnWord(IDbUserCtx Ctx, IList<JnWord> Words, CT Ct) {
+		throw new NotImplementedException();
+	}
+
 	public Task<object> OrdAddNewLearnRecord(IDbUserCtx Ctx, IAsyncEnumerable<PoWordLearn> PoWordLearnAsyE, CT Ct) {
+		throw new NotImplementedException();
+	}
+
+	public Task<object> OrdAddNewLearnRecord(IDbUserCtx Ctx, IList<PoWordLearn> WordLearns, CT Ct) {
 		throw new NotImplementedException();
 	}
 
@@ -79,7 +87,15 @@ public class MockSvcWordV2 : ISvcWordV2 {
 		throw new NotImplementedException();
 	}
 
+	public Task<object> OrdAddWordLearn(IDbUserCtx Ctx, IList<PoWordLearn> WordLearns, CT Ct) {
+		throw new NotImplementedException();
+	}
+
 	public Task<object> OrdAddWordProp(IDbUserCtx Ctx, IAsyncEnumerable<PoWordProp> WordProps, CT Ct) {
+		throw new NotImplementedException();
+	}
+
+	public Task<object> OrdAddWordProp(IDbUserCtx Ctx, IList<PoWordProp> WordProps, CT Ct) {
 		throw new NotImplementedException();
 	}
 
@@ -87,11 +103,23 @@ public class MockSvcWordV2 : ISvcWordV2 {
 		throw new NotImplementedException();
 	}
 
+	public Task<object> OrdChangeId(IDbUserCtx Ctx, IList<(IdWord Old, IdWord New)> Ids, CT Ct) {
+		throw new NotImplementedException();
+	}
+
 	public Task<object> OrdSyncByDto(IDbUserCtx Ctx, IAsyncEnumerable<DtoJnWordSyncResult> Dtos, CT Ct) {
 		throw new NotImplementedException();
 	}
 
+	public Task<object> OrdSyncByDto(IDbUserCtx Ctx, IList<DtoJnWordSyncResult> Dtos, CT Ct) {
+		throw new NotImplementedException();
+	}
+
 	public IAsyncEnumerable<DtoJnWordSyncResult> OrdSyncJnWordByBizId(IDbUserCtx Ctx, IAsyncEnumerable<JnWord> JnWords, CT Ct) {
+		throw new NotImplementedException();
+	}
+
+	public Task<IList<DtoJnWordSyncResult>> OrdSyncJnWordByBizId(IDbUserCtx Ctx, IList<JnWord> JnWords, CT Ct) {
 		throw new NotImplementedException();
 	}
 
@@ -103,7 +131,15 @@ public class MockSvcWordV2 : ISvcWordV2 {
 		throw new NotImplementedException();
 	}
 
+	public Task<IList<RespUpdBizId>> OrdUpdHeadLang(IDbUserCtx Ctx, IList<PoWord> PoWords, CT Ct) {
+		throw new NotImplementedException();
+	}
+
 	public Task<IAsyncEnumerable<RespUpdPoWord>> OrdUpdPoWord(IDbUserCtx Ctx, IAsyncEnumerable<PoWord> PoWords, CT Ct) {
+		throw new NotImplementedException();
+	}
+
+	public Task<IList<RespUpdPoWord>> OrdUpdPoWord(IDbUserCtx Ctx, IList<PoWord> PoWords, CT Ct) {
 		throw new NotImplementedException();
 	}
 
@@ -111,7 +147,15 @@ public class MockSvcWordV2 : ISvcWordV2 {
 		throw new NotImplementedException();
 	}
 
+	public Task<object> OrdUpdWordLearn(IDbUserCtx Ctx, IList<PoWordLearn> WordLearns, CT Ct) {
+		throw new NotImplementedException();
+	}
+
 	public Task<object> OrdUpdWordProp(IDbUserCtx Ctx, IAsyncEnumerable<PoWordProp> WordProps, CT Ct) {
+		throw new NotImplementedException();
+	}
+
+	public Task<object> OrdUpdWordProp(IDbUserCtx Ctx, IList<PoWordProp> WordProps, CT Ct) {
 		throw new NotImplementedException();
 	}
 
@@ -119,7 +163,15 @@ public class MockSvcWordV2 : ISvcWordV2 {
 		throw new NotImplementedException();
 	}
 
+	public Task<object> DelWordLearnInId(IDbUserCtx Ctx, IList<IdWordLearn> Ids, CT Ct) {
+		throw new NotImplementedException();
+	}
+
 	public Task<object> DelWordPropInId(IDbUserCtx Ctx, IAsyncEnumerable<IdWordProp> Ids, CT Ct) {
+		throw new NotImplementedException();
+	}
+
+	public Task<object> DelWordPropInId(IDbUserCtx Ctx, IList<IdWordProp> Ids, CT Ct) {
 		throw new NotImplementedException();
 	}
 
@@ -128,6 +180,10 @@ public class MockSvcWordV2 : ISvcWordV2 {
 	}
 
 	public IAsyncEnumerable<IJnWordMergeResult> GetWordMergeResult(IDbUserCtx Ctx, IAsyncEnumerable<JnWord> Words, CT Ct) {
+		throw new NotImplementedException();
+	}
+
+	public Task<IList<IJnWordMergeResult>> GetWordMergeResult(IDbUserCtx Ctx, IList<JnWord> Words, CT Ct) {
 		throw new NotImplementedException();
 	}
 
@@ -155,11 +211,23 @@ public class MockSvcWordV2 : ISvcWordV2 {
 		throw new NotImplementedException();
 	}
 
+	public Task<object> MergeWord(IDbUserCtx Ctx, IList<IJnWordMergeResult> Words, CT Ct) {
+		throw new NotImplementedException();
+	}
+
 	public Task<object> MergeWord(IDbUserCtx Ctx, IAsyncEnumerable<JnWord> Words, CT Ct) {
 		throw new NotImplementedException();
 	}
 
+	public Task<object> MergeWord(IDbUserCtx Ctx, IList<JnWord> Words, CT Ct) {
+		throw new NotImplementedException();
+	}
+
 	public Task<object> MergeWord_NewDescrAsAdd(IDbUserCtx Ctx, IAsyncEnumerable<JnWord> Words, CT Ct) {
+		throw new NotImplementedException();
+	}
+
+	public Task<object> MergeWord_NewDescrAsAdd(IDbUserCtx Ctx, IList<JnWord> Words, CT Ct) {
 		throw new NotImplementedException();
 	}
 
@@ -171,7 +239,15 @@ public class MockSvcWordV2 : ISvcWordV2 {
 		throw new NotImplementedException();
 	}
 
+	public Task<object> SoftDelJnWordInId(IDbUserCtx Ctx, IList<IdWord> Ids, CT Ct) {
+		throw new NotImplementedException();
+	}
+
 	public Task<object> SoftDelPoWordInId(IDbUserCtx Ctx, IAsyncEnumerable<IdWord> Ids, CT Ct) {
+		throw new NotImplementedException();
+	}
+
+	public Task<object> SoftDelPoWordInId(IDbUserCtx Ctx, IList<IdWord> Ids, CT Ct) {
 		throw new NotImplementedException();
 	}
 

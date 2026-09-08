@@ -41,7 +41,7 @@ public partial class DaoStudyPlan(
 	public IAsyncEnumerable<IdStudyPlan?> BatSlctStudyPlanIdByOwnerUniqNameWithDel(
 		IDbFnCtx Ctx, IdUser Owner, IAsyncEnumerable<str> UniqNames, CT Ct
 	){
-		var sql = TS.SqlSplicer().Select(x=>x.Id).From().Where1()
+		var sql = TS.SqlSplicer().Select(x=>x.Id).FromT().Where1()
 			.AndEq(x=>x.Owner, x=>x.One(Owner))
 			.AndEq(x=>x.UniqName, x=>x.Many(UniqNames));
 		var dicts = SqlCmdMkr.RunDupliSql(Ctx, sql, Ct);
@@ -54,7 +54,7 @@ public partial class DaoStudyPlan(
 	public IAsyncEnumerable<IdWeightArg?> BatSlctWeightArgIdByOwnerUniqNameWithDel(
 		IDbFnCtx Ctx, IdUser Owner, IAsyncEnumerable<str> UniqNames, CT Ct
 	){
-		var sql = TWA.SqlSplicer().Select(x=>x.Id).From().Where1()
+		var sql = TWA.SqlSplicer().Select(x=>x.Id).FromT().Where1()
 			.AndEq(x=>x.Owner, x=>x.One(Owner))
 			.AndEq(x=>x.UniqName, x=>x.Many(UniqNames));
 		var dicts = SqlCmdMkr.RunDupliSql(Ctx, sql, Ct);
@@ -67,7 +67,7 @@ public partial class DaoStudyPlan(
 	public IAsyncEnumerable<IdWeightCalculator?> BatSlctWeightCalculatorIdByOwnerUniqNameWithDel(
 		IDbFnCtx Ctx, IdUser Owner, IAsyncEnumerable<str> UniqNames, CT Ct
 	){
-		var sql = TWC.SqlSplicer().Select(x=>x.Id).From().Where1()
+		var sql = TWC.SqlSplicer().Select(x=>x.Id).FromT().Where1()
 			.AndEq(x=>x.Owner, x=>x.One(Owner))
 			.AndEq(x=>x.UniqName, x=>x.Many(UniqNames));
 		var dicts = SqlCmdMkr.RunDupliSql(Ctx, sql, Ct);
@@ -83,7 +83,7 @@ public partial class DaoStudyPlan(
 		IDbFnCtx Ctx, IdUser UserId, ReqPagePreFilter Req
 		,CT Ct
 	){
-		var Sql = TP.SqlSplicer().Select("*").From().WhereNonDel()
+		var Sql = TP.SqlSplicer().Select("*").FromT().WhereNonDel()
 		.AndEq(x=>x.Owner, x=>x.One(UserId));
 		if(!string.IsNullOrEmpty(Req.UniqNameSearch)){
 			Sql.And();
@@ -103,7 +103,7 @@ public partial class DaoStudyPlan(
 		IDbFnCtx Ctx, IdUser UserId, ReqPageStudyPlan Req
 		,CT Ct
 	){
-		var Sql = TS.SqlSplicer().Select("*").From().WhereNonDel()
+		var Sql = TS.SqlSplicer().Select("*").FromT().WhereNonDel()
 		.AndEq(x=>x.Owner, x=>x.One(UserId));
 		if(!string.IsNullOrEmpty(Req.UniqNameSearch)){
 			Sql.And();
@@ -123,8 +123,7 @@ public partial class DaoStudyPlan(
 		IDbFnCtx Ctx, IdUser UserId, ReqPageWeightArg Req
 		,CT Ct
 	){
-		var Sql = TWA.SqlSplicer().Select("*").From().Where1()
-		.And(TWA.SqlIsNonDel())
+		var Sql = TWA.SqlSplicer().Select("*").FromT().WhereNonDel()
 		.AndEq(x=>x.Owner, x=>x.One(UserId));
 		if(!string.IsNullOrEmpty(Req.UniqNameSearch)){
 			Sql.And();
@@ -144,8 +143,7 @@ public partial class DaoStudyPlan(
 		IDbFnCtx Ctx, IdUser UserId, ReqPageWeightCalculator Req
 		,CT Ct
 	){
-		var Sql = TWC.SqlSplicer().Select("*").From().Where1()
-		.And(TWC.SqlIsNonDel())
+		var Sql = TWC.SqlSplicer().Select("*").FromT().WhereNonDel()
 		.AndEq(x=>x.Owner, x=>x.One(UserId));
 		if(!string.IsNullOrEmpty(Req.UniqNameSearch)){
 			Sql.And();

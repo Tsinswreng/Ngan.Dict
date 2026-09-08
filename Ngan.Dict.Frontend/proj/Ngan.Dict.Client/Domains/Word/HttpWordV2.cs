@@ -35,30 +35,59 @@ public class HttpWordV2 : ISvcWordV2 {
 		return PostReqNoResp(U.BatAddJnWord, Words, Ct);
 	}
 
+	public Task<nil> OrdAddJnWord(IDbUserCtx Ctx, IList<JnWord> Words, CT Ct) {
+		return OrdAddJnWord(Ctx, ToAsyE(Words), Ct);
+	}
+
 	public Task<nil> OrdAddNewLearnRecord(IDbUserCtx Ctx, IAsyncEnumerable<PoWordLearn> PoWordLearnAsyE, CT Ct) {
 		throw new NotImplementedException();
+	}
+
+	// ■ IList 批核心重載:前端是遠程代理,無批核心——照搬流式版動作(轉流),HTTP 通道不變。
+	public Task<nil> OrdAddNewLearnRecord(IDbUserCtx Ctx, IList<PoWordLearn> WordLearns, CT Ct) {
+		return OrdAddNewLearnRecord(Ctx, ToAsyE(WordLearns), Ct);
 	}
 
 	public Task<nil> OrdAddWordLearn(IDbUserCtx Ctx, IAsyncEnumerable<PoWordLearn> WordLearns, CT Ct) {
 		throw new NotImplementedException();
 	}
 
+	public Task<nil> OrdAddWordLearn(IDbUserCtx Ctx, IList<PoWordLearn> WordLearns, CT Ct) {
+		return OrdAddWordLearn(Ctx, ToAsyE(WordLearns), Ct);
+	}
+
 	public Task<nil> OrdAddWordProp(IDbUserCtx Ctx, IAsyncEnumerable<PoWordProp> WordProps, CT Ct) {
 		throw new NotImplementedException();
+	}
+
+	public Task<nil> OrdAddWordProp(IDbUserCtx Ctx, IList<PoWordProp> WordProps, CT Ct) {
+		return OrdAddWordProp(Ctx, ToAsyE(WordProps), Ct);
 	}
 
 	public Task<nil> OrdChangeId(IDbUserCtx Ctx, IAsyncEnumerable<(IdWord Old, IdWord New)> Ids, CT Ct) {
 		throw new NotImplementedException();
 	}
 
+	public Task<nil> OrdChangeId(IDbUserCtx Ctx, IList<(IdWord Old, IdWord New)> Ids, CT Ct) {
+		return OrdChangeId(Ctx, ToAsyE(Ids), Ct);
+	}
+
 	public Task<nil> OrdSyncByDto(IDbUserCtx Ctx, IAsyncEnumerable<DtoJnWordSyncResult> Dtos, CT Ct) {
 		throw new NotImplementedException();
+	}
+
+	public Task<nil> OrdSyncByDto(IDbUserCtx Ctx, IList<DtoJnWordSyncResult> Dtos, CT Ct) {
+		return OrdSyncByDto(Ctx, ToAsyE(Dtos), Ct);
 	}
 
 	public IAsyncEnumerable<DtoJnWordSyncResult> OrdSyncJnWordByBizId(
 		IDbUserCtx Ctx, IAsyncEnumerable<JnWord> JnWords, CT Ct
 	){
 		return PostReqResp<JnWord, DtoJnWordSyncResult>(U.BatSyncJnWordByBizId, JnWords, Ct);
+	}
+
+	public Task<IList<DtoJnWordSyncResult>> OrdSyncJnWordByBizId(IDbUserCtx Ctx, IList<JnWord> JnWords, CT Ct) {
+		return OrdSyncJnWordByBizId(Ctx, ToAsyE(JnWords), Ct).ToListAsync(Ct);
 	}
 
 	public IAsyncEnumerable<DtoJnWordSyncResult> OrdSyncJnWordByBizIdFromStream(IDbUserCtx Ctx, Stream TextWithStream, CT Ct) {
@@ -69,7 +98,15 @@ public class HttpWordV2 : ISvcWordV2 {
 		return PostReqResp<PoWord, RespUpdBizId>(U.BatUpdHeadLang, PoWords, Ct);
 	}
 
+	public Task<IList<RespUpdBizId>> OrdUpdHeadLang(IDbUserCtx Ctx, IList<PoWord> PoWords, CT Ct) {
+		return OrdUpdHeadLang(Ctx, ToAsyE(PoWords), Ct).ToListAsync(Ct);
+	}
+
 	public Task<IAsyncEnumerable<RespUpdPoWord>> OrdUpdPoWord(IDbUserCtx Ctx, IAsyncEnumerable<PoWord> PoWords, CT Ct) {
+		throw new NotImplementedException();
+	}
+
+	public Task<IList<RespUpdPoWord>> OrdUpdPoWord(IDbUserCtx Ctx, IList<PoWord> PoWords, CT Ct) {
 		throw new NotImplementedException();
 	}
 
@@ -77,16 +114,32 @@ public class HttpWordV2 : ISvcWordV2 {
 		throw new NotImplementedException();
 	}
 
+	public Task<nil> OrdUpdWordLearn(IDbUserCtx Ctx, IList<PoWordLearn> WordLearns, CT Ct) {
+		return OrdUpdWordLearn(Ctx, ToAsyE(WordLearns), Ct);
+	}
+
 	public Task<nil> OrdUpdWordProp(IDbUserCtx Ctx, IAsyncEnumerable<PoWordProp> WordProps, CT Ct) {
 		throw new NotImplementedException();
+	}
+
+	public Task<nil> OrdUpdWordProp(IDbUserCtx Ctx, IList<PoWordProp> WordProps, CT Ct) {
+		return OrdUpdWordProp(Ctx, ToAsyE(WordProps), Ct);
 	}
 
 	public Task<nil> DelWordLearnInId(IDbUserCtx Ctx, IAsyncEnumerable<IdWordLearn> Ids, CT Ct) {
 		throw new NotImplementedException();
 	}
 
+	public Task<nil> DelWordLearnInId(IDbUserCtx Ctx, IList<IdWordLearn> Ids, CT Ct) {
+		return DelWordLearnInId(Ctx, ToAsyE(Ids), Ct);
+	}
+
 	public Task<nil> DelWordPropInId(IDbUserCtx Ctx, IAsyncEnumerable<IdWordProp> Ids, CT Ct) {
 		throw new NotImplementedException();
+	}
+
+	public Task<nil> DelWordPropInId(IDbUserCtx Ctx, IList<IdWordProp> Ids, CT Ct) {
+		return DelWordPropInId(Ctx, ToAsyE(Ids), Ct);
 	}
 
 	public IAsyncEnumerable<JnWord> GetAllWordWithDel(IDbUserCtx Ctx, CT Ct) {
@@ -95,6 +148,14 @@ public class HttpWordV2 : ISvcWordV2 {
 
 	public IAsyncEnumerable<IJnWordMergeResult> GetWordMergeResult(IDbUserCtx Ctx, IAsyncEnumerable<JnWord> Words, CT Ct) {
 		throw new NotImplementedException();
+	}
+
+	public async Task<IList<IJnWordMergeResult>> GetWordMergeResult(IDbUserCtx Ctx, IList<JnWord> Words, CT Ct) {
+		var ans = new List<IJnWordMergeResult>();
+		await foreach(var one in GetWordMergeResult(Ctx, ToAsyE(Words), Ct).WithCancellation(Ct)){
+			ans.Add(one);
+		}
+		return ans;
 	}
 
 	public IAsyncEnumerable<JnWord> GetWordsToLearn(IDbUserCtx Ctx, CT Ct) {
@@ -117,12 +178,24 @@ public class HttpWordV2 : ISvcWordV2 {
 		throw new NotImplementedException();
 	}
 
+	public Task<nil> MergeWord(IDbUserCtx Ctx, IList<IJnWordMergeResult> Words, CT Ct) {
+		return MergeWord(Ctx, ToAsyE(Words), Ct);
+	}
+
 	public Task<nil> MergeWord(IDbUserCtx Ctx, IAsyncEnumerable<JnWord> Words, CT Ct) {
 		throw new NotImplementedException();
 	}
 
+	public Task<nil> MergeWord(IDbUserCtx Ctx, IList<JnWord> Words, CT Ct) {
+		return MergeWord(Ctx, ToAsyE(Words), Ct);
+	}
+
 	public Task<nil> MergeWord_NewDescrAsAdd(IDbUserCtx Ctx, IAsyncEnumerable<JnWord> Words, CT Ct) {
 		throw new NotImplementedException();
+	}
+
+	public Task<nil> MergeWord_NewDescrAsAdd(IDbUserCtx Ctx, IList<JnWord> Words, CT Ct) {
+		return MergeWord_NewDescrAsAdd(Ctx, ToAsyE(Words), Ct);
 	}
 
 	public Task<Stream> PackAllWordWithDel(IDbUserCtx Ctx, CT Ct) {
@@ -131,6 +204,10 @@ public class HttpWordV2 : ISvcWordV2 {
 
 	public Task<nil> SoftDelJnWordInId(IDbUserCtx Ctx, IAsyncEnumerable<IdWord> Ids, CT Ct) {
 		return PostReqNoResp(U.SoftDelJnWordInId, Ids, Ct);
+	}
+
+	public Task<nil> SoftDelJnWordInId(IDbUserCtx Ctx, IList<IdWord> Ids, CT Ct) {
+		return SoftDelJnWordInId(Ctx, ToAsyE(Ids), Ct);
 	}
 
 	public IAsyncEnumerable<JnWord> UnpackJnWords(Stream TextWithStream, CT Ct) {
@@ -242,8 +319,19 @@ public class HttpWordV2 : ISvcWordV2 {
 		throw new NotImplementedException();
 	}
 
+	public Task<object> SoftDelPoWordInId(IDbUserCtx Ctx, IList<IdWord> Ids, CT Ct) {
+		return SoftDelPoWordInId(Ctx, ToAsyE(Ids), Ct);
+	}
+
 	public Task<object> HardDelSoftDeleted(IDbUserCtx Ctx, CT Ct) {
 		throw new NotImplementedException();
+	}
+
+	/// IList → IAsyncEnumerable 輔助:前端遠程代理統一以流式發送,批核心重載(若有)僅做流轉發。
+	static async IAsyncEnumerable<T> ToAsyE<T>(IEnumerable<T> Items){
+		foreach(var I in Items){
+			yield return I;
+		}
 	}
 
 	public Task<IPage<DtoWordSearchHit>> PageSearch(IDbUserCtx Ctx, IPageQry PageQry, ReqSearchWord Req, CT Ct) {

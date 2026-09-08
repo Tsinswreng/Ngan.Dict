@@ -28,7 +28,7 @@ public partial class DaoWord{
 	public IAsyncEnumerable<IdWord?> BatSlctIdByOwnerHeadLangWithDel(
 		IDbFnCtx Ctx, IUserCtx User, IAsyncEnumerable<Head_Lang> HeadLangs, CT Ct
 	){
-		var Sql = T.SqlSplicer().Select(x=>x.Id).From().Where1()
+		var Sql = T.SqlSplicer().Select(x=>x.Id).FromT().Where1()
 		.AndEq(x=>x.Owner, out var POwner)
 		.AndEq(x=>x.Head, out var PHead)
 		.AndEq(x=>x.Lang, out var PLang)
@@ -65,7 +65,7 @@ public partial class DaoWord{
 		var Heads = HeadLangs.Select(x=>x.Head);
 		var Lang = HeadLangs.Select(x=>x.Lang);
 		//原來的寫法
-		var Sql = T.SqlSplicer().Select(x=>x.Id).From().Where1()
+		var Sql = T.SqlSplicer().Select(x=>x.Id).FromT().Where1()
 		.AndEq(x=>x.Owner, y=>y.One(User.UserId))
 		.AndEq(x=>x.Head, y=>y.Many(Heads))
 		.AndEq(x=>x.Lang, y=>y.Many(Lang))

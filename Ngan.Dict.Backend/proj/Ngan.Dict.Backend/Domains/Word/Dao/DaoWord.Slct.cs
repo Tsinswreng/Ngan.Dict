@@ -43,7 +43,7 @@ public partial class DaoWord{
 	){
 		return IncludeDel
 			? ""
-			: $"AND {Tbl.SqlIsNonDel()}";
+			: Tbl.AndSqlIsNonDel();
 	}
 
 	public async Task<Func<
@@ -177,7 +177,7 @@ AND {T.QtCol(PWordId)} IN ({str.Join(",", numParams)})
 		var T = TblMgr.GetTbl<PoWord>();
 		var N = new PoWord.N();
 		//var POwner = T.Prm(N.Owner);
-var Sql = T.SqlSplicer().Select("*").From()
+var Sql = T.SqlSplicer().Select("*").FromT()
 	.Where1()
 	.Raw(SqlFilterDel(T, CfgQry.IncludeDeleted))
 	.And(x=>x.Owner, "=", out var POwner)
@@ -330,7 +330,7 @@ var T = TblMgr.GetTbl<PoWord>();
 
 IParam PTempus=null!;
 var Sql = T.SqlSplicer()
-.Select(x=>x.Id).From().Where1()
+.Select(x=>x.Id).FromT().Where1()
 .And(x=>x.Owner, "=", out var POwner)
 .And().Paren(b=>
 	b.Bool(x=>x.BizUpdatedAt, ">", out var PTempus)

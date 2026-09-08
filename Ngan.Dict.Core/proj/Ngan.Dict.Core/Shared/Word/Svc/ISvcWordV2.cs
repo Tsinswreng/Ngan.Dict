@@ -30,7 +30,7 @@ and did not support well for batch operations.
 RepoWord.AsAppRepo().BatBizTouch()
 ```
 ")]
-public interface ISvcWordV2{
+public partial interface ISvcWordV2{
 
 	[Doc(@$"
 	獲取全部待學習單詞。
@@ -326,12 +326,141 @@ public interface ISvcWordV2{
 		,CT Ct
 	);
 
+	// -------- IList 批核心形狀(新範式)--------
+	// 每寫方法兩個形狀:流式入口(IAsyncEnumerable、對外)= EnsureTxn 整流 + SqlFlow.Batches/BatchesInOnly 逐批調 IList 批核心;
+	// IList 批核心(同名重載)= 函數只管一批,內部 EnsureTxn 可嵌套(有外層只加入、無外層自開自提交),單獨調用/測試亦安全。
+	// 純讀(GetWordMergeResult)不開事務;出參形狀同步物化:純寫 Task<nil>、需回讀者 Task<IList<T>>。
+
+	[Doc(@$"IList 版 `{nameof(OrdAddNewLearnRecord)}`:一批一次寫(整批一個事務)。
+	#See[{nameof(ISvcWordV2.OrdAddNewLearnRecord)}]")]
+	public Task<nil> OrdAddNewLearnRecord(
+		IDbUserCtx Ctx
+		,IList<PoWordLearn> WordLearns, CT Ct
+	);
+
+	[Doc(@$"IList 版 `{nameof(OrdAddJnWord)}`:一批一次寫(整批一個事務,先歸屬歸一化後整批 OrdAddAgg)。
+	#See[{nameof(ISvcWordV2.OrdAddJnWord)}]")]
+	public Task<nil> OrdAddJnWord(
+		IDbUserCtx Ctx,
+		IList<JnWord> Words, CT Ct
+	);
+
+	[Doc(@$"IList 版 `{nameof(SoftDelJnWordInId)}`:一批一次軟刪聚合(根+資產,整批一個事務)。
+	#See[{nameof(ISvcWordV2.SoftDelJnWordInId)}]")]
+	public Task<nil> SoftDelJnWordInId(
+		IDbUserCtx Ctx,
+		IList<IdWord> Ids, CT Ct
+	);
+
+	[Doc(@$"IList 版 `{nameof(SoftDelPoWordInId)}`:一批一次軟刪聚合根(整批一個事務)。
+	#See[{nameof(ISvcWordV2.SoftDelPoWordInId)}]")]
+	public Task<nil> SoftDelPoWordInId(
+		IDbUserCtx Ctx,
+		IList<IdWord> Ids, CT Ct
+	);
+
+	[Doc(@$"IList 版 `{nameof(OrdAddWordProp)}`:一批一次插入(整批一個事務)。
+	#See[{nameof(ISvcWordV2.OrdAddWordProp)}]")]
+	public Task<nil> OrdAddWordProp(
+		IDbUserCtx Ctx, IList<PoWordProp> WordProps, CT Ct
+	);
+
+	[Doc(@$"IList 版 `{nameof(OrdUpdWordProp)}`:一批一次更新(整批一個事務)。
+	#See[{nameof(ISvcWordV2.OrdUpdWordProp)}]")]
+	public Task<nil> OrdUpdWordProp(
+		IDbUserCtx Ctx, IList<PoWordProp> WordProps, CT Ct
+	);
+
+	[Doc(@$"IList 版 `{nameof(OrdAddWordLearn)}`:一批一次插入(整批一個事務)。
+	#See[{nameof(ISvcWordV2.OrdAddWordLearn)}]")]
+	public Task<nil> OrdAddWordLearn(
+		IDbUserCtx Ctx, IList<PoWordLearn> WordLearns, CT Ct
+	);
+
+	[Doc(@$"IList 版 `{nameof(OrdUpdWordLearn)}`:一批一次更新(整批一個事務)。
+	#See[{nameof(ISvcWordV2.OrdUpdWordLearn)}]")]
+	public Task<nil> OrdUpdWordLearn(
+		IDbUserCtx Ctx, IList<PoWordLearn> WordLearns, CT Ct
+	);
+
+	[Doc(@$"IList 版 `{nameof(DelWordPropInId)}`:一批一次軟刪(整批一個事務)。
+	#See[{nameof(ISvcWordV2.DelWordPropInId)}]")]
+	public Task<nil> DelWordPropInId(
+		IDbUserCtx Ctx, IList<IdWordProp> Ids, CT Ct
+	);
+
+	[Doc(@$"IList 版 `{nameof(DelWordLearnInId)}`:一批一次軟刪(整批一個事務)。
+	#See[{nameof(ISvcWordV2.DelWordLearnInId)}]")]
+	public Task<nil> DelWordLearnInId(
+		IDbUserCtx Ctx, IList<IdWordLearn> Ids, CT Ct
+	);
+
+	[Doc(@$"IList 版 `{nameof(OrdUpdPoWord)}`:一批一次處理(整批一個事務)。
+	出參 IList 與入參位置一一對應、{nameof(RespUpdPoWord.FinalId)} 一定有值。
+	#See[{nameof(ISvcWordV2.OrdUpdPoWord)}]")]
+	public Task<IList<RespUpdPoWord>> OrdUpdPoWord(
+		IDbUserCtx Ctx, IList<PoWord> PoWords, CT Ct
+	);
+
+	[Doc(@$"IList 版 `{nameof(OrdChangeId)}`:一批一次改主鍵(整批一個事務,含資產外鍵遷移)。
+	#See[{nameof(ISvcWordV2.OrdChangeId)}]")]
+	public Task<nil> OrdChangeId(
+		IDbUserCtx Ctx, IList<(IdWord Old, IdWord New)> Ids, CT Ct
+	);
+
+	[Doc(@$"IList 版 `{nameof(GetWordMergeResult)}`:純讀、不落庫、無事務,一批一次計算。
+	出參 IList 與入參位置一一對應。
+	#See[{nameof(ISvcWordV2.GetWordMergeResult)}]")]
+	public Task<IList<IJnWordMergeResult>> GetWordMergeResult(
+		IDbUserCtx Ctx, IList<JnWord> Words, CT Ct
+	);
+
+	[Doc(@$"IList 版 `{nameof(MergeWord)}`:一批一次合併入庫(整批一個事務)。
+	#See[{nameof(ISvcWordV2.MergeWord)}]")]
+	public Task<nil> MergeWord(
+		IDbUserCtx Ctx, IList<IJnWordMergeResult> Words, CT Ct
+	);
+
+	[Doc(@$"IList 版 `{nameof(MergeWord)}`(入參 JnWord):一批一次合併入庫(整批一個事務)。
+	#See[{nameof(ISvcWordV2.MergeWord)}]")]
+	public Task<nil> MergeWord(
+		IDbUserCtx Ctx, IList<JnWord> Words, CT Ct
+	);
+
+	[Doc(@$"IList 版 `{nameof(MergeWord_NewDescrAsAdd)}`:一批一次合併入庫(整批一個事務)。
+	#See[{nameof(ISvcWordV2.MergeWord_NewDescrAsAdd)}]")]
+	public Task<nil> MergeWord_NewDescrAsAdd(
+		IDbUserCtx Ctx, IList<JnWord> Words, CT Ct
+	);
+
+	[Doc(@$"IList 版 `{nameof(OrdUpdHeadLang)}`:一批一次處理(整批一個事務)。
+	出參 IList 與入參位置一一對應、返回的 Id 都是最終基準 Id。
+	#See[{nameof(ISvcWordV2.OrdUpdHeadLang)}]")]
+	public Task<IList<RespUpdBizId>> OrdUpdHeadLang(
+		IDbUserCtx Ctx, IList<PoWord> PoWords, CT Ct
+	);
+
+	[Doc(@$"IList 版 `{nameof(OrdSyncJnWordByBizId)}`:一批一次同步(整批一個事務)。
+	出參 IList 與入參位置一一對應、便於審計。
+	#See[{nameof(ISvcWordV2.OrdSyncJnWordByBizId)}]")]
+	public Task<IList<DtoJnWordSyncResult>> OrdSyncJnWordByBizId(
+		IDbUserCtx Ctx, IList<JnWord> JnWords, CT Ct
+	);
+
+	[Doc(@$"IList 版 `{nameof(OrdSyncByDto)}`:一批一次分桶派發(整批一個事務)。
+	#See[{nameof(ISvcWordV2.OrdSyncByDto)}]
+	#See[{nameof(ISvcWordSync)}]")]
+	public Task<nil> OrdSyncByDto(
+		IDbUserCtx Ctx,
+		IList<DtoJnWordSyncResult> Dtos, CT Ct
+	);
+
 }
 
 [Doc(@$"此接口下函數不作爲公共API。
 只是把同步單詞時 按 遇到的不同分類 分成不同函數處理、方便測試
 ")]
-public interface ISvcWordSync{
+public partial interface ISvcWordSync{
 	[Doc(@$"{nameof(EDiffByBizIdResultForSync.NoChange)}")]
 	public Task<nil> OrdSync_NoChange(
 		IDbUserCtx Ctx,
@@ -355,6 +484,28 @@ public interface ISvcWordSync{
 		IDbUserCtx Ctx,
 		IAsyncEnumerable<DtoJnWordSyncResult> Dtos, CT Ct
 	);
-	
+
+	// -------- IList 批核心形狀(新範式)--------
+	// 各分支直接吃已物化的批、不再內部切批;事務邊界由調用方(OrdSyncByDto IList 版)聲明,分支只加入不另開。
+
+	[Doc(@$"{nameof(EDiffByBizIdResultForSync.NoChange)}:兩端一致、無任何寫。")]
+	public Task<nil> OrdSync_NoChange(
+		IDbUserCtx Ctx, IList<DtoJnWordSyncResult> Dtos, CT Ct
+	);
+
+	[Doc(@$"{nameof(EDiffByBizIdResultForSync.RemoteIsOlder)}:Local 較新、保持不動。")]
+	public Task<nil> OrdSync_RemoteIsOlder(
+		IDbUserCtx Ctx, IList<DtoJnWordSyncResult> Dtos, CT Ct
+	);
+
+	[Doc(@$"{nameof(EDiffByBizIdResultForSync.LocalNotExist)}:本用戶詞庫無此 BizId、直接整聚合插入。")]
+	public Task<nil> OrdSync_LocalNotExist(
+		IDbUserCtx Ctx, IList<DtoJnWordSyncResult> Dtos, CT Ct
+	);
+
+	[Doc(@$"{nameof(EDiffByBizIdResultForSync.IdNotEqual)}:BizId 同而 Id 不同,以 Id 更小者為基準收斂(遷主鍵+資產外鍵)。")]
+	public Task<nil> OrdSync_IdNotEqual(
+		IDbUserCtx Ctx, IList<DtoJnWordSyncResult> Dtos, CT Ct
+	);
 
 }

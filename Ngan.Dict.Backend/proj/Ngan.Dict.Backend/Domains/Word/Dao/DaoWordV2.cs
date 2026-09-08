@@ -20,6 +20,7 @@ using Ngan.Dict.Core.Word.Models.Po.Word;
 using Tsinswreng.CsCore;
 using Tsinswreng.CsPage;
 using Tsinswreng.CsSql;
+using Tsinswreng.CsTempus;
 using Tsinswreng.CsTools;
 using IStr_Obj = System.Collections.Generic.IDictionary<str, obj?>;
 
@@ -36,15 +37,6 @@ public partial class DaoWordV2(
 	IRepo<PoWordProp, IdWordProp> RepoProp = RepoProp;
 	IRepo<PoWordLearn, IdWordLearn> RepoLearn = RepoLearn;
 	PreFilterSqlMkr PreFilterSqlMkr = new();
-
-	/// 常規聚合修改(新增/更新/刪除資產、遷移等)後的統一收尾：
-	/// 按根 Id 批量把 PoWord.BizUpdatedAt 置為當前時間(DB 側生成)。
-	/// ISvcWordV2 文檔頭約定：凡動過 JnWord(含資產)必須經此觸碰——同步端以 BizUpdatedAt 判新舊，漏觸碰=丟改動。
-	public Task<nil> BatAltWordAfterUpd(
-		IDbFnCtx Ctx, IAsyncEnumerable<IdWord> Ids, CT Ct
-	){
-		return RepoWord.AsAppRepo().BatBizTouch(Ctx, Ids, Ct);
-	}
 
 	/// 硬刪當前用戶已軟刪除數據；僅刪 DelAt!=0 的行，不做聚合補全，可能留下孤兒資產。
 	public async Task<nil> HardDelSoftDeletedByOwner(
@@ -84,26 +76,6 @@ AND {TW.QtCol(nameof(PoWord.Owner))} = {pOwner};
 		return NIL;
 	}
 
-	/// 批量按 Id 取單詞主體(含軟刪)。Ord 語義：出參與入參 Ids 位置一一對應、查無補 null。
-	public IAsyncEnumerable<PoWord?> BatGetPoWordByIdWithDel(
-		IDbFnCtx Ctx
-		,IAsyncEnumerable<IdWord> Ids
-		,CT Ct
-	){
-		return RepoWord.OrdGetByIdWithDel(Ctx, Ids, Ct);
-	}
-
-	/// 批量按 Id 取完整聚合(根+Props+Learns、含軟刪)。Ord 語義：出參與入參位置一一對應、查無補 null。
-	/// 與 BatGetPoWordByIdWithDel 的分工：先按 BizId 命中根、再用本函數按根 Id 回讀明細(見同步鏈路 step2/3)。
-	public IAsyncEnumerable<JnWord?> BatGetJnWordByIdWithDel(
-		IDbFnCtx Ctx
-		,IAsyncEnumerable<IdWord> Ids
-		,CT Ct
-	){
-		return RepoWord.OrdGetAggByIdWithDel<JnWord>(Ctx, Ids, Ct);
-	}
-	
-
 	public IAsyncEnumerable<IdWord?> BatGetIdByOwnerHeadLang(
 		IDbFnCtx Ctx
 		,IdUser Owner
@@ -112,8 +84,7 @@ AND {TW.QtCol(nameof(PoWord.Owner))} = {pOwner};
 	){
 		
 		var hl = HeadLangs;
-		var Sql = TW.SqlSplicer().Select(x=>x.Id).From().Where1()
-		.And(TW.SqlIsNonDel())
+		var Sql = TW.SqlSplicer().Select(x=>x.Id).FromT().WhereNonDel()
 		.AndEq(x=>x.Owner, y=>y.One(Owner))
 		.AndEq(x=>x.Head, y=>y.Many(hl, z=>z.Head))
 		.AndEq(x=>x.Lang, y=>y.Many(hl, z=>z.Lang))
@@ -128,254 +99,17 @@ AND {TW.QtCol(nameof(PoWord.Owner))} = {pOwner};
 		});
 	}
 	
-	/// 批量按 (Owner, Head, Lang) 查單詞主體（含已軟刪除），返回順序與入參一一對應。
-	/// 實現要點：SqlSplicer 構造「一條模板 SQL」——Owner 用 One(常量綁定)、Head/Lang 用 Many(取自入參流)；
-	/// RunDupliSql 同構批量執行：每入參元素實例化一條等值 SQL、按批拼進一個 CommandText 一次往返，
-	/// 每個結果集取首行、空補 null——這正是「IN 子句做不到」的複合鍵保序查詢(BizId 匹配的地基)。
-	public IAsyncEnumerable<PoWord?> BatGetPoWordByOwnerHeadLangWithDel(
-		IDbFnCtx Ctx,
-		IdUser Owner,
-		IAsyncEnumerable<Head_Lang> HeadLangs,
-		CT Ct
-	){
-		var hl = HeadLangs;
-		var sql = TW.SqlSplicer().Select("*").From().Where1()
-			.AndEq(x=>x.Owner, y=>y.One(Owner))
-			.AndEq(x=>x.Head, y=>y.Many(hl, z=>z.Head))
-			.AndEq(x=>x.Lang, y=>y.Many(hl, z=>z.Lang))
-		;
-		return SqlCmdMkr.RunDupliSql(Ctx, TW, sql, Ct);
-	}
-
-	// ■ _2 對標（SqlMkr 重寫）：複合鍵 (Owner, Head, Lang) 批量查。
-	// 對照：原 BatGetPoWordByOwnerHeadLangWithDel 用 SqlSplicer + One(常量)/Many(每元素) binder + RunDupliSql；
-	// 新寫法 AndEq(Owner 常量) + AndKeys(每行一個鍵字典) 收整批 IList（函數只管一批），
-	// 每元素一條 `... AND Head=@Head__i AND Lang=@Lang__i` 語句、' ;' 拼一命令，AsyE1dWithNull 保序補 null。
-	public async Task<IList<PoWord?>> BatGetPoWordByOwnerHeadLangWithDel_2(
-		IDbFnCtx Ctx,
-		IdUser Owner,
-		IList<Head_Lang> HeadLangs,
-		CT Ct
-	){
-		var keys = HeadLangs.Select(x=>new Dictionary<str, obj?>{
-			[nameof(PoWord.Head)] = x.Head,
-			[nameof(PoWord.Lang)] = x.Lang,
-		}).Cast<IStr_Obj>().ToList();
-		var Stmt = TW.SqlMkr().Select("*").From().Where1()
-			.AndEq(nameof(PoWord.Owner), Owner)
-			.AndKeys(keys)
-			.Build();
-
-		var Cmd = await SqlCmdMkr.Prepare(Ctx, Stmt.Sql, Ct);
-		Ctx.AddToDispose(Cmd);
-		var Ans = new List<PoWord?>(HeadLangs.Count);
-		await foreach(var Dict in Cmd.RawArgs(Stmt.Args.ToDict()).AsyE1dWithNull(Ct).WithCancellation(Ct)){
-			Ans.Add(Dict is null ? null : TW.DbDictToEntity<PoWord>(Dict));
-		}
-		return Ans;
-	}
-
-	/// 批量更新單詞主體的 Head/Lang，並同步觸發 BizUpdatedAt。
-	public async Task<nil> BatUpdHeadLangById(
-		IDbFnCtx Ctx,
-		IAsyncEnumerable<(IdWord Id, str Head, str Lang)> Args,
-		CT Ct
-	){
-		await using var batch = new BatchCollector<(IdWord Id, str Head, str Lang), nil>(async(rows, Ct)=>{
-			if(rows.Count == 0){
-				return NIL;
-			}
-			var ids = new List<IdWord>(rows.Count);
-			var dicts = new List<IDictionary<str, obj?>>(rows.Count);
-			foreach(var row in rows){
-				ids.Add(row.Id);
-				dicts.Add(new Dictionary<str, obj?>{
-					[nameof(PoWord.Head)] = row.Head,
-					[nameof(PoWord.Lang)] = row.Lang,
-				});
-			}
-			await RepoWord.OrdUpdByCodeDict(Ctx, ToolAsyE.ToAsyE(ids), ToolAsyE.ToAsyE(dicts), Ct);
-			await BatAltWordAfterUpd(Ctx, ToolAsyE.ToAsyE(ids), Ct);
-			return NIL;
-		});
-		await batch.ConsumeAll(Args, Ct);
-		return NIL;
-	}
-
-	/// 批量取消軟刪除（DelAt = 0），並同步觸發 BizUpdatedAt。
-	public async Task<nil> BatRestoreInId(
-		IDbFnCtx Ctx,
-		IAsyncEnumerable<IdWord> Ids,
-		CT Ct
-	){
-		await using var batch = new BatchCollector<IdWord, nil>(async(idBatch, Ct)=>{
-			if(idBatch.Count == 0){
-				return NIL;
-			}
-			var codeDicts = idBatch.Select(_=>new Dictionary<str, obj?>{
-				[nameof(IPoBase.DelAt)] = default(IdDel),
-			});
-			await RepoWord.OrdUpdByCodeDict(Ctx, ToolAsyE.ToAsyE(idBatch), ToolAsyE.ToAsyE(codeDicts), Ct);
-			await BatAltWordAfterUpd(Ctx, ToolAsyE.ToAsyE(idBatch), Ct);
-			return NIL;
-		});
-		await batch.ConsumeAll(Ids, Ct);
-		return NIL;
-	}
-
-	/// 批量把資產 (WordProp/WordLearn) 的 WordId 從 Old 移到 New。
-	/// 「移動」洏非「複製」：搬完後 Old 名下不再有任何資產；Old 通常已/將被軟刪(見 OrdUpdHeadLang 衝突分支)。
-	/// 先讀後寫是必要的：改外鍵要先知道名下有哪些資產行(Upsert/Upd 都需要完整實體)。
-	public async Task<nil> BatMoveAssetsToWordId(
-		IDbFnCtx Ctx,
-		IAsyncEnumerable<(IdWord Old, IdWord New)> Moves,
-		CT Ct
-	){
-		await using var batch = new BatchCollector<(IdWord Old, IdWord New), nil>(async(moveBatch, Ct)=>{
-			if(moveBatch.Count == 0){
-				return NIL;
-			}
-			// step 1: 按外鍵列批量拉取 Old 名下全部資產(含軟刪、避免漏搬)。
-			// IncludeEntitysByKeys：跨表按 WordId IN(...) 一批取回、回 Dictionary<IdWord, IList<資產>>；
-			// OptQry.InParamCnt 告知預期 IN 數量、由庫按 DB 決定切批(sqlite 參數上限敏感)。
-			var oldIds = moveBatch.Select(x=>x.Old).Distinct().ToList();
-			var opt = new OptQry{
-				InParamCnt = (u64)oldIds.Count,
-				IncludeDeleted = true,
-			};
-			var propsByOld = await RepoWord.IncludeEntitysByKeys(
-				Ctx,
-				nameof(I_WordId.WordId),
-				opt,
-				oldIds,
-				x=>x.WordId,
-				TP,
-				Ct
-			);
-			var learnsByOld = await RepoWord.IncludeEntitysByKeys(
-				Ctx,
-				nameof(I_WordId.WordId),
-				opt,
-				oldIds,
-				x=>x.WordId,
-				TL,
-				Ct
-			);
-
-			// step 2: 內存改掛——逐條 (Old,New) 把名下實體的 WordId 就地改成 New、聚成待回寫清單。
-			// 註：moveBatch 中同一 Old 理論上不該重複出現；若重複、第二輪讀到的已是改掛後狀態。
-			var updProps = new List<PoWordProp>();
-			var updLearns = new List<PoWordLearn>();
-			foreach(var (oldId, newId) in moveBatch){
-				foreach(var prop in propsByOld.GetValueOrDefault(oldId, [])){
-					prop.WordId = newId;
-					updProps.Add(prop);
-				}
-				foreach(var learn in learnsByOld.GetValueOrDefault(oldId, [])){
-					learn.WordId = newId;
-					updLearns.Add(learn);
-				}
-			}
-			// step 3: 整行回寫(OrdUpd 含軟刪資產原狀態一併覆蓋、只換外鍵)、兩表各自一次同構批量。
-			// 不動資產 BizUpdatedAt：內容未變、僅歸屬變(接口文檔明示)，聚合根的觸碰由調用方負責。
-			if(updProps.Count > 0){
-				await RepoProp.OrdUpd(Ctx, ToolAsyE.ToAsyE(updProps), Ct);
-			}
-			if(updLearns.Count > 0){
-				await RepoLearn.OrdUpd(Ctx, ToolAsyE.ToAsyE(updLearns), Ct);
-			}
-			return NIL;
-		});
-		await batch.ConsumeAll(Moves, Ct);
-		return NIL;
-	}
-
-	/// 批量更改 Word 主鍵 Id，並同步把全部資產外鍵一起遷移。
-	/// 調用前提(OrdChangeId 已校驗)：Old 存在、New 全庫不存在。
-	/// 注意：手拼多語句 SQL 走 Prepare+RawArgs 逃逸通道——Repo 更新系 API 一律忽略主鍵列、無法改 Id，
-	/// 這是目前庫能力下「改主鍵」的唯一寫法(CsSql 改造時此場景為剛需)。
-	public async Task<nil> BatChangeWordId(
-		IDbFnCtx Ctx,
-		IAsyncEnumerable<(IdWord Old, IdWord New)> Moves,
-		CT Ct
-	){
-		await using var batch = new BatchCollector<(IdWord Old, IdWord New), nil>(async(moveBatch, Ct)=>{
-			var normalized = moveBatch.Where(x=>x.Old != x.New).ToList();
-			if(normalized.Count == 0){
-				return NIL;
-			}
-
-			// step 1: 每對 (Old,New) 實例化一條 UPDATE 主鍵語句、以 ';' 拼成一個命令一次往返；
-			// 參數名帶下標避免碰撞、值經 UpperToRaw 轉強類型 Id 的庫側表示(BLOB/bytea)。
-			// 直接更新主鍵 Id。Repo.BatUpdByCodeDict 會忽略 Id 欄位，不能用於主鍵變更。
-			var stmts = new List<str>(normalized.Count);
-			var arg = new Dictionary<str, obj?>();
-			for(var i = 0; i < normalized.Count; i++){
-				var (oldId, newId) = normalized[i];
-				var pOld = TW.Prm($"old_{i}");
-				var pNew = TW.Prm($"new_{i}");
-				stmts.Add(
-					$"UPDATE {TW.Qt(TW.DbTblName)} " +
-					$"SET {TW.QtCol(nameof(PoWord.Id))} = {pNew} " +
-					$"WHERE {TW.QtCol(nameof(PoWord.Id))} = {pOld}"
-				);
-				arg[pOld.Name] = TW.UpperToRaw(oldId, nameof(PoWord.Id));
-				arg[pNew.Name] = TW.UpperToRaw(newId, nameof(PoWord.Id));
-			}
-			var sql = str.Join(";\n", stmts);
-			var cmd = await SqlCmdMkr.Prepare(Ctx, sql, Ct);
-			Ctx.AddToDispose(cmd);
-			await cmd.RawArgs(arg).AsyE1d(Ct).FirstOrDefaultAsync(Ct);
-
-			// step 2: 根主鍵改完後立刻搬資產——此刻資產外鍵仍指向 Old，必須跟進到新 Id。
-			// step 3: 觸碰新 Id 的 BizUpdatedAt(遷移視同變更；Old 行已改名、無從觸碰)。
-			await BatMoveAssetsToWordId(Ctx, ToolAsyE.ToAsyE(normalized), Ct);
-			await BatAltWordAfterUpd(Ctx, ToolAsyE.ToAsyE(normalized.Select(x=>x.New)), Ct);
-			return NIL;
-		});
-		await batch.ConsumeAll(Moves, Ct);
-		return NIL;
-	}
-
-	// ■ _2 對標（SqlMkr 重寫）：批量改主鍵。
-	// 對照：原 BatChangeWordId 手拼 `old_{i}`/`new_{i}` 參數逐對 UPDATE（Repo 更新系 API 忽略主鍵列、只能走逃逸通道）；
-	// 新寫法 Update().AddRow 每對 (Old, New)：WHERE 主鍵 = Old、SET 列集含主鍵列(新值)——「改主鍵」正好是
-	// SqlMkr Update 原生語義(dict 鍵 = SET 列集、Id 鍵 = WHERE)，對序前綴/Upper→Raw 由庫內部吸收。
-	public async Task<nil> BatChangeWordId_2(
-		IDbFnCtx Ctx,
-		IList<(IdWord Old, IdWord New)> Moves,
-		CT Ct
-	){
-		var normalized = Moves.Where(x=>x.Old != x.New).ToList();
-		if(normalized.Count == 0){
-			return NIL;
-		}
-
-		// step 1: 每對 (Old,New) 一條 UPDATE 主鍵(SET Id = New WHERE Id = Old)，' ;' 拼一命令一次往返
-		var Upd = TW.SqlMkr().Update();
-		foreach(var (oldId, newId) in normalized){
-			Upd.AddRow(nameof(PoWord.Id), oldId, new Dictionary<str, obj?>{
-				[nameof(PoWord.Id)] = newId,
-			});
-		}
-		var Stmt = Upd.Build();
-		var Cmd = await SqlCmdMkr.Prepare(Ctx, Stmt.Sql, Ct);
-		Ctx.AddToDispose(Cmd);
-		await Cmd.RawArgs(Stmt.Args.ToDict()).AsyE1d(Ct).FirstOrDefaultAsync(Ct);
-
-		// step 2: 根主鍵改完後立刻搬資產——此刻資產外鍵仍指向 Old，必須跟進到新 Id。
-		// step 3: 觸碰新 Id 的 BizUpdatedAt(遷移視同變更；Old 行已改名、無從觸碰)。
-		await BatMoveAssetsToWordId(Ctx, ToolAsyE.ToAsyE(normalized), Ct);
-		await BatAltWordAfterUpd(Ctx, ToolAsyE.ToAsyE(normalized.Select(x=>x.New)), Ct);
-		return NIL;
-	}
+	// ■ 以下舊流式批方法已被 DaoWordV2.ImList.cs 的 IList 版取代(新範式:函數邊界=批邊界)
+	// 原 BatGetPoWordByIdWithDel/BatGetJnWordByIdWithDel/BatGetPoWordByOwnerHeadLangWithDel/
+	// BatUpdHeadLangById/BatRestoreInId/BatMoveAssetsToWordId/BatChangeWordId/BatAltWordAfterUpd
+	// 的流式版已刪除,請改調用 IList 版。
 
 	public IAsyncEnumerable<JnWord> GetWordsByOwner(
 		IDbFnCtx Ctx
 		,IdUser Owner
 		,CT Ct
 	){
-		var Sql = TW.SqlSplicer().Select("*").From().WhereNonDel()
+		var Sql = TW.SqlSplicer().Select("*").FromT().WhereNonDel()
 		.AndEq(x=>x.Owner, y=>y.One(Owner))
 		.OrderByDesc(x=>x.BizCreatedAt)
 		;
@@ -684,5 +418,205 @@ ORDER BY {TW.QtCol(nameof(PoWord.BizCreatedAt))} DESC
 			return Convert.ToUInt64(value);
 		}
 		return 0;
+	}
+
+	// -------- IList 批核心(新範式)--------
+	// 每方法吃整批 IList、內部零業務分批;批大小/切批是調用方(Svc 流式入口的 SqlFlow.Batches)的職責。
+	// 與流式版的區別:此處吃 IList、回 IList(位置對齊)、一次往返寫完一整批。
+
+	/// IList 版：常規聚合修改(新增/更新/刪除資產、遷移等)後的統一收尾。
+	/// 按根 Id 列表一次把 PoWord.BizUpdatedAt 置為當前時間(DB 側生成)。
+	/// ISvcWordV2 文檔頭約定：凡動過 JnWord(含資產)必須經此觸碰——同步端以 BizUpdatedAt 判新舊，漏觸碰=丟改動。
+	public async Task<nil> BatAltWordAfterUpd(
+		IDbFnCtx Ctx, IList<IdWord> Ids, CT Ct
+	){
+		if(Ids.Count == 0){
+			return NIL;
+		}
+		var Now = UnixMs.Now();
+		var CodeDicts = new List<IStr_Obj>(Ids.Count);
+		foreach(var _ in Ids){
+			CodeDicts.Add(new Dictionary<str, obj?>(){
+				[nameof(IBizCreateUpdateTime.BizUpdatedAt)] = Now
+			});
+		}
+		await RepoWord.OrdUpdByCodeDict(Ctx, Ids, CodeDicts, Ct);
+		return NIL;
+	}
+
+	/// IList 版：批量按 Id 取單詞主體(含軟刪)。Ord 語義：出參與入參 Ids 位置一一對應、查無補 null。
+	public Task<IList<PoWord?>> BatGetPoWordByIdWithDel(
+		IDbFnCtx Ctx, IList<IdWord> Ids, CT Ct
+	){
+		return RepoWord.OrdGetByIdWithDel(Ctx, Ids, Ct);
+	}
+
+	/// IList 版：批量按 Id 取完整聚合(根+Props+Learns、含軟刪)。Ord 語義：位置一一對應、查無補 null。
+	public Task<IList<JnWord?>> BatGetJnWordByIdWithDel(
+		IDbFnCtx Ctx, IList<IdWord> Ids, CT Ct
+	){
+		return RepoWord.OrdGetAggByIdWithDel<JnWord>(Ctx, Ids, Ct);
+	}
+
+	/// IList 版：批量按 (Owner, Head, Lang) 查單詞主體(含軟刪)，位置一一對應、查無補 null。
+	/// 複合鍵批量保序查詢——Owner 常量 One、Head/Lang 每元素 Many；Build 產多語句一命令，泛型 Get1d 逐結果集回讀。
+	public async Task<IList<PoWord?>> BatGetPoWordByOwnerHeadLangWithDel(
+		IDbFnCtx Ctx,
+		IdUser Owner,
+		IList<Head_Lang> HeadLangs,
+		CT Ct
+	){
+		if(HeadLangs.Count == 0){
+			return [];
+		}
+		var Heads = new List<obj?>(HeadLangs.Count);
+		var Langs = new List<obj?>(HeadLangs.Count);
+		foreach(var HL in HeadLangs){
+			Heads.Add(HL.Head);
+			Langs.Add(HL.Lang);
+		}
+		var Sql = TW.SqlSplicer().Select("*").FromT().Where1()
+			.And().Bool(nameof(PoWord.Owner), "=", x=>x.One(Owner))
+			.And().Bool(nameof(PoWord.Head), "=", x=>x.Many(Heads))
+			.And().Bool(nameof(PoWord.Lang), "=", x=>x.Many(Langs));
+		var Ans = await SqlCmdMkr.Get1d(Ctx, TW, Sql.Build(), Ct)
+			.ToListAsync(Ct);
+		return Ans;
+	}
+
+	/// IList 版：批量更新單詞主體的 Head/Lang，並同步觸發 BizUpdatedAt。
+	public async Task<nil> BatUpdHeadLangById(
+		IDbFnCtx Ctx,
+		IList<(IdWord Id, str Head, str Lang)> Args,
+		CT Ct
+	){
+		if(Args.Count == 0){
+			return NIL;
+		}
+		var ids = new List<IdWord>(Args.Count);
+		var dicts = new List<IStr_Obj>(Args.Count);
+		foreach(var row in Args){
+			ids.Add(row.Id);
+			dicts.Add(new Dictionary<str, obj?>{
+				[nameof(PoWord.Head)] = row.Head,
+				[nameof(PoWord.Lang)] = row.Lang,
+			});
+		}
+		await RepoWord.OrdUpdByCodeDict(Ctx, ids, dicts, Ct);
+		await BatAltWordAfterUpd(Ctx, ids, Ct);
+		return NIL;
+	}
+
+	/// IList 版：批量取消軟刪除(DelAt = 0)，並同步觸發 BizUpdatedAt。
+	public async Task<nil> BatRestoreInId(
+		IDbFnCtx Ctx,
+		IList<IdWord> Ids,
+		CT Ct
+	){
+		if(Ids.Count == 0){
+			return NIL;
+		}
+		var codeDicts = new List<IStr_Obj>(Ids.Count);
+		foreach(var _ in Ids){
+			codeDicts.Add(new Dictionary<str, obj?>{
+				[nameof(IPoBase.DelAt)] = default(IdDel),
+			});
+		}
+		await RepoWord.OrdUpdByCodeDict(Ctx, Ids, codeDicts, Ct);
+		await BatAltWordAfterUpd(Ctx, Ids, Ct);
+		return NIL;
+	}
+
+	/// IList 版：批量把資產 (WordProp/WordLearn) 的 WordId 從 Old 移到 New。
+	/// 先讀後寫是必要的：改外鍵要先知道名下有哪些資產行(Upsert/Upd 都需要完整實體)。
+	public async Task<nil> BatMoveAssetsToWordId(
+		IDbFnCtx Ctx,
+		IList<(IdWord Old, IdWord New)> Moves,
+		CT Ct
+	){
+		if(Moves.Count == 0){
+			return NIL;
+		}
+		// step 1: 按外鍵列批量拉取 Old 名下全部資產(含軟刪、避免漏搬)。
+		var oldIds = Moves.Select(x=>x.Old).Distinct().ToList();
+		var opt = new OptQry{
+			InParamCnt = (u64)oldIds.Count,
+			IncludeDeleted = true,
+		};
+		var propsByOld = await RepoWord.IncludeEntitysByKeys(
+			Ctx,
+			nameof(I_WordId.WordId),
+			opt,
+			oldIds,
+			x=>x.WordId,
+			TP,
+			Ct
+		);
+		var learnsByOld = await RepoWord.IncludeEntitysByKeys(
+			Ctx,
+			nameof(I_WordId.WordId),
+			opt,
+			oldIds,
+			x=>x.WordId,
+			TL,
+			Ct
+		);
+
+		// step 2: 內存改掛——逐條 (Old,New) 把名下實體的 WordId 就地改成 New、聚成待回寫清單。
+		var updProps = new List<PoWordProp>();
+		var updLearns = new List<PoWordLearn>();
+		foreach(var (oldId, newId) in Moves){
+			foreach(var prop in propsByOld.GetValueOrDefault(oldId, [])){
+				prop.WordId = newId;
+				updProps.Add(prop);
+			}
+			foreach(var learn in learnsByOld.GetValueOrDefault(oldId, [])){
+				learn.WordId = newId;
+				updLearns.Add(learn);
+			}
+		}
+		// step 3: 整行回寫、兩表各自一次同構批量。不動資產 BizUpdatedAt(僅歸屬變)，聚合根的觸碰由調用方負責。
+		if(updProps.Count > 0){
+			await RepoProp.OrdUpd(Ctx, updProps, Ct);
+		}
+		if(updLearns.Count > 0){
+			await RepoLearn.OrdUpd(Ctx, updLearns, Ct);
+		}
+		return NIL;
+	}
+
+	/// IList 版：批量更改 Word 主鍵 Id，並同步把全部資產外鍵一起遷移、觸碰新 Id 的 BizUpdatedAt。
+	/// 調用前提(OrdChangeId 已校驗)：Old 存在、New 全庫不存在。
+	public async Task<nil> BatChangeWordId(
+		IDbFnCtx Ctx,
+		IList<(IdWord Old, IdWord New)> Moves,
+		CT Ct
+	){
+		var normalized = Moves.Where(x=>x.Old != x.New).ToList();
+		if(normalized.Count == 0){
+			return NIL;
+		}
+
+		// step 1: 每對 (Old,New) 一條 UPDATE 主鍵(SET Id = New WHERE Id = Old)，';' 拼一命令一次往返。
+		// 直接更新主鍵 Id：Repo 更新系 API 忽略主鍵列、只能走逃逸通道(準備語句 + RawArgs/One binder)。
+		var Upd = TW.SqlSplicer();
+		for(i32 i = 0; i < normalized.Count; i++){
+			var (oldId, newId) = normalized[i];
+			var PNew = TW.Prm($"new_{i}");
+			var POld = TW.Prm($"old_{i}");
+			if(i > 0) Upd.Raw(";");
+			Upd.UpdateT().Set()
+				.Raw(TW.QtCol(nameof(PoWord.Id))).Raw("=").AddRaw(PNew)
+				.Raw($" WHERE {TW.QtCol(nameof(PoWord.Id))} = ").AddRaw(POld);
+			Upd.ParamAutoBinders.Add(new SqlArgBinderFactory(PNew, TW, nameof(PoWord.Id)).One(newId));
+			Upd.ParamAutoBinders.Add(new SqlArgBinderFactory(POld, TW, nameof(PoWord.Id)).One(oldId));
+		}
+		await SqlCmdMkr.Run(Ctx, Upd.Build(), Ct);
+
+		// step 2: 根主鍵改完後立刻搬資產——此刻資產外鍵仍指向 Old，必須跟進到新 Id。
+		// step 3: 觸碰新 Id 的 BizUpdatedAt(遷移視同變更；Old 行已改名、無從觸碰)。
+		await BatMoveAssetsToWordId(Ctx, normalized, Ct);
+		await BatAltWordAfterUpd(Ctx, normalized.Select(x=>x.New).Distinct().ToList(), Ct);
+		return NIL;
 	}
 }
