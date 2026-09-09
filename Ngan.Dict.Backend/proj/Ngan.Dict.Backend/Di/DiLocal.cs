@@ -8,6 +8,7 @@ using Ngan.Dict.Backend.Db.TswG;
 using Ngan.Dict.Backend.Sql;
 using Ngan.Dict.Core.Infra;
 using Tsinswreng.CsSql.Sqlite;
+using Tsinswreng.CsSql.Sqlite.Di;
 using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
 using Ngan.Dict.Core.Shared.Kv.Models;
 using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
@@ -41,21 +42,13 @@ public static class DiLocal{
 
 //數據庫配置
 	static IServiceCollection SetupDbCfg(this IServiceCollection z){
-//數據庫連接單例
-z.AddSingleton(LocalDb.Inst.DbConnection);
-z.AddSingleton<IDbConnMgr, SingletonDbConnGetter>();
-//數據庫命令ˇ建者
-z.AddScoped<ISqlCmdMkr, SqliteCmdMkr>();
-//數據庫諸表ˇ司者
-z.AddSingleton<ITblMgr>(LocalTblMgr.Inst);
+//CsSql 固定配方(連接/命令/事務/表管理器)一次註冊;此處剩下的是業務自己的註冊(遷移/初始化)
+z.AddCsSqlSqlite(new SqliteCfg{
+	Connection = LocalDb.Inst.DbConnection
+	,TblMgr = LocalTblMgr.Inst
+});
 //遷移用空白 TblMgr 工廠
 z.AddSingleton<IMkrTblMgr, LocalMkrTblMgr>();
-//事務ˇ建者
-z.AddScoped<IMkrTxn, SqliteCmdMkr>();
-//事務ˇ珩者
-z.AddScoped<ITxnRunner, AdoTxnRunner>();
-z.AddScoped<IMkrDbFnCtx ,MkrDbFnCtx>();
-z.AddScoped<TxnWrapper>();
 //數據庫初始化器
 z.AddTransient<DbIniter>();
 // 通用遷移執行邏輯在 CsSql；此處僅聲明 Local 端遷移清單

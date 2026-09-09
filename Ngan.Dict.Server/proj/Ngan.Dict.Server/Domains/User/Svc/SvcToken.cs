@@ -271,7 +271,7 @@ public class SvcToken
 					Token.BizUpdatedAt = Now;
 					Token.RevokeReason = "Logout";
 				}
-				return await RepoToken.BatUpd(Ctx, ToAsyE(TokenBatch), Ct);
+				return await RepoToken.OrdUpd(Ctx, ToAsyE(TokenBatch), Ct);
 			}
 		);
 		await Revoker.AddRange(Tokens, null, Ct);

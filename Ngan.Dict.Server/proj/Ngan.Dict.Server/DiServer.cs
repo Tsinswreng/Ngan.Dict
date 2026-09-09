@@ -3,6 +3,7 @@ namespace Ngan.Dict.Server;
 using Microsoft.Extensions.DependencyInjection;
 using Tsinswreng.CsSql;
 using Tsinswreng.CsSql.Postgres;
+using Tsinswreng.CsSql.Postgres.Di;
 using Ngan.Dict.Server.Db.User;
 using Ngan.Dict.Core.Model.Sys.Po.Password;
 using Ngan.Dict.Server.Infra.Cfg;
@@ -45,19 +46,11 @@ public static class DiBiz{
 	
 	[Doc("數據庫與ORM基礎設施")]
 	static IServiceCollection SetupTswgSqlAdo(this IServiceCollection z){
-		//事務執行器
-		z.AddTransient<ITxnRunner, AdoTxnRunner>();
-
-		z.AddTransient<MkrDbFnCtx>();
-		z.AddTransient<ISqlCmdMkr, PostgresCmdMkr>();
-		z.AddScoped<IMkrTxn, PostgresCmdMkr>();
-		z.AddScoped<IMkrDbFnCtx, MkrDbFnCtx>();
-		//事務函數包裝器
-		z.AddScoped<TxnWrapper>();
-		z.AddSingleton(ServerDb.Inst.DataSource);
-		//z.AddSingleton<I_GetDbConnAsy, PostgresConnPool>();
-		z.AddSingleton<IDbConnMgr>(ServerDb.Inst.DbConnPool);
-		z.AddSingleton<ITblMgr>(ServerTblMgr.Inst);
+		//CsSql 固定配方(連接池/命令/事務/表管理器)一次註冊;此處剩下的是業務自己的註冊(遷移/整理)
+		z.AddCsSqlPostgres(new PostgresCfg{
+			DataSource = ServerDb.Inst.DataSource
+			,TblMgr = ServerTblMgr.Inst
+		});
 
 		z.AddRepoScoped<SchemaHistory, i64>();
 		// 通用遷移執行邏輯在 CsSql；此處僅聲明 Biz 端遷移清單
