@@ -19,6 +19,7 @@ using Ngan.Dict.Core.Shared.Word.Svc;
 using Ngan.Dict.Core.Tools;
 using Ngan.Dict.Core.Tools.Json;
 using Tsinswreng.CsErr;
+using Tsinswreng.CsJson;
 using Tsinswreng.CsSql;
 using Tsinswreng.CsTempus;
 using Tsinswreng.CsTools;
@@ -106,7 +107,7 @@ public partial class SvcWordV2(
 		if(string.IsNullOrWhiteSpace(json)){
 			return null;
 		}
-		return JsonS.Parse<PreFilter>(json);
+		return JsonS.Deserialize<PreFilter>(json);
 	}
 
 	static bool IsMatchedByPreFilter(JnWord Word, PreFilter? PreFilter){
@@ -350,7 +351,7 @@ public partial class SvcWordV2(
 			if(TextType == "" && Text == ""){
 				continue;
 			}
-			var PronJson = JsonS.Stringify(new TextedPronunciation{
+			var PronJson = JsonS.Serialize(new TextedPronunciation{
 				TextType = TextType,
 				Text = Text,
 			});

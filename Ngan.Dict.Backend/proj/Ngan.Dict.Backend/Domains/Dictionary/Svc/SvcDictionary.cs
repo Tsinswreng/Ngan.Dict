@@ -21,6 +21,7 @@ using Ngan.Dict.Core.Shared.Kv.Svc;
 using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
 using Ngan.Dict.Core.Shared.Word.Svc;
 using Tsinswreng.CsSql;
+using Tsinswreng.CsJson;
 
 
 
@@ -286,7 +287,7 @@ $"""
 	){
 		Ctx.DbFnCtx ??= new DbFnCtx();
 		var owner = Ctx.UserCtx.UserId;
-		var json = JsonS.Stringify(Po);
+		var json = JsonS.Serialize(Po);
 
 		return await SqlCmdMkr.EnsureTxn(Ctx.DbFnCtx, Ct, async DbCtx=>{
 			var oldKv = await SvcKv.OrdGetByOwnerEtKStr(
@@ -367,7 +368,7 @@ $"""
 			return null;
 		}
 		try{
-			return JsonS.Parse<PoNormLang>(Json!);
+			return JsonS.Deserialize<PoNormLang>(Json!);
 		}catch{
 			return null;
 		}
@@ -517,7 +518,7 @@ $"""
 				DescribeDescrsFromDict(dict)
 			);
 			var json = ToolJson.DictToJson(dict);
-			var R = JsonS.Parse<RespLlmDict>(json);
+			var R = JsonS.Deserialize<RespLlmDict>(json);
 			Logger.LogWarning(
 				"Dictionary parse diag: {Stage}",
 				DescribeDescrsFromResp(R)

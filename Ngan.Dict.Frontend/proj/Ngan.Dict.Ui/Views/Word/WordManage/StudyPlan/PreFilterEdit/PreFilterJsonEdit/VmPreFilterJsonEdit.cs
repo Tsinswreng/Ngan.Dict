@@ -8,6 +8,7 @@ using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.PreFilter;
 using Ngan.Dict.Core.Shared.StudyPlan.Svc;
 using Ngan.Dict.Core.Tools.Json;
 using Ngan.Dict.Ui.Infra;
+using Tsinswreng.CsJson;
 using Tsinswreng.CsTools;
 
 using Ctx = VmPreFilterJsonEdit;
@@ -34,7 +35,7 @@ public class VmPreFilterJsonEdit: ViewModelBase, IMk<Ctx>{
 
 	ISvcStudyPlan? SvcStudyPlan{get;set;}
 	IFrontendUserCtxMgr? UserCtxMgr{get;set;}
-	IJsonSerializer JsonSerializer{get;set;} = AppJsonSerializer.Inst;
+	IJsonSerializer JsonSerializer{get;set;} = AppJsonS.Inst;
 
 	public VmPreFilterJsonEdit(
 		ISvcStudyPlan? SvcStudyPlan
@@ -43,7 +44,7 @@ public class VmPreFilterJsonEdit: ViewModelBase, IMk<Ctx>{
 	){
 		this.SvcStudyPlan = SvcStudyPlan;
 		this.UserCtxMgr = UserCtxMgr;
-		this.JsonSerializer = JsonSerializer ?? AppJsonSerializer.Inst;
+		this.JsonSerializer = JsonSerializer ?? AppJsonS.Inst;
 	}
 
 	public str LastError{
@@ -64,7 +65,7 @@ public class VmPreFilterJsonEdit: ViewModelBase, IMk<Ctx>{
 		var po = PoPreFilter ?? new PoPreFilter{
 			Type = EPreFilterType.Json,
 		};
-		PoPreFilterJson = FormatJson(JsonSerializer.Stringify(po));
+		PoPreFilterJson = FormatJson(JsonSerializer.Serialize(po));
 		LastError = "";
 		OnPropertyChanged(nameof(HasError));
 		return NIL;
@@ -89,7 +90,7 @@ public class VmPreFilterJsonEdit: ViewModelBase, IMk<Ctx>{
 			}else{
 				await SvcStudyPlan.OrdUpdPreFilter(dbCtx, ToolAsyE.ToAsyE([po]), Ct);
 			}
-			PoPreFilterJson = FormatJson(JsonSerializer.Stringify(po));
+			PoPreFilterJson = FormatJson(JsonSerializer.Serialize(po));
 			LastError = "";
 			OnPropertyChanged(nameof(HasError));
 			ShowToast(I18n[K.Saved]);
@@ -132,7 +133,7 @@ public class VmPreFilterJsonEdit: ViewModelBase, IMk<Ctx>{
 		Po = new PoPreFilter();
 		Err = "";
 		try{
-			var parsed = JsonSerializer.Parse<PoPreFilter>(PoPreFilterJson);
+			var parsed = JsonSerializer.Deserialize<PoPreFilter>(PoPreFilterJson);
 			if(parsed is null){
 				Err = I18n[K.PoPreFilterJsonParseFailed];
 				return false;

@@ -43,6 +43,7 @@ using Ngan.Dict.Core.Frontend.Kv;
 using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.PreFilter;
 using Ngan.Dict.Core.Shared.StudyPlan.Models.PreFilter;
 using Tsinswreng.CsTempus;
+using Tsinswreng.CsJson;
 
 public partial class SvcWord(
 	ISvcParseWordList SvcParseWordList
@@ -453,7 +454,7 @@ public partial class SvcWord(
 				return NIL;
 			});
 			await foreach(var Line in JsonLineIter){
-				var JnWord = JsonS.Parse<JnWord>(Line);
+				var JnWord = JsonS.Deserialize<JnWord>(Line);
 				await Bl.Add(JnWord, Ct);
 			}
 			await Bl.End(Ct);
@@ -738,7 +739,7 @@ FnUpdJnWord() 是一個 “以輸入為準的對賬式更新”：
 	>> FnSyncFromTextWithBlob(IDbFnCtx Ctx, CT Ct){
 		var AddCompressedWord = await FnSyncFromCompressedWord(Ctx, Ct);
 		return async(User, TextWithBlob, Ct)=>{
-			var info = JsonS.Parse<WordsPackInfo>(TextWithBlob.Text);
+			var info = JsonS.Deserialize<WordsPackInfo>(TextWithBlob.Text);
 			if(info is null){
 				throw KeysErr.Common.ArgErr.ToErr();
 			}

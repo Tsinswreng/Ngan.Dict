@@ -4,6 +4,7 @@ using Ngan.Dict.Core.Shared.Word.Models.Po.Learn;
 using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 using Ngan.Dict.Core.Tools.Json;
 using Tsinswreng.CsCore;
+using Tsinswreng.CsJson;
 using Tsinswreng.CsTreeTest;
 using Tsinswreng.CsTools;
 
@@ -14,14 +15,14 @@ public partial class TestAppJsonSerializer{
 		var register = Node.MkTestFnRegister(
 			typeof(TestAppJsonSerializer),
 			[typeof(IJsonSerializer)],
-			[nameof(IJsonSerializer.Stringify)],
+			[nameof(IJsonSerializer.Serialize)],
 			nameof(TestAppJsonSerializer) + ".Stringify."
 		);
 		var R = register.Register;
 
 		R("Stringify_Should_Map_Enum_And_StrongTypes_As_Scalar_Strings", async(o)=>{
 			var src = MkSampleJnWord(ELearn.Add);
-			var json = JsonSerializer.Stringify(src);
+			var json = JsonSerializer.Serialize(src);
 			var root = MustParseJsonToDict(json);
 
 			var wordId = root.GetValueByPath([nameof(JnWord.Word), nameof(PoWord.Id)]);

@@ -20,6 +20,7 @@ using Ngan.Dict.Core.Shared.User.Svc;
 using Ngan.Dict.Core.Shared.User.UserCtx;
 using Tsinswreng.CsErr;
 using Ngan.Dict.Core.Tools.Json;
+using Tsinswreng.CsJson;
 
 public partial class SvcUser(
 	DaoUser DaoUser
@@ -65,7 +66,7 @@ public partial class SvcUser(
 		await RepoUser.OrdAdd(Ctx, OneAsyE(PoUser), Ct);
 		await RepoPassword.OrdAdd(Ctx, OneAsyE(Password), Ct);
 		try{
-			await Cache.SetStringAsync($"user:register:{PoUser.Id}", JsonS.Stringify(PoUser), new DistributedCacheEntryOptions {
+			await Cache.SetStringAsync($"user:register:{PoUser.Id}", JsonS.Serialize(PoUser), new DistributedCacheEntryOptions {
 				AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10)
 			}, Ct);
 		}catch(Exception e){

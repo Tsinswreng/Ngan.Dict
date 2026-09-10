@@ -24,7 +24,7 @@ public partial class TestISvcStudyPlan{
 		//人工
 		R("DfltWeightCfgJson",async(o)=>{
 			var cfg = new DfltWeightCfg();
-			var json = JsonS.Stringify(cfg);
+			var json = JsonS.Serialize(cfg);
 			var dict = ToolJson.JsonStrToDict(json);
 			if(dict is null || dict.Count == 0){
 				throw new Exception("DfltWeightCfgJson: dict should not be null or empty");

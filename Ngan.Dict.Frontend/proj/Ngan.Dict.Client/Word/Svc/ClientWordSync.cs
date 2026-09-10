@@ -7,6 +7,7 @@ using Ngan.Dict.Core.Shared.Word.Models.Dto;
 using Ngan.Dict.Core.Shared.Word.Svc;
 using Ngan.Dict.Core.Tools;
 using Ngan.Dict.Core.Tools.Json;
+using Tsinswreng.CsJson;
 
 public class ClientWordSync{
 	IHttpCaller HttpCaller;
@@ -47,7 +48,7 @@ public class ClientWordSync{
 		};
 		using var resp = await HttpCaller.SendWithRetry(
 			KeysUrl.Word.Pull
-			,JsonS.Stringify(Req)
+			,JsonS.Serialize(Req)
 			,(json)=>new StringContent(
 				json
 				,Encoding.UTF8

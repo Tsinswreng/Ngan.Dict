@@ -4,25 +4,12 @@ using Ngan.Dict.Core.Infra;
 
 namespace Ngan.Dict.Core.Tools.Json;
 
+/// 舊 IJsonSerializer（Stringify/Parse）已退役，由公共庫 Tsinswreng.CsJson.IJsonSerializer 取代。
+/// 本類僅保留 IDictJsonSerializer 職責（DictJson ↔ 業務對象互轉）。
 public class AppJsonSerializer
-	:IJsonSerializer
-	,IDictJsonSerializer
+	:IDictJsonSerializer
 {
 	public static AppJsonSerializer Inst => field??=new();
-	[Impl]
-	public str Stringify<T>(T O){
-		return JSON.Stringify(O);
-	}
-
-	[Impl]
-	public T? Parse<T>(str Json){
-		return JSON.Parse<T>(Json);
-	}
-
-	[Impl]
-	public obj? Parse(str Json, Type Type){
-		return JSON.Parse(Json, Type);
-	}
 	
 	public obj? ToDictJson<T>(T O){
 		var jsonElement = JSON.ToElement(O);

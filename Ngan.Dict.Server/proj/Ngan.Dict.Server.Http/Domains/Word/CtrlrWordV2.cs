@@ -8,6 +8,7 @@ using Ngan.Dict.Core.Shared.Word.Svc;
 using Ngan.Dict.Core.Tools.Json;
 using Ngan.Dict.Server.Http.Infra;
 using Tsinswreng.CsCore;
+using Tsinswreng.CsJson;
 using Tsinswreng.CsTools;
 using U = Ngan.Dict.Core.Infra.Url.KeysUrl.WordV2;
 
@@ -122,7 +123,7 @@ public class CtrlrWordV2(
 	protected IAsyncEnumerable<TReq> ReadReqAsGzipLines<TReq>(HttpContext Ctx, CT Ct){
 		return GZipLinesUtf8
 			.ToLines(Ctx.Request.Body, Ct)
-			.Select(line=>JsonS.Parse<TReq>(line)!);
+			.Select(line=>JsonS.Deserialize<TReq>(line)!);
 	}
 
 	/// 把返回元素流序列化成 gzip json 行並作為 octet-stream 響應。
@@ -134,7 +135,7 @@ public class CtrlrWordV2(
 		IAsyncEnumerable<TResp> Resp,
 		CT Ct
 	){
-		var lines = Resp.Select(item=>JsonS.Stringify(item));
+		var lines = Resp.Select(item=>JsonS.Serialize(item));
 		var payload = await GZipLinesUtf8.ToStream(lines, Ct);
 		return Results.Stream(payload, "application/octet-stream");
 	}

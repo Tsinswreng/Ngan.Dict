@@ -10,6 +10,7 @@ using Ngan.Dict.Core.Infra;
 using Ngan.Dict.Core.Infra.Errors;
 using Ngan.Dict.Core.Tools;
 using Tsinswreng.CsErr;
+using Tsinswreng.CsJson;
 namespace Ngan.Dict.Client;
 
 public class HttpCaller:IHttpCaller{
@@ -146,7 +147,7 @@ public class HttpCaller:IHttpCaller{
 		,TReq Req,
 		CT Ct
 	) {
-		var json = JsonS.Stringify(Req);
+		var json = JsonS.Serialize(Req);
 
 		using var resp = await SendWithRetry(
 			RelaUrl,
@@ -201,7 +202,7 @@ public class HttpCaller:IHttpCaller{
 			return default;
 		}
 		try{
-			var R = JsonS.Parse<TResp>(body); // 若回應是空字串則會拋例外
+			var R = JsonS.Deserialize<TResp>(body); // 若回應是空字串則會拋例外
 			return R;
 		}catch(Exception){
 			throw;//再次引发捕获到的异常会更改堆栈信息CA2200
@@ -219,7 +220,7 @@ public class HttpCaller:IHttpCaller{
 		var Req = new ReqRefreshTheToken{
 			RefreshToken = User.RefreshToken
 		};
-		var Json = JsonS.Stringify(Req);
+		var Json = JsonS.Serialize(Req);
 		using var content = new StringContent(
 			Json, Encoding.UTF8, "application/json"
 		);

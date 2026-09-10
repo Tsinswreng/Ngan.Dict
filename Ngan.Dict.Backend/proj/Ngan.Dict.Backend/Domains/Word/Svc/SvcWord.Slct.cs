@@ -25,6 +25,7 @@ using Tsinswreng.CsCore;
 using Tsinswreng.CsErr;
 using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 using Tsinswreng.CsTempus;
+using Tsinswreng.CsJson;
 
 public partial class SvcWord{
 
@@ -487,7 +488,7 @@ public partial class SvcWord{
 			var Jsons = new List<str>();
 			if(PageAll.DataAsyE is not null){
 				await foreach(var JnWord in PageAll.DataAsyE){
-					Jsons.Add(JsonS.Stringify(JnWord));
+					Jsons.Add(JsonS.Serialize(JnWord));
 				}
 			}
 			var Json = str.Join('\n', Jsons);
@@ -507,7 +508,7 @@ public partial class SvcWord{
 			var DtoCompressed = await ZipFn(User, Req, Ct);
 			var packInfo = DtoCompressed.ToOrAssWordsPackInfo();
 			var textWithBlob = NgaqTextWithBlob.Pack(
-				JsonS.Stringify(packInfo), DtoCompressed.Data
+				JsonS.Serialize(packInfo), DtoCompressed.Data
 			);
 			return textWithBlob;
 		};
@@ -520,7 +521,7 @@ public partial class SvcWord{
 			if(EWordsPack.JnWordArrJsonGZip.Eq(Compressed.Type)){
 				var decompressedBytes = Decompress(Compressed.Data??[]);
 				var Json = Encoding.UTF8.GetString(decompressedBytes);
-				return JsonS.Parse<IList<JnWord>>(Json)!;
+				return JsonS.Deserialize<IList<JnWord>>(Json)!;
 			}else if(EWordsPack.LineSepJnWordJsonGZip.Eq(Compressed.Type)){
 				var decompressedBytes = Decompress(Compressed.Data??[]);
 				var Json = Encoding.UTF8.GetString(decompressedBytes);
@@ -530,7 +531,7 @@ public partial class SvcWord{
 					if(str.IsNullOrWhiteSpace(line)){
 						continue;
 					}
-					var JnWord = JsonS.Parse<JnWord>(line);
+					var JnWord = JsonS.Deserialize<JnWord>(line);
 					if(JnWord is null){
 						continue;
 					}

@@ -76,7 +76,8 @@ public static class ExtnBoStudyPlan{
 			){
 				var jsCode = poWeightCalculator.Text;
 				if(!string.IsNullOrWhiteSpace(jsCode)){
-					z.WeightCalctr = new JsWeightCalctr(AppJsonSerializer.Inst, jsCode);
+					// 公共庫新接口默認實例（默認 options 等價 AppJsonCtx，見 AppJsonS）。
+					z.WeightCalctr = new JsWeightCalctr(AppJsonS.Inst, jsCode);
 				}
 			}
 		}

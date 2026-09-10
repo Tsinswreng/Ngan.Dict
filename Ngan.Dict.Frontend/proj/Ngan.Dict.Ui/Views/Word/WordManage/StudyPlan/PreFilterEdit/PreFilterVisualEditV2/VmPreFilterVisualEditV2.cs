@@ -19,6 +19,7 @@ using Ngan.Dict.Core.Tools.Json;
 using Ngan.Dict.Ui.Infra;
 using Ngan.Dict.Ui.Infra.I18n;
 using Ngan.Dict.Ui.Tools;
+using Tsinswreng.CsJson;
 using Tsinswreng.CsTools;
 
 using Ctx = VmPreFilterVisualEditV2;
@@ -39,7 +40,7 @@ public class VmPreFilterVisualEditV2: ViewModelBase, IMk<Ctx>{
 
 	ISvcStudyPlan? SvcStudyPlan{get;set;}
 	IFrontendUserCtxMgr? UserCtxMgr{get;set;}
-	IJsonSerializer JsonSerializer{get;set;} = AppJsonSerializer.Inst;
+	IJsonSerializer JsonSerializer{get;set;} = AppJsonS.Inst;
 	bool _isHydrating = false;
 	public event Action<BoPreFilter>? OnOpenPayloadJsonRequested;
 	public event Action<BoPreFilter>? OnOpenLegacyVisualEditorRequested;
@@ -73,7 +74,7 @@ public class VmPreFilterVisualEditV2: ViewModelBase, IMk<Ctx>{
 	){
 		this.SvcStudyPlan = SvcStudyPlan;
 		this.UserCtxMgr = UserCtxMgr;
-		this.JsonSerializer = JsonSerializer ?? AppJsonSerializer.Inst;
+		this.JsonSerializer = JsonSerializer ?? AppJsonS.Inst;
 		InitRowEvents();
 		BoPreFilter = MkEmptyBoPreFilter();
 		SyncFromBo();
@@ -417,7 +418,7 @@ public class VmPreFilterVisualEditV2: ViewModelBase, IMk<Ctx>{
 				PropFilter = [],
 			};
 			po.DataSchemaVer = pre.Version;
-			po.Text = JsonSerializer.Stringify(pre);
+			po.Text = JsonSerializer.Serialize(pre);
 			po.Binary = null;
 			Bo = new BoPreFilter{ PoPreFilter = po, PreFilter = pre };
 			return true;

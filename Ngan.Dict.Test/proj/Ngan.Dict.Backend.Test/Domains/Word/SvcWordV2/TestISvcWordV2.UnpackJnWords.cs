@@ -4,6 +4,7 @@ using Ngan.Dict.Core.Shared.Word.Models;
 using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 using Ngan.Dict.Core.Shared.Word.Svc;
 using Ngan.Dict.Core.Tools.Json;
+using Tsinswreng.CsJson;
 using Tsinswreng.CsTools;
 using Tsinswreng.CsTextWithBlob;
 using Tsinswreng.CsTreeTest;
@@ -27,7 +28,7 @@ public partial class TestISvcWordV2{
 			var w1 = MkSyncInput(owner, token + "_h1", "en", token + "_d1");
 			var w2 = MkSyncInput(owner, token + "_h2", "fr", token + "_d2");
 
-			var packer = new Packer<JnWord>{JsonS = AppJsonSerializer.Inst};
+			var packer = new Packer<JnWord>{JsonS = AppJsonS.Inst};
 			var packInfo = new ObjPackInfo{
 				PayloadTypeObj = nameof(GZipLinesUtf8),
 				CreatedAt = UnixMs.Now(),

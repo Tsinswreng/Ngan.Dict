@@ -14,7 +14,6 @@ using Ngan.Dict.Core.Shared.Word.Svc;
 using Ngan.Dict.Core.Shared.User.Models.Po.User;
 using Ngan.Dict.Core.Shared.User.UserCtx;
 using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
-using Ngan.Dict.Core.Tools.Json;
 using Ngan.Dict.Backend.Domains.Sync;
 using Ngan.Dict.Backend.Domains.StudyPlan.Dao;
 using Tsinswreng.CsPage;
@@ -31,6 +30,7 @@ using Ngan.Dict.Core.Shared.Sync;
 using Tsinswreng.CsCore;
 using Ngan.Dict.Core.Infra.Errors;
 using Tsinswreng.CsErr;
+using Tsinswreng.CsJson;
 
 namespace Ngan.Dict.Backend.Domains.StudyPlan.Svc;
 
@@ -367,7 +367,7 @@ public partial class SvcStudyPlan:ISvcStudyPlan, IStudyPlanGetter{
 		){
 			var json = poPreFilter.Text;
 			if(!string.IsNullOrWhiteSpace(json)){
-				boStudyPlan.PreFilter = JsonS.Parse<PreFilter>(json);
+				boStudyPlan.PreFilter = JsonS.Deserialize<PreFilter>(json);
 			}
 		}
 
@@ -441,7 +441,7 @@ public partial class SvcStudyPlan:ISvcStudyPlan, IStudyPlanGetter{
 
 		// 構造默認權重配置，並序列化為 WeightArg 的 JSON 載荷。
 		var cfg = new DfltWeightCfg();
-		var cfgJson = JsonS.Stringify(cfg);
+		var cfgJson = JsonS.Serialize(cfg);
 		var cfgDict = ToolJson.JsonStrToDict(cfgJson);
 		// 內置算法：Type=BuiltIn，Text/Binary 留空，運行時直接用 DfltWeightCalculator。
 		var poWeightCalculator = new PoWeightCalculator{

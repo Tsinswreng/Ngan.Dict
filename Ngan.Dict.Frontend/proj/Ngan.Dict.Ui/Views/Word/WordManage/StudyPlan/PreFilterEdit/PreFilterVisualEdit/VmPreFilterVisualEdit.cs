@@ -20,6 +20,7 @@ using Ngan.Dict.Ui.Infra.I18n;
 using Ngan.Dict.Ui.Tools;
 using Ngan.Dict.Ui.Views.Word.WordManage.StudyPlan.PreFilterEdit.FieldsFilterCardEdit;
 using Ngan.Dict.Ui.Views.Word.WordManage.StudyPlan.PreFilterEdit.PreFilterPayloadJsonEdit;
+using Tsinswreng.CsJson;
 using Tsinswreng.CsTools;
 
 using Ctx = VmPreFilterVisualEdit;using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
@@ -50,7 +51,7 @@ public class VmPreFilterVisualEdit: ViewModelBase, IMk<Ctx>{
 
 	ISvcStudyPlan? SvcStudyPlan{get;set;}
 	IFrontendUserCtxMgr? UserCtxMgr{get;set;}
-	IJsonSerializer JsonSerializer{get;set;} = AppJsonSerializer.Inst;
+	IJsonSerializer JsonSerializer{get;set;} = AppJsonS.Inst;
 	bool _isHydrating = false;
 
 	/// <summary>
@@ -77,7 +78,7 @@ public class VmPreFilterVisualEdit: ViewModelBase, IMk<Ctx>{
 	){
 		this.SvcStudyPlan = SvcStudyPlan;
 		this.UserCtxMgr = UserCtxMgr;
-		this.JsonSerializer = JsonSerializer ?? AppJsonSerializer.Inst;
+		this.JsonSerializer = JsonSerializer ?? AppJsonS.Inst;
 		InitRowEvents();
 		BoPreFilter = MkEmptyBoPreFilter();
 		SyncFromBo();
@@ -543,7 +544,7 @@ public class VmPreFilterVisualEdit: ViewModelBase, IMk<Ctx>{
 			}
 
 			po.DataSchemaVer = pre.Version;
-			po.Text = JsonSerializer.Stringify(pre);
+			po.Text = JsonSerializer.Serialize(pre);
 			po.Binary = null;
 
 			Bo = new BoPreFilter{

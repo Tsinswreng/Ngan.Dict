@@ -61,6 +61,7 @@
 		<!-- <ProjectReference Include="../Tsinswreng.CsU128Id/proj/Tsinswreng.CsU128Id/Tsinswreng.CsU128Id.csproj" /> -->
 		<ProjectReference Include="../../../../Tsinswreng.CsCtx/proj/Tsinswreng.CsCtx/Tsinswreng.CsCtx.csproj" />
 		<ProjectReference Include="../../../../Tsinswreng.CsSql/proj/Tsinswreng.CsSql/Tsinswreng.CsSql.csproj" />
+		<ProjectReference Include="../../../../Tsinswreng.CsJson/proj/Tsinswreng.CsJson/Tsinswreng.CsJson.csproj" />
 		<PackageReference Include="Tsinswreng.CsLog" Version="0.0.1-alpha" />
 		<!-- <ProjectReference Include="../Tsinswreng.Srefl/proj/Tsinswreng.Srefl/Tsinswreng.Srefl.csproj" /> -->
 		<!-- <ProjectReference Include="../Tsinswreng.CsYamlMd/proj/Tsinswreng.CsYamlMd/Tsinswreng.CsYamlMd.csproj" /> -->

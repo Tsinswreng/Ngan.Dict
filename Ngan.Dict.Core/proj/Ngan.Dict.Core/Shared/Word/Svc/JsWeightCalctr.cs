@@ -63,7 +63,6 @@ using Ngan.Dict.Core.Infra.IF;
 using Ngan.Dict.Core.Shared.Word.Models.Learn_;
 using Ngan.Dict.Core.Shared.Word.Models.Weight;
 using Ngan.Dict.Core.Infra.Errors;
-using Ngan.Dict.Core.Tools.Json;
 using Ngan.Dict.Core.Word.Models.Weight;
 using Ngan.Dict.Core.Word.Svc;
 using Jint;
@@ -79,11 +78,11 @@ namespace Ngan.Dict.Core.Shared.Word.Svc;
 
 [Doc(@$"Jint Js引擎 權重算法。Js代碼來自用戶編寫。")]
 public class JsWeightCalctr : IWeightCalctr{
-	public IJsonSerializer JsonSerializer { get; set; }
+	public Tsinswreng.CsJson.IJsonSerializer JsonSerializer { get; set; }
 	public str JsCode { get; set; }
 	public ILogger? Logger{get;set;}
 
-	public JsWeightCalctr(IJsonSerializer jsonSerializer, str jsCode){
+	public JsWeightCalctr(Tsinswreng.CsJson.IJsonSerializer jsonSerializer, str jsCode){
 		JsonSerializer = jsonSerializer;
 		JsCode = jsCode;
 	}
@@ -106,7 +105,7 @@ public class JsWeightCalctr : IWeightCalctr{
 			if(words.Count == 0){
 				wordsJson = "[]";
 			}else{
-				wordsJson = JsonSerializer.Stringify(words);
+				wordsJson = JsonSerializer.Serialize(words);
 			}
 
 			var engine = new Engine();
@@ -117,7 +116,7 @@ public class JsWeightCalctr : IWeightCalctr{
 
 			engine.SetValue("Ngan.Dict", new {
 				WordsJson = wordsJson,
-				CalcArgJson = CalcArg is null ? "null" : JsonSerializer.Stringify(CalcArg),
+				CalcArgJson = CalcArg is null ? "null" : JsonSerializer.Serialize(CalcArg),
 			});
 			engine.SetValue("console", new JsConsoleBridge(jsLog));
 
@@ -127,7 +126,7 @@ public class JsWeightCalctr : IWeightCalctr{
 				throw KeysErr.Word.JsWeightCalcReturnedEmpty.ToErr();
 			}
 
-			var jsWeightResult = JsonSerializer.Parse<JsWeightResult>(resultJson);
+			var jsWeightResult = JsonSerializer.Deserialize<JsWeightResult>(resultJson);
 			if(jsWeightResult is null){
 				throw KeysErr.Word.JsWeightCalcReturnedInvalidJson.ToErr()
 					.AddDebugArgs(resultJson);

@@ -15,6 +15,7 @@ using Ngan.Dict.Core.Shared.Word.Svc;
 using Ngan.Dict.Core.Tools;
 using Ngan.Dict.Core.Tools.Json;
 using Ngan.Dict.Ui.Infra;
+using Tsinswreng.CsJson;
 using Tsinswreng.CsTools;
 using JsonNode = System.Text.Json.Nodes.JsonNode;
 
@@ -65,7 +66,7 @@ public partial class VmEditJsonWord: ViewModelBase, IMk<Ctx>{
 		Src = JnWord.DeepClone().AsOrToJnWord();
 		Bo = JnWord.DeepClone().AsOrToJnWord();
 		IJnWord simple = Bo;
-		Json = JsonSerializer?.Stringify(simple) ?? "";
+		Json = JsonSerializer?.Serialize(simple) ?? "";
 		Json = FormatJson(Json);
 		return NIL;
 	}
@@ -91,7 +92,7 @@ public partial class VmEditJsonWord: ViewModelBase, IMk<Ctx>{
 			return NIL;
 		}
 		try{
-			Bo = JsonSerializer.Parse<JnWord>(Json);
+			Bo = JsonSerializer.Deserialize<JnWord>(Json);
 		}catch(Exception e){
 			Console.WriteLine(e);
 		}

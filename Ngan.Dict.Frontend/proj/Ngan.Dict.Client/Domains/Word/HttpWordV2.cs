@@ -10,6 +10,7 @@ using Ngan.Dict.Core.Shared.Word.Models.Po.Learn;
 using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 using Ngan.Dict.Core.Shared.Word.Svc;
 using Ngan.Dict.Core.Tools.Json;
+using Tsinswreng.CsJson;
 using Tsinswreng.CsPage;
 using Tsinswreng.CsTools;
 using U = Ngan.Dict.Core.Infra.Url.KeysUrl.WordV2;
@@ -86,8 +87,8 @@ public class HttpWordV2 : ISvcWordV2 {
 		return PostReqResp<JnWord, DtoJnWordSyncResult>(U.BatSyncJnWordByBizId, JnWords, Ct);
 	}
 
-	public Task<IList<DtoJnWordSyncResult>> OrdSyncJnWordByBizId(IDbUserCtx Ctx, IList<JnWord> JnWords, CT Ct) {
-		return OrdSyncJnWordByBizId(Ctx, ToAsyE(JnWords), Ct).ToListAsync(Ct);
+	public async Task<IList<DtoJnWordSyncResult>> OrdSyncJnWordByBizId(IDbUserCtx Ctx, IList<JnWord> JnWords, CT Ct) {
+		return await OrdSyncJnWordByBizId(Ctx, ToAsyE(JnWords), Ct).ToListAsync(Ct);
 	}
 
 	public IAsyncEnumerable<DtoJnWordSyncResult> OrdSyncJnWordByBizIdFromStream(IDbUserCtx Ctx, Stream TextWithStream, CT Ct) {
@@ -98,8 +99,8 @@ public class HttpWordV2 : ISvcWordV2 {
 		return PostReqResp<PoWord, RespUpdBizId>(U.BatUpdHeadLang, PoWords, Ct);
 	}
 
-	public Task<IList<RespUpdBizId>> OrdUpdHeadLang(IDbUserCtx Ctx, IList<PoWord> PoWords, CT Ct) {
-		return OrdUpdHeadLang(Ctx, ToAsyE(PoWords), Ct).ToListAsync(Ct);
+	public async Task<IList<RespUpdBizId>> OrdUpdHeadLang(IDbUserCtx Ctx, IList<PoWord> PoWords, CT Ct) {
+		return await OrdUpdHeadLang(Ctx, ToAsyE(PoWords), Ct).ToListAsync(Ct);
 	}
 
 	public Task<IAsyncEnumerable<RespUpdPoWord>> OrdUpdPoWord(IDbUserCtx Ctx, IAsyncEnumerable<PoWord> PoWords, CT Ct) {
@@ -257,7 +258,7 @@ public class HttpWordV2 : ISvcWordV2 {
 
 		using var stream = await resp.Content.ReadAsStreamAsync(Ct);
 		await foreach(var line in GZipLinesUtf8.ToLines(stream, Ct)){
-			yield return JsonS.Parse<TResp>(line)!;
+			yield return JsonS.Deserialize<TResp>(line)!;
 		}
 	}
 
@@ -279,7 +280,7 @@ public class HttpWordV2 : ISvcWordV2 {
 		resp.EnsureSuccessStatusCode();
 		using var stream = await resp.Content.ReadAsStreamAsync(Ct);
 		await foreach(var line in GZipLinesUtf8.ToLines(stream, Ct)){
-			yield return JsonS.Parse<TResp>(line)!;
+			yield return JsonS.Deserialize<TResp>(line)!;
 		}
 	}
 
@@ -308,7 +309,7 @@ public class HttpWordV2 : ISvcWordV2 {
 		IAsyncEnumerable<TReq> Req,
 		CT Ct
 	){
-		var lines = Req.Select(item=>JsonS.Stringify(item));
+		var lines = Req.Select(item=>JsonS.Serialize(item));
 		var body = await GZipLinesUtf8.ToStream(lines, Ct);
 		var content = new StreamContent(body);
 		content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
