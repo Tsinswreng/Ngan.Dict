@@ -24,6 +24,7 @@ using Ngan.Dict.Core.Word.Svc;
 using Ngan.Dict.Core.Shared.StudyPlan.Models;
 using System.Text.Json;
 using Ngan.Dict.Core.Tools;
+using Ngan.Dict.Core.Tools.Json;
 using Ngan.Dict.Core.Shared.Word.WeightAlgo;
 using Ngan.Dict.Core.Shared.Word.WeightAlgo.Models;
 using Ngan.Dict.Core.Shared.Sync;
@@ -379,7 +380,7 @@ public partial class SvcStudyPlan:ISvcStudyPlan, IStudyPlanGetter{
 			var json = poWeightArg.Text;
 			if(!string.IsNullOrWhiteSpace(json)){
 				try{
-					boStudyPlan.WeightArg = ToolJson.JsonStrToDict(json);
+					boStudyPlan.WeightArg = AppJsonS.Inst.Deserialize<IDictionary<str, obj?>>(json);
 				}catch(Exception e){
 					throw KeysErr.Word.WeightCalcGetStudyPlanFailed.ToErr()
 						.AddErr(e)
@@ -442,7 +443,7 @@ public partial class SvcStudyPlan:ISvcStudyPlan, IStudyPlanGetter{
 		// 構造默認權重配置，並序列化為 WeightArg 的 JSON 載荷。
 		var cfg = new DfltWeightCfg();
 		var cfgJson = JsonS.Serialize(cfg);
-		var cfgDict = ToolJson.JsonStrToDict(cfgJson);
+		var cfgDict = AppJsonS.Inst.Deserialize<IDictionary<str, obj?>>(cfgJson);
 		// 內置算法：Type=BuiltIn，Text/Binary 留空，運行時直接用 DfltWeightCalculator。
 		var poWeightCalculator = new PoWeightCalculator{
 			Owner = owner,

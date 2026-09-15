@@ -4,6 +4,7 @@ using Jint;
 using Jint.Native;
 using Jint.Runtime;
 using Jint.Runtime.Interop;
+using Ngan.Dict.Core.Tools.Json;
 using Tsinswreng.CsTools;
 
 namespace Ngan.Dict.Test.Try;
@@ -43,7 +44,7 @@ hello();
 			["foo"] = "bar",
 			["num"] = 2,
 		};
-		var json = ToolJson.DictToJson(Dict);
+		var json = AppJsonS.Inst.Serialize(Dict);
 		engine.SetValue("Arg", json);
 		var R = engine.Evaluate(@"
 function hello() {

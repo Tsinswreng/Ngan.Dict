@@ -117,7 +117,7 @@ public partial class DfltWeightCfg:IAppSerializable{
 	3. 讓外部配置來源只要能提供字典即可接入。
 	")]
 	public static DfltWeightCfg FromDict(IDictionary<str, obj?> Dict){
-		var json = ToolJson.DictToJson(Dict);
+		var json = AppJsonS.Inst.Serialize(Dict);
 		var r = JSON.Parse<DfltWeightCfg>(json);
 		return r!;
 	}

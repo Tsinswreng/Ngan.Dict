@@ -1,4 +1,5 @@
 using Ngan.Dict.Core.Tools;
+using Ngan.Dict.Core.Tools.Json;
 using Tsinswreng.CsTools;
 
 namespace Ngan.Dict.Test.Tools;
@@ -34,7 +35,7 @@ c4: *__content4
 
 """;
 var dict = FnYamlStrToDict(YamlStr);
-var json = ToolJson.DictToJson(dict);
+var json = AppJsonS.Inst.Serialize(dict);
 System.Console.WriteLine(dict.Count);
 System.Console.WriteLine(json);
 	}
@@ -66,7 +67,7 @@ Descrs:
 """;
 var dict = ToolYaml.YamlStrToDict(yaml);
 System.Console.WriteLine(dict);
-System.Console.WriteLine(ToolJson.DictToJson(dict));
+System.Console.WriteLine(AppJsonS.Inst.Serialize(dict));
 	}
 
 	public void Run2(){

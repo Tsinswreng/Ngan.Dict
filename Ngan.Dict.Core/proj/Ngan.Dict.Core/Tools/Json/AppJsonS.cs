@@ -8,5 +8,5 @@ namespace Ngan.Dict.Core.Tools.Json;
 /// （源生成 resolver、強類型轉換器、enum 字符串轉換器、不轉義、PascalCase）。
 /// 供非 DI 場景（如 Packer 默認值、前端 VM 默認值）使用。
 public static class AppJsonS{
-	public static Tsinswreng.CsJson.IJsonSerializer Inst => field??= new DfltJsonSerializer(AppJsonCtx.Inst.Options);
+	public static Tsinswreng.CsJson.IJsonSerializer Inst => field??= new JsonSerializer(AppJsonCtx.Inst.Options);
 }

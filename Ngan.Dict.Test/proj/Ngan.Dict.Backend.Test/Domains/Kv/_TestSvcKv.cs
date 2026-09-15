@@ -3,6 +3,7 @@ using Ngan.Dict.Core.Shared.Kv.Models;
 using Ngan.Dict.Core.Shared.Kv.Svc;
 using Ngan.Dict.Core.Shared.User.Models.Po.User;
 using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
+
 using Tsinswreng.CsSql;
 using Tsinswreng.CsTreeTest;
 
@@ -15,8 +16,8 @@ namespace Ngan.Dict.Backend.Test.Domains.Kv;
 /// 3) 組裝各被測函數的子測試
 /// </summary>
 public partial class TestISvcKv: ITester{
-	readonly ISvcKv SvcKv;
-	readonly IRepo<PoKv, IdKv> RepoKv;
+	readonly ISvcKv SvcKv = GetRSvc<ISvcKv>();
+	readonly IRepo<PoKv, IdKv> RepoKv = GetRSvc<IRepo<PoKv, IdKv>>();
 
 	IdUser _ownerA = new();
 	IdUser _ownerB = new();
@@ -30,12 +31,8 @@ public partial class TestISvcKv: ITester{
 	PoKv _kvB_I64_11 = new();
 	PoKv _kvB_Str_A = new();
 
-	public TestISvcKv(
-		ISvcKv SvcKv
-		,IRepo<PoKv, IdKv> RepoKv
-	){
-		this.SvcKv = SvcKv;
-		this.RepoKv = RepoKv;
+	public TestISvcKv(){
+		
 	}
 
 	/// <summary>

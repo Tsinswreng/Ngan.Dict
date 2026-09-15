@@ -401,7 +401,7 @@ $"""
 		// 先構造通用 OpenAI-compatible 主體，再允許配置覆蓋/追加頂層字段，
 		// 以便適配 DeepSeek 等 provider 的私有參數。
 		MergeExtraBodyJson(reqBody, param.ExtraBodyJson);
-		var json = ToolJson.DictToJson(reqBody);
+		var json = AppJsonS.Inst.Serialize(reqBody);
 		var content = new StringContent(json, Encoding.UTF8, "application/json");
 
 		var request = new HttpRequestMessage(HttpMethod.Post, param.ApiUrl);
@@ -480,9 +480,10 @@ $"""
 		if(str.IsNullOrWhiteSpace(ExtraBodyJson)){
 			return;
 		}
-
+		var a = System.Text.Json.Nodes.JsonNode.Parse("1");
+		
 		try{
-			var extraDict = ToolJson.JsonStrToDict(ExtraBodyJson);
+			var extraDict = AppJsonS.Inst.Deserialize<IDictionary<str, obj?>>(ExtraBodyJson);
 			if(extraDict is null){
 				throw KeysErr.Common.ArgErr.ToErr()
 					.AddDebugArgs(nameof(KeysClientCfg.LlmDictionary.ExtraBodyJson), ExtraBodyJson);
@@ -517,7 +518,7 @@ $"""
 				"Dictionary parse diag: {Stage}",
 				DescribeDescrsFromDict(dict)
 			);
-			var json = ToolJson.DictToJson(dict);
+			var json = AppJsonS.Inst.Serialize(dict);
 			var R = JsonS.Deserialize<RespLlmDict>(json);
 			Logger.LogWarning(
 				"Dictionary parse diag: {Stage}",

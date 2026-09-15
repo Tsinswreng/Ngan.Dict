@@ -17,7 +17,7 @@ public static class DiCore{
 		// 公共庫新接口：直接複用 AppJsonCtx.Inst.Options 作默認 options——
 		// 它已含源生成 resolver(AppJsonCtx.Default)、強類型轉換器、enum 字符串轉換器、
 		// 不轉義編碼與 PascalCase 命名策略,與舊 JSON.Stringify 行為完全一致。
-		z.AddSingleton<Tsinswreng.CsJson.IJsonSerializer>(_ => new Tsinswreng.CsJson.DfltJsonSerializer(AppJsonCtx.Inst.Options));
+		z.AddSingleton<Tsinswreng.CsJson.IJsonSerializer>(_ => new Tsinswreng.CsJson.JsonSerializer(AppJsonCtx.Inst.Options));
 
 		//browser 不支持
 		return z;
