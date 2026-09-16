@@ -14,11 +14,7 @@ using Tsinswreng.CsTools;
 namespace Ngan.Dict.Core.Test.Tools.Json.AppJsonSerializerTests;
 
 public partial class TestAppJsonSerializer: ITester{
-	private readonly IJsonSerializer JsonSerializer;
-
-	public TestAppJsonSerializer(IJsonSerializer jsonSerializer){
-		JsonSerializer = jsonSerializer;
-	}
+	private readonly IJsonSerializer JsonSerializer = GetRSvc<IJsonSerializer>();
 
 	private static JnWord MkSampleJnWord(
 		ELearn learnResult = ELearn.Add

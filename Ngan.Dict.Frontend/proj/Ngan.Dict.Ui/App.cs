@@ -59,9 +59,9 @@ public partial class App :Application
 		return Svc ?? T.Mk();
 	}
 
-	public static IServiceProvider SvcProvider { get; private set; } = null!;
+	public static IServiceProvider SvcProvider => Ngan.Dict.Core.Di.SvcProvider;
 	public static void SetSvcProvider(IServiceProvider SvcProvider){
-		App.SvcProvider = SvcProvider;
+		Ngan.Dict.Core.Di.SvcProvider = SvcProvider;
 		Logger = AppLog.Inst;
 	}
 

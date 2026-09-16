@@ -9,15 +9,6 @@ using Tsinswreng.CsTreeTest;
 
 /// 實現 `ViewWordEditV2` 功能測試的裝配與共用基礎設施。
 public partial class TestViewWordEditV2{
-	/// 注入前端測試環境中的真實使用者上下文與單詞倉儲。
-	public partial TestViewWordEditV2(
-		IFrontendUserCtxMgr UserCtxMgr
-		,IRepo<PoWord, IdWord> RepoWord
-	){
-		this.UserCtxMgr = UserCtxMgr;
-		this.RepoWord = RepoWord;
-	}
-
 	/// 組裝保存與刪除功能測試；UI 與資料庫狀態共享，故禁止並行執行。
 	public partial ITestNode RegisterTestsInto(ITestNode? Node){
 		Node ??= new TestNode();

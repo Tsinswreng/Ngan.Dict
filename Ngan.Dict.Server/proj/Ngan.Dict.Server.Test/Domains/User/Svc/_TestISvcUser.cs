@@ -17,34 +17,18 @@ using Tsinswreng.CsTreeTest;
 namespace Ngan.Dict.Server.Test.Domains.User.Svc;
 
 public partial class TestISvcUser: ITester{
-	readonly ISvcUser _svcUser;
-	readonly DaoUser _daoUser;
-	readonly DaoToken _daoToken;
-	readonly IRepo<PoUser, IdUser> _repoUser;
-	readonly IRepo<PoPassword, IdPassword> _repoPassword;
-	readonly IRepo<PoRefreshToken, IdRefreshToken> _repoRefreshToken;
+	readonly ISvcUser _svcUser = GetRSvc<ISvcUser>();
+	readonly DaoUser _daoUser = GetRSvc<DaoUser>();
+	readonly DaoToken _daoToken = GetRSvc<DaoToken>();
+	readonly IRepo<PoUser, IdUser> _repoUser = GetRSvc<IRepo<PoUser, IdUser>>();
+	readonly IRepo<PoPassword, IdPassword> _repoPassword = GetRSvc<IRepo<PoPassword, IdPassword>>();
+	readonly IRepo<PoRefreshToken, IdRefreshToken> _repoRefreshToken = GetRSvc<IRepo<PoRefreshToken, IdRefreshToken>>();
 
 	str _token = "";
 	IdUser? _createdUserId = null;
 	IdPassword? _createdPasswordId = null;
 	readonly List<IdRefreshToken> _tokenIds = [];
 	IdClient _clientId = new();
-
-	public TestISvcUser(
-		ISvcUser svcUser
-		,DaoUser daoUser
-		,DaoToken daoToken
-		,IRepo<PoUser, IdUser> repoUser
-		,IRepo<PoPassword, IdPassword> repoPassword
-		,IRepo<PoRefreshToken, IdRefreshToken> repoRefreshToken
-	){
-		_svcUser = svcUser;
-		_daoUser = daoUser;
-		_daoToken = daoToken;
-		_repoUser = repoUser;
-		_repoPassword = repoPassword;
-		_repoRefreshToken = repoRefreshToken;
-	}
 
 	public ITestNode RegisterTestsInto(ITestNode? node){
 		node ??= new TestNode();

@@ -4,12 +4,7 @@ using Tsinswreng.CsTreeTest;
 namespace Ngan.Dict.Backend.Test.Domains.Word;
 
 public partial class TestISvcWord:ITester{
-	ISvcWord SvcWord;
-	public TestISvcWord(
-		ISvcWord SvcWord
-	){
-		this.SvcWord = SvcWord;
-	}
+	readonly ISvcWord SvcWord = GetRSvc<ISvcWord>();
 	
 	public ITestNode RegisterTestsInto(ITestNode? Test){
 		Test??=new TestNode();

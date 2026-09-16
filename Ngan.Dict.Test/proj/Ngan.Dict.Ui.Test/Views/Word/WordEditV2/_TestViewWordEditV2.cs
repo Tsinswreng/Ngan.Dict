@@ -11,16 +11,10 @@ using Tsinswreng.CsTreeTest;
 /// 每個用例建立獨立 View，並使用真實測試依賴及可清理的唯一種子數據。
 public partial class TestViewWordEditV2: ITester{
 	/// 提供目前測試使用者及資料庫上下文。
-	readonly IFrontendUserCtxMgr UserCtxMgr;
+	readonly IFrontendUserCtxMgr UserCtxMgr = GetRSvc<IFrontendUserCtxMgr>();
 
 	/// 供各功能用例準備種子資料、查庫驗證，並在結束後硬刪測試資料。
-	readonly IRepo<PoWord, IdWord> RepoWord;
-
-	/// 注入前端測試環境中的真實使用者上下文與單詞倉儲。
-	public partial TestViewWordEditV2(
-		IFrontendUserCtxMgr UserCtxMgr
-		,IRepo<PoWord, IdWord> RepoWord
-	);
+	readonly IRepo<PoWord, IdWord> RepoWord = GetRSvc<IRepo<PoWord, IdWord>>();
 
 	/// 組裝 `ViewWordEditV2` 的各項具體 View 測試。
 	public partial ITestNode RegisterTestsInto(ITestNode? Node);

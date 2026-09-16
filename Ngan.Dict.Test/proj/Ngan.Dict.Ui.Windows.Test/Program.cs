@@ -27,7 +27,7 @@ namespace Ngan.Dict.Ui.Windows.Test;
 
 internal class Program{
 	public static IServiceCollection SvcColct = new ServiceCollection();
-	public static IServiceProvider SvcProvdr = null!;
+	public static IServiceProvider SvcProvdr => Ngan.Dict.Core.Di.SvcProvider;
 
 	[STAThread]
 	public static void Main(string[] args){
@@ -45,13 +45,15 @@ internal class Program{
 		SvcColct.AddSingleton<IAudioPlayer, FakeAudioPlayer>();
 
 		var mgr = UiWindowsTestMgr.Inst;
-		SvcProvdr = mgr.InitSvc(SvcColct, sc => {
+		_ = mgr.InitSvc(SvcColct, sc => {
 			var sp = sc.BuildServiceProvider();
+			Ngan.Dict.Core.Di.SvcProvider = sp;
 			App.SetSvcProvider(sp);
 			AppIniter.Inst.Sp = sp;
 			_ = AppIniter.Inst.Init(default).Result;
 
 			var sp2 = sc.BuildServiceProvider();
+			Ngan.Dict.Core.Di.SvcProvider = sp2;
 			App.SetSvcProvider(sp2);
 			return sp2;
 		});

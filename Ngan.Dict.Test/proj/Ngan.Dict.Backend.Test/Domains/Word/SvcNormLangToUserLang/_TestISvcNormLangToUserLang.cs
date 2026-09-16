@@ -13,21 +13,13 @@ using Tsinswreng.CsTreeTest;
 namespace Ngan.Dict.Backend.Test.Domains.Word;
 
 public partial class TestISvcNormLangToUserLang: ITester{
-	readonly ISvcNormLangToUserLang SvcNormLangToUserLang;
-	readonly IRepo<PoNormLangToUserLang, IdNormLangToUserLang> RepoNormLangToUserLang;
+	readonly ISvcNormLangToUserLang SvcNormLangToUserLang = GetRSvc<ISvcNormLangToUserLang>();
+	readonly IRepo<PoNormLangToUserLang, IdNormLangToUserLang> RepoNormLangToUserLang = GetRSvc<IRepo<PoNormLangToUserLang, IdNormLangToUserLang>>();
 
 	IdUser _ownerA = new();
 	IdUser _ownerB = new();
 	str _token = "";
 	readonly List<IdNormLangToUserLang> _ids = [];
-
-	public TestISvcNormLangToUserLang(
-		ISvcNormLangToUserLang SvcNormLangToUserLang,
-		IRepo<PoNormLangToUserLang, IdNormLangToUserLang> RepoNormLangToUserLang
-	){
-		this.SvcNormLangToUserLang = SvcNormLangToUserLang;
-		this.RepoNormLangToUserLang = RepoNormLangToUserLang;
-	}
 
 	public ITestNode RegisterTestsInto(ITestNode? Node){
 		Node ??= new TestNode();

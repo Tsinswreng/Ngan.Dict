@@ -12,12 +12,6 @@ using Tsinswreng.CsTreeTest;
 public partial class TestSvcTokenStorage: ITester{
 	
 
-	/// 注入本地前端 token storage 服務。
-	/// <param name="SvcTokenStorage">客戶端本地 token storage 實現。</param>
-	public partial TestSvcTokenStorage(ISvcTokenStorage SvcTokenStorage){
-		this.SvcTokenStorage = SvcTokenStorage;
-	}
-
 	/// 註冊 token storage 相關回歸測試。
 	/// <param name="Node">當前測試節點。</param>
 	/// <returns>已註冊子測試的節點。</returns>

@@ -6,10 +6,7 @@ namespace Ngan.Dict.Backend.Test.Domains.Word;
 
 
 public class TestDaoWord:ITester{
-	DaoWord DaoWord;
-	public TestDaoWord(DaoWord DaoWord){
-		this.DaoWord = DaoWord;
-	}
+	readonly DaoWord DaoWord = GetRSvc<DaoWord>();
 	public ITestNode RegisterTestsInto(ITestNode? Test){
 		Test??=new TestNode();
 		var R = Test.MkFnRegisterTest(typeof(TestDaoWord), typeof(DaoWord));

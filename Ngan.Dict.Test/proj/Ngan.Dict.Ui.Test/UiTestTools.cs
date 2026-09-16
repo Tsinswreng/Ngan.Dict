@@ -78,8 +78,8 @@ public static class UiTestTools{
 	public static async Task WaitUntilUi(
 		Func<bool> Pred
 		,str FailMsg
-		,i64 TimeoutMs = 3000
 		,CT Ct
+		,i64 TimeoutMs = 3000
 	){
 		var startAt = Environment.TickCount64;
 		while(true){

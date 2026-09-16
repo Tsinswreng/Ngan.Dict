@@ -11,32 +11,22 @@ namespace Ngan.Dict.Backend.Test.CsSql.Repo;
 
 public partial class TestRepo : ITester{
 	/// SQL 命令建立器，讓每個資料庫用例在同一交易上下文中執行。
-	readonly ISqlCmdMkr SqlCmdMkr;
+	readonly ISqlCmdMkr SqlCmdMkr = GetRSvc<ISqlCmdMkr>();
 
 	/// 資料表註冊中心，供需要直接測試 ITable overload 的用例取得表定義。
-	readonly ITblMgr TblMgr;
+	readonly ITblMgr TblMgr = GetRSvc<ITblMgr>();
 
 	/// 通用鍵值資料的 Repository，被多數基礎 CRUD 測試共用。
-	readonly IRepo<PoKv, IdKv> Repo;
+	readonly IRepo<PoKv, IdKv> Repo = GetRSvc<IRepo<PoKv, IdKv>>();
 
 	/// 單詞聚合根的 Repository。
-	readonly IRepo<PoWord, IdWord> RepoWord;
+	readonly IRepo<PoWord, IdWord> RepoWord = GetRSvc<IRepo<PoWord, IdWord>>();
 
 	/// 單詞屬性的 Repository。
-	readonly IRepo<PoWordProp, IdWordProp> RepoProp;
+	readonly IRepo<PoWordProp, IdWordProp> RepoProp = GetRSvc<IRepo<PoWordProp, IdWordProp>>();
 
 	/// 單詞學習記錄的 Repository。
-	readonly IRepo<PoWordLearn, IdWordLearn> RepoLearn;
-
-	/// 建立 Repository 測試器，依賴均由測試管理器的 DI 容器提供。
-	public partial TestRepo(
-		ISqlCmdMkr SqlCmdMkr
-		,ITblMgr TblMgr
-		,IRepo<PoKv, IdKv> Repo
-		,IRepo<PoWord, IdWord> RepoWord
-		,IRepo<PoWordProp, IdWordProp> RepoProp
-		,IRepo<PoWordLearn, IdWordLearn> RepoLearn
-	);
+	readonly IRepo<PoWordLearn, IdWordLearn> RepoLearn = GetRSvc<IRepo<PoWordLearn, IdWordLearn>>();
 
 	/// 組裝 IRepo 各 API 的測試節點；資料庫用例保持順序執行，避免共享庫互相干擾。
 	public partial ITestNode RegisterTestsInto(ITestNode? Test);

@@ -19,37 +19,15 @@ using Tsinswreng.CsTreeTest;
 namespace Ngan.Dict.Backend.Test.Domains.Word;
 
 public partial class TestISvcWordV2: ITester{
-	readonly ISvcWordV2 SvcWordV2;
-	readonly IRepo<PoWord, IdWord> RepoWord;
-	readonly IRepo<PoWordProp, IdWordProp> RepoProp;
-	readonly IRepo<PoWordLearn, IdWordLearn> RepoLearn;
-	readonly IRepo<PoNormLangToUserLang, IdNormLangToUserLang> RepoNormLangToUserLang;
-	readonly IRepo<PoKv, IdKv> RepoKv;
-	readonly IRepo<PoStudyPlan, IdStudyPlan> RepoStudyPlan;
-	readonly IRepo<PoPreFilter, IdPreFilter> RepoPreFilter;
-	readonly ISvcStudyPlan SvcStudyPlan;
-
-	public TestISvcWordV2(
-		ISvcWordV2 SvcWordV2
-		,IRepo<PoWord, IdWord> RepoWord
-		,IRepo<PoWordProp, IdWordProp> RepoProp
-		,IRepo<PoWordLearn, IdWordLearn> RepoLearn
-		,IRepo<PoNormLangToUserLang, IdNormLangToUserLang> RepoNormLangToUserLang
-		,IRepo<PoKv, IdKv> RepoKv
-		,IRepo<PoStudyPlan, IdStudyPlan> RepoStudyPlan
-		,IRepo<PoPreFilter, IdPreFilter> RepoPreFilter
-		,ISvcStudyPlan SvcStudyPlan
-	){
-		this.SvcWordV2 = SvcWordV2;
-		this.RepoWord = RepoWord;
-		this.RepoProp = RepoProp;
-		this.RepoLearn = RepoLearn;
-		this.RepoNormLangToUserLang = RepoNormLangToUserLang;
-		this.RepoKv = RepoKv;
-		this.RepoStudyPlan = RepoStudyPlan;
-		this.RepoPreFilter = RepoPreFilter;
-		this.SvcStudyPlan = SvcStudyPlan;
-	}
+	readonly ISvcWordV2 SvcWordV2 = GetRSvc<ISvcWordV2>();
+	readonly IRepo<PoWord, IdWord> RepoWord = GetRSvc<IRepo<PoWord, IdWord>>();
+	readonly IRepo<PoWordProp, IdWordProp> RepoProp = GetRSvc<IRepo<PoWordProp, IdWordProp>>();
+	readonly IRepo<PoWordLearn, IdWordLearn> RepoLearn = GetRSvc<IRepo<PoWordLearn, IdWordLearn>>();
+	readonly IRepo<PoNormLangToUserLang, IdNormLangToUserLang> RepoNormLangToUserLang = GetRSvc<IRepo<PoNormLangToUserLang, IdNormLangToUserLang>>();
+	readonly IRepo<PoKv, IdKv> RepoKv = GetRSvc<IRepo<PoKv, IdKv>>();
+	readonly IRepo<PoStudyPlan, IdStudyPlan> RepoStudyPlan = GetRSvc<IRepo<PoStudyPlan, IdStudyPlan>>();
+	readonly IRepo<PoPreFilter, IdPreFilter> RepoPreFilter = GetRSvc<IRepo<PoPreFilter, IdPreFilter>>();
+	readonly ISvcStudyPlan SvcStudyPlan = GetRSvc<ISvcStudyPlan>();
 
 	public ITestNode RegisterTestsInto(ITestNode? Node){
 		Node ??= new TestNode();

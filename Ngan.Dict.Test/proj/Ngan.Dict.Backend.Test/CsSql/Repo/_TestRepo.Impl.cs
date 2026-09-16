@@ -10,23 +10,6 @@ using Ngan.Dict.Core.Model.Po.Learn_;
 namespace Ngan.Dict.Backend.Test.CsSql.Repo;
 
 public partial class TestRepo{
-	/// 建立 Repository 測試器，保存由測試管理器注入的共用依賴。
-	public partial TestRepo(
-		ISqlCmdMkr SqlCmdMkr
-		,ITblMgr TblMgr
-		,IRepo<PoKv, IdKv> Repo
-		,IRepo<PoWord, IdWord> RepoWord
-		,IRepo<PoWordProp, IdWordProp> RepoProp
-		,IRepo<PoWordLearn, IdWordLearn> RepoLearn
-	){
-		this.SqlCmdMkr = SqlCmdMkr;
-		this.TblMgr = TblMgr;
-		this.Repo = Repo;
-		this.RepoWord = RepoWord;
-		this.RepoProp = RepoProp;
-		this.RepoLearn = RepoLearn;
-	}
-
 	/// 組裝 IRepo 各 API 的測試節點；資料庫用例保持順序執行，避免共享庫互相干擾。
 	public partial ITestNode RegisterTestsInto(ITestNode? Test){
 		Test ??= new TestNode();

@@ -23,29 +23,13 @@ public partial class TestISvcStudyPlan: ITester{
 	readonly List<IdWeightCalculator> _weightCalculatorIds = [];
 	readonly List<IdPreFilter> _preFilterIds = [];
 
-	ISvcStudyPlan SvcStudyPlan;
-	IRepo<PoStudyPlan, IdStudyPlan> RepoStudyPlan;
-	IRepo<PoWeightArg, IdWeightArg> RepoWeightArg;
-	IRepo<PoWeightCalculator, IdWeightCalculator> RepoWeightCalculator;
-	IRepo<PoPreFilter, IdPreFilter> RepoPreFilter;
-	IJsonSerializer JsonS;
+	readonly ISvcStudyPlan SvcStudyPlan = GetRSvc<ISvcStudyPlan>();
+	readonly IRepo<PoStudyPlan, IdStudyPlan> RepoStudyPlan = GetRSvc<IRepo<PoStudyPlan, IdStudyPlan>>();
+	readonly IRepo<PoWeightArg, IdWeightArg> RepoWeightArg = GetRSvc<IRepo<PoWeightArg, IdWeightArg>>();
+	readonly IRepo<PoWeightCalculator, IdWeightCalculator> RepoWeightCalculator = GetRSvc<IRepo<PoWeightCalculator, IdWeightCalculator>>();
+	readonly IRepo<PoPreFilter, IdPreFilter> RepoPreFilter = GetRSvc<IRepo<PoPreFilter, IdPreFilter>>();
+	readonly IJsonSerializer JsonS = GetRSvc<IJsonSerializer>();
 
-
-	public TestISvcStudyPlan(
-		ISvcStudyPlan SvcStudyPlan
-		,IRepo<PoStudyPlan, IdStudyPlan> RepoStudyPlan
-		,IRepo<PoWeightArg, IdWeightArg> RepoWeightArg
-		,IRepo<PoWeightCalculator, IdWeightCalculator> RepoWeightCalculator
-		,IRepo<PoPreFilter, IdPreFilter> RepoPreFilter
-		,IJsonSerializer JsonS
-	){
-		this.SvcStudyPlan = SvcStudyPlan;
-		this.RepoStudyPlan = RepoStudyPlan;
-		this.RepoWeightArg = RepoWeightArg;
-		this.RepoWeightCalculator = RepoWeightCalculator;
-		this.RepoPreFilter = RepoPreFilter;
-		this.JsonS = JsonS;
-	}
 
 	public ITestNode RegisterTestsInto(ITestNode? Test){
 		Test ??= new TestNode();

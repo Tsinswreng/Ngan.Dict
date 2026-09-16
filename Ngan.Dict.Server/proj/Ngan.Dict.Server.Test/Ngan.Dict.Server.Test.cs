@@ -13,7 +13,7 @@ namespace Ngan.Dict.Server.Test;
 
 internal class Program{
 	public static IServiceCollection SvcColct = new ServiceCollection();
-	public static IServiceProvider SvcProvdr = null!;
+	public static IServiceProvider SvcProvdr => Ngan.Dict.Core.Di.SvcProvider;
 
 	public static async Task Main(string[] args){
 		AppLog.UseConsoleLogger(nameof(Ngan.Dict.Server.Test), LogLevel.Information);
@@ -30,7 +30,11 @@ internal class Program{
 		;
 
 		var mgr = ServerTestMgr.Inst;
-		SvcProvdr = mgr.InitSvc(SvcColct, sc=>sc.BuildServiceProvider());
+		_ = mgr.InitSvc(SvcColct, sc => {
+			var sp = sc.BuildServiceProvider();
+			Ngan.Dict.Core.Di.SvcProvider = sp;
+			return sp;
+		});
 
 		await ServerTestBootstrap.EnsureServerDbReady(SvcProvdr, default);
 

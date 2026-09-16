@@ -35,7 +35,7 @@ public partial class NgaqTest{
 		
 	}
 	
-	public IServiceProvider SvcProvider{get;set;} = null!;
+	public IServiceProvider SvcProvider => Ngan.Dict.Core.Di.SvcProvider;
 	public nil Di(){
 		var svc = new ServiceCollection();
 		svc
@@ -44,7 +44,7 @@ public partial class NgaqTest{
 			.SetupLocalFrontend()
 			.SetupTest()
 		;
-		SvcProvider = svc.BuildServiceProvider();
+		Ngan.Dict.Core.Di.SvcProvider = svc.BuildServiceProvider();
 		return NIL;
 	}
 	public nil InitApp(){
@@ -55,7 +55,7 @@ public partial class NgaqTest{
 	public static T GetRSvc<T>()
 		where T : class
 	{
-		return NgaqTest.Inst.SvcProvider.GetRequiredService<T>();
+		return Ngan.Dict.Core.Di.GetRSvc<T>();
 	}
 
 }
