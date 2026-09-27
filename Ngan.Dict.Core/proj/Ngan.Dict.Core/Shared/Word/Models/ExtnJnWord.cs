@@ -1,5 +1,6 @@
 namespace Ngan.Dict.Core.Shared.Word.Models;
 
+using System.Diagnostics.CodeAnalysis;
 using Ngan.Dict.Core.Infra.IF;
 using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 using Ngan.Dict.Core.Infra.Errors;
@@ -13,7 +14,7 @@ using Ngan.Dict.Core.Shared.Word.Models.Po.Learn;
 using Ngan.Dict.Core.Model.Po.Learn_;
 using Ngan.Dict.Core.Shared.Word.Models.Dto;
 using Tsinswreng.CsErr;
-using Tsinswreng.Srefl;
+using Tsinswreng.CsRefl;
 using Ngan.Dict.Core.Shared.Word.Models;
 using Ngan.Dict.Core.Shared.User.Models.Po.User;
 using Ngan.Dict.Core.Shared.User.Models.Po;
@@ -104,35 +105,23 @@ public static class ExtnJnWord{
 		
 		
 
+		[Doc(@$"把本聚合之各部分各轉成一份淺字典視圖（鍵爲可讀可寫之成員名）。
+			型別取各部之運行期型別，故子類新增之成員亦在內。
+		")]
 		public IDictionary<str, obj?> ToDict(
-			IPropAccessorReg PropAccessorReg
+			ITypeInfoSrc TypeInfoSrc
 		){
-			
-			IDictionary<str, obj?> ToShallow(Type Type, obj Obj){
-				if(!PropAccessorReg.Type_PropAccessor.TryGetValue(Type, out var Accessor)){
-					throw new Exception($"No {nameof(IPropAccessor)} registered for type: {Type}");
-				}
-				var R2 = new Dictionary<str, obj?>();
-				foreach(var Key in Accessor.GetGetterNames(Obj)){
-					if(!Accessor.TryGet(Obj, Key, out var V)){
-						continue;
-					}
-					R2[Key] = V;
-				}
-				return R2;
-			}
-
 			var R = new Dictionary<str, obj?>();
-			R[nameof(IJnWord.Word)] = ToShallow(z.Word.GetType(), z.Word);
+			R[nameof(IJnWord.Word)] = TypeInfoSrc.ToInstViewDict(z.Word);
 			var props = new List<IDictionary<str, obj?>>();
 			R[nameof(IJnWord.Props)] = props;
 			foreach(var prop in z.Props){
-				props.Add(ToShallow(prop.GetType(), prop));
+				props.Add(TypeInfoSrc.ToInstViewDict(prop));
 			}
 			var learns = new List<IDictionary<str, obj?>>();
 			R[nameof(IJnWord.Learns)] = learns;
 			foreach(var learn in z.Learns){
-				learns.Add(ToShallow(learn.GetType(), learn));
+				learns.Add(TypeInfoSrc.ToInstViewDict(learn));
 			}
 			return R;
 		}
@@ -379,6 +368,10 @@ public static class ExtnJnWord{
 /// </typeparam><param name="z"> 舊實體。只讀 若需寫入z則使R=z
 /// </param><param name="Other">新實體。只讀
 /// </param><param name="R"> 果ˇ寫入焉
+	[UnconditionalSuppressMessage("Trimming", "IL2087",
+		Justification = "T 由調用方以具體型別給出，本方法只用它查成員元資料；"
+			+ "生產上第一來源是 STJ 源生成上下文（已註冊型別不需要反射元資料），"
+			+ "故 typeof(T) 不帶 DAM 註解不會導致剪錯。")]
 	public static ESyncResult SyncPo<T>(
 		this T z
 		,T Other
@@ -390,27 +383,24 @@ public static class ExtnJnWord{
 			return ESyncResult.NoNeedToSync;
 		}
 		R??=z;
-		var mgr = (IPropAccessorReg)CoreDictMapper.Inst;
-		if(!mgr.Type_PropAccessor.TryGetValue(typeof(T), out var accessor)){
-			throw new Exception($"No {nameof(IPropAccessor)} registered for type: {typeof(T)}");
-		}
+		var Info = AppTypeInfoSrc.Inst.GetInfo(typeof(T));
 		var selfDict = new Dictionary<str, obj?>();
 		var otherDict = new Dictionary<str, obj?>();
-		foreach(var key in accessor.GetGetterNames(z)){
-			if(accessor.TryGet(z, key, out var v1)){
-				selfDict[key] = v1;
+		foreach(var M in Info.ReadableMembers.Values){
+			if(M.TryGet(z, out var v1)){
+				selfDict[M.Name] = v1;
 			}
 		}
-		foreach(var key in accessor.GetGetterNames(Other)){
-			if(accessor.TryGet(Other, key, out var v2)){
-				otherDict[key] = v2;
+		foreach(var M in Info.ReadableMembers.Values){
+			if(M.TryGet(Other, out var v2)){
+				otherDict[M.Name] = v2;
 			}
 		}
 		foreach(var (otherK, otherV) in otherDict){
 			selfDict[otherK] = otherV;
 		}
 		foreach(var (k, v) in selfDict){
-			accessor.TrySet(R, k, v);
+			Info.TrySet(R, k, v);
 		}
 		return ESyncResult.Ok;
 	}

@@ -1,6 +1,6 @@
 #define Impl
 namespace Ngan.Dict.Core.Shared.Base.Models.Po;
-using Tsinswreng.Srefl;
+using Tsinswreng.CsRefl;
 using Ngan.Dict.Core.Shared.User.Models.Po;
 using Ngan.Dict.Core.Infra;
 using Ngan.Dict.Core.Tools;
@@ -52,15 +52,15 @@ public static class ExtnPoBase{
 		推薦用 {nameof(Extn.EqObj)}來比較、因佢能比較null、不致空指針。
 		")]
 		public obj? Id_(){
-			if(CoreDictMapper.Inst.PropAccessorReg.TryGet<T>(z, nameof(I_Id<>), out var Id)){
+			if(AppTypeInfoSrc.Inst.TryGet<T>(z, nameof(I_Id<>), out var Id)){
 				return Id;
 			}
 			throw new InvalidOperationException($@"{typeof(T)} {z} does not have {nameof(I_Id<>)}
-			or it is not registered in {nameof(CoreDictMapper.Inst.PropAccessorReg)}
+			or it is not registered in {nameof(AppTypeInfoSrc)}
 			");
 		}
 		public bool Id_(obj? Id){
-			return CoreDictMapper.Inst.PropAccessorReg.TrySet<T>(z, nameof(I_Id<>), Id);
+			return AppTypeInfoSrc.Inst.TrySet<T>(z, nameof(I_Id<>), Id);
 		}
 		
 	}

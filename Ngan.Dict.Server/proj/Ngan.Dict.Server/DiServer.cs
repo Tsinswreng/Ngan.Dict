@@ -30,7 +30,7 @@ using Ngan.Dict.Core.Model.Po.Learn_;
 using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
 using Ngan.Dict.Core.Model.Po.Kv;
 using StackExchange.Redis;
-using Tsinswreng.Srefl;
+using Tsinswreng.CsRefl;
 using Ngan.Dict.Core.Shared.Word.Models.Po.UserLang;
 using Ngan.Dict.Core.Shared.Dictionary.Models.Po.NormLang;
 using Ngan.Dict.Core.Shared.Word.Models.Po.NormLangToUserLang;
@@ -81,7 +81,7 @@ public static class DiBiz{
 		z.SetupCommonBackend();
 		z.AddSingleton<ICfgAccessor>(ServerCfg.Inst);
 		z.SetupTswgSqlAdo();
-		z.AddSingleton<IPropAccessorReg>(CoreDictMapper.Inst);
+		z.AddSingleton<ITypeInfoSrc>(AppTypeInfoSrc.Inst);
 		
 		z.AddRepoScoped<PoWord, IdWord>();
 		z.AddRepoScoped<PoWordLearn, IdWordLearn>();

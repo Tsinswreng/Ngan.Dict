@@ -8,7 +8,7 @@ using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
 using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 using Tsinswreng.CsTempus;
 
-namespace Tsinswreng.Srefl.Test.IDictSerializer;
+namespace Ngan.Dict.Core.Test.DictSerializer;
 
 public partial class TestIDictSerializer: ITester{
 

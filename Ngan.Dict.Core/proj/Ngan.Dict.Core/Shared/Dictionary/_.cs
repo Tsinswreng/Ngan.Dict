@@ -18,7 +18,7 @@ $"""
 - 輸入格式{nameof(ReqLlmDict)}
 - 輸出格式{nameof(IRespLlmDict)}
 - 大模型輸出 使用的結構化標記語言格式: YamlMd {nameof(YamlMd.Inst.ToYaml)}
-- 序列化 {nameof(ToolYaml.YamlStrToDict)} {nameof(CoreDictMapper)}
+- 序列化 {nameof(ToolYaml.YamlStrToDict)} {nameof(AppTypeInfoSrc)}
 - 相關配置{nameof(KeysClientCfg.LlmDictionary)}
 
 輸出Pronunciation列表中、第一項 固定爲IPA

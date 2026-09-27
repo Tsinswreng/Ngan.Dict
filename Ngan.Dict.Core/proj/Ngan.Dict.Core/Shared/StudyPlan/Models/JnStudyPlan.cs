@@ -7,7 +7,7 @@ using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightCalculator;
 using Ngan.Dict.Core.Word.Svc;
 using Tsinswreng.CsSql;
 using Tsinswreng.CsTools;
-using Tsinswreng.Srefl;
+using Tsinswreng.CsRefl;
 namespace Ngan.Dict.Core.Shared.StudyPlan.Models;
 
 [Doc($@"學習方案聚合")]
@@ -30,14 +30,15 @@ public class JnStudyPlan
 public static class ExtnJnStudyPlan{
 	extension(JnStudyPlan z){
 		public IDictionary<str, obj> ToDict(
-			IPropAccessorReg? PropAcc
+			ITypeInfoSrc? TypeInfoSrc
 		){
-			PropAcc??=CoreDictMapper.Inst.PropAccessorReg;
+			TypeInfoSrc??=AppTypeInfoSrc.Inst;
 			var R = new Dictionary<str, obj>();
-			R[nameof(JnStudyPlan.StudyPlan)] = PropAcc.ToPropDict(z.StudyPlan);
-			R[nameof(JnStudyPlan.PreFilter)] = PropAcc.ToPropDict(z.PreFilter);
-			R[nameof(JnStudyPlan.WeightCalculator)] = PropAcc.ToPropDict(z.WeightCalculator);
-			R[nameof(JnStudyPlan.WeightArg)] = PropAcc.ToPropDict(z.WeightArg);
+			R[nameof(JnStudyPlan.StudyPlan)] = TypeInfoSrc.ToInstViewDict(z.StudyPlan);
+			// 可空之部件：無物件則無字典視圖（ToInstDict 不接 null）。
+			R[nameof(JnStudyPlan.PreFilter)] = z.PreFilter is null ? null! : TypeInfoSrc.ToInstViewDict(z.PreFilter);
+			R[nameof(JnStudyPlan.WeightCalculator)] = z.WeightCalculator is null ? null! : TypeInfoSrc.ToInstViewDict(z.WeightCalculator);
+			R[nameof(JnStudyPlan.WeightArg)] = z.WeightArg is null ? null! : TypeInfoSrc.ToInstViewDict(z.WeightArg);
 			return R;
 		}
 	}

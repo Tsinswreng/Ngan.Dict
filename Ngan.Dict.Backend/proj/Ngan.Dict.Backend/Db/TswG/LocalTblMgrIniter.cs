@@ -102,7 +102,7 @@ public partial class LocalTblMgrIniter{
 	}
 
 	public static ITblSetter<T> Mk<T>(str DbTblName){
-		return Table.FnSetTbl<T>(CoreDictMapper.Inst)(DbTblName);
+		return Table.FnSetTbl<T>(AppTypeInfoSrc.Inst)(DbTblName);
 	}
 	
 

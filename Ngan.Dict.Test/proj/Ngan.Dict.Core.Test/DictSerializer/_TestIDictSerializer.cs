@@ -1,7 +1,7 @@
 using Tsinswreng.CsTreeTest;
 using Tsinswreng.CsCore;
 
-namespace Tsinswreng.Srefl.Test.IDictSerializer;
+namespace Ngan.Dict.Core.Test.DictSerializer;
 
 public partial class TestIDictSerializer: ITester{
 	

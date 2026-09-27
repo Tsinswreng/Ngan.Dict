@@ -20,7 +20,7 @@ COPY ["Tsinswreng.CsCore/", "Tsinswreng.CsCore/"]
 COPY ["Tsinswreng.CsSql/", "Tsinswreng.CsSql/"]
 COPY ["Tsinswreng.CsTypeAlias/", "Tsinswreng.CsTypeAlias/"]
 COPY ["Tsinswreng.CsYamlMd/", "Tsinswreng.CsYamlMd/"]
-COPY ["Tsinswreng.Srefl/", "Tsinswreng.Srefl/"]
+COPY ["Tsinswreng.CsRefl/", "Tsinswreng.CsRefl/"]
 
 RUN dotnet restore "Ngaq.Server/proj/Ngaq.Server.Http/Ngaq.Server.Http.csproj"
 

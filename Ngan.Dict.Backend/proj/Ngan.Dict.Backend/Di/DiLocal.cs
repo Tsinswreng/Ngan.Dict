@@ -14,7 +14,7 @@ using Ngan.Dict.Core.Shared.Kv.Models;
 using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 using Ngan.Dict.Core.Shared.Word.Models.Po.Learn;
 using Ngan.Dict.Core.Infra.Url;
-using Tsinswreng.Srefl;
+using Tsinswreng.CsRefl;
 using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.StudyPlan;
 using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightArg;
 using Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightCalculator;
@@ -33,8 +33,8 @@ public static class DiLocal{
 	public static IServiceCollection SetupLocal(this IServiceCollection z){
 		z.AddSingleton<I_GetBaseDir>(BaseDirMgr.Inst);
 		z.SetupDbCfg().SetupRepos().SetupCommonBackend();
-		//Core詞典映射
-		z.AddSingleton<IPropAccessorReg>(CoreDictMapper.Inst.PropAccessorReg);
+		//Core詞典映射(型別元資料來源)
+		z.AddSingleton<ITypeInfoSrc>(AppTypeInfoSrc.Inst);
 		return z;
 	}
 

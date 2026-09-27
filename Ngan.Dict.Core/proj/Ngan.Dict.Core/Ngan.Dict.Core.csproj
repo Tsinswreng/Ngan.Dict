@@ -51,7 +51,6 @@
 		<PackageReference Include="Tsinswreng.CsU128Id" Version="0.0.1-alpha" />
 		<PackageReference Include="Tsinswreng.CsYamlMd" Version="0.0.1-alpha" />
 		<PackageReference Include="Tsinswreng.CsTextWithBlob" Version="0.0.1-alpha" />
-		<PackageReference Include="Tsinswreng.Srefl" Version="1.0.2-alpha" />
 		<!-- <ProjectReference Include="../Tsinswreng.CsTools/proj/Tsinswreng.CsTools/Tsinswreng.CsTools.csproj" /> -->
 		<!-- <ProjectReference Include="../Tsinswreng.CsPage/proj/Tsinswreng.CsPage/Tsinswreng.CsPage.csproj" /> -->
 		<!-- <ProjectReference Include="../Tsinswreng.CsCfg/proj/Tsinswreng.CsCfg/Tsinswreng.CsCfg.csproj" /> -->
@@ -62,18 +61,18 @@
 		<ProjectReference Include="../../../../Tsinswreng.CsCtx/proj/Tsinswreng.CsCtx/Tsinswreng.CsCtx.csproj" />
 		<ProjectReference Include="../../../../Tsinswreng.CsSql/proj/Tsinswreng.CsSql/Tsinswreng.CsSql.csproj" />
 		<ProjectReference Include="../../../../Tsinswreng.CsJson/proj/Tsinswreng.CsJson/Tsinswreng.CsJson.csproj" />
+		<ProjectReference Include="../../../../Tsinswreng.CsRefl/proj/Tsinswreng.CsRefl/Tsinswreng.CsRefl.csproj" />
 		<PackageReference Include="Tsinswreng.CsLog" Version="0.0.1-alpha" />
-		<!-- <ProjectReference Include="../Tsinswreng.Srefl/proj/Tsinswreng.Srefl/Tsinswreng.Srefl.csproj" /> -->
 		<!-- <ProjectReference Include="../Tsinswreng.CsYamlMd/proj/Tsinswreng.CsYamlMd/Tsinswreng.CsYamlMd.csproj" /> -->
 		<!-- <ProjectReference Include="../Tsinswreng.CsTextWithBlob/proj/Tsinswreng.CsTextWithBlob/Tsinswreng.CsTextWithBlob.csproj" /> -->
-		<!-- <ProjectReference Include="../Tsinswreng.Srefl/proj/Tsinswreng.Srefl.SrcGen/Tsinswreng.Srefl.SrcGen.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" /> -->
 
 		<!-- <ProjectReference Include="../Tsinswreng.CsFactoryMkr/proj/Tsinswreng.CsFactoryMkr/Tsinswreng.CsFactoryMkr.csproj" /> -->
 		<!-- <ProjectReference Include="../Tsinswreng.CsFactoryMkr/proj/Tsinswreng.CsFactoryMkr.SrcGen/Tsinswreng.CsFactoryMkr.SrcGen.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" /> -->
 	</ItemGroup>
 
 	<ItemGroup>
-		<!-- CsIfaceGen 已移除：JsonSerializable/SreflType 註冊改由 Ngan.Dict.Scripts 的 GenAppJsonCtx 生成 -->
+		<!-- CsIfaceGen 已移除：JsonSerializable 註冊改由 Ngan.Dict.Scripts 的 GenAppJsonCtx 生成；
+			型別元資料來源改用 Tsinswreng.CsRefl（見 Infra/AppTypeInfoSrc.cs），不再用 Tsinswreng.Srefl -->
 	</ItemGroup>
 
 	<ItemGroup>

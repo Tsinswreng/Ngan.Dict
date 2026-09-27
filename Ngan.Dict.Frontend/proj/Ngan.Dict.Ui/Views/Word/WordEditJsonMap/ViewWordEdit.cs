@@ -16,7 +16,7 @@ using Tsinswreng.Avln.Grid;
 using Tsinswreng.AvlnTools.Dsl;
 using Tsinswreng.AvlnTools.Tools;
 using Tsinswreng.CsI18n;
-using Tsinswreng.Srefl;
+using Tsinswreng.CsRefl;
 using Ctx = VmWordEdit;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 public partial class ViewWordEdit
@@ -95,7 +95,7 @@ public partial class ViewWordEdit
 								var currentJnWord = propValue.Value;
 								if (currentJnWord == null) return;
 								var poWord = JnWordToUiJsonMap.MkPoWord(
-									CoreDictMapper.Inst.PropAccessorReg.ToPropDict(currentJnWord.Word)
+									AppTypeInfoSrc.Inst.ToInstDict(currentJnWord.Word)
 								);
 								jm.Ctx!.FromBo(poWord);
 							});

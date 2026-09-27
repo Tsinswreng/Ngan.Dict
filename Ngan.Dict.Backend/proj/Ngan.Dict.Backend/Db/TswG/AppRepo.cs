@@ -4,7 +4,7 @@ using Tsinswreng.CsSql;
 using Ngan.Dict.Core.Infra;
 using Tsinswreng.CsCore;
 using Ngan.Dict.Core.Shared.Base.Models.Po;
-using Tsinswreng.Srefl;
+using Tsinswreng.CsRefl;
 using Tsinswreng.CsTempus;
 
 public partial class AppRepo<
@@ -16,7 +16,7 @@ public partial class AppRepo<
 	,IAppRepo<TEntity, TId>
 	where TEntity : class, new()
 {
-	public AppRepo(ITblMgr TblMgr, ISqlCmdMkr SqlCmdMkr, IPropAccessorReg DictMapper) : base(TblMgr, SqlCmdMkr, DictMapper) {
+	public AppRepo(ITblMgr TblMgr, ISqlCmdMkr SqlCmdMkr, ITypeInfoSrc TypeInfoSrc) : base(TblMgr, SqlCmdMkr, TypeInfoSrc) {
 
 	}
 

@@ -2,7 +2,8 @@
 - `bin/`
 - `DiCore.cs` 依賴注入配置
 - `FrontendIF/` 蔿前端之接口
-- `GenAppJsonCtx`（Ngan.Dict.Scripts 之入口）生成 AppJsonCtx與CoreDictMapper之註冊代碼（輸出至 Tsinswreng.SrcGen/Ngan.Dict.Gen.g.cs）
+- `GenAppJsonCtx`（Ngan.Dict.Scripts 之入口）生成 AppJsonCtx（JsonSerializable）之註冊代碼（輸出至 Tsinswreng.SrcGen/Ngan.Dict.Gen.g.cs）
+- `Infra/AppTypeInfoSrc.cs` 型別元資料來源（Tsinswreng.CsRefl；取代舊 Tsinswreng.Srefl 之 CoreDictMapper）
 - `GlobalUsing.cs`
 - `Infra/`
 - `Models/`

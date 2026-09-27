@@ -32,7 +32,7 @@ public partial class DbIniter{
 		,ISvcKv SvcKv
 		,IMigrationMgr MigrationMgr
 	){
-		this.RepoSchemaHistory = RepoSchemaHistory.UseCsSqlSrefl();
+		this.RepoSchemaHistory = RepoSchemaHistory.UseCsSqlTypeInfo();
 		this.SvcKv = SvcKv;
 		this.TblMgr = TblMgr;
 		this.TxnRunner = TxnRunner;

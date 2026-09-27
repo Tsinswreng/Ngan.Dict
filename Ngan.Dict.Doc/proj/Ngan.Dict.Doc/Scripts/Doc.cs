@@ -24,10 +24,11 @@ using Tsinswreng.CsCore;
 	- `CpAssets`：同步外部資源到各目標輸出目錄。
 	- `GenAppJsonCtx`：用 Roslyn 分析 Ngan.Dict.Core，
 	  收集 `IAppSerializable`/`IRawValueSerializable` 之實現者，
-	  生成 AppJsonCtx（JsonSerializable/JsonSourceGenerationOptions/JsonConverters）與
-	  CoreDictMapper（SreflType）之註冊代碼到
+	  生成 AppJsonCtx（JsonSerializable/JsonSourceGenerationOptions/JsonConverters）之註冊代碼到
 	  `Ngan.Dict.Core/Tsinswreng.SrcGen/Ngan.Dict.Gen.g.cs`（單文件）。
-	  替代舊的 `GenAppJsonCtx.sh` + Tsinswreng.CsIfaceGen.Cli 流程。
+	  替代舊的 `GenAppJsonCtx.sh` + Tsinswreng.CsIfaceGen.Cli 流程；
+	  型別元資料不再走 Tsinswreng.Srefl 之 `[SreflType]`，改用 Tsinswreng.CsRefl
+	  （見 `Ngan.Dict.Core/Infra/AppTypeInfoSrc.cs`）。
 	- `TestWinAot`：發布 `Ngan.Dict.Windows.Test` 為 win-x64 NativeAOT 並運行測試 exe，
 	  在 AOT 剪裁環境下驗證測試全部通過。
 ]

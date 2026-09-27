@@ -5,7 +5,7 @@ using Ngan.Dict.Core.Shared.Base.Models.Po;
 using Ngan.Dict.Core.Shared.User.Models.Po.User;
 using Ngan.Dict.Core.Infra;
 using Tsinswreng.CsSql;
-using Tsinswreng.Srefl;
+using Tsinswreng.CsRefl;
 using Tsinswreng.CsTempus;
 
 [Doc(@$"
@@ -79,16 +79,13 @@ public partial class PoWord
 	public UnixMs StoredAt{get;set;} = UnixMs.Now();
 
 	public override string ToString() {
-		var Mgr = (IPropAccessorReg)CoreDictMapper.Inst;
-		if(!Mgr.Type_PropAccessor.TryGetValue(typeof(PoWord), out var Accessor)){
-			throw new Exception($"No {nameof(IPropAccessor)} registered for type: {typeof(PoWord)}");
-		}
+		var Info = AppTypeInfoSrc.Inst.GetInfo(typeof(PoWord));
 		var Dict = new Dictionary<str, obj?>();
-		foreach(var Key in Accessor.GetGetterNames(this)){
-			if(!Accessor.TryGet(this, Key, out var V)){
+		foreach(var M in Info.ReadableMembers.Values){
+			if(!M.TryGet(this, out var V)){
 				continue;
 			}
-			Dict[Key] = V;
+			Dict[M.Name] = V;
 		}
 		return ExtnIDict.Print(Dict);
 	}
