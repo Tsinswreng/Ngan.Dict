@@ -20,8 +20,9 @@ public class GlobalErrHandler : IExceptionHandler {
 		Logger.LogError(Err, "Unhandled exception. Path={Path}; Method={Method}", Ctx.Request.Path, Ctx.Request.Method);
 		if(Err is IAppErr E){
 			if(
-				E.Tags.Contains(AppErrTags.BizErr)
-				&& E.Tags.Contains(AppErrTags.Public)
+				// 約定：沒標 Private／SysErr 的業務異常即「可示予用戶」。
+				!E.Tags.Contains(AppErrTags.Private)
+				&& !E.Tags.Contains(AppErrTags.SysErr)
 			){
 				Ctx.Response.StatusCode = 400; //TODO 潙2開頭旹纔改成400
 				Ctx.Body(WebAns.Mk(null, [E])); //TODO 處理內部Errors
@@ -32,3 +33,4 @@ public class GlobalErrHandler : IExceptionHandler {
 		return true;
 	}
 }
+

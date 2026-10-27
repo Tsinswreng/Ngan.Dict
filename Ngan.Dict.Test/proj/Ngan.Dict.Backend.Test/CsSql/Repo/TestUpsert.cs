@@ -111,7 +111,7 @@ public partial class TestRepo{
 			});
 		});
 
-		register.TesteeFnNames = [nameof(IRepo<PoKv, IdKv>.OrdUpsert), nameof(IRepo<PoKv, IdKv>.OrdGetByIdWithDel)];
+		register.TesteeFnNames = [nameof(IRepo<PoKv, IdKv>.OrdSet), nameof(IRepo<PoKv, IdKv>.OrdGetByIdWithDel)];
 		R("BatUpsert_Insert_And_Update", async(o)=>{
 			if(_batExistsUpsertSeed.Count < 2){
 				throw new Exception("BatExistsUpsert_Insert_Seed not executed");
@@ -138,7 +138,7 @@ public partial class TestRepo{
 				};
 
 				// 按需求，不檢查 Resp 的內容，只驗證最終資料效果。
-				await Repo.OrdUpsert(Ctx, AsyE(existedUpdated, newOne), CT.None);
+				await Repo.OrdSet(Ctx, AsyE(existedUpdated, newOne), CT.None);
 
 				_batExistsUpsertCleanupIds.Add(newOne.Id);
 
@@ -171,7 +171,7 @@ public partial class TestRepo{
 			});
 		});
 
-		register.TesteeFnNames = [nameof(IRepo<PoKv, IdKv>.OrdUpsert), nameof(IRepo<PoKv, IdKv>.OrdGetByIdWithDel)];
+		register.TesteeFnNames = [nameof(IRepo<PoKv, IdKv>.OrdSet), nameof(IRepo<PoKv, IdKv>.OrdGetByIdWithDel)];
 		R("BatUpsert_SoftDeletedSameId_Should_Update_Not_Insert", async(o)=>{
 			if(_batExistsUpsertSoftDeletedId is null){
 				throw new Exception("BatExistsByIdWithDel_SoftDeleted_Should_Be_True not executed");
@@ -188,7 +188,7 @@ public partial class TestRepo{
 					VStr = "bat_upsert_soft_deleted_v_" + System.Guid.NewGuid().ToString("N"),
 				};
 
-				await Repo.OrdUpsert(Ctx, AsyE(updated), CT.None);
+				await Repo.OrdSet(Ctx, AsyE(updated), CT.None);
 
 				var got = Repo.OrdGetByIdWithDel(Ctx, AsyE(targetId), CT.None);
 				var gotList = new List<PoKv?>();

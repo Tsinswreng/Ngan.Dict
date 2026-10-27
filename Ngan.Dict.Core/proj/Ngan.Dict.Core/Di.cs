@@ -17,5 +17,4 @@ public class Di {
 		where T : class {
 		return SvcProvider.GetRequiredService<T>();
 	}
-
 }

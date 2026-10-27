@@ -1,5 +1,6 @@
 namespace Ngan.Dict.Backend.Db.TswG;
 
+using System.Diagnostics.CodeAnalysis;
 using Ngan.Dict.Core.Infra;
 using Ngan.Dict.Core.Infra.IF;
 using Ngan.Dict.Core.Shared.Base.Models.Po;
@@ -8,6 +9,7 @@ using Ngan.Dict.Core.Shared.User.Models.Po.User;
 using Ngan.Dict.Core.Shared.Word.Models.Po.Kv;
 using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 using Ngan.Dict.Core.Word.Models.Po.Word;
+using Tsinswreng.CsRefl;
 using Tsinswreng.CsSql;
 using Tsinswreng.CsTempus;
 
@@ -63,7 +65,7 @@ public partial class LocalTblMgrIniter{
 	{
 		var o = Tbl;
 		o.Col(nameof(IBizCreateUpdateTime.BizCreatedAt)).MapType(MapTempus());
-		o.Col(nameof(IBizCreateUpdateTime.BizUpdatedAt)).MapType(MapTempusN());
+		o.Col(nameof(IBizCreateUpdateTime.BizUpdatedAt)).MapType(MapTempus());
 		return o;
 	}
 
@@ -101,7 +103,9 @@ public partial class LocalTblMgrIniter{
 		return o;
 	}
 
-	public static ITblSetter<T> Mk<T>(str DbTblName){
+	// T 上的 DAM 是為了滿足 Table.FnSetTbl<T> 的要求：NativeAOT 下不標的話，
+	// 這個實體型別的成員會被剪掉，建表時掃不出列（會報 No such column: Id）。
+	public static ITblSetter<T> Mk<[DynamicallyAccessedMembers(ReflTypeInfo.ReflDam)] T>(str DbTblName){
 		return Table.FnSetTbl<T>(AppTypeInfoSrc.Inst)(DbTblName);
 	}
 	

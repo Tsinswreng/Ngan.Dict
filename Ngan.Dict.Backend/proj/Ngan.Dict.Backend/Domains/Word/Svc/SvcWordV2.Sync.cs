@@ -315,11 +315,11 @@ public partial class SvcWordV2
 		await RepoWord.OrdUpd(DbCtx, Remotes.Select(x=>x.Word).ToList(), Ct);
 		var props = Remotes.SelectMany(x=>x.Props).ToList();
 		if(props.Count > 0){
-			await RepoProp.OrdUpsert(DbCtx, props, Ct);
+			await RepoProp.OrdSet(DbCtx, props, Ct);
 		}
 		var learns = Remotes.SelectMany(x=>x.Learns).ToList();
 		if(learns.Count > 0){
-			await RepoLearn.OrdUpsert(DbCtx, learns, Ct);
+			await RepoLearn.OrdSet(DbCtx, learns, Ct);
 		}
 		await DaoWordV2.BatAltWordAfterUpd(DbCtx, Remotes.Select(x=>x.Id).Distinct().ToList(), Ct);
 		return NIL;

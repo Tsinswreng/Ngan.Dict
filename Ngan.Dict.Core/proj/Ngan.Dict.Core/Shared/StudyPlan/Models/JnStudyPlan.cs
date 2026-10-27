@@ -35,7 +35,7 @@ public static class ExtnJnStudyPlan{
 			TypeInfoSrc??=AppTypeInfoSrc.Inst;
 			var R = new Dictionary<str, obj>();
 			R[nameof(JnStudyPlan.StudyPlan)] = TypeInfoSrc.ToInstViewDict(z.StudyPlan);
-			// 可空之部件：無物件則無字典視圖（ToInstDict 不接 null）。
+			// 可空之部件：無物件則無字典視圖（ToInstViewDict 不接 null）。
 			R[nameof(JnStudyPlan.PreFilter)] = z.PreFilter is null ? null! : TypeInfoSrc.ToInstViewDict(z.PreFilter);
 			R[nameof(JnStudyPlan.WeightCalculator)] = z.WeightCalculator is null ? null! : TypeInfoSrc.ToInstViewDict(z.WeightCalculator);
 			R[nameof(JnStudyPlan.WeightArg)] = z.WeightArg is null ? null! : TypeInfoSrc.ToInstViewDict(z.WeightArg);

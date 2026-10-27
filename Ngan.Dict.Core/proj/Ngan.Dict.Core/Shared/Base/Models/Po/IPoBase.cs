@@ -38,7 +38,7 @@ public interface IBizCreateUpdateTime{
 }
 
 
-public static class ExtnBizTime{
+public static class IBizCreateUpdateTimeExtn{
 	extension(IBizCreateUpdateTime z){
 		public UnixMs LatestBizTime{
 			get{

@@ -16,7 +16,7 @@ public static class AppExtnErrItem {
 		}
 	}
 	public static I18nKey ToI18nKey(this IErrNode z) {
-		var Parent = ErrNode.MkB(null, ["Error"]);
+		var Parent = ErrNode.Mk(null, ["Error"]);
 		z.Parent?.Parent = Parent;
 		var r = new I18nKey {
 			RelaPathSegs = z.RelaPathSegs,
@@ -27,3 +27,4 @@ public static class AppExtnErrItem {
 		return r;
 	}
 }
+

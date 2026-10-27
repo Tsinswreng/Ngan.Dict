@@ -13,3 +13,12 @@ public interface I_GetBaseDir{
 	")]
 	public str GetBaseDir();
 }
+
+public static class I_GetBaseDirExtn{
+	public static str Combine(
+		this I_GetBaseDir z
+		,params IList<str> Segs
+	){
+		return Path.Combine([z.GetBaseDir(), ..Segs]);
+	}
+}

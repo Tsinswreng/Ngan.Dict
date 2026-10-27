@@ -92,7 +92,7 @@ public partial class SvcKv(
 		,IList<PoKv> Kvs, CT Ct
 	){
 		return SqlCmdMkr.EnsureTxn(Ctx, Ct, async(DbCtx)=>{
-			await RepoKv.OrdUpsert(DbCtx, Kvs, Ct);
+			await RepoKv.OrdSet(DbCtx, Kvs, Ct);
 			return NIL;
 		});
 	}

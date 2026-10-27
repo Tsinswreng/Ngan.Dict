@@ -50,9 +50,6 @@ public static class DiUi{
 	public static IServiceCollection SetupUi(
 		this IServiceCollection z
 	){
-
-		//z.AddSingleton<II18n>(I18n.Inst);
-
 		z.AddTransient<VmAddWord>();
 		z.AddTransient<VmLearnWords>();
 		z.AddTransient<VmLoginRegister>();

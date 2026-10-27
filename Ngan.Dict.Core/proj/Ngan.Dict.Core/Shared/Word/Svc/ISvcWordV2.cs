@@ -320,10 +320,10 @@ public partial interface ISvcWordV2{
 	但每個{{nameof(DtoWordSearchHit.JnWord)}}中的資產 不包含 已被軟刪者。
 	""")]
 	public Task<IPage<DtoWordSearchHit>> PageSearch(
-		IDbUserCtx Ctx
-		,IPageQry PageQry
-		,ReqSearchWord Req
-		,CT Ct
+		IDbUserCtx Ctx,
+		IPageQry PageQry,
+		ReqSearchWord Req,
+		CT Ct
 	);
 
 	// -------- IList 批核心形狀(新範式)--------

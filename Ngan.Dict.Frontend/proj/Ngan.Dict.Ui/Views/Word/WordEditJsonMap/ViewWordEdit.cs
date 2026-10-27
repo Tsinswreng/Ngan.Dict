@@ -95,7 +95,7 @@ public partial class ViewWordEdit
 								var currentJnWord = propValue.Value;
 								if (currentJnWord == null) return;
 								var poWord = JnWordToUiJsonMap.MkPoWord(
-									AppTypeInfoSrc.Inst.ToInstDict(currentJnWord.Word)
+									AppTypeInfoSrc.Inst.ToInstViewDict(currentJnWord.Word)
 								);
 								jm.Ctx!.FromBo(poWord);
 							});

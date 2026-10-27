@@ -52,7 +52,7 @@ public static class ExtnPoBase{
 		推薦用 {nameof(Extn.EqObj)}來比較、因佢能比較null、不致空指針。
 		")]
 		public obj? Id_(){
-			if(AppTypeInfoSrc.Inst.TryGet<T>(z, nameof(I_Id<>), out var Id)){
+			if(AppTypeInfoSrc.Inst.TryGet<T>(z, nameof(I_Id<>.Id), out var Id)){
 				return Id;
 			}
 			throw new InvalidOperationException($@"{typeof(T)} {z} does not have {nameof(I_Id<>)}
@@ -60,7 +60,7 @@ public static class ExtnPoBase{
 			");
 		}
 		public bool Id_(obj? Id){
-			return AppTypeInfoSrc.Inst.TrySet<T>(z, nameof(I_Id<>), Id);
+			return AppTypeInfoSrc.Inst.TrySet<T>(z, nameof(I_Id<>.Id), Id);
 		}
 		
 	}

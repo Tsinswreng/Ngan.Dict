@@ -8,7 +8,7 @@ namespace Ngan.Dict.Core.Infra;
 	未註冊者落到 {nameof(ReflTypeInfoSrc)} 兜底。
 
 	用處：按名讀寫實例（{nameof(ITypeInfoSrcExtn.TryGet)}／{nameof(ITypeInfoSrcExtn.TrySet)}）、
-	物件與淺字典互轉（{nameof(ITypeInfoSrcExtn.ToInstDict)}）、
+	物件與淺字典互轉（{nameof(ITypeInfoSrcExtn.ToInstViewDict)}）、
 	以及 CsSql 建表與倉儲所需的成員元資料。
 ")]
 public static class AppTypeInfoSrc{

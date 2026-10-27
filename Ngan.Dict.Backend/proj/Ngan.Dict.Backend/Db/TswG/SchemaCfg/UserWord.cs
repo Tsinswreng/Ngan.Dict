@@ -15,7 +15,7 @@ namespace Ngan.Dict.Backend.Db.TswG;
 public partial class LocalTblMgrIniter{
 	public static ITblMgr InitWord(ITblMgr Mgr){
 		var Tbl_Word = Mk<PoWord>("Word");
-		ExtnTblMgr.AddTbl(Mgr, Tbl_Word);
+		TblMgrExtn.AddTbl(Mgr, Tbl_Word);
 		Mgr.AddTbl(Tbl_Word);
 		{
 			var o = Tbl_Word;
