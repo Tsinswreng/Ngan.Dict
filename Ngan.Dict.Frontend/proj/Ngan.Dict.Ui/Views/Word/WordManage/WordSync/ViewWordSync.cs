@@ -7,8 +7,6 @@ using Ngan.Dict.Ui.Infra;
 using Ngan.Dict.Ui.Infra.Ctrls;
 using Ngan.Dict.Ui.Tools;
 using Tsinswreng.Avln.Grid;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 using Tsinswreng.CsI18n;
 using Ctx = VmWordSync;
 using K = Infra.I18n.KeysUiI18nCommon;

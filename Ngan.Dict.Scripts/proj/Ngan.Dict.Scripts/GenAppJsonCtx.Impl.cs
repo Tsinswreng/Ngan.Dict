@@ -11,20 +11,23 @@ internal static partial class GenAppJsonCtx{
 	// 目標專案與輸出文件之相對路徑（相對於 Ngan 工作區根）
 	const str CsprojRelPath = "Ngan.Dict/Ngan.Dict.Core/proj/Ngan.Dict.Core/Ngan.Dict.Core.csproj";
 	const str OutRelPath = "Ngan.Dict/Ngan.Dict.Core/proj/Ngan.Dict.Core/Tsinswreng.SrcGen/Ngan.Dict.Gen.g.cs";
-	// 標記接口：實現 IAppSerializable 者註冊 JsonSerializable；
-	// 實現 IRawValueSerializable 者註冊自訂 JsonConverter（強類型值類型扁平化）。
+	// 標記接口：
+	// - 實現 IAppSerializable 者登記 JsonSerializable（業務型別的元資料）；
+	// - 實現 IAppIdU128 者掛 JsonConvtrU128Id（強類型 Id 寫成裸 Low64Base 字串）；
+	// - 實現 I_Value<T> 者掛 JsonConvtrBare（強類型值寫成裸底層值，不外墊 Value）。
 	const str MarkerIAppSerializable = "Ngan.Dict.Core.Infra.IF.IAppSerializable";
-	const str MarkerIRawValueSerializable = "Tsinswreng.CsCore.IRawValueSerializable";
+	const str MarkerIAppIdU128 = "Ngan.Dict.Core.Infra.IF.IAppIdU128";
+	const str IValueDefName = "Tsinswreng.CsCore.I_Value<T>";
 	const str Ns = "Ngan.Dict.Core.Infra";
 
 	// 手動額外類型：非本專案類型無法實現標記接口，須在此顯式列出（替代舊 sh 腳本中之「額外類型」塊）。
 	static readonly str[] ExtraJsonTypes = [
 		"global::Tsinswreng.CsTempus.UnixMs",
-		"global::Tsinswreng.CsErr.IWebAns<global::System.Object>",
-		"global::Tsinswreng.CsErr.IAppErrView",
-		"global::System.Collections.Generic.IList<global::Tsinswreng.CsErr.IAppErrView>",
-		"global::Tsinswreng.CsErr.AppErrView",
-		"global::System.Collections.Generic.IList<global::Tsinswreng.CsErr.AppErrView>",
+		"global::Tsinswreng.CsErr.Results.IWebAns<global::System.Object>",
+		"global::Tsinswreng.CsErr.ITypedErrView",
+		"global::System.Collections.Generic.IList<global::Tsinswreng.CsErr.ITypedErrView>",
+		"global::Tsinswreng.CsErr.TypedErrView",
+		"global::System.Collections.Generic.IList<global::Tsinswreng.CsErr.TypedErrView>",
 		"global::System.Collections.Generic.IList<global::System.SByte>",
 		"global::System.Collections.Generic.IList<global::System.Byte>",
 		"global::System.Collections.Generic.IList<global::System.Int16>",
@@ -60,14 +63,17 @@ internal static partial class GenAppJsonCtx{
 
 		// step 2: 收集標記接口之全部實現者（含接口自身、排除標記接口本身）
 		var AppTypes = FindImplementers(Compilation, MarkerIAppSerializable).ToArray();
-		var RawTypes = FindImplementers(Compilation, MarkerIRawValueSerializable).ToArray();
+		var IdTypes = FindImplementers(Compilation, MarkerIAppIdU128).ToArray();
+		var ValueTypes = FindValueTypes(Compilation)
+			.Where(T => !IdTypes.Contains(T, SymbolEqualityComparer.Default))
+			.ToArray();
 
 		// step 3: 組裝單文件並覆寫輸出
 		// 統一換行為 LF：模板（raw string）換行隨源碼文件、Join 產出為 \n，避免生成文件混用。
-		var Code = BuildCode(AppTypes, RawTypes).Replace("\r\n", "\n");
+		var Code = BuildCode(AppTypes, IdTypes, ValueTypes).Replace("\r\n", "\n");
 		var OutPath = Root/OutRelPath;
 		Write(OutPath, Code);
-		Echo($"GenAppJsonCtx: {AppTypes.Length} app types, {RawTypes.Length} raw types -> {OutPath}");
+		Echo($"GenAppJsonCtx: {AppTypes.Length} app types, {IdTypes.Length} id types, {ValueTypes.Length} value types -> {OutPath}");
 	}
 
 	/// 依全限定名找標記接口，收集編譯單元源代碼中所有實現/繼承它的命名類型。
@@ -79,6 +85,28 @@ internal static partial class GenAppJsonCtx{
 			.GetAllNamedTypes()
 			.Where(T => !SymbolEqualityComparer.Default.Equals(T, Marker) && IsSubType(T, Marker))
 			.OrderBy(T => T.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), StringComparer.Ordinal);
+	}
+
+	/// 收集所有實現 `I_Value<T>` 的來源型別：這些是「只包一個底層值」的型別，
+	/// 線上表示就是那個裸值，故要掛 JsonConvtrBare 而不是照預設寫成 `{"Value":…}`。
+	static IEnumerable<INamedTypeSymbol> FindValueTypes(Compilation Compilation){
+		return Compilation.SourceModule.GlobalNamespace
+			.GetAllNamedTypes()
+			.Where(T => T.TypeKind is TypeKind.Struct or TypeKind.Class && !T.IsAbstract)
+			.Where(T => TryGetValuePrim(T, out _))
+			.OrderBy(T => T.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), StringComparer.Ordinal);
+	}
+
+	/// 取出 `I_Value<T>` 的 T（被包住的那個裸值型別）；沒有實現就回 false。
+	static bool TryGetValuePrim(INamedTypeSymbol T, out ITypeSymbol Prim){
+		foreach(var I in T.AllInterfaces){
+			if(I.OriginalDefinition.ToDisplayString() == IValueDefName && I.TypeArguments.Length == 1){
+				Prim = I.TypeArguments[0];
+				return true;
+			}
+		}
+		Prim = null!;
+		return false;
 	}
 
 	/// 判斷 Candidate 是否為 Marker 之子類型：實現 Marker 接口或繼承 Marker 基類。
@@ -128,10 +156,18 @@ internal static partial class GenAppJsonCtx{
 	/// 組裝單文件內容：AppJsonCtx 三個 partial 聲明。
 	/// 所有 [JsonSerializable] 集中在單一聲明——STJ 源生成器不支持分散於多個 partial 聲明。
 	/// 模板用 raw string literal，避免對生成代碼逐行轉義。
-	static str BuildCode(IReadOnlyList<INamedTypeSymbol> AppTypes, IReadOnlyList<INamedTypeSymbol> RawTypes) {
+	static str BuildCode(
+		IReadOnlyList<INamedTypeSymbol> AppTypes
+		,IReadOnlyList<INamedTypeSymbol> IdTypes
+		,IReadOnlyList<INamedTypeSymbol> ValueTypes
+	) {
 		var JsonLines = string.Join('\n', AppTypes.Select(T => JsonSerializablePair(FullName(T))));
 		var ExtraLines = string.Join('\n', ExtraJsonTypes.Select(T => $"[JsonSerializable(typeof({T}))]"));
-		var ConverterLines = string.Join('\n', RawTypes.Select(T => $"\tnew global::Ngan.Dict.Core.Tools.JsonConvtr<{FullName(T)}>(),"));
+		var IdConverterLines = string.Join('\n', IdTypes.Select(T => $"\t\tnew global::Tsinswreng.CsEntity.JsonConvtrU128Id<{FullName(T)}>(),"));
+		var ValueConverterLines = string.Join('\n', ValueTypes.Select(T => {
+			TryGetValuePrim(T, out var Prim);
+			return $"\t\tnew global::Tsinswreng.CsEntity.JsonConvtrBare<{FullName(T)}, {Prim.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)}>(),";
+		}));
 
 		return $$"""
 		// <auto-generated/>
@@ -154,11 +190,16 @@ internal static partial class GenAppJsonCtx{
 		)]
 		public partial class AppJsonCtx { }
 
-		// ===== AppJsonCtx: JsonConverters（強類型值類型之轉換器）=====
+		// ===== AppJsonCtx: JsonConverters（強類型 Id 與強類型值的扁平化）=====
 		public partial class AppJsonCtx : JsonSerializerContext {
 			public static IList<JsonConverter> JsonConverters = [
-			new global::Ngan.Dict.Core.Tools.JsonConvtr_Tempus(),
-		{{ConverterLines}}
+			// 時間戳：UnixMs 線上式就是毫秒整數，不外墊 Value 物件。
+			new global::Tsinswreng.CsEntity.JsonConvtrValue<global::Tsinswreng.CsTempus.UnixMs, global::System.Int64>(
+				x => x.Value
+				,v => new global::Tsinswreng.CsTempus.UnixMs(v)
+			),
+		{{IdConverterLines}}
+		{{ValueConverterLines}}
 			];
 		}
 		""";

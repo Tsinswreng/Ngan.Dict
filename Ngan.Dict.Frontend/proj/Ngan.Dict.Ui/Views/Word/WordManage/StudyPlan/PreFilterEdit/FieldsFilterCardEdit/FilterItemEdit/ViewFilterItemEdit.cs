@@ -9,8 +9,6 @@ using Ngan.Dict.Ui.Icons;
 using Ngan.Dict.Ui.Infra;
 using Ngan.Dict.Ui.Tools;
 using Tsinswreng.Avln.Grid;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 
 using Ctx = VmFilterItemEdit;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;

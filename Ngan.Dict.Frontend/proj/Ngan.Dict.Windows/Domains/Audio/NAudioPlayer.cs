@@ -37,7 +37,7 @@ public partial class NAudioPlayer : IAudioPlayer {
 			return null;
 		}catch(OperationCanceledException) when(Ct.IsCancellationRequested){
 			throw;
-		}catch(Exception ex) when(ex is not Tsinswreng.CsErr.AppErr){
+		}catch(Exception ex) when(ex is not Tsinswreng.CsErr.TypedErr){
 			throw ToolAudioErr.MkAudioPlayFailedErr(ex, $"Type={type}", "Platform=Windows");
 		}
 	}
@@ -84,7 +84,7 @@ public partial class NAudioPlayer : IAudioPlayer {
 		try{
 			await PlayByWaveOut(() => new MediaFoundationReader(TempFilePath), Ct);
 			return true;
-		}catch(Exception Ex) when(Ex is not OperationCanceledException && Ex is not Tsinswreng.CsErr.AppErr){
+		}catch(Exception Ex) when(Ex is not OperationCanceledException && Ex is not Tsinswreng.CsErr.TypedErr){
 			return false;
 		}
 	}
@@ -131,12 +131,12 @@ public partial class NAudioPlayer : IAudioPlayer {
 			$"open \"{TempFilePath}\" type MPEGVideo alias {Alias}"
 		};
 
-		AppErr? lastErr = null;
+		TypedErr? lastErr = null;
 		foreach(var command in openCommands){
 			try{
 				SendMciCommand(command);
 				return NIL;
-			}catch(AppErr Ex){
+			}catch(TypedErr Ex){
 				lastErr = Ex;
 			}
 		}

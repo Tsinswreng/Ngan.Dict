@@ -1,13 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<ItemGroup>
-		<ProjectReference Include="../../../../Tsinswreng.CsSql/proj/Tsinswreng.CsSql/Tsinswreng.CsSql.csproj" />
-		<ProjectReference Include="../../../../Tsinswreng.CsSql/proj/Tsinswreng.CsSql.Sqlite/Tsinswreng.CsSql.Sqlite.csproj" />
-		<ProjectReference Include="../../../../Tsinswreng.CsYamlMd/proj/Tsinswreng.CsYamlMd/Tsinswreng.CsYamlMd.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="../../../../Tsinswreng.CsRefl/proj/Tsinswreng.CsRefl/Tsinswreng.CsRefl.csproj" />
+		<!-- 本地庫：路徑經 TswgLibsDir（見 Ngan.Dict/TswgLibs.props）。
+			 CsSql 只給核心拼接器；具體方言（sqlite）另引，換數據庫時只動這一行。 -->
+		<ProjectReference Include="$(TswgLibsDir)CsSql/proj/Tsinswreng.CsSql/Tsinswreng.CsSql.csproj" />
+		<ProjectReference Include="$(TswgLibsDir)CsSql/proj/Tsinswreng.CsSql.Sqlite/Tsinswreng.CsSql.Sqlite.csproj" />
+		<ProjectReference Include="$(TswgLibsDir)CsRefl/proj/Tsinswreng.CsRefl/Tsinswreng.CsRefl.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -15,10 +13,10 @@
 	</ItemGroup>
 <!--  -->
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.1" />
-		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.8" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.8" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.8" />
+		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.8" />
 		<!-- <PackageReference Include="Serilog.AspNetCore" Version="8.0.3" /> -->
 		<PackageReference Include="TestableIO.System.IO.Abstractions.Wrappers" Version="22.1.1" />
 

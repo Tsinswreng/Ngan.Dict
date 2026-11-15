@@ -14,27 +14,7 @@ using System.Diagnostics.CodeAnalysis;
 public partial struct PoStatus(TPrimitive V)
 	:IEquatable<PoStatus>
 	,I_Value<TPrimitive>
-	,IRawValueSerializable
 {
-	object? I_ToSerialized.ToSerialized(object? Obj) {
-		if(Obj is TStruct s){
-			return s.Value;
-		}
-		return Obj;
-	}
-
-	object? I_ToDeSerialized.ToDeSerialized(object? Obj) {
-		// if(Obj is TPrimitive p){
-		// 	return new TStruct(p);
-		// }
-		if(Obj is i32 || Obj is i64 || Obj is u32 || Obj is u64){
-			return new TStruct(
-				Convert.ToInt32(Obj)
-			);
-		}
-		return Obj;
-	}
-
 	public static PoStatus Parse(TPrimitive v){
 		return new PoStatus(v);
 	}

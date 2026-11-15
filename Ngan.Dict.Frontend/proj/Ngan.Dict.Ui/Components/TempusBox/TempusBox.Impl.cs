@@ -9,7 +9,6 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
 using Ngan.Dict.Core.Infra;
-using Tsinswreng.AvlnTools.Dsl;
 using Ngan.Dict.Ui.Icons;
 
 public partial class TempusBox: ContentControl{

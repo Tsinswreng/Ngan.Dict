@@ -6,8 +6,8 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 
 // ===== AppJsonCtx: JsonSerializable 註冊（集中於此 partial 聲明）=====
-[JsonSerializable(typeof(global::Ngan.Dict.Core.Infra.IF.IIdUInt128))]
-[JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Ngan.Dict.Core.Infra.IF.IIdUInt128>))]
+[JsonSerializable(typeof(global::Ngan.Dict.Core.Infra.IF.IAppIdU128))]
+[JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Ngan.Dict.Core.Infra.IF.IAppIdU128>))]
 [JsonSerializable(typeof(global::Ngan.Dict.Core.Model.Po.Kv.IdWordProp))]
 [JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Ngan.Dict.Core.Model.Po.Kv.IdWordProp>))]
 [JsonSerializable(typeof(global::Ngan.Dict.Core.Model.Po.Learn_.IdWordLearn))]
@@ -187,11 +187,11 @@ using System.Text.Json.Serialization;
 [JsonSerializable(typeof(global::Ngan.Dict.Core.Word.Parser.WordListTxtMetadata))]
 [JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Ngan.Dict.Core.Word.Parser.WordListTxtMetadata>))]
 [JsonSerializable(typeof(global::Tsinswreng.CsTempus.UnixMs))]
-[JsonSerializable(typeof(global::Tsinswreng.CsErr.IWebAns<global::System.Object>))]
-[JsonSerializable(typeof(global::Tsinswreng.CsErr.IAppErrView))]
-[JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Tsinswreng.CsErr.IAppErrView>))]
-[JsonSerializable(typeof(global::Tsinswreng.CsErr.AppErrView))]
-[JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Tsinswreng.CsErr.AppErrView>))]
+[JsonSerializable(typeof(global::Tsinswreng.CsErr.Results.IWebAns<global::System.Object>))]
+[JsonSerializable(typeof(global::Tsinswreng.CsErr.ITypedErrView))]
+[JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Tsinswreng.CsErr.ITypedErrView>))]
+[JsonSerializable(typeof(global::Tsinswreng.CsErr.TypedErrView))]
+[JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Tsinswreng.CsErr.TypedErrView>))]
 [JsonSerializable(typeof(global::System.Collections.Generic.IList<global::System.SByte>))]
 [JsonSerializable(typeof(global::System.Collections.Generic.IList<global::System.Byte>))]
 [JsonSerializable(typeof(global::System.Collections.Generic.IList<global::System.Int16>))]
@@ -215,31 +215,34 @@ public partial class AppJsonCtx { }
 )]
 public partial class AppJsonCtx { }
 
-// ===== AppJsonCtx: JsonConverters（強類型值類型之轉換器）=====
+// ===== AppJsonCtx: JsonConverters（強類型 Id 與強類型值的扁平化）=====
 public partial class AppJsonCtx : JsonSerializerContext {
 	public static IList<JsonConverter> JsonConverters = [
-	new global::Ngan.Dict.Core.Tools.JsonConvtr_Tempus(),
-	new global::Ngan.Dict.Core.Tools.JsonConvtr<global::Ngan.Dict.Core.Model.Po.Kv.IdWordProp>(),
-	new global::Ngan.Dict.Core.Tools.JsonConvtr<global::Ngan.Dict.Core.Model.Po.Learn_.IdWordLearn>(),
-	new global::Ngan.Dict.Core.Tools.JsonConvtr<global::Ngan.Dict.Core.Model.Po.Role.IdRole>(),
-	new global::Ngan.Dict.Core.Tools.JsonConvtr<global::Ngan.Dict.Core.Model.Sys.Po.Password.IdPassword>(),
-	new global::Ngan.Dict.Core.Tools.JsonConvtr<global::Ngan.Dict.Core.Model.Sys.Po.RefreshToken.IdRefreshToken>(),
-	new global::Ngan.Dict.Core.Tools.JsonConvtr<global::Ngan.Dict.Core.Model.Sys.Po.RolePermission.IdRolePermission>(),
-	new global::Ngan.Dict.Core.Tools.JsonConvtr<global::Ngan.Dict.Core.Models.Po.PoStatus>(),
-	new global::Ngan.Dict.Core.Tools.JsonConvtr<global::Ngan.Dict.Core.Models.Sys.Po.Permission.IdPermission>(),
-	new global::Ngan.Dict.Core.Tools.JsonConvtr<global::Ngan.Dict.Core.Models.Sys.Po.UserRole.IdUserRole>(),
-	new global::Ngan.Dict.Core.Tools.JsonConvtr<global::Ngan.Dict.Core.Shared.Dictionary.Models.Po.NormLang.IdNormLang>(),
-	new global::Ngan.Dict.Core.Tools.JsonConvtr<global::Ngan.Dict.Core.Shared.Kv.Models.IdKv>(),
-	new global::Ngan.Dict.Core.Tools.JsonConvtr<global::Ngan.Dict.Core.Shared.RecentUse.Models.Po.RecentUse.IdRecentUse>(),
-	new global::Ngan.Dict.Core.Tools.JsonConvtr<global::Ngan.Dict.Core.Shared.StudyPlan.Models.Po.PreFilter.IdPreFilter>(),
-	new global::Ngan.Dict.Core.Tools.JsonConvtr<global::Ngan.Dict.Core.Shared.StudyPlan.Models.Po.StudyPlan.IdStudyPlan>(),
-	new global::Ngan.Dict.Core.Tools.JsonConvtr<global::Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightArg.IdWeightArg>(),
-	new global::Ngan.Dict.Core.Tools.JsonConvtr<global::Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightCalculator.IdWeightCalculator>(),
-	new global::Ngan.Dict.Core.Tools.JsonConvtr<global::Ngan.Dict.Core.Shared.User.Models.Po.Device.IdClient>(),
-	new global::Ngan.Dict.Core.Tools.JsonConvtr<global::Ngan.Dict.Core.Shared.User.Models.Po.IdDel>(),
-	new global::Ngan.Dict.Core.Tools.JsonConvtr<global::Ngan.Dict.Core.Shared.User.Models.Po.User.IdUser>(),
-	new global::Ngan.Dict.Core.Tools.JsonConvtr<global::Ngan.Dict.Core.Shared.Word.Models.Po.NormLangToUserLang.IdNormLangToUserLang>(),
-	new global::Ngan.Dict.Core.Tools.JsonConvtr<global::Ngan.Dict.Core.Shared.Word.Models.Po.UserLang.IdUserLang>(),
-	new global::Ngan.Dict.Core.Tools.JsonConvtr<global::Ngan.Dict.Core.Shared.Word.Models.Po.Word.IdWord>(),
+	// 時間戳：UnixMs 線上式就是毫秒整數，不外墊 Value 物件。
+	new global::Tsinswreng.CsEntity.JsonConvtrValue<global::Tsinswreng.CsTempus.UnixMs, global::System.Int64>(
+		x => x.Value
+		,v => new global::Tsinswreng.CsTempus.UnixMs(v)
+	),
+		new global::Tsinswreng.CsEntity.JsonConvtrU128Id<global::Ngan.Dict.Core.Model.Po.Kv.IdWordProp>(),
+		new global::Tsinswreng.CsEntity.JsonConvtrU128Id<global::Ngan.Dict.Core.Model.Po.Learn_.IdWordLearn>(),
+		new global::Tsinswreng.CsEntity.JsonConvtrU128Id<global::Ngan.Dict.Core.Model.Po.Role.IdRole>(),
+		new global::Tsinswreng.CsEntity.JsonConvtrU128Id<global::Ngan.Dict.Core.Model.Sys.Po.Password.IdPassword>(),
+		new global::Tsinswreng.CsEntity.JsonConvtrU128Id<global::Ngan.Dict.Core.Model.Sys.Po.RefreshToken.IdRefreshToken>(),
+		new global::Tsinswreng.CsEntity.JsonConvtrU128Id<global::Ngan.Dict.Core.Model.Sys.Po.RolePermission.IdRolePermission>(),
+		new global::Tsinswreng.CsEntity.JsonConvtrU128Id<global::Ngan.Dict.Core.Models.Sys.Po.Permission.IdPermission>(),
+		new global::Tsinswreng.CsEntity.JsonConvtrU128Id<global::Ngan.Dict.Core.Models.Sys.Po.UserRole.IdUserRole>(),
+		new global::Tsinswreng.CsEntity.JsonConvtrU128Id<global::Ngan.Dict.Core.Shared.Dictionary.Models.Po.NormLang.IdNormLang>(),
+		new global::Tsinswreng.CsEntity.JsonConvtrU128Id<global::Ngan.Dict.Core.Shared.Kv.Models.IdKv>(),
+		new global::Tsinswreng.CsEntity.JsonConvtrU128Id<global::Ngan.Dict.Core.Shared.RecentUse.Models.Po.RecentUse.IdRecentUse>(),
+		new global::Tsinswreng.CsEntity.JsonConvtrU128Id<global::Ngan.Dict.Core.Shared.StudyPlan.Models.Po.PreFilter.IdPreFilter>(),
+		new global::Tsinswreng.CsEntity.JsonConvtrU128Id<global::Ngan.Dict.Core.Shared.StudyPlan.Models.Po.StudyPlan.IdStudyPlan>(),
+		new global::Tsinswreng.CsEntity.JsonConvtrU128Id<global::Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightArg.IdWeightArg>(),
+		new global::Tsinswreng.CsEntity.JsonConvtrU128Id<global::Ngan.Dict.Core.Shared.StudyPlan.Models.Po.WeightCalculator.IdWeightCalculator>(),
+		new global::Tsinswreng.CsEntity.JsonConvtrU128Id<global::Ngan.Dict.Core.Shared.User.Models.Po.Device.IdClient>(),
+		new global::Tsinswreng.CsEntity.JsonConvtrU128Id<global::Ngan.Dict.Core.Shared.User.Models.Po.User.IdUser>(),
+		new global::Tsinswreng.CsEntity.JsonConvtrU128Id<global::Ngan.Dict.Core.Shared.Word.Models.Po.NormLangToUserLang.IdNormLangToUserLang>(),
+		new global::Tsinswreng.CsEntity.JsonConvtrU128Id<global::Ngan.Dict.Core.Shared.Word.Models.Po.UserLang.IdUserLang>(),
+		new global::Tsinswreng.CsEntity.JsonConvtrU128Id<global::Ngan.Dict.Core.Shared.Word.Models.Po.Word.IdWord>(),
+		new global::Tsinswreng.CsEntity.JsonConvtrBare<global::Ngan.Dict.Core.Models.Po.PoStatus, int>(),
 	];
 }

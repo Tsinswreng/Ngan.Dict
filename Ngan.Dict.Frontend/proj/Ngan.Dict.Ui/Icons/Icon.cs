@@ -3,7 +3,6 @@ namespace Ngan.Dict.Ui.Icons;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Ngan.Dict.Ui.Tools;
-using Tsinswreng.AvlnTools.Dsl;
 using SPath = Avalonia.Controls.Shapes.Path;
 public class Icon:SPath{
 	//AI曰SVG 的原生坐标系 Y 轴向下，而 Avalonia 的 Geometry 坐标系 Y 轴向上

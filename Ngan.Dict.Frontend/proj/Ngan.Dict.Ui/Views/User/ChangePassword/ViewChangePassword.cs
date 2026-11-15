@@ -6,8 +6,6 @@ using Ngan.Dict.Ui;
 using Ngan.Dict.Ui.Infra;
 using Ngan.Dict.Ui.Infra.Ctrls;
 using Tsinswreng.Avln.Grid;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 using Tsinswreng.CsI18n;
 using Ctx = VmChangePassword;
 public partial class ViewChangePassword

@@ -11,7 +11,7 @@ using Tsinswreng.CsTools;
 using System.Net.Http.Headers;
 using System.Text;
 using Ngan.Dict.Core.Tools;
-using Tsinswreng.CsYamlMd;
+using Ngan.Dict.Core.Infra.YamlMd;
 using Microsoft.Extensions.Logging;
 using Ngan.Dict.Core.Infra;
 using Ngan.Dict.Core.Shared.Dictionary.Models.Po.NormLang;
@@ -136,7 +136,7 @@ public class SvcDictionary:ISvcDictionary{
 			return Prompt!;
 		}
 		var Dflt = DfltPrompt.Prompt;
-		Cfg.Set(KeysClientCfg.LlmDictionary.Prompt, Dflt);
+		Cfg.SetNoSave(KeysClientCfg.LlmDictionary.Prompt, Dflt);
 		await Cfg.Save(Ct);
 		return Dflt;
 	}
@@ -145,7 +145,7 @@ public class SvcDictionary:ISvcDictionary{
 	public async Task<str> SetLlmDictSysPrompt(IDbUserCtx Ctx, str Prompt, CT Ct){
 		_ = Ctx;
 		var Normalized = string.IsNullOrWhiteSpace(Prompt) ? DfltPrompt.Prompt : Prompt;
-		Cfg.Set(KeysClientCfg.LlmDictionary.Prompt, Normalized);
+		Cfg.SetNoSave(KeysClientCfg.LlmDictionary.Prompt, Normalized);
 		await Cfg.Save(Ct);
 		return Normalized;
 	}
@@ -491,7 +491,7 @@ $"""
 			foreach(var kv in extraDict){
 				ReqBody[kv.Key] = kv.Value;
 			}
-		}catch(AppErr){
+		}catch(TypedErr){
 			throw;
 		}catch(Exception ex){
 			throw KeysErr.Common.ArgErr.ToErr()

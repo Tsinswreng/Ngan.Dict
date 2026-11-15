@@ -102,7 +102,7 @@ public class SvcUserLang : ISvcUserLang {
 			});
 			return NIL;
 		}
-		catch (AppErr){
+		catch (TypedErr){
 			throw;
 		}
 		catch (Exception ex) {

@@ -36,7 +36,8 @@ public sealed partial class Application: AvaloniaAndroidApplication<Ngan.Dict.Ui
 	partial void InitServices();
 
 	/// 按配置載入 Android 語言資源。
-	partial void InitI18n(BaseDirMgr BaseDir, AppCfg DualSrcCfg);
+	/// 本輪不載譯文（只落鍵），保留接縫以便日後接語言包。
+	partial void InitI18n(BaseDirMgr BaseDir);
 
 	/// 將 APK Assets 中的文件複製到應用外部文件目錄。
 	private static partial bool CopyAssetToDirectory(str AssetFileName, str TargetDir);

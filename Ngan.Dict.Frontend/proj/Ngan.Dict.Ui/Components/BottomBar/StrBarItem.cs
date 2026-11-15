@@ -1,11 +1,9 @@
 namespace Ngan.Dict.Ui.Views.BottomBar;
 
+using Ngan.Dict.Ui.Components.SwipeLongPress;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Tsinswreng.Avln.Grid;
-using Tsinswreng.AvlnTools.Controls;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 
 
 public partial class StrBarItem{

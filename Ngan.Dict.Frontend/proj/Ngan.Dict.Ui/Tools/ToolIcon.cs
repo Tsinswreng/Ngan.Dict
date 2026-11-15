@@ -2,8 +2,6 @@ namespace Ngan.Dict.Ui.Tools;
 
 using Avalonia.Controls;
 using Tsinswreng.Avln.Grid;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 
 public class ToolIcon{
 	public static Panel IconWithTitle(

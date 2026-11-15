@@ -13,8 +13,6 @@ using Ngan.Dict.Ui.Icons;
 using Ngan.Dict.Ui.Infra;
 using Ngan.Dict.Ui.Infra.Ctrls;
 using Ngan.Dict.Ui.Tools;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 using Tsinswreng.Avln.Dsl;
 using Tsinswreng.Avln.Grid;
 using Tsinswreng.CsTempus;

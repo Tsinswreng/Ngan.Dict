@@ -18,8 +18,6 @@ using Ngan.Dict.Ui.Infra.Ctrls;
 using Ngan.Dict.Ui.Tools;
 using Ngan.Dict.Ui.Views.Word.WordManage.UserLang.UserLangEdit;
 using Tsinswreng.Avln.Grid;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 using Tsinswreng.CsI18n;
 using Ctx = VmUserLangPage;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;

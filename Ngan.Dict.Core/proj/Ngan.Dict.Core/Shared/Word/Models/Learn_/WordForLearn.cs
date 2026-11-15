@@ -109,7 +109,7 @@ public partial class WordForLearn
 
 	#region IPoBase
 	[Impl(typeof(IPoBase))]
-	public IdDel DelAt{
+	public UnixMs DelAt{
 		get=>PoWord.DelAt;
 		set{
 			PoWord.DelAt = value;

@@ -153,7 +153,7 @@ public partial class VmNormLangPage: ViewModelBase, IMk<Ctx>{
 		if(AnyNull(SvcNormLang, UserCtxMgr) || Pos.Count == 0){
 			return Ans;
 		}
-		var UiLang = KeysClientCfg.Lang.GetFrom(AppCfg.Inst) ?? "en";
+		var UiLang = AppCfg.Inst.Get(KeysClientCfg.Lang) ?? "en";
 		var TargetLang = new NormLang{
 			Type = ELangIdentType.Bcp47,
 			Code = UiLang,

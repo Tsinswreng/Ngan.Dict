@@ -119,7 +119,7 @@ public partial class VmWordSync: ViewModelBase{
 			var bytes = textWithBlob.ToByteArr();
 			ToolFile.EnsureFile(PathExport);
 			await File.WriteAllBytesAsync(PathExport, bytes, Ct);
-			Cfg?.Set(KeysClientCfg.Word.WordsPackExportPath, PathExport);
+			Cfg?.SetNoSave(KeysClientCfg.Word.WordsPackExportPath, PathExport);
 			Cfg?.Save(default);
 		});
 		return NIL;
@@ -133,7 +133,7 @@ public partial class VmWordSync: ViewModelBase{
 			var bytes = await File.ReadAllBytesAsync(PathImport, Ct);
 			var textWithBlob = NgaqTextWithBlob.Parse(bytes);
 			await SvcWord.SyncFromTextWithBlob(UserCtxMgr.GetUserCtx(), textWithBlob, Ct);
-			Cfg?.Set(KeysClientCfg.Word.WordsPackImportPath, PathImport);
+			Cfg?.SetNoSave(KeysClientCfg.Word.WordsPackImportPath, PathImport);
 			Cfg?.Save(default);
 		});
 		return NIL;

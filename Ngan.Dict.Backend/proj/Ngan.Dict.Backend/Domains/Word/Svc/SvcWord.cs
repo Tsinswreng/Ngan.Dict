@@ -470,7 +470,7 @@ public partial class SvcWord(
 	/// 若有新改ʹ(詞頭,語言) 即把源詞合併入目標詞後 返舊詞ʹid
 	/// 傳入ʹIdWordˋ在庫中尋不見旹返null
 
-	/// <exception cref="FatalLogicErr"></exception>
+	/// <exception cref="InvalidOperationException">既有實體缺失，屬於不變式被破壞</exception>
 	[Obsolete("會直ᵈ改 標識、多端同步旹恐致謬")]
 	public async Task<Func<
 		IUserCtx
@@ -502,7 +502,7 @@ public partial class SvcWord(
 				return WordId;
 			}
 			var WordOfHeadLang = await GetJnWordByIdEtCheckOwner(User, IdOfWordWithHeadLang.Value, Ct)
-			?? throw new FatalLogicErr("Existing is null");
+			?? throw new InvalidOperationException("Existing is null");
 			var RawWordId = DaoWord.IdUpperToRaw<PoWord>(IdOfWordWithHeadLang);
 			//await UpdUpd(TargetId.Value, Ct);
 			foreach(var prop in WordOfId.Props){
@@ -523,7 +523,7 @@ public partial class SvcWord(
 	/// 軟刪舊詞 建新詞、保證 原有ʹ Id->(Head, Lang)猶對應
 	/// 傳入ʹIdWordˋ在庫中尋不見旹返null
 
-	/// <exception cref="FatalLogicErr"></exception>
+	/// <exception cref="InvalidOperationException">既有實體缺失，屬於不變式被破壞</exception>
 	public async Task<Func<
 		IUserCtx
 		,IdWord
@@ -550,7 +550,7 @@ public partial class SvcWord(
 				IdToRtn = clonedWordOfId.Id;
 			}else{
 				var WordOfHeadLang = await GetJnWordByIdEtCheckOwner(User, IdOfWordWithHeadLang.Value, Ct)
-				?? throw new FatalLogicErr("Existing is null");
+				?? throw new InvalidOperationException("Existing is null");
 				clonedWordOfId.SetIdEtEnsureFKey(WordOfHeadLang.Id);
 				IdToRtn = IdOfWordWithHeadLang.Value;
 			}
@@ -667,9 +667,9 @@ FnUpdJnWord() 是一個 “以輸入為準的對賬式更新”：
 					var amended = await UpdWordHeadLang(
 						User, JnWord.Id, JnWord.Head, JnWord.Lang, Ct
 					)
-					?? throw new FatalLogicErr("Existing is null");
+					?? throw new InvalidOperationException("Existing is null");
 					// if(amended != OldWord.Id){
-					// 	throw new FatalLogicErr("amended != OldWord.Id");
+					// 	throw new InvalidOperationException("amended != OldWord.Id");
 					// }
 					JnWord.SetIdEtEnsureFKey(amended);
 					//return NIL;// 不允 同時改標識(即(詞頭,語言)) 與他ʹ訊

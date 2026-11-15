@@ -17,7 +17,7 @@ public partial class SvcParseWordList
 		,Encoding Encoding
 		,CT Ct = default
 	){
-		//I_Answer<IEnumerable<Bo_Word>> ans = new Answer<IEnumerable<Bo_Word>>();
+		//I_Answer<IEnumerable<Bo_Word>> ans = new AnswerBox<IEnumerable<Bo_Word>>();
 		var Parser = new WordListParser(Iter);
 		Parser.Encoding = Encoding;
 		var DateBlocks = Parser.Parse();

@@ -11,8 +11,6 @@ using Ngan.Dict.Ui.Icons;
 using Ngan.Dict.Ui.Infra;
 using Ngan.Dict.Ui.Infra.Ctrls;
 using Tsinswreng.Avln.Grid;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 
 using Ctx = VmPreFilterPayloadJsonEdit;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;

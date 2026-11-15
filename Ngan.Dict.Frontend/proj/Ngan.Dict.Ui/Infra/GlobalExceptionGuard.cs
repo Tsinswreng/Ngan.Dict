@@ -72,13 +72,13 @@ public static class GlobalExceptionGuard{
 
 	/// 可恢復異常提示前綴。
 	static str I18nPrefixRecoverable(){
-		return AppI18n.Inst.Get(KeysErr.Common.UnknownErr.ToI18nKey())
+		return AppI18n.Inst.Get(KeysErr.Common.UnknownErr)
 			+ "\nThe program intercepted this exception and will try to continue running.";
 	}
 
 	/// 不可恢復異常提示前綴。
 	static str I18nPrefixFatal(){
-		return AppI18n.Inst.Get(KeysErr.Common.UnknownErr.ToI18nKey())
+		return AppI18n.Inst.Get(KeysErr.Common.UnknownErr)
 			+ "\nA fatal exception was intercepted and the process may still terminate.";
 	}
 }

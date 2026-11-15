@@ -15,8 +15,6 @@ using Ngan.Dict.Ui.Icons;
 using Ngan.Dict.Ui.Infra;
 using Ngan.Dict.Ui.Views.Word.WordManage.StudyPlan.PreFilterEdit.PreFilterVisualEdit;
 using Tsinswreng.Avln.Grid;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 
 using Ctx = PreFilterVisualEdit.VmPreFilterVisualEdit;
 using K = Infra.I18n.KeysUiI18nCommon;

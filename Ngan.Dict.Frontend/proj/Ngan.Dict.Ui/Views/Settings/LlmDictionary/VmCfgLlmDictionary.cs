@@ -98,10 +98,10 @@ public partial class VmCfgLlmDictionary: ViewModelBase, IMk<Ctx>{
 		}
 		try{
 			await Task.Run(async ()=>{
-				Cfg.Set(KeysClientCfg.LlmDictionary.ApiUrl, ApiUrl.Trim());
-				Cfg.Set(KeysClientCfg.LlmDictionary.ApiKey, ApiKey.Trim());
-				Cfg.Set(KeysClientCfg.LlmDictionary.Model, Model.Trim());
-				Cfg.Set(KeysClientCfg.LlmDictionary.ExtraBodyJson, ExtraBodyJson.Trim());
+				Cfg.SetNoSave(KeysClientCfg.LlmDictionary.ApiUrl, ApiUrl.Trim());
+				Cfg.SetNoSave(KeysClientCfg.LlmDictionary.ApiKey, ApiKey.Trim());
+				Cfg.SetNoSave(KeysClientCfg.LlmDictionary.Model, Model.Trim());
+				Cfg.SetNoSave(KeysClientCfg.LlmDictionary.ExtraBodyJson, ExtraBodyJson.Trim());
 				await Cfg.Save(Ct);
 				if(!AnyNull(SvcDictionary, FrontendUserCtxMgr)){
 					var SavedPrompt = await SvcDictionary.SetLlmDictSysPrompt(
@@ -113,7 +113,7 @@ public partial class VmCfgLlmDictionary: ViewModelBase, IMk<Ctx>{
 						Prompt = SavedPrompt;
 					});
 				}else{
-					Cfg.Set(KeysClientCfg.LlmDictionary.Prompt, Prompt);
+					Cfg.SetNoSave(KeysClientCfg.LlmDictionary.Prompt, Prompt);
 					await Cfg.Save(Ct);
 				}
 			}, Ct);

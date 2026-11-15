@@ -4,8 +4,6 @@ using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Ngan.Dict.Ui.Infra;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 using Ctx = VmNormLangTag;
 
 /// 詞典源語言快捷標籤 View 的函數實現。

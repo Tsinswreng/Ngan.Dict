@@ -167,7 +167,7 @@ public partial class MgrLearn{
 			await HandleWeightResult(WeightResult, Ct);
 		}catch(OperationCanceledException){
 			throw;
-		}catch(AppErr appErr){
+		}catch(TypedErr appErr){
 			Err(appErr);
 		}catch(Exception e){
 			var appErr = KeysErr.Word.LoadWordCalcWeightFailed.ToErr();
@@ -202,7 +202,7 @@ public partial class MgrLearn{
 			await HandleWeightResult(WeightResult, Ct);
 		}catch(OperationCanceledException){
 			throw;
-		}catch(AppErr appErr){
+		}catch(TypedErr appErr){
 			Err(appErr);
 		}catch(Exception e){
 			var appErr = KeysErr.Word.WeightCalcRunFailed.ToErr();
@@ -227,7 +227,7 @@ public partial class MgrLearn{
 			return (WeightCalctr, WeightArg);
 		}catch(OperationCanceledException){
 			throw;
-		}catch(AppErr){
+		}catch(TypedErr){
 			throw;
 		}catch(Exception e){
 			throw KeysErr.Word.WeightCalcGetStudyPlanFailed.ToErr()
@@ -286,7 +286,7 @@ public partial class MgrLearn{
 			}
 		}catch(OperationCanceledException){
 			throw;
-		}catch(AppErr){
+		}catch(TypedErr){
 			throw;
 		}catch(Exception e){
 			throw KeysErr.Word.WeightCalcResultHandleFailed.ToErr()
@@ -303,7 +303,7 @@ public partial class MgrLearn{
 			await CalcWeight(Ct);
 		}catch(OperationCanceledException){
 			throw;
-		}catch(AppErr appErr){
+		}catch(TypedErr appErr){
 			Err(appErr);
 			return NIL;
 		}catch(Exception e){

@@ -1,5 +1,7 @@
 namespace Ngan.Dict.Windows.Domains.Hotkey;
 
+using Ngan.Dict.Core.Infra;
+using Tsinswreng.CsErr.Results;
 using System;
 using Avalonia;
 using Avalonia.Controls;
@@ -34,7 +36,7 @@ public class WinGlobalHotkeyRegistrar : I_RegisterGlobalHotKeys{
 
 	//TODO 叶 ˋ有蠹、AOT編譯後運行即卡住不動、頁面不出
 	public IAnswer<obj?> RegisterGlobalHotKeys(){
-		var R = new Answer<obj?>();
+		var R = new AnswerBox<obj?>();
 
 		try{
 			// 從配置讀取查詞熱鍵，避免在代碼中寫死。

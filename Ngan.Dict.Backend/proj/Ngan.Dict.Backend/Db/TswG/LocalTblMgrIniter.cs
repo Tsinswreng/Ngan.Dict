@@ -27,9 +27,9 @@ public partial class LocalTblMgrIniter{
 		);
 	}
 
-	public static IUpperTypeMapFnT<i64,IdDel> MapDelId(){
-		return UpperTypeMapFnT<i64, IdDel>.Mk(
-			raw=>new IdDel(raw)
+	public static IUpperTypeMapFnT<i64,UnixMs> MapDelId(){
+		return UpperTypeMapFnT<i64, UnixMs>.Mk(
+			raw=>new UnixMs(raw)
 			,tempus=>tempus.Value
 		);
 	}
@@ -86,7 +86,7 @@ public partial class LocalTblMgrIniter{
 		o.Tbl.SoftDelCol = new SoftDelol{
 			CodeColName = nameof(IPoBase.DelAt)
 			,FnDelete = (o)=>{
-				return new IdDel().Value;
+				return new UnixMs().Value;
 			},FnRestore = (o)=>{
 				return null;
 			},FnSqlIsDel = ()=>t.QtCol<IPoBase>(x=>x.DelAt)+"<>0"

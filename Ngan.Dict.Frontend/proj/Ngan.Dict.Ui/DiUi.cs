@@ -44,12 +44,20 @@ using Ngan.Dict.Ui.Views.Settings.LlmDictionary;
 using Ngan.Dict.Ui.Views.User.Profile;
 using Ngan.Dict.Ui.Views.Word.WordManage.StudyPlan.PreFilterEdit.PreFilterPayloadJsonEdit;
 
+using Tsinswreng.CsCore;
+using Tsinswreng.CsI18n;
+
 namespace Ngan.Dict.Ui;
 
+[Doc(@$"界面層與 i18n 的 DI 裝配。
+界面文案的門面在此註冊：本輪只有鍵、沒有譯文，故 {nameof(AppI18n)} 先掛一個空語言包。")]
 public static class DiUi{
 	public static IServiceCollection SetupUi(
 		this IServiceCollection z
 	){
+		// 界面文案門面：工廠註冊而非直接塞值，避免裝配期就求值（那時靜態初始化未必完成）。
+		z.AddSingleton<II18n>(_ => AppI18n.Inst);
+		z.AddSingleton<I18nSet>(_ => AppI18n.Set);
 		z.AddTransient<VmAddWord>();
 		z.AddTransient<VmLearnWords>();
 		z.AddTransient<VmLoginRegister>();

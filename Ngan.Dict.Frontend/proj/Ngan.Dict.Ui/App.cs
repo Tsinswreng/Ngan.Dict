@@ -18,8 +18,6 @@ using Ngan.Dict.Core.Infra.Log;
 using Ngan.Dict.Ui.Infra;
 using Ngan.Dict.Ui.ViewModels;
 using Ngan.Dict.Ui.Views;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 
 namespace Ngan.Dict.Ui;
 
@@ -79,7 +77,7 @@ public partial class App :Application
 		var Sty = MkrStyle.MkStyForAnyControl();
 		Styles.Add(MkrStyle.NoCornerRadius(Sty));
 		// 在 App 初始化时添加资源（如 App.axaml.cs 的构造函数）
-		App.Current?.Resources.Add(KeysRsrc.ControlContentThemeFontSize, UiCfg.Inst.BaseFontSize);
+		App.Current?.Resources.Add(UiCfg.KeyContentThemeFontSize, UiCfg.Inst.BaseFontSize);
 		_Style();
 		//只在windows下可用。在安卓中debug旹需手動註釋掉此。
 		//不能運行旹判斷平臺、緣無此符號則編譯不通

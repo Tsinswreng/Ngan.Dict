@@ -23,7 +23,7 @@ public partial class VmPoWordEdit{
 		if(str.IsNullOrWhiteSpace(Lang)){Err = I18n[K.LangIsRequired]; return false;}
 		Po.Head = Head.Trim(); Po.Lang = Lang.Trim();
 		try{Po.StoredAt = UnixMs.FromIso(StoredAtIso.Trim());}catch{Err = I18n[K.StoredAtMustBeIsoTime]; return false;}
-		if(str.IsNullOrWhiteSpace(DelAtUnixMs)){Po.DelAt = default;}else if(!i64.TryParse(DelAtUnixMs.Trim(), out var DelMs)){Err = I18n[K.DelAtMustBeUnixMilliseconds]; return false;}else{Po.DelAt = IdDel.FromUnixMs(DelMs);}
+		if(str.IsNullOrWhiteSpace(DelAtUnixMs)){Po.DelAt = default;}else if(!i64.TryParse(DelAtUnixMs.Trim(), out var DelMs)){Err = I18n[K.DelAtMustBeUnixMilliseconds]; return false;}else{Po.DelAt = new UnixMs(DelMs);}
 		try{Po.BizCreatedAt = UnixMs.FromIso(BizCreatedAtIso.Trim());}catch{Err = I18n[K.BizCreatedAtMustBeIsoTime]; return false;}
 		try{Po.BizUpdatedAt = UnixMs.FromIso(BizUpdatedAtIso.Trim());}catch{Err = I18n[K.BizUpdatedAtMustBeIsoTime]; return false;}
 		return true;

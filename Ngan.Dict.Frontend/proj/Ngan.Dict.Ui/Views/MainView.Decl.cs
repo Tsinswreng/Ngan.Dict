@@ -2,7 +2,6 @@ using Avalonia.Controls;
 using Microsoft.Extensions.Logging;
 using Ngan.Dict.Ui.Infra.I18n;
 using Tsinswreng.Avln.Grid;
-using Tsinswreng.AvlnTools.Tools;
 using Tsinswreng.CsCore;
 using Tsinswreng.CsI18n;
 

@@ -1,0 +1,16 @@
+<Project>
+	<!-- 本地庫根目錄（工作區根下的 TswgLib\）。
+		 TswgLib 改名或搬家時，只改下面這一行。
+
+		 為甚麼用 $([MSBuild]::NormalizeDirectory(...))：它把相對路徑展開成絕對路徑，
+		 於是無論 MSBuild 把這個 props 當作「所在目錄」還是「當前專案目錄」來解析，結果都一樣。
+		 本檔在 Ngan.Dict\ 根，故 ../TswgLib/ 即工作區根的 TswgLib\。 -->
+	<PropertyGroup>
+		<TswgLibsDir>$([MSBuild]::NormalizeDirectory('$(MSBuildThisFileDirectory)../TswgLib'))</TswgLibsDir>
+	</PropertyGroup>
+
+	<!-- 路徑寫錯時給一句人能看懂的錯，而不是讓 MSBuild 後面拋「找不到專案」。 -->
+	<Target Name="ChkTswgLibsDir" BeforeTargets="PrepareForBuild">
+		<Error Condition="!Exists('$(TswgLibsDir)')" Text="本地庫目錄不存在：$(TswgLibsDir)。請改 Ngan.Dict/TswgLibs.props 裏的 TswgLibsDir。" />
+	</Target>
+</Project>

@@ -3,9 +3,7 @@ namespace Ngan.Dict.Ui.Views.Settings;
 using Avalonia.Controls;
 using Ngan.Dict.Ui.Infra;
 using Ngan.Dict.Ui.Views.Settings.Lang;
-using Tsinswreng.AvlnTools.Dsl;
 using Ctx = Ngan.Dict.Ui.Infra.ViewModelBase;
-using Tsinswreng.AvlnTools.Tools;
 using Ngan.Dict.Ui.Infra.I18n;
 using Ngan.Dict.Ui.Icons;
 

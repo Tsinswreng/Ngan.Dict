@@ -9,8 +9,8 @@ public static class ToolAudioErr{
 	/// 創建播放失敗異常。
 	/// <param name="Inner">底層異常，可空。</param>
 	/// <param name="DebugArgs">調試參數，不面向終端用戶。</param>
-	/// <returns>帶有統一錯誤鍵的 AppErr。</returns>
-	public static AppErr MkAudioPlayFailedErr(Exception? Inner = null, params obj?[] DebugArgs){
+	/// <returns>帶有統一錯誤鍵的 TypedErr。</returns>
+	public static TypedErr MkAudioPlayFailedErr(Exception? Inner = null, params obj?[] DebugArgs){
 		var Err = KeysErr.Audio.AudioPlayFailed.ToErr();
 		if(Inner is not null){
 			Err.AddErr(Inner);

@@ -6,7 +6,7 @@ using Ngan.Dict.Core.Shared.Word.Models;
 using Ngan.Dict.Core.Shared.Word.Models.Po.NormLangToUserLang;
 using Ngan.Dict.Core.Shared.Word.Models.Po.UserLang;
 using Ngan.Dict.Core.Tools;
-using Tsinswreng.CsYamlMd;
+using Ngan.Dict.Core.Infra.YamlMd;
 
 file class DirDoc{
 	str Doc =
@@ -17,7 +17,7 @@ $"""
 #Descr[
 - 輸入格式{nameof(ReqLlmDict)}
 - 輸出格式{nameof(IRespLlmDict)}
-- 大模型輸出 使用的結構化標記語言格式: YamlMd {nameof(YamlMd.Inst.ToYaml)}
+- 大模型輸出 使用的結構化標記語言格式: YamlMd（內置：`Ngan.Dict.Core.Infra.YamlMd`）
 - 序列化 {nameof(ToolYaml.YamlStrToDict)} {nameof(AppTypeInfoSrc)}
 - 相關配置{nameof(KeysClientCfg.LlmDictionary)}
 

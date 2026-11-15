@@ -1,3 +1,4 @@
+using Tsinswreng.CsErr.Results;
 using System.Text;
 using System.Net.Http.Headers;
 using Ngan.Dict.Core.Frontend.User;
@@ -173,7 +174,7 @@ public class HttpCaller:IHttpCaller{
 		}
 
 		if(Ans.Errors is not null && Ans.Errors.Count > 0){
-			throw AppErr.FromViews(Ans.Errors);
+			throw TypedErr.FromViews(Ans.Errors);
 		}
 		resp.EnsureSuccessStatusCode();
 		return Ans.Data;
@@ -211,10 +212,10 @@ public class HttpCaller:IHttpCaller{
 	}
 
 	public async Task<IAnswer<nil>> RefreshBothToken(CT Ct){
-		var R = new Answer<nil>();
+		var R = new AnswerBox<nil>();
 		var User = UserCtxMgr.GetUserCtx();
 		if(str.IsNullOrEmpty(User.RefreshToken)){
-			return R.AddErrStr("str.IsNullOrEmpty(User.RefreshToken)");
+			return R.AddErr("str.IsNullOrEmpty(User.RefreshToken)");
 		}
 		var Url = ToolPath.SlashTrimEtJoin([BaseUrlGetter.GetBaseUrl(), KeysUrl.OpenUser.TokenRefresh]);
 		var Req = new ReqRefreshTheToken{

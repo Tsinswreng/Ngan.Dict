@@ -98,7 +98,7 @@ public static class ExtnJnWord{
 			set{z.Word.DbUpdatedAt = value;}
 		}
 		
-		public IdDel DelAt{
+		public UnixMs DelAt{
 			get{return z.Word.DelAt;}
 			set{z.Word.DelAt = value;}
 		}
@@ -274,7 +274,7 @@ public static class ExtnJnWord{
 		return R;
 	}
 
-	static AppErr MkErrNotSameUserWord(
+	static TypedErr MkErrNotSameUserWord(
 		IJnWord z
 		,IJnWord Other
 	){

@@ -11,8 +11,6 @@ using Avalonia.Media;
 using Ngan.Dict.Core.Infra;
 using Ngan.Dict.Ui.Icons;
 using Ngan.Dict.Ui.Infra;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 using Avalonia;
 using Ngan.Dict.Ui.Tools;

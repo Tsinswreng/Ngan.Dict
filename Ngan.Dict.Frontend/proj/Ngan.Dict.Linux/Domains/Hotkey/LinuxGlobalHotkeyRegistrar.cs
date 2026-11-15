@@ -1,5 +1,7 @@
 namespace Ngan.Dict.Linux.Domains.Hotkey;
 
+using Ngan.Dict.Core.Infra;
+using Tsinswreng.CsErr.Results;
 using System;
 using System.Threading.Tasks;
 using Avalonia;
@@ -36,7 +38,7 @@ public class LinuxGlobalHotkeyRegistrar : I_RegisterGlobalHotKeys{
 	/// 註冊 Linux 全局快捷鍵。
 	/// <returns>註冊成功返回 Ok，失敗時在 Answer 中返回錯誤。</returns>
 	public IAnswer<obj?> RegisterGlobalHotKeys(){
-		var Answer = new Answer<obj?>();
+		var Answer = new AnswerBox<obj?>();
 		try{
 			// 從配置讀取查詞熱鍵，保持與 Windows 路徑一致。
 			var HotkeyCfg = _hotkeyCfgParser.ReadFromAppCfg(Msg => _logger?.LogWarning("{WarningMessage}", Msg));

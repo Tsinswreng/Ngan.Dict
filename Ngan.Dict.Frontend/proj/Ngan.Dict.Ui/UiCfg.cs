@@ -1,4 +1,5 @@
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Markup.Declarative;
 using Avalonia.Media;
 using Ngan.Dict.Core.Infra.Cfg;
@@ -8,11 +9,15 @@ namespace Ngan.Dict.Ui;
 
 
 public partial class UiCfg{
+	/// 界面基礎字級在 Avalonia 主題資源裏的鍵名。
+	/// 這是自訂的主題資源鍵（不是某個控件屬性），故集中在此聲明一次，避免各處硬編碼字符串。
+	public const str KeyContentThemeFontSize = nameof(ContentControl.FontSize);
+
 	protected static UiCfg? _Inst = null;
 	public static UiCfg Inst => _Inst??= new UiCfg();
 
 	public UiCfg(){
-		BaseFontSize = KeysClientCfg.Ui.BaseFontSize.GetFrom(AppCfg.Inst);
+		BaseFontSize = AppCfg.Inst.Get(KeysClientCfg.Ui.BaseFontSize);
 		MainColor = ResolveThemeBrush();
 	}
 

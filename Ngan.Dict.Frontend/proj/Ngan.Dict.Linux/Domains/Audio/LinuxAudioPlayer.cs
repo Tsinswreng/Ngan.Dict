@@ -54,7 +54,7 @@ public class LinuxAudioPlayer : IAudioPlayer{
 			}
 		}catch(OperationCanceledException) when(Ct.IsCancellationRequested){
 			throw;
-		}catch(Exception ex) when(ex is not Tsinswreng.CsErr.AppErr){
+		}catch(Exception ex) when(ex is not Tsinswreng.CsErr.TypedErr){
 			throw ToolAudioErr.MkAudioPlayFailedErr(ex, $"Type={Type}", "Platform=Linux");
 		}
 	}

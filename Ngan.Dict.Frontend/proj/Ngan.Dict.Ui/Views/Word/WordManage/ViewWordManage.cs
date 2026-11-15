@@ -1,5 +1,6 @@
 namespace Ngan.Dict.Ui.Views.Word.WordManage;
 
+using Ngan.Dict.Ui.Components.SwipeLongPress;
 using System;
 using Avalonia;
 using Avalonia.Controls;
@@ -15,9 +16,6 @@ using Ngan.Dict.Ui.Views.Word.WordManage.StudyPlan;
 using Ngan.Dict.Ui.Views.Word.WordManage.WordSyncV2;
 using Tsinswreng.Avln.Grid;
 using Tsinswreng.Avln.StrokeText;
-using Tsinswreng.AvlnTools.Controls;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 using Tsinswreng.CsI18n;
 using Ctx = Ngan.Dict.Ui.Infra.ViewModelBase;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;

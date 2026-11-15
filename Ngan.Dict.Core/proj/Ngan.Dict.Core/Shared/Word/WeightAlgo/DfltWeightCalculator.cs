@@ -74,7 +74,7 @@ public partial class DfltWeightCalculator : IWeightCalctr {
 				channel.Writer.TryComplete();
 			}catch(OperationCanceledException oce){
 				channel.Writer.TryComplete(oce);
-			}catch(AppErr appErr){
+			}catch(TypedErr appErr){
 				channel.Writer.TryComplete(appErr);
 			}catch(Exception e){
 				channel.Writer.TryComplete(
@@ -115,7 +115,7 @@ public partial class DfltWeightCalculator : IWeightCalctr {
 			await Producer;
 		}catch(OperationCanceledException){
 			throw;
-		}catch(AppErr){
+		}catch(TypedErr){
 			throw;
 		}catch(Exception e){
 			throw KeysErr.Word.BuiltinWeightCalcExecFailed.ToErr()

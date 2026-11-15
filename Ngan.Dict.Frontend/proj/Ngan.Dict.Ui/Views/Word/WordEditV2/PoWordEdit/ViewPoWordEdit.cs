@@ -11,8 +11,6 @@ using Ngan.Dict.Core.Infra;
 using Ngan.Dict.Ui.Components.TempusBox;
 using Ngan.Dict.Ui.Infra;
 using Ngan.Dict.Ui.Infra.Ctrls;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 using Tsinswreng.Avln.Dsl;
 using Tsinswreng.CsTempus;
 using Ctx = VmPoWordEdit;

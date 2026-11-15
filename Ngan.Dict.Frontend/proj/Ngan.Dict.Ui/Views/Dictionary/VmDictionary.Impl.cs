@@ -25,7 +25,6 @@ using Ngan.Dict.Ui.Views.Dictionary.SimpleWord;
 using Ngan.Dict.Ui.Views.Dictionary.NormLangTag;
 using Ngan.Dict.Ui.Views.Word.WordManage.NormLangToUserLang.NormLangToUserLangEdit;
 using Tsinswreng.CsErr;
-using Tsinswreng.AvlnTools.Dsl;
 using Tsinswreng.CsTools;
 using Tsinswreng.CsCfg;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
@@ -510,15 +509,15 @@ public partial class VmDictionary{
 	}
 
 	private partial bool IsNormLangMappingErr(Exception Ex){
-		if(Ex is IAppErr AppErr){
-			return ReferenceEquals(AppErr.Type, KeysErr.Word.NormLangToUserLangIsNotMapped);
+		if(Ex is ITypedErr TypedErr){
+			return ReferenceEquals(TypedErr.Type, KeysErr.Word.NormLangToUserLangIsNotMapped);
 		}
 		return false;
 	}
 
 	private partial bool IsLlmResponseParseFailed(Exception Ex){
-		if(Ex is IAppErr AppErr){
-			return ReferenceEquals(AppErr.Type, KeysErr.Dictionary.LlmResponseParseFailed);
+		if(Ex is ITypedErr TypedErr){
+			return ReferenceEquals(TypedErr.Type, KeysErr.Dictionary.LlmResponseParseFailed);
 		}
 		return false;
 	}
@@ -656,7 +655,7 @@ public partial class VmDictionary{
 			return NIL;
 		}
 		try{
-			var UiLang = KeysClientCfg.Lang.GetFrom(AppCfg.Inst) ?? "en";
+			var UiLang = AppCfg.Inst.Get(KeysClientCfg.Lang) ?? "en";
 			var TargetLang = new NormLang{
 				Type = ELangIdentType.Bcp47,
 				Code = UiLang,

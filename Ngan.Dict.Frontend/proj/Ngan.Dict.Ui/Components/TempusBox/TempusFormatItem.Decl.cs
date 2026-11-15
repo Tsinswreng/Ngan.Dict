@@ -2,7 +2,6 @@ using System.Globalization;
 using Avalonia.Data;
 using Avalonia.Data.Converters;
 using Ngan.Dict.Core.Infra;
-using Tsinswreng.AvlnTools.Tools;
 using Tsinswreng.CsCore;
 
 namespace Ngan.Dict.Ui.Components.TempusBox;

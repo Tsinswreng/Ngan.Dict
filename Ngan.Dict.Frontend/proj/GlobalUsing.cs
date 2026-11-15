@@ -14,7 +14,5 @@ global using VAlign = Avalonia.Layout.VerticalAlignment;
 global using HAlign = Avalonia.Layout.HorizontalAlignment;
 global using Tsinswreng.Avln.Dsl;
 //global using static Tsinswreng.Avln.Dsl.Extn;
-//global using static Tsinswreng.AvlnTools.Dsl.DslFactory;
-global using static Tsinswreng.AvlnTools.Dsl.PropExtn.ExtnProp;
 //global using GridStack = Tsinswreng.Avln.Grid.GridStack;
 

@@ -1,85 +1,51 @@
 namespace Ngan.Dict.Core.Infra;
 
-using System.Collections.Concurrent;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
-using Ngan.Dict.Core.Infra.IF;
-using Ngan.Dict.Core.Shared.User.Models.Po;
-using Ngan.Dict.Core.Shared.User.Models.Po.User;
-using Ngan.Dict.Core.Tools;
-using Tsinswreng.CsTools;
 
-interface INull{
+[Doc($$"""
+本應用的 JSON 序列化上下文（System.Text.Json 源生成）。
 
-}
+*為何要源生成*：本應用以 NativeAOT 發佈，運行期反射式序列化會被裁剪掉，
+故所有上線的型別都必須在編譯期登記。登記分兩處：
 
-//JsonSerializable註解須寫在一起、不能散落在分散之partial class、否則json源生成器不輸出
-//執行 Ngan.Dict.Scripts 的 GenAppJsonCtx 以自動生成帶註解ʹAppJsonCtx分部類（輸出至 Tsinswreng.SrcGen/Ngan.Dict.Gen.g.cs）
-/// ASP.net 內置Json序列化器專用。
-/// 縱既配opt =>opt.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonCtx.Default);
-/// 猶需手上 opt.SerializerOptions.Converters.Add(new MyConverter()......)
-/// 佢不認AppJsonCtx中 用註解配˪ʹ Converters
+1. `[JsonSerializable]` 與轉換器清單——由 `Ngan.Dict.Scripts` 的 `GenAppJsonCtx` 掃描
+   `IAppSerializable`（業務型別）與 `IIdU128`（強類型 Id）自動生成，
+   輸出到 `Tsinswreng.SrcGen/Ngan.Dict.Gen.g.cs`。*勿手動編輯*，改完 DTO／實體就重跑生成器。
+2. 本檔的運行期選項 {{nameof(Opt)}}——字符轉義、命名策略、註釋容忍度這類行為，
+   以及把生成檔裏的 {{nameof(JsonConverters)}} 掛上去。
 
-//此註解已加在 IRawValueSerializableListʃ生成ʹ代碼中、勿複手動添
-// [JsonSourceGenerationOptions(
-// 	//PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase,
-// 	DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
-// 	// ,Converters = [
-// 	// 	,typeof(JsonConvtr<Tempus>)
-// 	// ]
-
-// )]
+*兩個坑（踩過）*：
+- `TypeInfoResolver` 必須指向同一份上下文（{{nameof(AppJsonCtx.Default)}}），否則源生成的元資料不會被用到；
+  指向 null 時 JIT 下退回反射、一切正常，AOT 下才炸。
+- 生成期的 `[JsonSourceGenerationOptions]`（在生成檔裏）與運行期的 {{nameof(Opt)}} 是兩份獨立配置，
+  兩邊不一致時同一個型別走不同路徑會寫出不同結果；改一處要同改另一處。
+""")]
 public partial class AppJsonCtx : JsonSerializerContext {
-	// public static IList<JsonConverter> JsonConverters = [
-	// 	new global::Ngan.Dict.Core.Tools.JsonConvtr<IdKv>(),
-	// ];
 	protected static AppJsonCtx? _Inst = null;
+
+	[Doc("全局唯一實例；延遲建立，避免靜態初始化期就碰生成檔裏的 `Default`。")]
 	public static AppJsonCtx Inst => _Inst??= new AppJsonCtx(Opt);
 
 	static AppJsonCtx(){
+		// enum 一律寫成名字（與舊行為一致）；其二進制安全性由源生成器負責。
 		Opt.Converters.Add(new JsonStringEnumConverter());
 		Opt.Converters.AddRange(JsonConverters);
 	}
 
-	//public AppJsonCtx(JsonSerializerOptions options) : base(options) { }
-	static JsonSerializerOptions Opt = new JsonSerializerOptions{
-		//WriteIndented = true
-		Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping // 允許原樣輸出
-		,PropertyNamingPolicy = null  // 关闭命名策略
+	[Doc($$"""
+	運行期選項。與生成檔的 `[JsonSourceGenerationOptions]` 必須保持一致的行為：
+	不忽略 null、容忍註釋、不轉義非 ASCII。
+
+	*為何不轉義*：中文文案與生僻字在線上式裡保持可讀，便於抓包排查；
+	代價是輸出必須以 UTF-8 傳輸（本應用全部是 HTTP／文件，均為 UTF-8）。
+	""")]
+	public static JsonSerializerOptions Opt { get; } = new JsonSerializerOptions{
+		Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+		,PropertyNamingPolicy = null
 		,TypeInfoResolver = AppJsonCtx.Default
 		,ReadCommentHandling = JsonCommentHandling.Skip
-		//,Converters = { new CustomJsonConvtrFctry() }
-		// ,Converters = {
-		// }
 	};
 }
-
-
-#if false //額外類型 已搬入 Ngan.Dict.Scripts 的 GenAppJsonCtx 之 ExtraJsonTypes
-
-[JsonSerializable(typeof(global::Tsinswreng.CsErr.IWebAns<obj>))]
-[JsonSerializable(typeof(global::Tsinswreng.CsErr.IAppErrView))]
-[JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Tsinswreng.CsErr.IAppErrView>))]
-
-[JsonSerializable(typeof(global::Tsinswreng.CsErr.AppErrView))]
-[JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Tsinswreng.CsErr.AppErrView>))]
-
-[JsonSerializable(typeof(IList<i8>))]
-[JsonSerializable(typeof(IList<u8>))]
-[JsonSerializable(typeof(IList<i16>))]
-[JsonSerializable(typeof(IList<u16>))]
-[JsonSerializable(typeof(IList<i32>))]
-[JsonSerializable(typeof(IList<i64>))]
-[JsonSerializable(typeof(IList<u32>))]
-[JsonSerializable(typeof(IList<u64>))]
-[JsonSerializable(typeof(IList<f32>))]
-[JsonSerializable(typeof(IList<f64>))]
-[JsonSerializable(typeof(IList<bool>))]
-[JsonSerializable(typeof(IList<char>))]
-[JsonSerializable(typeof(IList<str>))]
-file class Test{
-
-}
-#endif

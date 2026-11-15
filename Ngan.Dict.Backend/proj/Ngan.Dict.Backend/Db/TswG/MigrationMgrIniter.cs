@@ -15,10 +15,9 @@ public static class LocalMigrations{
 		/// - 新增 Local 遷移時，只需要把新類追加到這個列表裏
 		public IMigrationMgr UseLocalMigrations(IServiceProvider Sp){
 			z.AddMigrationsIfAbsent([
-				// 初始遷移：建立 Local 端最早期已有的表結構。
+				// 唯一一支：按當前表配置建出完整結構。
+				// 舊版的增量遷移已全部刪除（本應用舊版無實際使用者，不需要升級路徑）。
 				new MInit(Sp)
-				// 後續增量遷移：例如新增 StudyPlan 相關表。
-				,new M2026_0428_225820(Sp)
 			]);
 			return z;
 		}

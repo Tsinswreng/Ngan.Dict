@@ -135,7 +135,7 @@ public class JsWeightCalctr : IWeightCalctr{
 		}catch(OperationCanceledException){
 			// 取消不包裝為業務異常，沿用取消語義。
 			throw;
-		}catch(AppErr){
+		}catch(TypedErr){
 			// 已是業務異常，不重複包裝。
 			throw;
 		}catch(Exception e){

@@ -1,5 +1,6 @@
 namespace Ngan.Dict.Ui.Views.Settings;
 
+using Ngan.Dict.Ui.Components.SwipeLongPress;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Styling;
@@ -10,14 +11,11 @@ using Ngan.Dict.Ui.Views.Settings.LearnWord;
 using Ngan.Dict.Ui.Views.Settings.LlmDictionary;
 using Ngan.Dict.Ui.Views.Settings.ServerStorage;
 using Ngan.Dict.Ui.Views.Settings.Hotkey;
-using Tsinswreng.AvlnTools.Controls;
-using Tsinswreng.AvlnTools.Dsl;
 using Tsinswreng.CsI18n;
 using Ctx = VmSettings;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 using Ngan.Dict.Ui.Icons;
 using Avalonia.Media;
-using Tsinswreng.AvlnTools.Tools;
 using Tsinswreng.Avln.Navi;
 
 public partial class ViewSettings

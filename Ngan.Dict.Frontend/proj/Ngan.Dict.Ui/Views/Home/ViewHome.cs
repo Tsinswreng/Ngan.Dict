@@ -3,8 +3,6 @@ namespace Ngan.Dict.Ui.Views.Home;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Ngan.Dict.Ui.Views.BottomBar;
-using Tsinswreng.AvlnTools.Tools;
-using Tsinswreng.AvlnTools.Dsl;
 using Ctx = VmHome;
 using Ngan.Dict.Ui.Views.Dictionary;
 using Ngan.Dict.Ui.Views.User.AboutMe;

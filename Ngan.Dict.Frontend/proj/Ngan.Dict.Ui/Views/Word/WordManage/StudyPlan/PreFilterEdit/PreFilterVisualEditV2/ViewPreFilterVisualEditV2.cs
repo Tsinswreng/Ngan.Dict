@@ -23,8 +23,6 @@ using Ngan.Dict.Ui.Views.Word.WordManage.StudyPlan.PreFilterEdit.FilterCardEditV
 using Ngan.Dict.Ui.Views.Word.WordManage.StudyPlan.PreFilterEdit.PreFilterPayloadJsonEdit;
 using Ngan.Dict.Ui.Views.Word.WordManage.StudyPlan.PreFilterEdit.PreFilterVisualEdit;
 using Tsinswreng.Avln.Grid;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 
 using Ctx = VmPreFilterVisualEditV2;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;

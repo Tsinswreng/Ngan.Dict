@@ -80,7 +80,7 @@ public class AndroidAudioPlayer : IAudioPlayer {
 			return null; // 按需求返回 null
 		}catch(OperationCanceledException) when(Ct.IsCancellationRequested){
 			throw;
-		}catch(Exception ex) when(ex is not Tsinswreng.CsErr.AppErr){
+		}catch(Exception ex) when(ex is not Tsinswreng.CsErr.TypedErr){
 			throw ToolAudioErr.MkAudioPlayFailedErr(ex, $"Type={audioType}", "Platform=Android");
 		}
 	}

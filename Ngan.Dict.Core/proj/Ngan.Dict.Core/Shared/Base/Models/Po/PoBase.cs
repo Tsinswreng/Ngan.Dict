@@ -1,57 +1,48 @@
-#define Impl
 namespace Ngan.Dict.Core.Shared.Base.Models.Po;
-using Tsinswreng.CsRefl;
-using Ngan.Dict.Core.Shared.User.Models.Po;
+
 using Ngan.Dict.Core.Infra;
 using Ngan.Dict.Core.Tools;
+using Tsinswreng.CsCore;
+using Tsinswreng.CsEntity;
+using Tsinswreng.CsRefl;
 using Tsinswreng.CsSql;
 using Tsinswreng.CsTempus;
 
-public partial class PoBase:IPoBase{
-	public object ShallowCloneSelf()
-#if Impl
-	{
-		return MemberwiseClone();
-	}
-#endif
-	#region IPoBase
-	public virtual UnixMs DbCreatedAt{get;set;}
-	=new();
-	public virtual UnixMs DbUpdatedAt{get;set;}
-
-	public IdDel DelAt{get;set;}
-
-	#endregion IPoBase
-
+[Doc($$"""
+{{nameof(IPoBase)}} 的默認實現：直接繼承 CsEntity 的 {{nameof(BasePoBase)}}，
+三共同列、淺複製與軟刪列都不再在本項目重複聲明。
+""")]
+public partial class PoBase : BasePoBase, IPoBase
+{
 }
 
-public partial class PoBaseBizTime: PoBase, IBizCreateUpdateTime{
-	#region IBizCreateUpdateTime
-	/// 理則ₐ實體ˇ增ʹ時、如于單詞、則始記于文本單詞表中之時 即其CreatedAt、非 存入數據庫之時
-	public virtual UnixMs BizCreatedAt{get;set;}
-	#if Impl
-		= new();
-	#endif
-	/// 理則ₐ實體ˇ改ʹ時
-	/// 如ʃ有ʹ子實體ˋ變˪、則亦宜改主實體或聚合根ʹUpdatedAt
-	public virtual UnixMs BizUpdatedAt{get;set;}
-	#if Impl
-		= UnixMs.Zero;
-	#endif
+[Doc($$"""
+在 {{nameof(PoBase)}} 之上再帶「業務層創建／修改時間」的實體基底。
 
-	#endregion IBizCreateUpdateTime
+*為何業務時間與數據庫時間要分開*：{{nameof(IBizCreateUpdateTime.BizCreatedAt)}} 是
+「這條記錄在業務上何時產生」（例如單詞首次進入生詞表的時刻），可以早於入庫；
+{{nameof(IBasePoBase.DbCreatedAt)}} 只是這一行被寫進數據庫的時刻。
+""")]
+public partial class PoBaseBizTime : PoBase, IBizCreateUpdateTime
+{
+	// CsEntity 的 IBizCreateUpdateTime 只在庫自己編譯時（Impl 符號）帶默認實現，
+	// 消費方得自己給成員，故這裡顯式聲明並給初值。
+	[Doc("業務層的創建時間；與 DbCreatedAt 不同，可以早於入庫。")]
+	public virtual UnixMs BizCreatedAt{get;set;} = new();
 
+	[Doc("業務層的修改時間；子實體變更時也宜由聚合根一起改。")]
+	public virtual UnixMs BizUpdatedAt{get;set;} = UnixMs.Zero;
 }
 
 
-public static class ExtnPoBase{
+public static class ExtnPoBase {
 	extension<T>(T z)
-		where T:IPoBase
+		where T : IPoBase
 	{
 		[Doc(@$"用Equals比較 而非等号。
 		推薦用 {nameof(Extn.EqObj)}來比較、因佢能比較null、不致空指針。
 		")]
-		public obj? Id_(){
+		public obj? Id_() {
 			if(AppTypeInfoSrc.Inst.TryGet<T>(z, nameof(I_Id<>.Id), out var Id)){
 				return Id;
 			}
@@ -59,25 +50,9 @@ public static class ExtnPoBase{
 			or it is not registered in {nameof(AppTypeInfoSrc)}
 			");
 		}
-		public bool Id_(obj? Id){
+		public bool Id_(obj? Id) {
 			return AppTypeInfoSrc.Inst.TrySet<T>(z, nameof(I_Id<>.Id), Id);
 		}
-		
+
 	}
-	
-	public static bool IsDeleted(this IPoBase z){
-		return !z.DelAt.IsNullOrDefault();
-	}
-	
-	[Doc(@$"從業務層之 修改時間 與 被軟先除之時間 取 最晚近者。
-	因 軟刪除實體時、實體的 {nameof(IBizCreateUpdateTime.BizUpdatedAt)}可能不變。
-	")]
-	public static UnixMs GetNewestBizUpdOrDelTime<TSelf>(
-		this TSelf z
-	)where TSelf:IBizCreateUpdateTime, I_DelAt{
-		i64 u = z.BizUpdatedAt;
-		i64 d = z.DelAt;
-		return Math.Max(u,d);
-	}
-	
 }

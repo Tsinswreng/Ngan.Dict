@@ -1,62 +1,56 @@
-//不能寫using語句 否則源生成 謬 //不能用 record struct 只能写 struct
-//叵續ˣ定義無參構造器、蓋源生成器生成旹默認已給構造器。
-
+// StronglyTypedId 的模板檔：源生成器把 PLACEHOLDERID 換成 `[StronglyTypedId]` 標註的結構名。
+// 兩條硬約束（踩過就知道）：
+// - 本檔不能寫 using 語句，否則源生成產物會編譯失敗；故一律用全限定名。
+// - 不能改寫成 record struct，只能是 struct。
+//
+// 以 UInt128 為底（ULID 填充、天然有序），對外字符串走 Low64Base（22 字元、URL 安全），
+// 數據庫裡以 16 位元組 blob 存儲（見 Tsinswreng.CsEntity.IIdU128Extn.MkTypeMapFn）。
+//
+// 對外 JSON 形態：Id 自己不實作任何序列化接口。線上式是序列化層的一條規則——
+// CsEntity 的 `JsonConvtrU128Id<T>`（約束 IIdU128）按 ToString() / Low64BaseToUInt128
+// 讀寫裸 Low64Base 字串（不是 {"Value":…}）。登記由 Ngan.Dict.Scripts 的 GenAppJsonCtx 生成。
 
 partial struct PLACEHOLDERID
-	:Ngan.Dict.Core.Infra.IF.IIdUInt128
-	,IEquatable<PLACEHOLDERID>
-	,IRawValueSerializable
+	: global::Ngan.Dict.Core.Infra.IF.IAppIdU128
+	, global::System.IEquatable<PLACEHOLDERID>
 {
-
-	object? I_ToDeSerialized.ToDeSerialized(object? Obj) {
-		if(Obj is str s){
-			return global::Ngan.Dict.Core.Infra.IF.ExtnIIIdUInt128.FromLow64Base<PLACEHOLDERID>(s);
-		}
-		return Obj;
-	}
-
-	object? I_ToSerialized.ToSerialized(object? Obj) {
-		if(Obj is PLACEHOLDERID){
-			return Obj.ToString();
-		}
-		return Obj;
-	}
-
+	/// 無參構造器即「新生成一個 Id」：用 ULID 填充 UInt128。
 	public PLACEHOLDERID():this(0){
-		Value = Tsinswreng.CsU128Id.ToolU128Id.NewUlid<
-			Tsinswreng.CsU128Id.U128Id
-		>().Value;
+		Value = global::Tsinswreng.CsU128Id.U128Id.ByteArrToUInt128(
+			global::System.Ulid.NewUlid().ToByteArray()
+		);
 	}
 
-	public UInt128 Value { get; set; }
-	public PLACEHOLDERID(UInt128 value) => Value = value;
+	/// Id 本體。它不會以 `{ "Value": … }` 的形式出現在 JSON：
+	/// 整個 struct 由 JsonConvtrU128Id 寫成 Low64Base 字串（見檔頭說明）。
+	public global::System.UInt128 Value { get; set; }
 
-	// public static explicit operator UInt128(PLACEHOLDERID id) => id.Value;
-	// public static explicit operator PLACEHOLDERID(UInt128 value) => new(value);
+	public PLACEHOLDERID(global::System.UInt128 Value) => this.Value = Value;
 
-	public static implicit operator UInt128(PLACEHOLDERID id) => id.Value;
-	public static implicit operator PLACEHOLDERID(UInt128 value) => new(value);
+	public static implicit operator global::System.UInt128(PLACEHOLDERID Id) => Id.Value;
+	public static implicit operator PLACEHOLDERID(global::System.UInt128 Value) => new(Value);
 
 	public override string ToString(){
-		return Tsinswreng.CsU128Id.ToolU128Id.ToLow64Base(Value);
+		return global::Tsinswreng.CsU128Id.U128Id.ToLow64Base(Value);
 	}
 
-	public static bool operator ==(PLACEHOLDERID left, PLACEHOLDERID right)
-		=> left.Value == right.Value;
-
-	public static bool operator !=(PLACEHOLDERID left, PLACEHOLDERID right)
-		=> !(left == right);
-
-	// 重写 object.Equals
-	public override bool Equals(object? obj)
-		=> obj is PLACEHOLDERID other && Equals(other);
-
-	// 重写 GetHashCode
-	public override int GetHashCode()
-		=> Value.GetHashCode();
-
-	public bool Equals(PLACEHOLDERID other) {
-		return Value.Equals(other.Value);
+	public static bool operator ==(PLACEHOLDERID Left, PLACEHOLDERID Right){
+		return Left.Value == Right.Value;
 	}
 
+	public static bool operator !=(PLACEHOLDERID Left, PLACEHOLDERID Right){
+		return !(Left == Right);
+	}
+
+	public override bool Equals(object? Obj){
+		return Obj is PLACEHOLDERID Other && Equals(Other);
+	}
+
+	public override int GetHashCode(){
+		return Value.GetHashCode();
+	}
+
+	public bool Equals(PLACEHOLDERID Other){
+		return Value.Equals(Other.Value);
+	}
 }

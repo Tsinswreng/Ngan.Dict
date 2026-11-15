@@ -7,8 +7,6 @@ using Ngan.Dict.Ui;
 using Ngan.Dict.Ui.Infra;
 using ScottPlot.Plottables;
 using Tsinswreng.Avln.Grid;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 using Tsinswreng.CsI18n;
 using Ctx = VmJsonMapItem;
 public partial class ViewJsonMapItem

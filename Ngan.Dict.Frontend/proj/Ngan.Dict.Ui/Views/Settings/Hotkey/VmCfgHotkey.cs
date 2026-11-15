@@ -58,8 +58,8 @@ public partial class VmCfgHotkey: ViewModelBase, IMk<Ctx>{
 		}
 
 		await Task.Run(async ()=>{
-			Cfg.Set(KeysClientCfg.Hotkey.DictionaryLookup.Modifiers, DictionaryLookupModifiers.Trim());
-			Cfg.Set(KeysClientCfg.Hotkey.DictionaryLookup.Key, DictionaryLookupKey.Trim());
+			Cfg.SetNoSave(KeysClientCfg.Hotkey.DictionaryLookup.Modifiers, DictionaryLookupModifiers.Trim());
+			Cfg.SetNoSave(KeysClientCfg.Hotkey.DictionaryLookup.Key, DictionaryLookupKey.Trim());
 			await Cfg.Save(Ct);
 		});
 

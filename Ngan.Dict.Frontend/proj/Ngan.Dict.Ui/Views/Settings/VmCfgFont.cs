@@ -1,4 +1,5 @@
 namespace Ngan.Dict.Ui.Views.Settings;
+using Tsinswreng.CsKeyNode;
 using System.Collections.ObjectModel;
 using Ngan.Dict.Ui.Infra;
 using Microsoft.Extensions.Logging;
@@ -67,7 +68,7 @@ public partial class VmCfgFont
 
 	public async Task<nil> ApplyNeoFontSize(){
 		AppCfg.Inst.TrySetNoSave(
-			KeysClientCfg.Ui.BaseFontSize.GetFullPathSegs()
+			KeysClientCfg.Ui.BaseFontSize.FullPathSegs
 			,FontSize
 		);
 		await AppCfg.Inst.Save(default);

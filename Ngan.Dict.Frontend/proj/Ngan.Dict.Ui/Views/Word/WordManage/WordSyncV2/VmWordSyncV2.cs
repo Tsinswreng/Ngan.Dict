@@ -131,7 +131,7 @@ public partial class VmWordSyncV2: ViewModelBase{
 				using var file = FileSystem.File.Open(PathExport, FileMode.Create, FileAccess.Write, FileShare.None);
 				await packed.CopyToAsync(file, Ct);
 
-				Cfg?.Set(KeysClientCfg.Word.WordsPackExportPath, PathExport);
+				Cfg?.SetNoSave(KeysClientCfg.Word.WordsPackExportPath, PathExport);
 				Cfg?.Save(default);
 			});
 			Dispatcher.UIThread.Post(()=>{
@@ -167,7 +167,7 @@ public partial class VmWordSyncV2: ViewModelBase{
 					// 消費枚舉以觸發實際同步。
 				}
 
-				Cfg?.Set(KeysClientCfg.Word.WordsPackImportPath, PathImport);
+				Cfg?.SetNoSave(KeysClientCfg.Word.WordsPackImportPath, PathImport);
 				Cfg?.Save(default);
 			});
 			Dispatcher.UIThread.Post(()=>{

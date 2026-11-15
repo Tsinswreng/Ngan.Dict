@@ -45,8 +45,8 @@ public partial class VmCfgServerStorage: ViewModelBase, IMk<Ctx>{
 			return NIL;
 		}
 		await Task.Run(async ()=>{
-			Cfg.Set(KeysClientCfg.ServerBaseUrl, ServerBaseUrl.Trim());
-			Cfg.Set(KeysClientCfg.SqlitePath, SqlitePath.Trim());
+			Cfg.SetNoSave(KeysClientCfg.ServerBaseUrl, ServerBaseUrl.Trim());
+			Cfg.SetNoSave(KeysClientCfg.SqlitePath, SqlitePath.Trim());
 			await Cfg.Save(Ct);
 		});
 		return NIL;

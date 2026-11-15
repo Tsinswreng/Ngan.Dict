@@ -70,7 +70,7 @@ public partial class SvcWord{
 			}else{
 				var JnWordInDb = await SeekJnWordById(IdInDb.Value, Ct);
 				if(JnWordInDb == null){
-					throw new FatalLogicErr("BoWordInDb == null");
+					throw new InvalidOperationException("BoWordInDb == null");
 				}
 				var ExiDupliPair = new Existing_Duplication<IJnWord>(
 					Existing: JnWordInDb
@@ -113,7 +113,7 @@ public partial class SvcWord{
 				}else{
 					var JnWordInDb = await SeekJnWordById(IdInDb.Value, Ct);
 					if(JnWordInDb == null){
-						throw new FatalLogicErr("BoWordInDb == null");
+						throw new InvalidOperationException("BoWordInDb == null");
 					}
 					var ExiDupliPair = new Existing_Dupli<IJnWord>(
 						Existing: JnWordInDb

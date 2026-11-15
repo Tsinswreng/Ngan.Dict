@@ -58,40 +58,11 @@ sealed class Program {
 			System.Console.WriteLine(
 				"pwd: " + Directory.GetCurrentDirectory()
 			);
-			var DualSrcCfg = AppCfg.Inst;
-			var CfgPath = GetCfgFilePath(args);
-
-			//用戶手寫的配置文件、不允許 在運行時 由程序 更改
-			var RoCfg = new JsonFileCfgAccessor();
-			DualSrcCfg.RoCfg = RoCfg;
-			RoCfg.FromFile(CfgPath);
-
-			var GuiCfgPath = KeysClientCfg.RwCfgPath.GetFrom(DualSrcCfg) ?? "";
-			ToolFile.EnsureFile(GuiCfgPath);
-			var GuiCfg = new JsonFileCfgAccessor();
-			DualSrcCfg.RwCfg = GuiCfg;
-			GuiCfg.FromFile(GuiCfgPath);
-
-			var Lang = KeysClientCfg.Lang.GetFrom(AppCfg.Inst)??"default";
-
-			var I18nCfg = new JsonFileCfgAccessor();
-			AppI18n.Inst=new(I18nCfg);
-#if DEBUG
-			AppI18n.Inst.OnKeyNotFound = (self, key, args)=>{
-				var msg = "❗"+key.GetFullPath()+"❗";
-				System.Console.WriteLine(msg);
-				return msg;
-				//throw new Exception();
-			};
-#endif
-//TODO 統一 AppI18n 配置 勿只在Linux專用入口配置
-			try{
-				I18nCfg.FromFile($"Languages/{Lang}.json");
-			}catch{
-				System.Console.Error.WriteLine($"Failed to load language file: {Lang}");
-			}
-
-
+			// 配置＝出廠（只讀）＋日常（可寫）兩源疊加；入口不再自己拼路徑、開關檔。
+			AppCfg.Inst.Setup(BaseDirMgr.Inst);
+			System.Console.WriteLine(
+				$"cfg loaded: ro={AppCfg.Inst.RoCfgPath}, rw={AppCfg.Inst.RwCfgPath}"
+			);
 		} catch (System.Exception e) {
 			System.Console.Error.WriteLine("Failed to load config file: " + e);
 		}
@@ -110,7 +81,6 @@ sealed class Program {
 		BuildAvaloniaApp()
 #if DEBUG
 			.UseHotReload()
-			.UseRiderHotReload()
 #endif
 			.AfterSetup(e => {
 				App.SetSvcProvider(svcProvider);

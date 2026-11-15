@@ -29,10 +29,10 @@ public class JnWordToUiJsonMap{
 				if(v is UnixMs t){
 					return t.ToIso();
 				}
-				if(v is IIdUInt128 id){
+				if(v is IAppIdU128 id){
 					return id.ToString();
 				}
-				if(v is IdDel del){
+				if(v is UnixMs del){
 					return del.Value;
 				};
 				return v;
@@ -48,8 +48,8 @@ public class JnWordToUiJsonMap{
 				if( u.Type?.IsAssignableTo(typeof(IdWord))==true ){
 					return IdWord.FromLow64Base(s);
 				}
-				if(u.Type == typeof(IdDel)){
-					return oldSet(IdDel.FromUnixMs(long.Parse(s)));
+				if(u.Type == typeof(UnixMs)){
+					return oldSet(new UnixMs(long.Parse(s)));
 				}
 				return true;
 			};

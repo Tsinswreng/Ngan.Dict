@@ -8,8 +8,6 @@ using Ngan.Dict.Ui.Infra;
 using Ngan.Dict.Ui.Infra.Ctrls;
 using Ngan.Dict.Ui.Tools;
 using Ngan.Dict.Ui.User;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 using Tsinswreng.CsI18n;
 using Ursa.Controls;
 using Ctx = VmUserProfile;

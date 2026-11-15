@@ -7,9 +7,6 @@ using Ngan.Dict.Ui.Views.BottomBar;
 using Ngan.Dict.Ui.Views.User.Login;
 using Ngan.Dict.Ui.Views.User.Register;
 using Tsinswreng.Avln.Grid;
-using Tsinswreng.AvlnTools.Controls;
-using Tsinswreng.AvlnTools.Converters;
-using Tsinswreng.AvlnTools.Tools;
 
 namespace Ngan.Dict.Ui.Tests;
 

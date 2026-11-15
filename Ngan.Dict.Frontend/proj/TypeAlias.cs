@@ -14,6 +14,9 @@ global using obj = System.Object;
 global using nil = System.Object;
 global using CT = System.Threading.CancellationToken;
 
+// 實體層的共用形狀（IBasePoBase／I_DelAt／IIdU128…）全項目直接用，免逐檔 using
+global using Tsinswreng.CsEntity;
+
 #pragma warning disable CS0436
 global using static Tsinswreng.CsTypeAlias.Nil;
 namespace Tsinswreng.CsTypeAlias {

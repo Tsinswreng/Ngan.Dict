@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Ngan.Dict.Client;
 using Ngan.Dict.Core;
+using Ngan.Dict.Core.Infra;
 using Ngan.Dict.Core.Infra.Cfg;
 using Ngan.Dict.Core.Infra.Url;
 using Ngan.Dict.Backend;
@@ -36,21 +37,6 @@ sealed class Program {
 
 	/// 僅保留最近 14 份日誌文件，避免總體積無限增長。
 	private const i32 RetainedFileCountLimit = 14;
-
-	/// 根據命令行參數決定配置文件路徑。
-	static str GetCfgFilePath(string[] args) {
-		var CfgFilePath = "";
-		if (args.Length > 0) {
-			CfgFilePath = args[0];
-		} else {
-#if DEBUG
-			CfgFilePath = "Ngan.Dict.jsonc";
-#else
-			CfgFilePath = "Ngan.Dict.jsonc";
-#endif
-		}
-		return CfgFilePath;
-	}
 
 	/// 初始化 Windows 入口的全局日誌源頭。
 	/// 優先使用 Serilog 同時輸出到 console 與 rolling file；
@@ -102,48 +88,13 @@ sealed class Program {
 		}
 		BaseDirMgr.Inst._BaseDir = Directory.GetCurrentDirectory();
 		try {
-/*
-改潙勿合併配置字典
-緣: 初始化旹各從用戶配置文件與Gui配置文件讀、汶合併。保存旹 併ᵣ後ˌʹ配置對象ˋ被寫入Gui配置文件。
-下次初始化旹又各取ⁿ合併、則列表合併旹有褈、益益多矣
-當改作 設多源配置、訪問配置項時 優先讀用戶配置、尋不見汶尋Gui配置。
-保存旹只寫入Gui配置、緣用戶配置潙只讀。
- */
 			AppLog.Inst.LogInformation("pwd: " + Directory.GetCurrentDirectory());
-			var DualSrcCfg = AppCfg.Inst;
-			var CfgPath = GetCfgFilePath(args);
-
-			//用戶手寫的配置文件、不允許 在運行時 由程序 更改
-			var RoCfg = new JsonFileCfgAccessor();
-			DualSrcCfg.RoCfg = RoCfg;
-			RoCfg.FromFile(CfgPath);
-
-			var GuiCfgPath = KeysClientCfg.RwCfgPath.GetFrom(DualSrcCfg) ?? "";
-			ToolFile.EnsureFile(GuiCfgPath);
-			var GuiCfg = new JsonFileCfgAccessor();
-			DualSrcCfg.RwCfg = GuiCfg;
-			GuiCfg.FromFile(GuiCfgPath);
-
-			var Lang = KeysClientCfg.Lang.GetFrom(AppCfg.Inst)??"default";
-
-			var I18nCfg = new JsonFileCfgAccessor();
-			AppI18n.Inst=new(I18nCfg);
-#if DEBUG
-			AppI18n.Inst.OnKeyNotFound = (self, key, args)=>{
-				var msg = "❗"+key.GetFullPath()+"❗";
-				System.Console.WriteLine(msg);
-				return msg;
-				//throw new Exception();
-			};
-#endif
-//TODO 統一 AppI18n 配置 勿只在windows專用入口配置
-			try{
-				I18nCfg.FromFile($"Languages/{Lang}.json");
-			}catch{
-				System.Console.Error.WriteLine($"Failed to load language file: {Lang}");
-			}
-
-
+			// 配置＝出廠（只讀）＋日常（可寫）兩源疊加，位置與檔名全由 AppCfg 決定；
+			// 入口不再自己拼路徑、也不再自己開關檔。
+			AppCfg.Inst.Setup(BaseDirMgr.Inst);
+			AppLog.Inst.LogInformation(
+				$"cfg loaded: ro={AppCfg.Inst.RoCfgPath}, rw={AppCfg.Inst.RwCfgPath}"
+			);
 		} catch (System.Exception e) {
 			System.Console.Error.WriteLine("Failed to load config file: " + e);
 		}

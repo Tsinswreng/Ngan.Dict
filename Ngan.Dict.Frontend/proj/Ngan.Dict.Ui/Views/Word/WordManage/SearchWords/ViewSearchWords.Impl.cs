@@ -19,8 +19,6 @@ using Ngan.Dict.Ui.Views.Word.WordManage.SearchWords.SearchedWordCard;
 using Ngan.Dict.Ui.Views.Word.WordManage.UserLang.UserLangPage;
 using Ngan.Dict.Ui.Views.Word.WordManage.WordSyncV2;
 using Tsinswreng.Avln.Grid;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 using Tsinswreng.CsTools;
 using Ctx = VmSearchWords;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;

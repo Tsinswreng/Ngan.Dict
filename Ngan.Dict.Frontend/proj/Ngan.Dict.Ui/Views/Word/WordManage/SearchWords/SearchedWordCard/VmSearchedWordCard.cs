@@ -1,5 +1,6 @@
 namespace Ngan.Dict.Ui.Views.Word.WordManage.SearchWords.SearchedWordCard;
 
+using Tsinswreng.CsTempus;
 using System.Collections.ObjectModel;
 using Ngan.Dict.Core.Shared.User.Models.Po;
 using Ngan.Dict.Core.Shared.Word.Models;
@@ -18,7 +19,7 @@ public partial class VmSearchedWordCard: VmBaseWordListCard{
 	/// 命中資產識別碼的顯示文字。
 	public str HitAssetIdText{get;set;} = "";
 	/// 聚合根的軟刪時間，用於詞卡呈現刪除狀態。
-	public IdDel? DelAt{get;set;}
+	public UnixMs? DelAt{get;set;}
 	/// 從搜索命中取出所屬的完整單詞聚合。
 	public static partial JnWord GetJnWordFromHit(DtoWordSearchHit Hit);
 	/// 載入命中資料並更新所有詞卡展示屬性。

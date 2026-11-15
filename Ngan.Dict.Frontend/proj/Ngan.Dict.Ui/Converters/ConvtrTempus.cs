@@ -2,7 +2,6 @@ namespace Ngan.Dict.Ui.Converters;
 
 using Avalonia.Data;
 using Ngan.Dict.Core.Infra;
-using Tsinswreng.AvlnTools.Tools;
 using Tsinswreng.CsTempus;
 
 public class ConvtrTempus{

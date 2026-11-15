@@ -11,8 +11,6 @@ using Ngan.Dict.Ui.Icons;
 using Ngan.Dict.Ui.Infra;
 using Ngan.Dict.Ui.Infra.Ctrls;
 using Ngan.Dict.Core.Shared.Dictionary.Models.Po.NormLang;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 using Tsinswreng.CsI18n;
 using Ctx = VmNormLangEdit;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;

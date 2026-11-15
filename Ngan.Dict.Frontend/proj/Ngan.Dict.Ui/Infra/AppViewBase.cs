@@ -8,7 +8,6 @@ using Avalonia.Markup.Xaml.MarkupExtensions.CompiledBindings;
 using Ngan.Dict.Ui.Infra.I18n;
 using Ngan.Dict.Ui.Views;
 using Tsinswreng.Avln.Navi;
-using Tsinswreng.AvlnTools.Dsl;
 using Tsinswreng.CsI18n;
 namespace Ngan.Dict.Ui.Infra;
 

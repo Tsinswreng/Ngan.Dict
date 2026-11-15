@@ -1,3 +1,4 @@
+using Tsinswreng.CsErr.Results;
 using Ngan.Dict.Core.Infra;
 using Ngan.Dict.Core.Shared.Base.Models.Po;
 using Ngan.Dict.Core.Shared.Word.Models;
@@ -25,7 +26,7 @@ public class Packer<T>:IPacker<T>{
 	public IAnswer<IAsyncEnumerable<T>> Unpack(
 		ITextWithStream TextWithBlob, CT Ct
 	){
-		var ans = new Answer<IAsyncEnumerable<T>>();
+		var ans = new AnswerBox<IAsyncEnumerable<T>>();
 		try{
 			// 先解析元信息；此處只保證可解析，不對 PayloadType 作額外校驗。
 			_ = JsonS.Deserialize<ObjPackInfo>(TextWithBlob.Text);

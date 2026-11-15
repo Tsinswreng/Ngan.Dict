@@ -1,11 +1,9 @@
 namespace Ngan.Dict.Ui.Views.Settings;
 
+using Ngan.Dict.Ui.Components.SwipeLongPress;
 using Avalonia.Controls;
 using Ngan.Dict.Ui.Infra;
 using Tsinswreng.Avln.Grid;
-using Tsinswreng.AvlnTools.Controls;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 using Ctx = VmCfgFont;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 public partial class ViewCfgFont

@@ -1,82 +1,22 @@
-//#define Impl
 namespace Ngan.Dict.Core.Shared.Base.Models.Po;
 
-using Ngan.Dict.Core.Shared.User.Models.Po;
-using Ngan.Dict.Core.Shared.User.Models.Po.User;
 using Ngan.Dict.Core.Infra.IF;
-using Ngan.Dict.Core.Tools;
-using Tsinswreng.CsTempus;
+using Tsinswreng.CsCore;
+using Tsinswreng.CsEntity;
 
+[Doc($$"""
+所有持久化實體（Po）的共同形狀。
+
+*形狀來自身共用的庫*：{{nameof(Tsinswreng.CsEntity.IBasePoBase)}} 提供三共同列
+（{{nameof(IBasePoBase.DbCreatedAt)}}／{{nameof(IBasePoBase.DbUpdatedAt)}}／{{nameof(IBasePoBase.DelAt)}}）、
+淺複製與軟刪語義；本介面只額外要求「可被應用的 JSON 源生成器登記」（本專案的生成器按此標記掃描）。
+
+*與本項目舊版的差異*：舊版自己聲明了一份 `I_DelAt` 並用 `IdDel`（自製 i64 包裝）表示刪除時間。
+現改用 CsEntity 的 {{nameof(Tsinswreng.CsEntity.I_DelAt)}}（型別 {{nameof(Tsinswreng.CsTempus.UnixMs)}}）——
+兩者的數據庫型別與線上表示完全一致（毫秒時間戳、0 表示未刪），故既有數據不受影響。
+""")]
 public partial interface IPoBase
-	:I_ShallowCloneSelf
-	,IAppSerializable
-	,I_DelAt
+	: IBasePoBase
+	, IAppSerializable
 {
-	/// 留與觸發器或攔截器、改實體保存旹自動改ᵣ「改ˡ時」ˇ
-	public UnixMs DbCreatedAt{get;set;}
-	/// 留與觸發器或攔截器、增實體旹自動改ᵣ「添ˡ時」ˇ
-	public UnixMs DbUpdatedAt{get;set;}
-}
-
-public interface IBizCreateUpdateTime{
-	#region IBizCreateUpdateTime
-	/// 理則ₐ實體ˇ增ʹ時、如于單詞、則始記于文本單詞表中之時 即其CreatedAt、非 存入數據庫之時
-	/// 潙null旹示與InsertedBy同。亦可早於InsertedAt。
-	public UnixMs BizCreatedAt{get;set;}
-	#if Impl
-		= new();
-	#endif
-	/// 理則ₐ實體ˇ改ʹ時
-	/// 如ʃ有ʹ子實體ˋ變˪、則亦宜改主實體或聚合根ʹUpdatedAt
-	public UnixMs BizUpdatedAt{get;set;}
-	#if Impl
-		= Tempus.Zero;
-	#endif
-
-	#endregion IBizCreateUpdateTime
-
-}
-
-
-public static class IBizCreateUpdateTimeExtn{
-	extension(IBizCreateUpdateTime z){
-		public UnixMs LatestBizTime{
-			get{
-				if(z.BizUpdatedAt.IsNullOrDefault()){
-					return z.BizCreatedAt;
-				}
-				return z.BizUpdatedAt;
-			}
-		}
-	}
-	extension<TPo>(TPo z)
-		where TPo : IBizCreateUpdateTime
-	{
-		public TPo Touch(UnixMs? NeoUpdTime = null){
-			NeoUpdTime??=UnixMs.Now();
-			z.BizUpdatedAt = NeoUpdTime.Value;
-			return z;
-		}
-	}
-	extension<TPo>(IEnumerable<TPo> z)
-		where TPo : IBizCreateUpdateTime
-	{
-		public IEnumerable<TPo> Touch(UnixMs? NeoUpdTime = null){
-			return z.Select(x=>{
-				x.Touch(NeoUpdTime);
-				return x;
-			});
-		}
-	}
-	
-	extension<TPo>(IAsyncEnumerable<TPo> z)
-		where TPo : IBizCreateUpdateTime
-	{
-		public IAsyncEnumerable<TPo> Touch(UnixMs? NeoUpdTime = null){
-			return z.Select(x=>{
-				x.Touch(NeoUpdTime);
-				return x;
-			});
-		}
-	}
 }

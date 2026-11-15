@@ -1,5 +1,6 @@
 namespace Ngan.Dict.Ui.Views.Word.WordManage.SearchWords.SearchedWordCard;
 
+using Tsinswreng.CsTempus;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Ngan.Dict.Core.Shared.Base.Models.Po;
@@ -9,8 +10,6 @@ using Ngan.Dict.Core.Tools;
 using Ngan.Dict.Ui.Converters;
 using Ngan.Dict.Ui.Infra;
 using Tsinswreng.Avln.Grid;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 using Tsinswreng.CsTools;
 using Ctx = VmSearchedWordCard;
 
@@ -31,7 +30,7 @@ public partial class ViewSearchedWordCard{
 		Root.A(HeadBox.Grid);
 		HeadBox.A(new TextBlock(), o=>{
 			HeadCtrl = o; o.VAlign(x=>x.Center); o.FontSize = UiCfg.Inst.BaseFontSize + 8;
-			Ctx.Bind(o, x=>x.TextDecorations, x=>x.DelAt, Converter: new FnConvtr<IdDel?, TextDecorationCollection?>(x=>x.IsNullOrDefault() ? null : TextDecorations.Strikethrough));
+			Ctx.Bind(o, x=>x.TextDecorations, x=>x.DelAt, Converter: new FnConvtr<UnixMs?, TextDecorationCollection?>(x=>x.IsNullOrDefault() ? null : TextDecorations.Strikethrough));
 			Ctx.Bind(o, x=>x.Text, x=>x.Head); Ctx.Bind(o, x=>x.Foreground, x=>x.FontColor);
 		});
 	}

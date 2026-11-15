@@ -52,27 +52,17 @@ public sealed partial class Application{
 		var externalFileDir = externalFileDirObj.AbsolutePath;
 		BaseDirMgr.Inst._BaseDir = externalFileDir;
 		var baseDir = BaseDirMgr.Inst;
-		var roCfgPath = baseDir.Combine("Ngan.Dict.jsonc");
-		var dfltRwCfgPath = baseDir.Combine("Ngan.Dict.Rw.jsonc");
+		// 配置＝出廠（只讀）＋日常（可寫）兩源疊加，位置與檔名全由 AppCfg 決定。
+		// 出廠檔不存在時先從 APK Assets 複製一份，這是 Android 特有的部署步驟。
+		var roCfgPath = baseDir.Combine(AppCfg.RoCfgFileName);
 		if(!File.Exists(roCfgPath)){
-			CopyAssetToDirectory("Ngan.Dict.jsonc", externalFileDir);
+			CopyAssetToDirectory(AppCfg.RoCfgFileName, externalFileDir);
 			ToolFile.EnsureFile(roCfgPath);
 			File.WriteAllText(roCfgPath, "{}");
 		}
+		AppCfg.Inst.Setup(baseDir);
 
-		var dualSrcCfg = AppCfg.Inst;
-		var roCfg = new JsonFileCfgAccessor();
-		dualSrcCfg.RoCfg = roCfg;
-		roCfg.FromFile(roCfgPath);
-
-		var rwCfgPath = KeysClientCfg.RwCfgPath.GetFrom(dualSrcCfg) ?? dfltRwCfgPath;
-		rwCfgPath = baseDir.Combine(rwCfgPath);
-		ToolFile.EnsureFile(rwCfgPath);
-		var rwCfg = new JsonFileCfgAccessor();
-		dualSrcCfg.RwCfg = rwCfg;
-		rwCfg.FromFile(rwCfgPath);
-
-		InitI18n(baseDir, dualSrcCfg);
+		InitI18n(baseDir);
 		var services = new ServiceCollection();
 		services.AddSingleton<II18n>(AppI18n.Inst);
 		services
@@ -89,30 +79,9 @@ public sealed partial class Application{
 		App.SetSvcProvider(serviceProvider);
 	}
 
-	/// 載入配置指定的語言文件，缺失時先從 APK Assets 複製。
-	partial void InitI18n(BaseDirMgr BaseDir, AppCfg DualSrcCfg){
-		var lang = KeysClientCfg.Lang.GetFrom(DualSrcCfg) ?? "default";
-		var i18nCfg = new JsonFileCfgAccessor();
-		AppI18n.Inst = new(i18nCfg);
-#if DEBUG
-		AppI18n.Inst.OnKeyNotFound = (Self, Key, Args)=>{
-			var msg = "!" + Key.GetFullPath() + "!";
-			System.Console.WriteLine(msg);
-			return msg;
-		};
-#endif
-		var langDir = BaseDir.Combine("Languages");
-		Directory.CreateDirectory(langDir);
-		var langRelativeAssetPath = Path.Combine("Languages", lang + ".json");
-		var langFilePath = BaseDir.Combine(langRelativeAssetPath);
-		if(!File.Exists(langFilePath)){
-			CopyAssetToDirectory(langRelativeAssetPath, langDir);
-		}
-		try{
-			i18nCfg.FromFile(langFilePath);
-		}catch{
-			System.Console.Error.WriteLine($"Failed to load language file: {lang}");
-		}
+	/// 本輪只落鍵、不載譯文：AppI18n 已自帶一個空語言包，
+	/// 故 Android 端暫時不需要從 APK Assets 複製語言檔。等譯文補上時再在這裡接。
+	partial void InitI18n(BaseDirMgr BaseDir){
 	}
 
 	/// 複製單一 Asset；失敗時記錄錯誤並讓原啓動流程繼續處理缺失文件。

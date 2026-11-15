@@ -519,7 +519,7 @@ ORDER BY {TW.QtCol(nameof(PoWord.BizCreatedAt))} DESC
 		var codeDicts = new List<IStr_Obj>(Ids.Count);
 		foreach(var _ in Ids){
 			codeDicts.Add(new Dictionary<str, obj?>{
-				[nameof(IPoBase.DelAt)] = default(IdDel),
+				[nameof(IPoBase.DelAt)] = default(UnixMs),
 			});
 		}
 		await RepoWord.OrdUpdByCodeDict(Ctx, Ids, codeDicts, Ct);

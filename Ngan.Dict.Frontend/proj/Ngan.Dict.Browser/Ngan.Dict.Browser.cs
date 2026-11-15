@@ -4,6 +4,7 @@ using Avalonia;
 using Avalonia.Browser;
 using Microsoft.Extensions.DependencyInjection;
 using Ngan.Dict.Core;
+using Ngan.Dict.Browser.Infra;
 using Ngan.Dict.Core.Infra.Log;
 using Ngan.Dict.Ui;
 using Ngan.Dict.Client;

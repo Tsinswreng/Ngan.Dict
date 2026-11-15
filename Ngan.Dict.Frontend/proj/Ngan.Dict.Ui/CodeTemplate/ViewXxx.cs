@@ -3,7 +3,6 @@ namespace Xxx;
 using Ngan.Dict.Ui;
 using Ngan.Dict.Ui.Infra;
 using Tsinswreng.Avln.Grid;
-using Tsinswreng.AvlnTools.Tools;
 using Tsinswreng.CsI18n;
 using Ctx = VmXxx;
 public partial class ViewXxx

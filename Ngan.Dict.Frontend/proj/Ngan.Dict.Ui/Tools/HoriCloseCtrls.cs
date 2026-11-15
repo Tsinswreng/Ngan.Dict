@@ -1,7 +1,6 @@
 namespace Ngan.Dict.Ui.Tools;
 using Avalonia.Controls;
 using Avalonia.Layout;
-using Tsinswreng.AvlnTools.Dsl;
 
 public class HoriCloseCtrls:ContentControl{
 	public static HoriCloseCtrls Mk(params Control[] Ctrls){

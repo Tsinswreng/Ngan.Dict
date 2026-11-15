@@ -1,5 +1,7 @@
 namespace Ngan.Dict.Core.Shared.Dictionary.Models;
 
+using Tsinswreng.CsErr.Results;
+using Ngan.Dict.Core.Infra;
 using Ngan.Dict.Core.Shared.Audio;
 using Ngan.Dict.Core.Shared.Word.Models;
 using Tsinswreng.CsErr;
@@ -36,7 +38,7 @@ public class Pronunciation:TextedPronunciation{
 public static class ExtnPronunciation{
 	extension(Pronunciation z){
 		public async Task<IAnswer<nil>> AssignAudioFromUrl(CT Ct){
-			var R = new Answer<nil>();
+			var R = new AnswerBox<nil>();
 			if(str.IsNullOrEmpty(z.AudioUrl)){
 				return R.AddErr("AudioUrl is null or empty.");
 			}

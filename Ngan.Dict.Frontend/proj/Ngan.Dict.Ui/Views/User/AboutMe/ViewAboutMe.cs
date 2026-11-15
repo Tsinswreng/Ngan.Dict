@@ -1,5 +1,6 @@
 namespace Ngan.Dict.Ui.Views.User.AboutMe;
 
+using Ngan.Dict.Ui.Components.SwipeLongPress;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
@@ -10,9 +11,6 @@ using Ngan.Dict.Ui.Tools;
 using Ngan.Dict.Ui.Views.Settings;
 using Ngan.Dict.Ui.Views.User.Profile;
 using Ngan.Dict.Ui.Views.Word.WordManage;
-using Tsinswreng.AvlnTools.Controls;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 using Ngan.Dict.Ui.Infra.I18n;
 using Ctx = VmAboutMe;
 using Ngan.Dict.Ui.Components;

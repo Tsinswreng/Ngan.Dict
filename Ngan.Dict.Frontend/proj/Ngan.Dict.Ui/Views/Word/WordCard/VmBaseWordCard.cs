@@ -153,7 +153,7 @@ public partial class VmBaseWordListCard
 		}else if(Learn == ELearn.Fgt){
 			return "❌";
 		}
-		throw new FatalLogicErr("Unknown Learn: " + Learn);
+		throw new InvalidOperationException("Unknown Learn: " + Learn);
 	}
 
 	public static IBrush AddCntToFontColor(u64 Cnt){

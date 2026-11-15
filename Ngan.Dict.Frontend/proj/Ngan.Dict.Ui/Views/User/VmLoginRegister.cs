@@ -137,7 +137,7 @@ public partial class VmLoginRegister: ViewModelBase{
 
 				var ClientId = await z.SvcKv.GetByOwnerEtKStr(IdUser.Zero, KeysClientKv.ClientId, Ct);
 				if(ClientId is null){
-					throw new FatalLogicErr("ClientId is null. ClientId should be in Db when App is launched");
+					throw new InvalidOperationException("ClientId is null. ClientId should be in Db when App is launched");
 				}
 				var reqLogin = new ReqLogin{
 					Email = Email

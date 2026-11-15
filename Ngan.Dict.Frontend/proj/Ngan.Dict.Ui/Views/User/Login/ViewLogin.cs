@@ -8,8 +8,6 @@ using Avalonia.Markup.Xaml.MarkupExtensions.CompiledBindings;
 using Avalonia.Media;
 using Avalonia.Styling;
 using Ngan.Dict.Ui;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 

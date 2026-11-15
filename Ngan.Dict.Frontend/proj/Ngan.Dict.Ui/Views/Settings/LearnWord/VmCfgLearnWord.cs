@@ -87,10 +87,10 @@ public partial class VmCfgLearnWord: ViewModelBase, IMk<Ctx>{
 			langs = LanguageFilterExpr.Split('\n').AsOrToList();
 		}
 		await Task.Run(async()=>{
-			Cfg.Set(KeysClientCfg.Word.FilterLanguage, langs);
-			Cfg.Set(KeysClientCfg.Word.EnableRandomBackground, EnableRandomBackground);
-			Cfg.Set(KeysClientCfg.Word.EnableAutoPronounce, EnableAutoPronounce);
-			Cfg.Set(KeysClientCfg.Word.MaxDisplayedWordCount, maxDisplayedWordCount);
+			Cfg.SetNoSave(KeysClientCfg.Word.FilterLanguage, langs);
+			Cfg.SetNoSave(KeysClientCfg.Word.EnableRandomBackground, EnableRandomBackground);
+			Cfg.SetNoSave(KeysClientCfg.Word.EnableAutoPronounce, EnableAutoPronounce);
+			Cfg.SetNoSave(KeysClientCfg.Word.MaxDisplayedWordCount, maxDisplayedWordCount);
 			await Cfg.Save(Ct);
 		});
 		return NIL;

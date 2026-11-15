@@ -16,8 +16,6 @@ using Ngan.Dict.Ui.Tools;
 using Ngan.Dict.Ui.Views.Word.WordManage.StudyPlan;
 using Ngan.Dict.Ui.Views.Word.WordManage.StudyPlan.WeightCalculatorPage;
 using Tsinswreng.Avln.Grid;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 using Tsinswreng.CsI18n;
 using Ctx = VmWeightArgEdit;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;

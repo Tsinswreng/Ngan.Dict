@@ -29,8 +29,8 @@ public class DictionaryLookupHotkeyCfgParser : IParseDictionaryLookupHotkeyCfg{
 	/// 從全局配置讀取，並委派到純解析邏輯。
 	public DictionaryLookupHotkeyCfg ReadFromAppCfg(Action<str>? OnWarning = null){
 		var cfg = AppCfg.Inst;
-		var rawModifiers = ExtnICfgAccessor.Get(cfg, KeysClientCfg.Hotkey.DictionaryLookup.Modifiers) ?? "";
-		var rawKey = ExtnICfgAccessor.Get(cfg, KeysClientCfg.Hotkey.DictionaryLookup.Key) ?? "";
+		var rawModifiers = cfg.Get(KeysClientCfg.Hotkey.DictionaryLookup.Modifiers) ?? "";
+		var rawKey = cfg.Get(KeysClientCfg.Hotkey.DictionaryLookup.Key) ?? "";
 		return Parse(rawModifiers, rawKey, OnWarning);
 	}
 

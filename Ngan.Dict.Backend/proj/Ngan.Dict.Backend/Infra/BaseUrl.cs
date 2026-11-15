@@ -12,7 +12,7 @@ public partial class BaseUrl(
 ):I_GetBaseUrl{
 	[Impl]
 	public str GetBaseUrl(){
-		var V = KeysClientCfg.ServerBaseUrl.GetFrom(CfgAccessor);
+		var V = CfgAccessor.Get(KeysClientCfg.ServerBaseUrl);
 
 		return V??"";
 	}

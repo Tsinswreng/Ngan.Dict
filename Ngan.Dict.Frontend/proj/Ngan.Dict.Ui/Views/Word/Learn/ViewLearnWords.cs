@@ -1,5 +1,6 @@
 namespace Ngan.Dict.Ui.Views.Word.Learn;
 
+using Ngan.Dict.Ui.Components.SwipeLongPress;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -20,8 +21,6 @@ using Ngan.Dict.Ui.Views.Word.WordCard;
 using Ngan.Dict.Ui.Views.Word.WordInfo;
 using Tsinswreng.Avln.Grid;
 using Tsinswreng.Avln.StrokeText;
-using Tsinswreng.AvlnTools.Controls;
-using Tsinswreng.AvlnTools.Dsl;
 using Ctx = VmLearnWords;
 using K = Infra.I18n.KeysUiI18nCommon;
 using PC = PsdCls;

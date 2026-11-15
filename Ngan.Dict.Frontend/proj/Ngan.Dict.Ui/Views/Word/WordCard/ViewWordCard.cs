@@ -1,5 +1,6 @@
 namespace Ngan.Dict.Ui.Views.Word.WordCard;
 
+using Ngan.Dict.Ui.Components.SwipeLongPress;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Declarative;
@@ -8,8 +9,6 @@ using Avalonia.Styling;
 using Ngan.Dict.Core.Shared.Word.Models.Learn_;
 using Ngan.Dict.Ui.Converters;
 using Ngan.Dict.Ui.StrokeText;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 using Tsinswreng.Avln.StrokeText;
 using Ngan.Dict.Core.Shared.Word.Models;
 using Ngan.Dict.Ui.Tools;
@@ -18,7 +17,6 @@ using Ngan.Dict.Ui.Views.Word.WordEditV2;
 using Ngan.Dict.Ui.Infra;
 using Ngan.Dict.Ui.Infra.I18n;
 using Ngan.Dict.Ui.Views.Word.WordManage.UserLang.UserLangPage;
-using Tsinswreng.AvlnTools.Controls;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 using Tsinswreng.Avln.Grid;
 

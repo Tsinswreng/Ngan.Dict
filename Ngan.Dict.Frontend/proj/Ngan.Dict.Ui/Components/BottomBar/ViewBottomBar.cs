@@ -6,8 +6,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using Avalonia.Media;
 using Avalonia.Controls.Templates;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 using Ctx = VmBottomBar;
 using Tsinswreng.Avln.Grid;
 

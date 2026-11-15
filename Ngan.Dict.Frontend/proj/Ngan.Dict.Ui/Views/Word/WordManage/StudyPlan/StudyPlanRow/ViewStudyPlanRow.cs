@@ -3,7 +3,6 @@ namespace Ngan.Dict.Ui.Views.Word.WordManage.StudyPlan.StudyPlanRow;
 using Ngan.Dict.Ui;
 using Ngan.Dict.Ui.Infra;
 using Tsinswreng.Avln.Grid;
-using Tsinswreng.AvlnTools.Tools;
 using Tsinswreng.CsI18n;
 using Ctx = VmStudyPlanRow;
 public partial class ViewStudyPlanRow

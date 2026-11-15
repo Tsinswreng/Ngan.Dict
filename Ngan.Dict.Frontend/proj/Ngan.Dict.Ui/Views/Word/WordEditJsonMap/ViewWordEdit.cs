@@ -13,8 +13,6 @@ using Ngan.Dict.Ui.Tools;
 using Ngan.Dict.Ui.Views.Word.WordEditV2;
 using Ngan.Dict.Ui.Views.Word.WordManage.EditWord;
 using Tsinswreng.Avln.Grid;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 using Tsinswreng.CsI18n;
 using Tsinswreng.CsRefl;
 using Ctx = VmWordEdit;

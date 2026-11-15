@@ -133,7 +133,7 @@ public partial class VmCfgLang: ViewModelBase, IMk<Ctx>{
 			return NIL;
 		}
 		await Task.Run(async ()=>{
-			Cfg.Set(KeysClientCfg.Lang, LangCode);
+			Cfg.SetNoSave(KeysClientCfg.Lang, LangCode);
 			await Cfg.Save(Ct);
 		});
 		ShowToast(I18n[K.Saved]);

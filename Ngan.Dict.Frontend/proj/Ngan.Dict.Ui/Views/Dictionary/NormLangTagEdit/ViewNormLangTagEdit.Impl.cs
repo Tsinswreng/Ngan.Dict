@@ -12,8 +12,6 @@ using Ngan.Dict.Ui.Tools;
 using Ngan.Dict.Ui.Views.Dictionary.NormLangTag;
 using Ngan.Dict.Ui.Views.Word.WordManage.NormLang.NormLangPage;
 using Tsinswreng.Avln.Grid;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 using Tsinswreng.CsI18n;
 using Ctx = VmNormLangTagEdit;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;

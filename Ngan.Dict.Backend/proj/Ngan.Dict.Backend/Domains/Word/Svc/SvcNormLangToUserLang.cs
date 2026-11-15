@@ -97,7 +97,7 @@ public class SvcNormLangToUserLang : ISvcNormLangToUserLang{
 			});
 			return NIL;
 		}
-		catch(AppErr){
+		catch(TypedErr){
 			throw;
 		}
 		catch(Exception Ex){

@@ -1,4 +1,6 @@
 namespace Ngan.Dict.Windows.Domains.Hotkey;
+using Ngan.Dict.Core.Infra;
+using Tsinswreng.CsErr.Results;
 using Tsinswreng.CsErr;
 using System;
 using System.Collections.Generic;
@@ -51,7 +53,7 @@ public class WinHotkeyListener : IHotkeyListener{
 	#endregion
 
 	public IAnswer<obj?> Register(IHotKey HotKey){
-		var answer = new Answer<obj?>();
+		var answer = new AnswerBox<obj?>();
 		// ensure the message thread is running so work queue will be handled
 		EnsureMessageThreadRunning();
 		_messageThreadReady.Wait();
@@ -93,7 +95,7 @@ public class WinHotkeyListener : IHotkeyListener{
 	}
 
 	public IAnswer<obj?> Unregister(str HotkeyId){
-		var ans = new Answer<obj?>();
+		var ans = new AnswerBox<obj?>();
 		if(!RegisteredHotkeys.TryGetValue(HotkeyId, out var Registration)){
 			Logger?.LogWarning("Hotkey {HotkeyId} not found", HotkeyId);
 			ans.AddErr("not found");
@@ -127,7 +129,7 @@ public class WinHotkeyListener : IHotkeyListener{
 	}
 
 	public IAnswer<obj?> Cleanup(){
-		var ans = new Answer<obj?>();
+		var ans = new AnswerBox<obj?>();
 		var HotkeyIds = new List<str>(RegisteredHotkeys.Keys);
 		foreach(var HotkeyId in HotkeyIds){
 			var r = Unregister(HotkeyId);

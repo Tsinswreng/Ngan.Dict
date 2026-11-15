@@ -7,8 +7,6 @@ using Avalonia.Data;
 using Avalonia.Media;
 using Avalonia.Styling;
 using AvaloniaEdit.Utils;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 
 namespace Ngan.Dict.Ui;
 

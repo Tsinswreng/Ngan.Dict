@@ -16,58 +16,60 @@
 		<!-- <CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath> -->
 	</PropertyGroup>
 
+	<!-- ── 本地基礎庫 ──
+		 一律走 ProjectReference 指向 TswgLib\（路徑經 TswgLibsDir，定義在 Ngan.Dict\TswgLibs.props）。
+		 *為何不用 NuGet*：TswgLib 上的庫還在演進，NuGet 的 0.0.1-alpha 與本地 API 已對不上
+		 （例如 CsSql 的拼接器、CsErr 的鍵族都只存在於本地版本）。 -->
 	<ItemGroup>
+		<ProjectReference Include="$(TswgLibsDir)CsCore/proj/Tsinswreng.CsCore/Tsinswreng.CsCore.csproj" />
+		<ProjectReference Include="$(TswgLibsDir)CsTools/proj/Tsinswreng.CsTools/Tsinswreng.CsTools.csproj" />
+		<ProjectReference Include="$(TswgLibsDir)CsPage/proj/Tsinswreng.CsPage/Tsinswreng.CsPage.csproj" />
+		<ProjectReference Include="$(TswgLibsDir)CsTempus/proj/Tsinswreng.CsTempus/Tsinswreng.CsTempus.csproj" />
+		<!-- 鍵節點（CsI18n／CsErr／CsCfg 的共同底座） -->
+		<ProjectReference Include="$(TswgLibsDir)CsKeyNode/proj/Tsinswreng.CsKeyNode/Tsinswreng.CsKeyNode.csproj" />
+		<ProjectReference Include="$(TswgLibsDir)CsErr/proj/Tsinswreng.CsErr/Tsinswreng.CsErr.csproj" />
+		<!-- WebAns／IWebAns／AppErrView 等傳輸包絡在 CsErr.Results，不是 CsErr 本體 -->
+		<ProjectReference Include="$(TswgLibsDir)CsErr/proj/Tsinswreng.CsErr.Results/Tsinswreng.CsErr.Results.csproj" />
+		<ProjectReference Include="$(TswgLibsDir)CsI18n/proj/Tsinswreng.CsI18n/Tsinswreng.CsI18n.csproj" />
+		<ProjectReference Include="$(TswgLibsDir)CsCfg/proj/Tsinswreng.CsCfg/Tsinswreng.CsCfg.csproj" />
+		<!-- 核心不含格式知識，JSON 編解碼器在 CsCfg.Json，兩者成對引用 -->
+		<ProjectReference Include="$(TswgLibsDir)CsCfg/proj/Tsinswreng.CsCfg.Json/Tsinswreng.CsCfg.Json.csproj" />
+		<ProjectReference Include="$(TswgLibsDir)CsJson/proj/Tsinswreng.CsJson/Tsinswreng.CsJson.csproj" />
+		<ProjectReference Include="$(TswgLibsDir)CsRefl/proj/Tsinswreng.CsRefl/Tsinswreng.CsRefl.csproj" />
+		<ProjectReference Include="$(TswgLibsDir)CsU128Id/proj/Tsinswreng.CsU128Id/Tsinswreng.CsU128Id.csproj" />
+		<ProjectReference Include="$(TswgLibsDir)CsTextWithBlob/proj/Tsinswreng.CsTextWithBlob/Tsinswreng.CsTextWithBlob.csproj" />
+		<ProjectReference Include="$(TswgLibsDir)CsLog/proj/Tsinswreng.CsLog/Tsinswreng.CsLog.csproj" />
+		<ProjectReference Include="$(TswgLibsDir)CsCtx/proj/Tsinswreng.CsCtx/Tsinswreng.CsCtx.csproj" />
+		<ProjectReference Include="$(TswgLibsDir)CsSql/proj/Tsinswreng.CsSql/Tsinswreng.CsSql.csproj" />
+		<!-- 實體層（PoBase／強類型 Id／軟刪／JSON 轉換器的共用形狀） -->
+		<ProjectReference Include="$(TswgLibsDir)CsEntity/proj/Tsinswreng.CsEntity/Tsinswreng.CsEntity.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<!-- <PackageReference Include="NewId" Version="4.0.1" /> -->
 		<!-- <PackageReference Include="MassTransit.Abstractions" Version="8.4.0" /> -->
 		<PackageReference Include="Jint" Version="4.4.2" />
-		<PackageReference Include="Microsoft.Extensions.Primitives" Version="10.0.3" />
+		<PackageReference Include="Microsoft.Extensions.Primitives" Version="10.0.8" />
 		<PackageReference Include="MoonSharp" Version="2.0.0" />
 		<!-- <PackageReference Include="System.Linq.Async" Version="6.0.1" /> -->
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.8" />
 		<PackageReference Include="BeaKona.AutoInterfaceGenerator" Version="1.0.46" />
 		<PackageReference Include="TestableIO.System.IO.Abstractions" Version="22.1.1" />
 		<PackageReference Include="Ulid" Version="1.3.4" />
+		<!-- 內置的 YamlMd（原 Tsinswreng.CsYamlMd）用 Markdig 解析 markdown 結構 -->
+		<PackageReference Include="Markdig" Version="0.45.0" />
+		<!-- YamlDotNet 的分叉：ToolYaml 用它做低階事件解析（Parser/Scalar） -->
+		<PackageReference Include="Tsinswreng.YamlDotNet" Version="1.0.0" />
 		<!-- <PackageReference Include="YamlDotNet" Version="16.3.0" /> -->
 
 		<!-- <ProjectReference Include="../YamlDotNet/YamlDotNet/YamlDotNet.csproj" /> -->
-		<PackageReference Include="Tsinswreng.YamlDotNet" Version="1.0.0" />
 
 
 	</ItemGroup>
 
 
 	<ItemGroup>
-		<!-- <ProjectReference Include="../Tsinswreng.CsCore/proj/Tsinswreng.CsCore/Tsinswreng.CsCore.csproj" /> -->
-		<PackageReference Include="Tsinswreng.CsCore" Version="0.0.1-alpha" />
-		<PackageReference Include="Tsinswreng.CsTools" Version="0.0.1-alpha" />
-		<PackageReference Include="Tsinswreng.CsPage" Version="0.0.1-alpha" />
-		<PackageReference Include="Tsinswreng.CsI18n" Version="0.0.1-alpha" />
-		<PackageReference Include="Tsinswreng.CsCfg" Version="0.0.1-alpha" />
-		<PackageReference Include="Tsinswreng.CsErr" Version="0.0.1-alpha" />
-		<PackageReference Include="Tsinswreng.CsTempus" Version="0.0.1-alpha" />
-		<PackageReference Include="Tsinswreng.CsU128Id" Version="0.0.1-alpha" />
-		<PackageReference Include="Tsinswreng.CsYamlMd" Version="0.0.1-alpha" />
-		<PackageReference Include="Tsinswreng.CsTextWithBlob" Version="0.0.1-alpha" />
-		<!-- <ProjectReference Include="../Tsinswreng.CsTools/proj/Tsinswreng.CsTools/Tsinswreng.CsTools.csproj" /> -->
-		<!-- <ProjectReference Include="../Tsinswreng.CsPage/proj/Tsinswreng.CsPage/Tsinswreng.CsPage.csproj" /> -->
-		<!-- <ProjectReference Include="../Tsinswreng.CsCfg/proj/Tsinswreng.CsCfg/Tsinswreng.CsCfg.csproj" /> -->
-		<!-- <ProjectReference Include="../Tsinswreng.CsErr/proj/Tsinswreng.CsErr/Tsinswreng.CsErr.csproj" /> -->
-		<!-- <ProjectReference Include="../Tsinswreng.CsI18n/proj/Tsinswreng.CsI18n/Tsinswreng.CsI18n.csproj" /> -->
-		<!-- <ProjectReference Include="../Tsinswreng.CsTempus/proj/Tsinswreng.CsTempus/Tsinswreng.CsTempus.csproj" /> -->
-		<!-- <ProjectReference Include="../Tsinswreng.CsU128Id/proj/Tsinswreng.CsU128Id/Tsinswreng.CsU128Id.csproj" /> -->
-		<ProjectReference Include="../../../../Tsinswreng.CsCtx/proj/Tsinswreng.CsCtx/Tsinswreng.CsCtx.csproj" />
-		<ProjectReference Include="../../../../Tsinswreng.CsSql/proj/Tsinswreng.CsSql/Tsinswreng.CsSql.csproj" />
-		<ProjectReference Include="../../../../Tsinswreng.CsJson/proj/Tsinswreng.CsJson/Tsinswreng.CsJson.csproj" />
-		<ProjectReference Include="../../../../Tsinswreng.CsRefl/proj/Tsinswreng.CsRefl/Tsinswreng.CsRefl.csproj" />
-		<PackageReference Include="Tsinswreng.CsLog" Version="0.0.1-alpha" />
-		<!-- <ProjectReference Include="../Tsinswreng.CsYamlMd/proj/Tsinswreng.CsYamlMd/Tsinswreng.CsYamlMd.csproj" /> -->
-		<!-- <ProjectReference Include="../Tsinswreng.CsTextWithBlob/proj/Tsinswreng.CsTextWithBlob/Tsinswreng.CsTextWithBlob.csproj" /> -->
 
-		<!-- <ProjectReference Include="../Tsinswreng.CsFactoryMkr/proj/Tsinswreng.CsFactoryMkr/Tsinswreng.CsFactoryMkr.csproj" /> -->
-		<!-- <ProjectReference Include="../Tsinswreng.CsFactoryMkr/proj/Tsinswreng.CsFactoryMkr.SrcGen/Tsinswreng.CsFactoryMkr.SrcGen.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" /> -->
 	</ItemGroup>
 
 	<ItemGroup>
@@ -91,9 +93,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="10.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="10.0.8" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.8" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.8" />
 	</ItemGroup>
 
 

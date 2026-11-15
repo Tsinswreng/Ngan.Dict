@@ -1,5 +1,7 @@
 namespace Ngan.Dict.Linux.Domains.Hotkey;
 
+using Ngan.Dict.Core.Infra;
+using Tsinswreng.CsErr.Results;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -62,7 +64,7 @@ public class LinuxHotkeyListener : IHotkeyListener{
 	/// <param name="HotKey">熱鍵定義（包含 id、組合鍵與回調）。</param>
 	/// <returns>成功返回 Ok，失敗返回錯誤。</returns>
 	public IAnswer<obj?> Register(IHotKey HotKey){
-		var Answer = new Answer<obj?>();
+		var Answer = new AnswerBox<obj?>();
 		lock(_sync){
 			if(_registeredById.ContainsKey(HotKey.Id)){
 				return Answer.AddErr($"Hotkey already registered: {HotKey.Id}");
@@ -110,7 +112,7 @@ public class LinuxHotkeyListener : IHotkeyListener{
 	/// <param name="HotkeyId">熱鍵 id。</param>
 	/// <returns>成功返回 Ok，找不到則返回錯誤。</returns>
 	public IAnswer<obj?> Unregister(str HotkeyId){
-		var Answer = new Answer<obj?>();
+		var Answer = new AnswerBox<obj?>();
 		lock(_sync){
 			if(!_registeredById.TryGetValue(HotkeyId, out var Registration)){
 				return Answer.AddErr($"Hotkey not found: {HotkeyId}");
@@ -162,7 +164,7 @@ public class LinuxHotkeyListener : IHotkeyListener{
 		}
 
 		EventThreadToJoin?.Join(TimeSpan.FromMilliseconds(200));
-		return new Answer<obj?>().OkWith(NIL);
+		return new AnswerBox<obj?>().OkWith(NIL);
 	}
 
 	/// 確保 X11 後端可用，並啓動事件循環線程。

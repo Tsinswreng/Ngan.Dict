@@ -12,8 +12,6 @@ using Ngan.Dict.Ui.Infra.Ctrls;
 using Ngan.Dict.Ui.Views;
 using Ngan.Dict.Ui.Views.Word.WordManage.StudyPlan.PreFilterEdit.PreFilterVisualEditV2;
 using Tsinswreng.Avln.Grid;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 
 using Ctx = VmFilterCardEditV2;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;

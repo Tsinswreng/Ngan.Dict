@@ -33,7 +33,7 @@ public static partial class DictionarySrcLangTagCfg{
 			.Select(ToRaw)
 			.Cast<obj?>()
 			.ToList();
-		Cfg.Set(KeysClientCfg.Dictionary.SrcLangTags, RawItems);
+		Cfg.SetNoSave(KeysClientCfg.Dictionary.SrcLangTags, RawItems);
 		await Cfg.Save(Ct);
 		return NIL;
 	}

@@ -1,4 +1,6 @@
 <Project>
+	<!-- 本地庫路徑屬性 TswgLibsDir；必須在用到 $(TswgLibsDir) 的 ItemGroup 之前 import。 -->
+	<Import Project="$(MSBuildThisFileDirectory)../../TswgLibs.props" />
 	<PropertyGroup>
 		<AllowMissingPrunePackageData>true</AllowMissingPrunePackageData>
 		<OutputType>Library</OutputType>

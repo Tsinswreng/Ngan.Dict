@@ -8,7 +8,6 @@ using Avalonia.Markup.Declarative;
 using Avalonia.Media;
 using Avalonia.Threading;
 using Ngan.Dict.Ui.Infra;
-using Tsinswreng.AvlnTools.Dsl;
 using Tsinswreng.CsCore;
 using Ctx = VmOpBtn;
 

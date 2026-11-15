@@ -4,8 +4,6 @@ using Avalonia.Controls;
 using AvaloniaEdit;
 using Ngan.Dict.Ui.Infra;
 using Tsinswreng.Avln.Grid;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 using Ctx = VmEditJsonWord;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 

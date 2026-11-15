@@ -126,7 +126,7 @@ public partial class SvcStudyPlan:ISvcStudyPlan, IStudyPlanGetter{
 		IErrNode ErrType, Exception Ex
 	){
 		if(
-			Ex is AppErr appErr
+			Ex is TypedErr appErr
 			&& (
 				ReferenceEquals(appErr.Type, ErrType)
 				|| ReferenceEquals(appErr.Type, KeysErr.Common.PermissionDenied)

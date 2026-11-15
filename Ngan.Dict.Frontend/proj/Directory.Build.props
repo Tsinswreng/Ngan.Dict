@@ -1,4 +1,6 @@
 <Project>
+	<!-- 本地庫路徑屬性 TswgLibsDir；必須在用到 $(TswgLibsDir) 的 ItemGroup 之前 import。 -->
+	<Import Project="$(MSBuildThisFileDirectory)../../TswgLibs.props" />
 	<PropertyGroup>
 		<AllowMissingPrunePackageData>true</AllowMissingPrunePackageData>
 		<OutputType>Library</OutputType>
@@ -17,13 +19,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Tsinswreng.Avln.Dsl" />
-		<PackageReference Include="Tsinswreng.Avln.Grid" />
-		<PackageReference Include="Tsinswreng.Avln.Navi" />
-		<!-- Avalonia 12 support is provided by the published DSL package. -->
-		<!-- <ProjectReference Include="../../../Tsinswreng.Avln.Navi/proj/Tsinswreng.Avln.Navi/Tsinswreng.Avln.Navi.csproj" /> -->
-		<!-- <ProjectReference Include="../../../Tsinswreng.Avln.Grid/proj/Tsinswreng.Avln.Grid/Tsinswreng.Avln.Grid.csproj" /> -->
-		<ProjectReference Include="$(MSBuildThisFileDirectory)..\..\..\Tsinswreng.AvlnTools\proj\Tsinswreng.AvlnTools\Tsinswreng.AvlnTools.csproj" />
+		<!-- 前端 UI 庫一律走 TswgLib 本地專案引用（不再用 NuGet 的 0.3.0-alpha／0.0.2-alpha）。
+			 這三件是「寫界面用的糖」，本項目只在這裏宣告一次。 -->
+		<ProjectReference Include="$(TswgLibsDir)Avln.Dsl/proj/Tsinswreng.Avln.Dsl/Tsinswreng.Avln.Dsl.csproj" />
+		<ProjectReference Include="$(TswgLibsDir)Avln.Grid/proj/Tsinswreng.Avln.Grid/Tsinswreng.Avln.Grid.csproj" />
+		<ProjectReference Include="$(TswgLibsDir)Avln.Navi/proj/Tsinswreng.Avln.Navi/Tsinswreng.Avln.Navi.csproj" />
 		<!-- <ProjectReference Include="../../../Tsinswreng.CsCore/proj/Tsinswreng.CsCore/Tsinswreng.CsCore.csproj" /> -->
 		<!-- <ProjectReference Include="../../../Tsinswreng.CsTools/proj/Tsinswreng.CsTools/Tsinswreng.CsTools.csproj" /> -->
 		<!-- <ProjectReference Include="../../../Tsinswreng.CsCfg/proj/Tsinswreng.CsCfg/Tsinswreng.CsCfg.csproj" /> -->

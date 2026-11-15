@@ -24,9 +24,6 @@ using Ngan.Dict.Ui.Tools;
 using Ngan.Dict.Ui.Views.Word.WordEditV2;
 using Tsinswreng.Avln.Grid;
 using Tsinswreng.Avln.StrokeText;
-using Tsinswreng.AvlnTools;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 using Ctx = VmWordInfo;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 

@@ -207,7 +207,7 @@ public class SvcNormLang : ISvcNormLang{
 			});
 			return NIL;
 		}
-		catch(AppErr){
+		catch(TypedErr){
 			throw;
 		}
 		catch(Exception Ex){
@@ -219,7 +219,7 @@ public class SvcNormLang : ISvcNormLang{
 
 	/// 構造目標語言。當前 i18n 實例由宿主初始化，這裏僅保留接口語義。
 	private INormLang MkTargetLang(){
-		var LangCode = KeysClientCfg.Lang.GetFrom(Cfg) ?? "en";
+		var LangCode = Cfg.Get(KeysClientCfg.Lang) ?? "en";
 		return new NormLang{
 			Type = ELangIdentType.Bcp47,
 			Code = LangCode,
@@ -248,7 +248,7 @@ public class SvcNormLang : ISvcNormLang{
 		return $"{LangName}({RegionName})";
 	}
 
-	private str GetI18nText(IList<str> PathSegs, str Fallback){
+	private str GetI18nText(IReadOnlyList<str> PathSegs, str Fallback){
 		if(I18n is null){
 			return Fallback;
 		}

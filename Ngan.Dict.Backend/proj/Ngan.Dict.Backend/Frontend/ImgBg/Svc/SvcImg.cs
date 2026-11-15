@@ -31,7 +31,7 @@ public partial class SvcImg:IImgGetter{
 			return;
 		}
 try{
-var CfgDir = KeysClientCfg.Background.GalleryDirs.GetFrom(CfgAccessor)??[];
+var CfgDir = CfgAccessor.Get(KeysClientCfg.Background.GalleryDirs)??[];
 		foreach(var _Dir in CfgDir){
 			if(_Dir is str s && !str.IsNullOrEmpty(s)){
 				var Dir = s;

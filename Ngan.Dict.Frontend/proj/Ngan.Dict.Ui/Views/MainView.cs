@@ -1,5 +1,6 @@
 namespace Ngan.Dict.Ui.Views;
 
+using Ngan.Dict.Ui.Components;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -20,9 +21,6 @@ using Ngan.Dict.Ui.Tools;
 using Ngan.Dict.Ui.ViewModels;
 using Ngan.Dict.Ui.Views.Home;
 using Tsinswreng.Avln.Navi;
-using Tsinswreng.AvlnTools.Controls;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 using Tsinswreng.CsErr;
 
 
@@ -292,9 +290,9 @@ public partial class MainView : UserControl {
 
 	public partial nil HandleErr(obj? Ex){
 		str? toLog = null;
-		if(Ex is IAppErr Err){
+		if(Ex is ITypedErr Err){
 			if(Err.Type is not null){
-				var Str = I18n.Get(Err.Type.ToI18nKey(), Err.Args??[]);
+				var Str = I18n.Get(Err.Type, Err.Args??[]);
 				ShowDialog(Str);
 				toLog += "\n"+Str+"\n"+str.Join("\n",Err.DebugArgs??[]);
 			}
@@ -302,14 +300,14 @@ public partial class MainView : UserControl {
 		}
 		else if(Ex is Exception Exception){
 			toLog = Exception+"";
-			ShowDialog(I18n.Get(KeysErr.Common.UnknownErr.ToI18nKey()));
+			ShowDialog(I18n.Get(KeysErr.Common.UnknownErr));
 		}
-		else{//非Exception 非 IAppErr
+		else{//非Exception 非 ITypedErr
 			toLog??="";
 			toLog += "\n"+Ex+"";
 			var err = KeysErr.Common.UnknownErr.ToErr();
 			if(err.Type is not null){
-				var Str = I18n.Get(err.Type.ToI18nKey(), err.Args??[]);
+				var Str = I18n.Get(err.Type, err.Args??[]);
 				ShowDialog(Str);
 			}
 		}

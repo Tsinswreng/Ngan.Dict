@@ -1,5 +1,6 @@
 namespace Ngan.Dict.Backend.Domains.Word.Svc;
 
+using Tsinswreng.CsErr.Results;
 using System.Runtime.CompilerServices;
 using Ngan.Dict.Core.Frontend.Kv;
 using Ngan.Dict.Core.Infra;

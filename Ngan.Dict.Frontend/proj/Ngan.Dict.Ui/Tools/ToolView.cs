@@ -2,8 +2,6 @@ namespace Ngan.Dict.Ui.Tools;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Ngan.Dict.Ui.Infra.Ctrls;
-using Tsinswreng.AvlnTools.Controls;
-using Tsinswreng.AvlnTools.Dsl;
 
 
 

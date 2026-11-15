@@ -8,8 +8,6 @@ using Avalonia.Styling;
 using DynamicData.Binding;
 using Ngan.Dict.Ui.Icons;
 using Tsinswreng.Avln.Grid;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 using Ctx = ViewModelBase;
 public partial class ViewTitle
 	:AppViewBase<Ctx>

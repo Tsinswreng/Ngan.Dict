@@ -1,4 +1,5 @@
 namespace Ngan.Dict.Core.Frontend.Hotkey;
+using Tsinswreng.CsErr.Results;
 using Tsinswreng.CsErr;
 
 

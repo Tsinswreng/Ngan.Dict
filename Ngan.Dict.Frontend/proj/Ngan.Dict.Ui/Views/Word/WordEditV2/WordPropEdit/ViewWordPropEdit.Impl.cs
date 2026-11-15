@@ -15,8 +15,6 @@ using Ngan.Dict.Ui.Tools;
 using Ngan.Dict.Ui.Views.Word.WordEditV2.WordPropPage;
 using Tsinswreng.Avln.Grid;
 using Tsinswreng.Avln.Dsl;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 using Ctx = VmWordPropEdit;
 using Ngan.Dict.Ui.Infra.Ctrls;

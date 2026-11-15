@@ -1,17 +1,15 @@
 namespace Ngan.Dict.Ui.Views.Settings.LearnWord;
 
+using Ngan.Dict.Ui.Components.SwipeLongPress;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Ngan.Dict.Ui.Infra;
 using Ngan.Dict.Ui.Infra.Ctrls;
 using Ngan.Dict.Ui.Tools;
 using Ngan.Dict.Ui.Views.Word.WordManage.StudyPlan;
-using Tsinswreng.AvlnTools.Dsl;
-using Tsinswreng.AvlnTools.Tools;
 using Tsinswreng.CsI18n;
 using Ngan.Dict.Ui.Infra.I18n;
 using Ctx = VmCfgLearnWord;
-using Tsinswreng.AvlnTools.Controls;
 using Tsinswreng.Avln.Grid;
 using Ngan.Dict.Ui.Views.Word.WordManage.StudyPlan.SetCurStudyPlan;
 using Ngan.Dict.Ui.Views.Word.WordManage.StudyPlan.StudyPlanPage;
