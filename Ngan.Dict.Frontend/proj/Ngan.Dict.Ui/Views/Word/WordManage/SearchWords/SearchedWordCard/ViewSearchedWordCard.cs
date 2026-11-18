@@ -6,7 +6,7 @@ using Ngan.Dict.Ui.Infra;
 using Ctx = VmSearchedWordCard;
 
 /// 搜索結果中的精簡單詞卡片。
-public partial class ViewSearchedWordCard: AppViewBase<Ctx>{
+public partial class ViewSearchedWordCard: LegacyAppViewBase<Ctx>{
 	/// 卡片根版面。
 	public GridStack Root = new(IsRow: true);
 	/// 顯示語言標記的文字控件。

@@ -7,7 +7,7 @@ using Ngan.Dict.Ui.Infra;
 using Ngan.Dict.Ui.Views.Word.WordEditV2.WordPropPage;
 
 /// 單行屬性編輯頁 ViewModel。自行注入後端服務，原子落庫。
-public partial class VmWordPropEdit: ViewModelBase, IMk<VmWordPropEdit>{
+public partial class VmWordPropEdit: AppVmBase, IMk<VmWordPropEdit>{
 	protected VmWordPropEdit(){}
 	public static VmWordPropEdit Mk(){return new VmWordPropEdit();}
 

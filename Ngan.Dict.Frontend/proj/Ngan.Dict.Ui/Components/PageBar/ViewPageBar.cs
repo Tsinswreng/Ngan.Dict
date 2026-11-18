@@ -16,7 +16,7 @@ using Tsinswreng.CsI18n;
 using CommonK = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 using Ctx = VmPageBar;
 public partial class ViewPageBar
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 	,IViewPageBar
 {
 	public ViewPageBar(){

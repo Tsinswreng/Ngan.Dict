@@ -22,7 +22,7 @@ using Tsinswreng.CsI18n;
 using Ctx = VmWeightArgPage;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 public partial class ViewWeightArgPage
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 
 	public ViewWeightArgPage(){

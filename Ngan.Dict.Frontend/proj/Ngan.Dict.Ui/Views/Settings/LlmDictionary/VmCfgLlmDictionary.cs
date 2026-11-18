@@ -11,7 +11,7 @@ using Tsinswreng.CsCfg;
 using Ctx = VmCfgLlmDictionary;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
-public partial class VmCfgLlmDictionary: ViewModelBase, IMk<Ctx>{
+public partial class VmCfgLlmDictionary: AppVmBase, IMk<Ctx>{
 	protected VmCfgLlmDictionary(){
 		Cfg = AppCfg.Inst;
 		_ = Init(default);

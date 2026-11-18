@@ -13,7 +13,7 @@ using Tsinswreng.CsTempus;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 /// 學習記錄分頁 ViewModel：管理列表、新增、轉換。
-public partial class VmWordLearnPage: ViewModelBase{
+public partial class VmWordLearnPage: AppVmBase{
 	public partial nil LoadFromPoLearns(IList<PoWordLearn> Learns){
 		Rows = new ObservableCollection<VmWordLearnRow>(Learns.Select(VmWordLearnRow.FromPo));
 		return NIL;
@@ -64,7 +64,7 @@ public partial class VmWordLearnPage: ViewModelBase{
 }
 
 /// 學習記錄行 ViewModel。
-public partial class VmWordLearnRow: ViewModelBase{
+public partial class VmWordLearnRow: AppVmBase{
 	partial void MarkModified(){
 		if(DmlState == EDmlState.Unchanged){
 			DmlState = EDmlState.Modified;

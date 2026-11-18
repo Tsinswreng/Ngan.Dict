@@ -18,7 +18,7 @@ using Ngan.Dict.Ui.Views.Word.WordEditV2.WordPropPage;
 using Ctx = VmWordEditV2;
 
 /// 協調單詞基本資料、屬性與學習記錄的編輯和保存。
-public partial class VmWordEditV2: ViewModelBase, IMk<Ctx>{
+public partial class VmWordEditV2: AppVmBase, IMk<Ctx>{
 	protected partial VmWordEditV2();
 	/// 建立  所需的 UI 組件，供頁面組裝時重用。
 	public static partial Ctx Mk();

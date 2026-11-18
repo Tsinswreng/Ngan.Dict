@@ -24,7 +24,7 @@ using Tsinswreng.CsTools;
 using Ctx = VmLearnWords;
 
 public partial class VmLearnWords
-	:ViewModelBase
+	:AppVmBase
 	,IWordCardMenuAction
 {
 

@@ -10,7 +10,7 @@ using Tsinswreng.Avln.Grid;
 using Tsinswreng.CsI18n;
 using Ctx = VmJsonMapItem;
 public partial class ViewJsonMapItem
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 	public ViewJsonMapItem(){
 		Ctx = App.DiOrMk<Ctx>();

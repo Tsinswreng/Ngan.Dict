@@ -7,7 +7,7 @@ using Tsinswreng.Avln.Grid;
 using Ctx = VmCfgFont;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 public partial class ViewCfgFont
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 
 	public ViewCfgFont(){

@@ -5,7 +5,7 @@ using Ngan.Dict.Core.Shared.Word.Models.DictionaryApi;
 using Ngan.Dict.Ui.Infra;
 
 using Ctx = VmDictionaryApi;
-public partial class VmDictionaryApi: ViewModelBase, IMk<Ctx>{
+public partial class VmDictionaryApi: AppVmBase, IMk<Ctx>{
 	//蔿從構造函數依賴注入、故以靜態工廠代無參構造器
 	protected VmDictionaryApi(){}
 	public static Ctx Mk(){

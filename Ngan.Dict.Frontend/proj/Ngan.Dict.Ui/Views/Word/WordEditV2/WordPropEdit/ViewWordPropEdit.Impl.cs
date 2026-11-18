@@ -20,7 +20,7 @@ using Ctx = VmWordPropEdit;
 using Ngan.Dict.Ui.Infra.Ctrls;
 
 /// 單行屬性編輯頁。
-public partial class ViewWordPropEdit: AppViewBase<Ctx>{
+public partial class ViewWordPropEdit: LegacyAppViewBase<Ctx>{
 	public partial ViewWordPropEdit(){
 		Render();
 		DataContextChanged += (s, e)=>OnCtxChanged();

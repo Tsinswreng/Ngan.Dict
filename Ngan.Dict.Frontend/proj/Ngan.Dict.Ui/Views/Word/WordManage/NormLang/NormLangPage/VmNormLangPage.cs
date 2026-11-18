@@ -19,7 +19,7 @@ using Tsinswreng.CsTools;
 using Ctx = VmNormLangPage;using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 using Tsinswreng.CsCfg;
 
-public partial class VmNormLangPage: ViewModelBase, IMk<Ctx>{
+public partial class VmNormLangPage: AppVmBase, IMk<Ctx>{
 	void Init(){
 		PageBar = VmPageBar.Mk();
 		PageBar.PageSize = 20;

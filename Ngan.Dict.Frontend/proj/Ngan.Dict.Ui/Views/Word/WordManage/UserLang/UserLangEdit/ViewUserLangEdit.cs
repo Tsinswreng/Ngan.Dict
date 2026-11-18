@@ -20,7 +20,7 @@ using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 /// UserLang 詳情編輯頁。
 /// 僅顯示業務字段；`Id` 只讀，`Owner` 不顯示。
 public partial class ViewUserLangEdit
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 
 	public ViewUserLangEdit(){

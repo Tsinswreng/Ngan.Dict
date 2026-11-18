@@ -14,7 +14,7 @@ using Ctx = VmPreFilterPage;
 
 /// PreFilter 列表頁 ViewModel。
 /// 使用後端接口分頁讀取，不再使用假數據
-public partial class VmPreFilterPage: ViewModelBase, IMk<Ctx>{
+public partial class VmPreFilterPage: AppVmBase, IMk<Ctx>{
 	void Init(){
 		PageBar = VmPageBar.Mk();
 		PageBar.PageSize = 10;

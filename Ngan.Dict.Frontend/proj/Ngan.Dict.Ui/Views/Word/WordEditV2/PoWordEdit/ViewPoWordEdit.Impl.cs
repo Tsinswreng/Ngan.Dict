@@ -21,7 +21,7 @@ using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 /// PoWord 基本信息編輯頁。
 public partial class ViewPoWordEdit
-	: AppViewBase<Ctx>
+	: LegacyAppViewBase<Ctx>
 {
 	public partial ViewPoWordEdit(){
 		Render();

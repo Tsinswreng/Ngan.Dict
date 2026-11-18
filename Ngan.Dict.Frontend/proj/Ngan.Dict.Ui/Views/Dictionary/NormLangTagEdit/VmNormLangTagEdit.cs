@@ -9,7 +9,7 @@ using Ctx = VmNormLangTagEdit;
 
 /// 編輯詞典源語言快捷標籤的順序、自定義短文字與成員集合。
 /// 編輯期間操作副本，只有保存成功後才通知詞典頁替換現有快捷欄。
-public partial class VmNormLangTagEdit: ViewModelBase, IMk<Ctx>{
+public partial class VmNormLangTagEdit: AppVmBase, IMk<Ctx>{
 	/// 建立使用應用配置文件的編輯 ViewModel。
 	protected partial VmNormLangTagEdit();
 	/// 建立使用應用配置文件的編輯 ViewModel。

@@ -7,7 +7,7 @@ public interface IMsgViewModel{
 
 	public bool IsShowMsg{get;set;}
 
-	public ViewModelBase AddMsg(object? Msg);
+	public AppVmBase AddMsg(object? Msg);
 
 	public nil ShowMsg();
 

@@ -19,7 +19,7 @@ using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 /// - 文件導入/導出（含文件選擇器）
 /// - 雲端 Push / Pull
 public partial class ViewWordSyncV2
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 	,I_MkTitleMenu
 {
 

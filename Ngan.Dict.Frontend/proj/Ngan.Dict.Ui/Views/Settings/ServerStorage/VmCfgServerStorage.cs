@@ -6,7 +6,7 @@ using Tsinswreng.CsCfg;
 
 using Ctx = VmCfgServerStorage;
 
-public partial class VmCfgServerStorage: ViewModelBase, IMk<Ctx>{
+public partial class VmCfgServerStorage: AppVmBase, IMk<Ctx>{
 	protected VmCfgServerStorage(){
 		Cfg = AppCfg.Inst;
 		Init();

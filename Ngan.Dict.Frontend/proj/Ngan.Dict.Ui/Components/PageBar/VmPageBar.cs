@@ -7,7 +7,7 @@ using Ctx = VmPageBar;
 [Doc(@$"have page size and page number,
 may not suitable for cursor pagination.
 ")]
-public partial class VmPageBar: ViewModelBase, IMk<Ctx>{
+public partial class VmPageBar: AppVmBase, IMk<Ctx>{
 	//蔿從構造函數依賴注入、故以靜態工廠代無參構造器
 	protected VmPageBar(){}
 	public static Ctx Mk(){

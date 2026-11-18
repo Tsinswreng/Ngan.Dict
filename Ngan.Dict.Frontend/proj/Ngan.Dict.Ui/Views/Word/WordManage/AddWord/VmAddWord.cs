@@ -11,7 +11,7 @@ using Ctx = VmAddWord;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 public partial class VmAddWord
-	:ViewModelBase
+	:AppVmBase
 {
 	public VmAddWord(){
 

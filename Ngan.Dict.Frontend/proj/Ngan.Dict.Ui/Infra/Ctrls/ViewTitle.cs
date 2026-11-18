@@ -8,9 +8,9 @@ using Avalonia.Styling;
 using DynamicData.Binding;
 using Ngan.Dict.Ui.Icons;
 using Tsinswreng.Avln.Grid;
-using Ctx = ViewModelBase;
+using Ctx = AppVmBase;
 public partial class ViewTitle
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 
 	public Border BdrTitle{get;set;} = new();

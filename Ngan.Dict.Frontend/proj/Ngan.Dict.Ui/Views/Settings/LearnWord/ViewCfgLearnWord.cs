@@ -16,7 +16,7 @@ using Ngan.Dict.Ui.Views.Word.WordManage.StudyPlan.StudyPlanPage;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 public partial class ViewCfgLearnWord
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 
 

@@ -16,7 +16,7 @@ using Tsinswreng.CsI18n;
 using Ctx = VmStatistics;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
-public partial class VmStatistics: ViewModelBase{
+public partial class VmStatistics: AppVmBase{
 	void Init(){
 		PageBar = VmPageBar.Mk();
 		PageBar.PageSize = 10;

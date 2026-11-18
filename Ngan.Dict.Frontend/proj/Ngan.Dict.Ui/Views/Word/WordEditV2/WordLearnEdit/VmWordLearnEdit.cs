@@ -6,7 +6,7 @@ using Ngan.Dict.Ui.Infra;
 using Ngan.Dict.Ui.Views.Word.WordEditV2.WordLearnPage;
 
 /// 單行學習記錄編輯頁 ViewModel。自行注入後端服務，原子落庫。
-public partial class VmWordLearnEdit: ViewModelBase, IMk<VmWordLearnEdit>{
+public partial class VmWordLearnEdit: AppVmBase, IMk<VmWordLearnEdit>{
 	protected VmWordLearnEdit(){}
 	public static VmWordLearnEdit Mk(){return new VmWordLearnEdit();}
 

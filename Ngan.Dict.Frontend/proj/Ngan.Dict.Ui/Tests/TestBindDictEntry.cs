@@ -83,7 +83,7 @@ class ViewTestBindDict : UserControl {
 	}
 }
 
-class VmTestBindDict : ViewModelBase {
+class VmTestBindDict : AppVmBase {
 
 	public IDictionary<str, str> Dict { get; set; } = new Dictionary<str, str>() {
 		["Summary"] = "Hello"

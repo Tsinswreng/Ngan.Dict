@@ -12,7 +12,7 @@ using Ngan.Dict.Ui.Views.Word;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 /// 屬性分頁 ViewModel：管理列表、新增、轉換。
-public partial class VmWordPropPage: ViewModelBase{
+public partial class VmWordPropPage: AppVmBase{
 	public event Action<VmWordPropRow>? OnEditRequested;
 
 	public ObservableCollection<VmWordPropRow> Rows{
@@ -52,7 +52,7 @@ public partial class VmWordPropPage: ViewModelBase{
 }
 
 /// 單詞屬性行編輯 ViewModel。
-public partial class VmWordPropRow: ViewModelBase{
+public partial class VmWordPropRow: AppVmBase{
 	/// `Descr` 只是編輯頁裏的默認/顯示別名，落庫仍統一回 `description`。
 	public const str DescriptionAlias = "Descr";
 

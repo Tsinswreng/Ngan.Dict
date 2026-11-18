@@ -10,7 +10,7 @@ using Tsinswreng.CsCfg;
 using Ctx = VmCfgLang;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
-public partial class VmCfgLang: ViewModelBase, IMk<Ctx>{
+public partial class VmCfgLang: AppVmBase, IMk<Ctx>{
 	/// 语言下拉项：显示 Code + NativeName。
 	public sealed class UiLangOption{
 		public str Code{get;set;} = "";

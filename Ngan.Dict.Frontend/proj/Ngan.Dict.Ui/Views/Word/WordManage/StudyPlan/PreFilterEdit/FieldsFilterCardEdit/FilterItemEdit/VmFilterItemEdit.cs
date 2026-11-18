@@ -10,7 +10,7 @@ using Ctx = VmFilterItemEdit;using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 /// <summary>
 /// Editor VM for a single filter item row.
 /// </summary>
-public class VmFilterItemEdit: ViewModelBase, IMk<Ctx>{
+public class VmFilterItemEdit: AppVmBase, IMk<Ctx>{
 	protected VmFilterItemEdit(){}
 
 	public static Ctx Mk(){

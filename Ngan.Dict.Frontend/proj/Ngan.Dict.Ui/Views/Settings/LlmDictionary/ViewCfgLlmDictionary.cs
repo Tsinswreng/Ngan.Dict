@@ -10,7 +10,7 @@ using Tsinswreng.CsI18n;
 using Ctx = VmCfgLlmDictionary;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
-public partial class ViewCfgLlmDictionary: AppViewBase<Ctx>{
+public partial class ViewCfgLlmDictionary: LegacyAppViewBase<Ctx>{
 
 	public ViewCfgLlmDictionary(){
 		Ctx = App.DiOrMk<Ctx>();

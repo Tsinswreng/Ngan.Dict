@@ -7,7 +7,7 @@ using Tsinswreng.CsCfg;
 using Ctx = VmCfgHotkey;
 
 /// 快捷鍵配置 VM。
-public partial class VmCfgHotkey: ViewModelBase, IMk<Ctx>{
+public partial class VmCfgHotkey: AppVmBase, IMk<Ctx>{
 	protected VmCfgHotkey(){
 		Cfg = AppCfg.Inst;
 		Init();

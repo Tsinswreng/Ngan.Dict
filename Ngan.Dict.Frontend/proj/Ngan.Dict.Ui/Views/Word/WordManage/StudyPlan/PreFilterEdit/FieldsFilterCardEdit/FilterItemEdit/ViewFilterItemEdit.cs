@@ -14,7 +14,7 @@ using Ctx = VmFilterItemEdit;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 /// View for editing a single FilterItem.
-public class ViewFilterItemEdit: AppViewBase<Ctx>{
+public class ViewFilterItemEdit: LegacyAppViewBase<Ctx>{
 
 	ComboBox? OperationCombo{get;set;}
 	ComboBox? ValueTypeCombo{get;set;}

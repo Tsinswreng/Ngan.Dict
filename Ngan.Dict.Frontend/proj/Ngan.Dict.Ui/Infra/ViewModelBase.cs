@@ -25,20 +25,20 @@ public interface IMk<T>{
 	public static abstract T Mk();
 }
 
-public partial class ViewModelBase
+public partial class AppVmBase
 	:ObservableObject
-	,IMk<ViewModelBase>
+	,IMk<AppVmBase>
 	,IViewModel
 	,IViewNaviHolder
 	,I_Arg
 	,I_ForceSetProp
 {
 
-	static ViewModelBase IMk<ViewModelBase>.Mk(){
-		return new ViewModelBase();
+	static AppVmBase IMk<AppVmBase>.Mk(){
+		return new AppVmBase();
 	}
 
-	public ViewModelBase(){
+	public AppVmBase(){
 		ViewNavi = MgrViewNavi.Inst.ViewNavi;
 	}
 

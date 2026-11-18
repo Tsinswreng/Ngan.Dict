@@ -9,7 +9,7 @@ using Ngan.Dict.Ui.Infra.I18n;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 using Ctx = VmUserProfile;
-public partial class VmUserProfile: ViewModelBase{
+public partial class VmUserProfile: AppVmBase{
 	//蔿從構造函數依賴注入、故以靜態工廠代無參構造器
 	protected VmUserProfile(){}
 	public static Ctx Mk(){

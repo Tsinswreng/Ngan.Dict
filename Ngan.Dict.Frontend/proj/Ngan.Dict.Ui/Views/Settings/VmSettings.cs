@@ -5,7 +5,7 @@ using Ngan.Dict.Ui.Infra;
 
 using Ctx = VmSettings;
 
-public partial class VmSettings: ViewModelBase, IMk<Ctx>{
+public partial class VmSettings: AppVmBase, IMk<Ctx>{
 	protected VmSettings(){}
 
 	public static Ctx Mk(){

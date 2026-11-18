@@ -7,7 +7,7 @@ using Ngan.Dict.Ui.Infra;
 using Tsinswreng.CsErr;
 using Ctx = VmBaseWordListCard;
 public partial class VmBaseWordListCard
-	:ViewModelBase
+	:AppVmBase
 {
 	public static ObservableCollection<Ctx> Samples = [];
 	static VmBaseWordListCard(){

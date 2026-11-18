@@ -14,7 +14,7 @@ using Ctx = VmStudyPlanPage;
 
 /// StudyPlan 列表頁 ViewModel。
 /// 使用後端接口分頁讀取，點擊列表項進入編輯頁。
-public partial class VmStudyPlanPage: ViewModelBase, IMk<Ctx>{
+public partial class VmStudyPlanPage: AppVmBase, IMk<Ctx>{
 	void Init(){
 		PageBar = VmPageBar.Mk();
 		PageBar.PageSize = 10;

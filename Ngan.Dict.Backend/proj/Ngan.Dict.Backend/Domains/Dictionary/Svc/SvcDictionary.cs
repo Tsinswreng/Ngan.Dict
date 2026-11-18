@@ -11,7 +11,7 @@ using Tsinswreng.CsTools;
 using System.Net.Http.Headers;
 using System.Text;
 using Ngan.Dict.Core.Tools;
-using Ngan.Dict.Core.Infra.YamlMd;
+using Tsinswreng.CsJsonr;
 using Microsoft.Extensions.Logging;
 using Ngan.Dict.Core.Infra;
 using Ngan.Dict.Core.Shared.Dictionary.Models.Po.NormLang;
@@ -156,12 +156,8 @@ public class SvcDictionary:ISvcDictionary{
 	}
 
 	/*
-如果AI響應的文本中把YamlMd格式又包進代碼塊的話、你要先去掉最外層的代碼塊
-具體的判斷方法:
-去掉開頭的空白字符
-如果響應文本中是以 ```yaml 開頭 就是正確的格式
-如果以```md 或 ````md 或 `````md (或者有更多的反點)、就要先把這層代碼塊去掉
-注意代碼塊起始界和終止界的反點的數量是一致的
+大模型輸出格式為 jsonr（無轉義 JSON 超集）：提示詞要求裸輸出 JSON，多行釋義用 heredoc 文本塊。
+解析走 ParseResponse：先剝掉模型偶爾仍加的 markdown 代碼塊外殼，再交給 jsonr 轉標準 JSONC。
 */
 	[Impl]
 	public async Task<IRespLlmDict> Lookup(IUserCtx User, IReqLlmDict Req, CT Ct){
@@ -500,26 +496,21 @@ $"""
 		}
 	}
 
-	/// 解析 LLM 響應文本為 RespLlmDict
+	/// 解析 LLM 響應文本為 RespLlmDict。
+	/// 流程：剝掉可能的 markdown 外殼 → jsonr 轉標準 JSONC → 反序列化。
+	/// *為何經 jsonr*：模型用 heredoc 文本塊寫多行釋義時不必轉義，
+	/// jsonr 會把文本塊原樣還原成普通 JSON 字串，後續解析與提示詞寫法無關。
 	private IRespLlmDict ParseResponse(DtoLlmApiResp dtoResp){
 		var rawResponse = dtoResp.RawResponse;
 		var content = dtoResp.Content;
 		try{
-			var parseResult = YamlMd.Inst.TryToYamlLenient(content, out var yaml);
-			if(parseResult == ELenientParseResult.Failed){
-				Err(null);
-			}
+			var JsonrText = StripMarkdownFence(content ?? "");
+			var Jsonc = JsonrToJsonc(JsonrText);
 			Logger.LogWarning(
 				"Dictionary parse diag: {Stage}",
-				DescribeTextTail("YamlMdYaml", yaml)
+				DescribeTextTail("Jsonc", Jsonc)
 			);
-			var dict = ToolYaml.YamlStrToDict(yaml);
-			Logger.LogWarning(
-				"Dictionary parse diag: {Stage}",
-				DescribeDescrsFromDict(dict)
-			);
-			var json = AppJsonS.Inst.Serialize(dict);
-			var R = JsonS.Deserialize<RespLlmDict>(json);
+			var R = JsonS.Deserialize<RespLlmDict>(Jsonc);
 			Logger.LogWarning(
 				"Dictionary parse diag: {Stage}",
 				DescribeDescrsFromResp(R)
@@ -542,6 +533,35 @@ $"""
 		};
 	}
 
+	/// 用 jsonr 把模型輸出轉成標準 JSONC 文本。
+	/// heredoc／raw string 文本塊會被轉義成普通 JSON 字串；註釋與其餘字符原樣保留。
+	private static str JsonrToJsonc(str JsonrText){
+		using var Reader = Jsonr.StrToUtf8Stream(JsonrText);
+		using var Writer = new MemoryStream();
+		Jsonr.Inst.ToJson(Reader, Writer);
+		// Utf8StreamToStr 從流當前位置讀到流尾，故先回到開頭。
+		Writer.Position = 0;
+		return Jsonr.Utf8StreamToStr(Writer);
+	}
+
+	/// 剝掉模型習慣性加上的 markdown 代碼塊外殼（```json … ```）。
+	/// 提示詞已要求裸輸出；剝殼只是容錯，對本來就裸的輸出無影響。
+	private static str StripMarkdownFence(str Text){
+		var Trimmed = Text.Trim();
+		if(!Trimmed.StartsWith("```")){
+			return Trimmed;
+		}
+		var FirstLineEnd = Trimmed.IndexOf('\n');
+		if(FirstLineEnd < 0){
+			return Trimmed;
+		}
+		Trimmed = Trimmed[(FirstLineEnd+1)..].TrimEnd();
+		if(Trimmed.EndsWith("```")){
+			Trimmed = Trimmed[..^3].TrimEnd();
+		}
+		return Trimmed;
+	}
+
 	/// 只記錄尾部信息，避免把完整大模型輸出刷進日誌。
 	private static str DescribeTextTail(str Name, str? Text){
 		var Safe = Text ?? "";
@@ -550,18 +570,6 @@ $"""
 			.Replace("\r", "\\r")
 			.Replace("\n", "\\n");
 		return $"{Name}.Length={Safe.Length}; {Name}.Tail={Tail}";
-	}
-
-	/// 記錄 YAML 字典階段的 Descrs 末項，用於判斷 fence 是在哪一層混進來的。
-	private static str DescribeDescrsFromDict(IDictionary<string, object?> Dict){
-		if(!Dict.TryGetValue(nameof(RespLlmDict.Descrs), out var descrsObj) || descrsObj is null){
-			return "DictDescrs.Missing";
-		}
-		if(descrsObj is not IList<object?> descrs || descrs.Count == 0){
-			return $"DictDescrs.Type={descrsObj.GetType().FullName}";
-		}
-		var last = descrs[^1]?.ToString() ?? "";
-		return DescribeTextTail("DictDescrs.Last", last);
 	}
 
 	/// 記錄最終 DTO 階段的 Descrs 末項，用於確認是映射前還是映射後出問題。

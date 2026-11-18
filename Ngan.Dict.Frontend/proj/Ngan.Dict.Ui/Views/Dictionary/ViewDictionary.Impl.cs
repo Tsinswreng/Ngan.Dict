@@ -1,11 +1,11 @@
 namespace Ngan.Dict.Ui.Views.Dictionary;
 
 using System.ComponentModel;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Data;
 using Avalonia.Input;
-using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Media;
 using CommunityToolkit.Mvvm.Input;
@@ -23,216 +23,203 @@ using Ngan.Dict.Ui.Views.Word.WordEditV2;
 using Ngan.Dict.Ui.Views.Word.WordManage.NormLang.NormLangPage;
 using Ngan.Dict.Ui.Views.Word.WordManage.NormLangToUserLang.NormLangToUserLangPage;
 using Tsinswreng.Avln.Grid;
+using Tsinswreng.CsCore;
 using Tsinswreng.CsI18n;
-using Ctx = VmDictionary;
 using DictK = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
-/// 此文件只保存 ViewDictionary 的函數實現；公開聲明位於同名 .cs 文件。
-public partial class ViewDictionary {
-	public partial ViewDictionary() {
-		Ctx = App.DiOrMk<Ctx>();
-		if (Ctx is not null) {
-			// 把導航職責留在 View 層，VM 只產生要編輯的業務對象。
-			Ctx.OnOpenWordEdit = OpenWordEditPage;
-			Ctx.PropertyChanged += OnCtxPropertyChanged;
-		}
-		Style();
-		Render();
-		this.Loaded += async (s, e) => {
-			//SearchTextBox?.Focus(); //在手機端會直接彈出輸入法、效果不佳
-			if (Ctx is not null) {
-				await Ctx.InitLang(default);
-				await Ctx.LoadSrcLangTags(default);
-			}
-		};
+/// ViewDictionary 的實現。
+public partial class ViewDictionary{
+	/// View 只能有無參構造器；Vm 在這裏解析。
+	public partial ViewDictionary(){
+		vm = App.DiOrMk<VmDictionary>();
 	}
 
-	protected partial nil Style() {
-		return NIL;
+	/// 四列縱向版面：快捷標籤列／語言列／搜索列／結果區。
+	protected override partial object Build(VmDictionary vm){
+		Root.Rows("Auto,Auto,Auto,*");
+		Root.Children(
+			MkSrcLangTagBar(vm)
+			,MkLangBar(vm)
+			,MkSearchBar(vm)
+			,MkResultArea(vm)
+		);
+		return Root;
 	}
 
-	protected partial nil Render() {
-		this.SetContent(Root.Grid, o => {
-			Root.RowDefs = new("Auto,Auto,Auto,*");
-		});
+	/// 控件樹建好後：掛 Vm 事件與初始資料載入。
+	protected override partial void OnAfterInitialized(){
+		vm.OnOpenWordEdit = OpenWordEditPage;
+		vm.PropertyChanged += OnVmPropertyChanged;
+		Fire(vm.InitLang(default));
+		Fire(vm.LoadSrcLangTags(default));
+	}
 
-		Root.A(MkSrcLangTagBar());
+	/// 語言列：源語言｜互換｜目標語言。
+	protected partial Control MkLangBar(VmDictionary vm){
+		var SrcBtn = MkLangButton()
+			.Content(vm, x => x.SrcLangDisplay)
+		;
+		SrcBtn.Click += (_, _) => OpenNormLangSelector(true);
+		var TgtBtn = MkLangButton()
+			.Content(vm, x => x.TgtLangDisplay)
+		;
+		TgtBtn.Click += (_, _) => OpenNormLangSelector(false);
+		return new StackGrid(IsRow: false)
+			.Cols("*,Auto,*")
+			.ZIndex(20)
+			.Children(SrcBtn, MkLangSwapButton(), TgtBtn)
+		;
+	}
 
-		var LangGrid = new GridStack(IsRow: false);
-		_LangGrid = LangGrid;
-		Root.A(LangGrid.Grid, o => {
-			LangGrid.ColDefs = new("*,Auto,*");
-			o.ZIndex = 20;
-		});
-		{
-			{
-				LangGrid.A(MkLangButton(), o => {
-					Ctx.Bind(o, o => o.Content, x => x.SrcLangDisplay);
-					o.Click += (s, e) => OpenNormLangSelector(true);
-				})
-				.A(MkLangSwapButton())
-				.A(MkLangButton(), o => {
-					Ctx.Bind(o, o => o.Content, x => x.TgtLangDisplay);
-					o.Click += (s, e) => OpenNormLangSelector(false);
+	/// 搜索列：查詞｜輸入框｜快速保存｜選單。
+	protected partial Control MkSearchBar(VmDictionary vm){
+		var Input = new TextBox()
+			.With(t => {
+				_SearchTextBox = t;
+				t.Watermark = I[DictK.InputNewWordToSearch];
+				t.KeyBindings.Add(new KeyBinding {
+					Gesture = new(Key.Enter),
+					Command = new RelayCommand(() => _SearchBtn?.PerformClick()),
 				});
-			}
-		}
-
-		var SearchGrid = new GridStack(IsRow: false);
-		_searchGrid = SearchGrid;
-		Root.A(SearchGrid.Grid, o => {
-			SearchGrid.ColDefs = new("1*,8*,1*,1*");
-			o.ZIndex = 20;
-		});
-		{
-			{
-				SearchGrid
-				.A(SearchBtn, o => {
-					InitToolbarBtn(
-						o,
-						Icons.Search().ToIcon(),
-						Ct => Ctx?.Lookup(Ct),
-						UiCfg.Inst.MainColor
-					);
-				})
-				.A(SearchTextBox, o => {
-					Ctx.Bind(o, o => o.Text, x => x.Input);
-					o.Watermark = I[DictK.InputNewWordToSearch];
-					o.KeyBindings.Add(
-						new KeyBinding {
-							Gesture = new(Key.Enter),
-							Command = new RelayCommand(() => SearchBtn.PerformClick())
-						}
-					);
-				})
-				.A(SaveToWordBtn, o => {
-					// 詞典頁主按鈕改為快速保存：
-					// 1. 已查詞：直接保存到詞庫。
-					// 2. 未查詞：仍直接進入自由加詞頁。
-					ToolTip.SetTip(o, I[DictK.SaveToUserWordLibrary]);
-					InitToolbarBtn(
-						o,
-						Icons.BookmarkOutlineAdd().ToIcon(),
-						QuickSaveOrFreeAdd
-					);
-				})
-				.A(MenuBtn, o => {
-					// 與搜尋/收藏按鈕統一使用 OpBtn 風格。
-					InitToolbarBtn(o, Icons.Menu().ToIcon());
-					o._Button.Click += (s, e) => OpenTitleMenuNear(o._Button);
-				});
-			}
-		}
-
-		Root.A(MkResultArea());
-
-		return NIL;
+			})
+			.Text(vm, x => x.Input, BindingMode.TwoWay)
+		;
+		var Search = new OpBtn()
+			.With(b => {
+				_SearchBtn = b;
+				InitToolbarBtn(b, Icons.Search().ToIcon(), Ct => vm.Lookup(Ct), UiCfg.Inst.MainColor);
+			})
+		;
+		var Save = new OpBtn()
+			.With(b => {
+				_SaveToWordBtn = b;
+				ToolTip.SetTip(b, I[DictK.SaveToUserWordLibrary]);
+				InitToolbarBtn(b, Icons.BookmarkOutlineAdd().ToIcon(), QuickSaveOrFreeAdd);
+			})
+		;
+		var Menu = new OpBtn()
+			.With(b => {
+				_MenuBtn = b;
+				InitToolbarBtn(b, Icons.Menu().ToIcon());
+				b._Button.Click += (_, _) => OpenTitleMenuNear(b._Button);
+			})
+		;
+		return new StackGrid(IsRow: false)
+			.Cols("1*,8*,1*,1*")
+			.ZIndex(20)
+			.Children(Search, Input, Save, Menu)
+		;
 	}
 
-	private partial Control MkSrcLangTagBar() {
-		var Bar = new GridStack(IsRow: false);
-		_SrcLangTagBar = Bar;
-		Bar.SetColDefs([new(1, GUT.Star), new(1, GUT.Auto)]);
-		Bar.A(new ScrollViewer(), O => {
-			SrcLangTagScroll = O;
-			O.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
-			O.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
-			O.SetContent(SrcLangTagList);
-		})
-		.A(SrcLangTagEditBtn, O => {
-			O.BtnContent = Icons.Edit().ToIcon();
-			O._Button.StretchCenter();
-			O.SetExe(Ct => {
-				OpenSrcLangTagEditor();
-				return Task.FromResult<nil>(NIL);
-			});
-		});
+	/// 左邊可橫向滾動的快捷標籤列，右邊固定的編輯入口。
+	protected partial Control MkSrcLangTagBar(VmDictionary vm){
+		var Scroll = new ScrollViewer()
+			.HorizontalScrollBarVisibility(ScrollBarVisibility.Auto)
+			.VerticalScrollBarVisibility(ScrollBarVisibility.Disabled)
+			.Content(_SrcLangTagList)
+		;
+		_SrcLangTagScroll = Scroll;
+		var Edit = new OpBtn()
+			.With(b => {
+				_SrcLangTagEditBtn = b;
+				b.BtnContent = Icons.Edit().ToIcon();
+				b._Button.StretchCenter();
+				b.SetExe(_ => {
+					OpenSrcLangTagEditor();
+					return Task.FromResult<nil>(NIL);
+				});
+			})
+		;
 		RebuildSrcLangTags();
-		return Bar.Grid;
+		return new StackGrid(IsRow: false)
+			.Cols("*,Auto")
+			.Children(Scroll, Edit)
+		;
 	}
 
-	private partial Control MkSrcLangTag(VmNormLangTag Tag) {
-		var View = new ViewNormLangTag { Ctx = Tag };
-		View.OnSelected += X => Ctx?.ApplySrcNormLangTag(X);
+	/// 建立單個源語言快捷 Tag，並接通直接切換源語言的事件。
+	protected partial Control MkSrcLangTag(VmDictionary vm, VmNormLangTag Tag){
+		var View = new ViewNormLangTag();
+		View.SetVm(Tag);
+		View.OnSelected += X => vm.ApplySrcNormLangTag(X);
 		return View;
 	}
 
-	private partial void RebuildSrcLangTags() {
-		SrcLangTagList = new StackPanel {
+	/// 按 Vm 當前集合重建橫向快捷 Tag 控件列。
+	protected partial void RebuildSrcLangTags(){
+		_SrcLangTagList = new StackPanel {
 			Orientation = Orientation.Horizontal,
 		};
-		SrcLangTagScroll?.SetContent(SrcLangTagList);
-		if (Ctx is null) {
-			return;
+		if(_SrcLangTagScroll is not null){
+			_SrcLangTagScroll.Content = _SrcLangTagList;
 		}
-		foreach (var Tag in Ctx.SrcLangTags) {
-			SrcLangTagList.A(MkSrcLangTag(Tag));
+		foreach(var Tag in vm.SrcLangTags){
+			_SrcLangTagList.Children.Add(MkSrcLangTag(vm, Tag));
 		}
 	}
 
-	private partial void OpenSrcLangTagEditor() {
+	/// 打開快捷標籤編輯頁。
+	protected partial void OpenSrcLangTagEditor(){
 		var View = new ViewNormLangTagEdit();
-		if (View.Ctx is not null && Ctx is not null) {
-			View.Ctx.FromTags(Ctx.SrcLangTags);
-			View.Ctx.SetOnSaved(Tags => {
-				_ = Ctx.ReplaceSrcLangTags(Tags);
-			});
-		}
+		View.Vm.FromTags(vm.SrcLangTags);
+		View.Vm.SetOnSaved(Tags => {
+			_ = vm.ReplaceSrcLangTags(Tags);
+		});
 		ViewNavi?.GoTo(ToolView.WithTitle(Todo.I18n("Edit source language shortcuts"), View));
 	}
 
-	private partial Button MkLangButton() {
-		var R = new Button();
-		R.HorizontalContentAlignment = HAlign.Center;
-		R.VerticalContentAlignment = VAlign.Center;
-		R.MinHeight = 24;
-		R.Padding = new Avalonia.Thickness(0);
-		return R;
+	/// 建立共用樣式的語言選擇按鈕。
+	protected partial Button MkLangButton(){
+		return new Button()
+			.HorizontalContentAlignment(HAlign.Center)
+			.VerticalContentAlignment(VAlign.Center)
+			.MinHeight(24)
+			.Padding(new Thickness(0))
+		;
 	}
 
-	private partial Button MkLangSwapButton() {
-		var R = new Button();
-		R.Content = "⇄";
-		R.VerticalAlignment = VAlign.Center;
-		R.HorizontalAlignment = HAlign.Center;
-		R.MinHeight = 24;
-		R.Padding = new Avalonia.Thickness(0);
-		R.Click += (s, e) => {
-			Ctx?.SwapLang();
-		};
-		return R;
+	/// 建立交換源語言與目標語言的按鈕。
+	protected partial Button MkLangSwapButton(){
+		var Btn = new Button()
+			.Content("⇄")
+			.VerticalAlignment(VAlign.Center)
+			.HorizontalAlignment(HAlign.Center)
+			.MinHeight(24)
+			.Padding(new Thickness(0))
+		;
+		Btn.Click += (_, _) => vm.SwapLang();
+		return Btn;
 	}
 
-	private partial nil InitToolbarBtn(OpBtn Btn, Control Content, Func<CT, Task<nil>>? Exe, IBrush? Background) {
+	/// 初始化工具列按鈕的外觀與命令。
+	protected partial nil InitToolbarBtn(OpBtn Btn, Control Content, Func<CT, Task<nil>>? Exe, IBrush? Background){
 		Btn._Button.StretchCenter();
 		Btn.BtnContent = Content;
-		if (Background is not null) {
+		if(Background is not null){
 			Btn._Button.Background = Background;
 		}
-		if (Exe is not null) {
+		if(Exe is not null){
 			Btn.SetExe(Exe);
 		}
 		return NIL;
 	}
 
-	private partial str GuideText() {
+	/// 未查詞時顯示的使用說明。
+	protected partial str GuideText(){
 		return I[DictK.DictionaryUsageGuide_];
 	}
 
-	private async partial Task<nil> QuickSaveOrFreeAdd(CT Ct) {
-		if (Ctx is null) {
-			return NIL;
-		}
-		if (Ctx.HasLookupStarted) {
-			if (!Ctx.CanQuickSaveCurrentLookup || Ctx.LastReqLlmDict is null || Ctx.LastRespLlmDict is null) {
-				Ctx.ShowToast(I[DictK.CompleteDictionaryQueryBeforeSave]);
+	/// 有結果時快速保存，否則進入自由加詞頁。
+	protected async partial Task<nil> QuickSaveOrFreeAdd(CT Ct){
+		if(vm.HasLookupStarted){
+			if(!vm.CanQuickSaveCurrentLookup || vm.LastReqLlmDict is null || vm.LastRespLlmDict is null){
+				vm.ShowToast(I[DictK.CompleteDictionaryQueryBeforeSave]);
 				return NIL;
 			}
-			if (Ctx.HasQuickSavedCurrentLookup) {
+			if(vm.HasQuickSavedCurrentLookup){
 				return NIL;
 			}
-			var ok = await Ctx.QuickSaveToWord(Ct);
-			if (ok) {
+			if(await vm.QuickSaveToWord(Ct)){
 				MarkQuickSaveBtnAsSaved();
 			}
 			return NIL;
@@ -240,188 +227,174 @@ public partial class ViewDictionary {
 		return OpenFreeAddWordPage();
 	}
 
-	private async partial Task<nil> OpenSaveViaWordEditOrFreeAdd(CT Ct) {
-		if (Ctx?.LastReqLlmDict is not null && Ctx.LastRespLlmDict is not null) {
-			return await Ctx.ToWordEdit(Ct);
+	/// 經單詞編輯頁保存；沒有結果則進自由加詞頁。
+	protected async partial Task<nil> OpenSaveViaWordEditOrFreeAdd(CT Ct){
+		if(vm.LastReqLlmDict is not null && vm.LastRespLlmDict is not null){
+			return await vm.ToWordEdit(Ct);
 		}
 		return OpenFreeAddWordPage();
 	}
 
-	private partial nil MarkQuickSaveBtnAsSaved() {
-		SaveToWordBtn._Button.Background = Brushes.Green;
+	/// 標記快速保存按鈕為已保存。
+	protected partial nil MarkQuickSaveBtnAsSaved(){
+		if(_SaveToWordBtn is not null){
+			_SaveToWordBtn._Button.Background = Brushes.Green;
+		}
 		return NIL;
 	}
 
-	private partial nil ResetQuickSaveBtnToDefaultStyle() {
-		SaveToWordBtn._Button.ClearValue(Button.BackgroundProperty);
-		SaveToWordBtn._Button.ClearValue(Button.BorderBrushProperty);
+	/// 恢復快速保存按鈕的默認樣式。
+	protected partial nil ResetQuickSaveBtnToDefaultStyle(){
+		if(_SaveToWordBtn is not null){
+			_SaveToWordBtn._Button.ClearValue(Button.BackgroundProperty);
+			_SaveToWordBtn._Button.ClearValue(Button.BorderBrushProperty);
+		}
 		return NIL;
 	}
 
-	private partial void OnCtxPropertyChanged(object? Sender, PropertyChangedEventArgs E) {
-		if (E.PropertyName == nameof(Ctx.SrcLangTags)) {
+	/// 跟隨 Vm 狀態更新按鈕外觀。
+	protected partial void OnVmPropertyChanged(object? Sender, PropertyChangedEventArgs E){
+		if(E.PropertyName == nameof(VmDictionary.SrcLangTags)){
 			RebuildSrcLangTags();
 			return;
 		}
-		if (E.PropertyName != nameof(Ctx.HasQuickSavedCurrentLookup)) {
+		if(E.PropertyName != nameof(VmDictionary.HasQuickSavedCurrentLookup)){
 			return;
 		}
-		if (Ctx?.HasQuickSavedCurrentLookup == true) {
+		if(vm.HasQuickSavedCurrentLookup){
 			MarkQuickSaveBtnAsSaved();
 			return;
 		}
 		ResetQuickSaveBtnToDefaultStyle();
 	}
 
-	private partial Control MkResultArea() {
-		var Area = new Grid();
-		_resultArea = Area;
-		Area.ZIndex = 0;
-		Area.ClipToBounds = true;
-		// 結果區與上方工具欄留出固定縫隙，避免邊界像素落到 ScrollViewer 命中區。
-		Area.Margin = new Avalonia.Thickness(0, UiCfg.Inst.BaseFontSize * 0.35, 0, 0);
-		Area.A(new ScrollViewer(), o => {
-			Ctx.Bind(o, IsVisibleProperty, x => x.ShowLookupResult, Mode: BindingMode.OneWay);
-			o.SetContent(new ViewSimpleWord(), o => {
-				Ctx.Bind(o, o.PropDataContext, x => x.Result);
-			});
-		})
-		.A(new TextBlock(), o => {
-			o.Foreground = Brushes.LightGray;
-			o.TextWrapping = TextWrapping.Wrap;
-			o.VerticalAlignment = VerticalAlignment.Top;
-			o.Margin = new Avalonia.Thickness(0, UiCfg.Inst.BaseFontSize * 0.5, 0, 0);
-			Ctx.Bind(o, IsVisibleProperty, x => x.ShowUsageGuide, Mode: BindingMode.OneWay);
-		})
+	/// 結果區：使用提示與簡明查詞結果互斥顯示。
+	protected partial Control MkResultArea(VmDictionary vm){
+		_ResultView = new ViewSimpleWord();
+		_ResultView.SetVm(vm.Result);
+		var Area = new Grid()
+			.With(g => {
+				g.ZIndex = 0;
+				g.ClipToBounds = true;
+				// 結果區與上方工具欄留固定縫隙，避免邊界像素落到 ScrollViewer 命中區。
+				g.Margin = new Thickness(0, UiCfg.Inst.BaseFontSize * 0.35, 0, 0);
+			})
+			.Children(
+				new ScrollViewer()
+					.Content(_ResultView)
+					.IsVisible(vm, x => x.ShowLookupResult)
+				,new TextBlock()
+					.With(t => {
+						t.Foreground = Brushes.LightGray;
+						t.TextWrapping = TextWrapping.Wrap;
+						t.VerticalAlignment = VerticalAlignment.Top;
+						t.Margin = new Thickness(0, UiCfg.Inst.BaseFontSize * 0.5, 0, 0);
+					})
+					.IsVisible(vm, x => x.ShowUsageGuide)
+			)
 		;
+		_ResultArea = Area;
 		return Area;
 	}
 
-	private partial void OpenNormLangSelector(bool IsSrc) {
-		var view = new ViewNormLangPage();
-		if (view.Ctx is not null) {
-			if (IsSrc) {
-				view.Ctx.Input = Ctx?.SrcLang ?? "";
-			} else {
-				view.Ctx.Input = Ctx?.TgtLang ?? "";
-			}
+	/// 打開源語言／目標語言選擇頁。
+	protected partial void OpenNormLangSelector(bool IsSrc){
+		var View = new ViewNormLangPage();
+		if(View.Ctx is not null){
+			View.Ctx.Input = IsSrc ? vm.SrcLang : vm.TgtLang;
 		}
-		if (IsSrc) {
-			view.Ctx?.SetSelectMode(po => {
-				Ctx?.ApplySrcNormLang(po);
-				view.ViewNavi?.Back();
+		if(IsSrc){
+			View.Ctx?.SetSelectMode(Po => {
+				vm.ApplySrcNormLang(Po);
+				View.ViewNavi?.Back();
 			});
-		} else {
-			view.Ctx?.SetSelectMode(po => {
-				Ctx?.ApplyTgtNormLang(po);
-				view.ViewNavi?.Back();
+		}else{
+			View.Ctx?.SetSelectMode(Po => {
+				vm.ApplyTgtNormLang(Po);
+				View.ViewNavi?.Back();
 			});
 		}
 		ViewNavi?.GoTo(ToolView.WithTitle(
 			IsSrc ? I[DictK.SelectDictionarySrcLang] : I[DictK.SelectDictionaryTgtLang],
-			view
+			View
 		));
 	}
 
-	public partial Control MkTitleMenu() {
-		var menu = new ContextMenu();
-		var item = menu.Items;
-		item
-		.A(new MenuItem(), o => {
-			o.Header = Todo.I18n("Edit & Save");
-			o.Click += async (s, e) => {
-				await OpenSaveViaWordEditOrFreeAdd(default);
-			};
-		})
-		.A(new MenuItem(), o => {
-			o.Header = I[DictK.Help];
-			o.Click += (s, e) => {
-				ViewNavi?.GoTo(
-					ToolView.WithTitle(
-						I[DictK.Help],
-						new TextBox {
-							Classes = { App.Cls.RoTextBox },
-							Text = GuideText(),
-						}
-					)
-				);
-			};
-		})
-		.A(new MenuItem(), o => {
-			o.Header = I[DictK.NormLang];
-			o.Click += (s, e) => {
-				var view = new ViewNormLangPage();
-				ViewNavi?.GoTo(ToolView.WithTitle(I[DictK.NormLangManage], view));
-			};
-		}).A(new MenuItem(), o => {
-			o.Header = I[DictK.ConfigureLangMapping];
-			o.Click += (s, e) => {
-				var view = new ViewNormLangToUserLangPage();
-				ViewNavi?.GoTo(ToolView.WithTitle(I[DictK.ConfigureLangMapping], view));
-			};
-		}).A(new MenuItem(), o => {
-			o.Header = I[DictK.ViewLlmRawOutput];
-			o.Click += (s, e) => {
-				var DictCtx = Ctx;
-				if (DictCtx is null) {
-					return;
-				}
-				var view = new ViewLlmRawOutputEdit();
-				if (view.Ctx is not null) {
-					view.Ctx.SetRawOutput(DictCtx.LastLlmRawOutput);
-					view.Ctx.SetOnConfirm((raw, ct) => {
-						return DictCtx.ReparseFromRawOutput(raw, ct);
-					});
-				}
-				ViewNavi?.GoTo(ToolView.WithTitle(I[DictK.ViewLlmRawOutput], view));
-			};
-		});
-		return menu;
+	/// 建立標題選單。
+	public partial Control MkTitleMenu(){
+		var Menu = new ContextMenu();
+		Menu.Items.Add(MkMenuItem(Todo.I18n("Edit & Save"), () => Fire(OpenSaveViaWordEditOrFreeAdd(default))));
+		Menu.Items.Add(MkMenuItem(I[DictK.Help], () => ViewNavi?.GoTo(
+			ToolView.WithTitle(I[DictK.Help], new TextBox {
+				Classes = { App.Cls.RoTextBox },
+				Text = GuideText(),
+			})
+		)));
+		Menu.Items.Add(MkMenuItem(I[DictK.NormLang], () => ViewNavi?.GoTo(
+			ToolView.WithTitle(I[DictK.NormLangManage], new ViewNormLangPage())
+		)));
+		Menu.Items.Add(MkMenuItem(I[DictK.ConfigureLangMapping], () => ViewNavi?.GoTo(
+			ToolView.WithTitle(I[DictK.ConfigureLangMapping], new ViewNormLangToUserLangPage())
+		)));
+		Menu.Items.Add(MkMenuItem(I[DictK.ViewLlmRawOutput], () => {
+			var View = new ViewLlmRawOutputEdit();
+			View.Vm.SetRawOutput(vm.LastLlmRawOutput);
+			View.Vm.SetOnConfirm((Raw, Ct) => vm.ReparseFromRawOutput(Raw, Ct));
+			ViewNavi?.GoTo(ToolView.WithTitle(I[DictK.ViewLlmRawOutput], View));
+		}));
+		return Menu;
 	}
 
-	private partial void OpenTitleMenuNear(Control? Anchor) {
-		if (Anchor is null) {
-			return;
-		}
-		var menu = MkTitleMenu() as ContextMenu;
-		if (menu is null) {
-			return;
-		}
-		// 顯式傳入錨點控件，避免 ContextMenu 內部取到空 PlacementTarget。
-		menu.Open(Anchor);
+	/// 建立帶標題與點擊動作的選單項目。
+	protected partial MenuItem MkMenuItem(str Header, Action OnClick){
+		var Item = new MenuItem();
+		Item.Header = Header;
+		Item.Click += (_, _) => OnClick();
+		return Item;
 	}
 
-	private partial nil OpenWordEditPage(JnWord JnWord) {
-		var view = new ViewWordEditV2();
-		if (view.Ctx is null) {
-			Ctx?.ShowDialog(I[DictK.WordEditorContextIsNull]);
+	/// 在錨點附近打開標題選單。
+	protected partial void OpenTitleMenuNear(Control? Anchor){
+		if(Anchor is null){
+			return;
+		}
+		if(MkTitleMenu() is ContextMenu Menu){
+			// 顯式傳錨點，避免 ContextMenu 內部取到空 PlacementTarget。
+			Menu.Open(Anchor);
+		}
+	}
+
+	/// 用指定單詞草稿打開合併模式的單詞編輯頁。
+	protected partial nil OpenWordEditPage(JnWord JnWord){
+		var View = new ViewWordEditV2();
+		if(View.Ctx is null){
+			vm.ShowDialog(I[DictK.WordEditorContextIsNull]);
 			return NIL;
 		}
-		view.Ctx.FromJnWord(JnWord);
-		view.Ctx.SaveMode = VmWordEditV2.ESaveMode.Merge;
-		var title = str.IsNullOrWhiteSpace(JnWord.Word.Head)
-			? I[DictK.WordEdit]
-			: JnWord.Word.Head
-		;
-		ViewNavi?.GoTo(ToolView.WithTitle(title, view));
+		View.Ctx.FromJnWord(JnWord);
+		View.Ctx.SaveMode = VmWordEditV2.ESaveMode.Merge;
+		var Title = str.IsNullOrWhiteSpace(JnWord.Word.Head) ? I[DictK.WordEdit] : JnWord.Word.Head;
+		ViewNavi?.GoTo(ToolView.WithTitle(Title, View));
 		return NIL;
 	}
 
-	private partial nil OpenFreeAddWordPage() {
-		var view = new ViewWordEditV2();
-		if (view.Ctx is null) {
-			Ctx?.ShowDialog(I[DictK.WordEditorContextIsNull]);
+	/// 打開預填源語言的空白加詞頁。
+	protected partial nil OpenFreeAddWordPage(){
+		var View = new ViewWordEditV2();
+		if(View.Ctx is null){
+			vm.ShowDialog(I[DictK.WordEditorContextIsNull]);
 			return NIL;
 		}
-		view.Ctx.InitFreeAddDraft(Ctx?.SrcLang ?? "");
-		ViewNavi?.GoTo(ToolView.WithTitle(I[DictK.AddWords], view));
+		View.Ctx.InitFreeAddDraft(vm.SrcLang);
+		ViewNavi?.GoTo(ToolView.WithTitle(I[DictK.AddWords], View));
 		return NIL;
 	}
 
-	public partial void ClickLookupBtn(str? SearchText) {
-		if (SearchText != null) {
-			SearchTextBox.Text = SearchText;
+	/// 可選填入搜索文本後觸發查詞。
+	public partial void ClickLookupBtn(str? SearchText){
+		if(SearchText is not null && _SearchTextBox is not null){
+			_SearchTextBox.Text = SearchText;
 		}
-		SearchBtn.PerformClick();
+		_SearchBtn?.PerformClick();
 	}
 }

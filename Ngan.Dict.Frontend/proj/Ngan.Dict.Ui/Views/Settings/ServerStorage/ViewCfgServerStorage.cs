@@ -10,7 +10,7 @@ using Tsinswreng.CsI18n;
 using Ctx = VmCfgServerStorage;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
-public partial class ViewCfgServerStorage: AppViewBase<Ctx>{
+public partial class ViewCfgServerStorage: LegacyAppViewBase<Ctx>{
 
 	public ViewCfgServerStorage(){
 		Ctx = App.DiOrMk<Ctx>();

@@ -1,3 +1,4 @@
+using Tsinswreng.CsSh;
 using static Tsinswreng.CsSh.ShGlobal;
 
 namespace Ngan.Dict.Scripts;
@@ -9,7 +10,6 @@ internal static partial class CpAssets{
 		var FrontendProjects = Dict / "Ngan.Dict.Frontend/proj";
 		var PublicResources = Root / "ExternalRsrc";
 		var PrivateResources = Root / "ExternalRsrc.__Private";
-		var WindowsDebug = FrontendProjects / "Ngan.Dict.Windows/bin/Debug/net10.0";
 		var LinuxDebug = FrontendProjects / "Ngan.Dict.Linux/bin/Debug/net10.0";
 		var LinuxPublish = FrontendProjects / "Ngan.Dict.Linux/bin/Release/net10.0/linux-x64/publish";
 		var WindowsPublish = FrontendProjects / "Ngan.Dict.Windows/bin/Release/net10.0/win-x64/publish";
@@ -17,8 +17,8 @@ internal static partial class CpAssets{
 		var WebDebug = Dict / "Ngan.Dict.Server/proj/Ngan.Dict.Server.Http/bin/Debug/net10.0";
 		var WebResources = Dict / "Ngan.Dict.Server/ExternalRsrc";
 
-		// These three targets receive both resource trees, matching the original shell script's order.
-		await CopyPair(PublicResources, PrivateResources, WindowsDebug, Ct);
+		// Windows 的 Debug 目錄另拆成獨立入口，供 RunWin 在建置後單獨呼叫。
+		await CpWindowsDebug(Root, Ct);
 		await CopyPair(PublicResources, PrivateResources, LinuxDebug, Ct);
 		await CopyPair(PublicResources, PrivateResources, LinuxPublish, Ct);
 
@@ -30,9 +30,21 @@ internal static partial class CpAssets{
 		await Cp(WebResources / "*", WebDebug, Ct);
 	}
 
+	internal static async partial Task CpWindowsDebug(string Root, CancellationToken Ct) {
+		await CopyPair(
+			Root / "ExternalRsrc",
+			Root / "ExternalRsrc.__Private",
+			Root / WindowsDebugRelPath,
+			Ct
+		);
+	}
+
 	/// Copies the two resource trees in the source order used by CpAssets.sh.
+	/// 私有樹與公開樹有同名檔（如 `Ngan.Dict.jsonc`），私有版才是有本機值的那份，
+	/// 故一律覆蓋——等同舊 shell 流程的 `cp -rf` 語義。
 	private static async Task CopyPair(string PublicResources, string PrivateResources, string Destination, CancellationToken Ct) {
-		await Cp(PublicResources / "*", Destination, Ct);
-		await Cp(PrivateResources / "*", Destination, Ct);
+		var Options = new CpOptions(Overwrite: true);
+		await Cp(PublicResources / "*", Destination, Options, Ct);
+		await Cp(PrivateResources / "*", Destination, Options, Ct);
 	}
 }

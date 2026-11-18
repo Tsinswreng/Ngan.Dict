@@ -12,7 +12,7 @@ using Ctx = VmWordSync;
 using K = Infra.I18n.KeysUiI18nCommon;
 
 public partial class ViewWordSync
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 
 	public ViewWordSync(){

@@ -20,7 +20,7 @@ using Ctx = VmWeightArgEdit;using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 /// WeightArg 編輯頁 ViewModel。
 /// 負責新增/修改/刪除，並提供 Payload JSON 子頁入口。
-public partial class VmWeightArgEdit: ViewModelBase, IMk<Ctx>{
+public partial class VmWeightArgEdit: AppVmBase, IMk<Ctx>{
 	protected VmWeightArgEdit(){}
 
 	public static Ctx Mk(){

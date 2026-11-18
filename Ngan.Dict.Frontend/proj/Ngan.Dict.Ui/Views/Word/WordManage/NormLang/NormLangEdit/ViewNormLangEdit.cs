@@ -18,7 +18,7 @@ using Tsinswreng.Avln.Grid;
 
 /// NormLang 詳情編輯頁。
 public partial class ViewNormLangEdit
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 
 	public ViewNormLangEdit(){

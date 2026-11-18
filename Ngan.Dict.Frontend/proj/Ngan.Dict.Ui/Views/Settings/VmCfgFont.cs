@@ -9,7 +9,7 @@ using Tsinswreng.CsCfg;
 using Ngan.Dict.Ui.Infra.I18n;
 
 public partial class VmCfgFont
-	:ViewModelBase
+	:AppVmBase
 	,IMk<Ctx>
 {
 	ILogger<VmCfgFont>? Log{get;set;}

@@ -13,7 +13,7 @@ using Tsinswreng.CsTempus;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 /// 學習記錄分頁 ViewModel：管理列表、新增、轉換。
-public partial class VmWordLearnPage: ViewModelBase{
+public partial class VmWordLearnPage: AppVmBase{
 	public event Action<VmWordLearnRow>? OnEditRequested;
 
 	public ObservableCollection<VmWordLearnRow> Rows{
@@ -53,7 +53,7 @@ public partial class VmWordLearnPage: ViewModelBase{
 }
 
 /// 學習記錄行 ViewModel。
-public partial class VmWordLearnRow: ViewModelBase{
+public partial class VmWordLearnRow: AppVmBase{
 	public static IReadOnlyList<ELearn> LearnResults{get;} = [
 		ELearn.Add,
 		ELearn.Rmb,

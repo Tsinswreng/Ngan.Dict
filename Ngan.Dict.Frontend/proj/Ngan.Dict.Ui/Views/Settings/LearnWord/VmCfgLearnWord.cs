@@ -7,7 +7,7 @@ using Tsinswreng.CsCfg;
 using Tsinswreng.CsCore;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 using Ctx = VmCfgLearnWord;
-public partial class VmCfgLearnWord: ViewModelBase, IMk<Ctx>{
+public partial class VmCfgLearnWord: AppVmBase, IMk<Ctx>{
 	//蔿從構造函數依賴注入、故以靜態工廠代無參構造器
 	protected VmCfgLearnWord(){
 		Cfg = AppCfg.Inst;

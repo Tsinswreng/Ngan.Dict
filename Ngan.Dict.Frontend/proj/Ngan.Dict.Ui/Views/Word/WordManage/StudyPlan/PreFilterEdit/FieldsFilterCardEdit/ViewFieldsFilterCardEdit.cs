@@ -26,7 +26,7 @@ using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 
 /// Editor view for a single fields-filter group.
-public class ViewFieldsFilterCardEdit: AppViewBase<Ctx>{
+public class ViewFieldsFilterCardEdit: LegacyAppViewBase<Ctx>{
 
 	public ViewFieldsFilterCardEdit(){
 		Ctx = App.DiOrMk<Ctx>();

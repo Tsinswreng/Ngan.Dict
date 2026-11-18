@@ -16,7 +16,7 @@ using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 #endif
 
 public partial class ViewEditJsonWord
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 
 	public ViewEditJsonWord(){

@@ -20,7 +20,7 @@ using Ctx = VmWordPropEdit;
 using Ngan.Dict.Ui.Infra.Ctrls;
 
 /// 單行屬性編輯頁。
-public partial class ViewWordPropEdit: AppViewBase<Ctx>{
+public partial class ViewWordPropEdit: LegacyAppViewBase<Ctx>{
 	/// 顯示屬性識別碼的唯讀控件，供檢視目前編輯目標。
 	public SelectableTextBlock? IdCtrl;
 	/// 選擇屬性鍵類型的控件。

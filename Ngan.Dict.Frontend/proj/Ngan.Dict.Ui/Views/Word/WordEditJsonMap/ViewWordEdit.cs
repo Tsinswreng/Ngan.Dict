@@ -18,7 +18,7 @@ using Tsinswreng.CsRefl;
 using Ctx = VmWordEdit;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 public partial class ViewWordEdit
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 	,I_MkTitleMenu
 {
 

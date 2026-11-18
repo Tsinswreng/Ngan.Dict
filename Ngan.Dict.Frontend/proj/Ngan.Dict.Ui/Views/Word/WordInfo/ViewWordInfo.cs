@@ -28,7 +28,7 @@ using Ctx = VmWordInfo;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 public partial class ViewWordInfo
-	: AppViewBase<Ctx>
+	: LegacyAppViewBase<Ctx>
 {
 
 	public ViewWordInfo() {

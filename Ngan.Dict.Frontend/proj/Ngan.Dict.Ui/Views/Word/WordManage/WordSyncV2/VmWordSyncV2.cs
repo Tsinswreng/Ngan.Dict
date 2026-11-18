@@ -13,7 +13,7 @@ using Tsinswreng.CsCfg;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 /// 單詞同步 V2 頁面的 ViewModel。
-public partial class VmWordSyncV2: ViewModelBase{
+public partial class VmWordSyncV2: AppVmBase{
 	ClientWordSyncV2? ClientWordSyncV2;
 	ISvcWordV2? SvcWordV2;
 	IFrontendUserCtxMgr? UserCtxMgr;

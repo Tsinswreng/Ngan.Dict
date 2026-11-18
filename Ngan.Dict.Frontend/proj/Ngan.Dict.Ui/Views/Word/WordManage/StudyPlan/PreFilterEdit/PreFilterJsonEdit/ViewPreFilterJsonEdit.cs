@@ -19,7 +19,7 @@ using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 /// PoPreFilter JSON 專用編輯視圖。
 
-public class ViewPreFilterJsonEdit: AppViewBase<Ctx>{
+public class ViewPreFilterJsonEdit: LegacyAppViewBase<Ctx>{
 
 	public ViewPreFilterJsonEdit(){
 		Ctx = App.DiOrMk<Ctx>();

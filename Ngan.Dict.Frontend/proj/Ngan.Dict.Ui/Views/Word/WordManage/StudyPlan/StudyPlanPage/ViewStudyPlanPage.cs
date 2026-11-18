@@ -22,7 +22,7 @@ using Ctx = VmStudyPlanPage;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 public partial class ViewStudyPlanPage
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 
 	public ViewStudyPlanPage(){

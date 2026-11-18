@@ -16,7 +16,7 @@ using Tsinswreng.CsI18n;
 using Ctx = VmStudyPlan;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 public partial class ViewStudyPlan
-	:AppViewBase<Ctx>, I_MkTitleMenu
+	:LegacyAppViewBase<Ctx>, I_MkTitleMenu
 {
 
 	public ViewStudyPlan(){

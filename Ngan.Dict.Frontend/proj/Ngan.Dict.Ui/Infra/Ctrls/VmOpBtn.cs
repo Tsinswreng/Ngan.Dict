@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using Ngan.Dict.Ui.Infra;
 
 using Ctx = VmOpBtn;
-public partial class VmOpBtn: ViewModelBase{
+public partial class VmOpBtn: AppVmBase{
 	//蔿從構造函數依賴注入、故以靜態工廠代無參構造器
 	protected VmOpBtn(){}
 	public static Ctx Mk(){

@@ -18,7 +18,7 @@ using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 /// PoWord 基本信息編輯頁。
 public partial class ViewPoWordEdit
-	: AppViewBase<Ctx>
+	: LegacyAppViewBase<Ctx>
 {
 	/// 觸發資料層刪除的按鈕，完成後由宿主處理刪除完成通知。
 	public OpBtn? DeleteBtn{get;set;}

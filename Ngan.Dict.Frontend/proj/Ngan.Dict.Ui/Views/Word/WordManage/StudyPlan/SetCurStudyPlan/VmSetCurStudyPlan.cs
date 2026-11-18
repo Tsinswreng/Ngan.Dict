@@ -12,7 +12,7 @@ using Ctx = VmSetCurStudyPlan;using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon
 
 /// 「設置當前學習方案」頁面的 ViewModel。
 /// 負責讀取當前學習方案，並提供恢復內置方案的操作。
-public partial class VmSetCurStudyPlan: ViewModelBase, IMk<Ctx>{
+public partial class VmSetCurStudyPlan: AppVmBase, IMk<Ctx>{
 	protected VmSetCurStudyPlan(){}
 
 	public static Ctx Mk(){

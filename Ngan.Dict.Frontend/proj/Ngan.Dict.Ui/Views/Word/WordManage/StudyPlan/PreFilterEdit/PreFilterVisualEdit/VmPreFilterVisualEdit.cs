@@ -30,7 +30,7 @@ using Ngan.Dict.Ui.Views.Word.WordManage.StudyPlan.PreFilterEdit.PreFilterPayloa
 /// <summary>
 /// PreFilter visual editor VM.
 /// </summary>
-public class VmPreFilterVisualEdit: ViewModelBase, IMk<Ctx>{
+public class VmPreFilterVisualEdit: AppVmBase, IMk<Ctx>{
 	protected VmPreFilterVisualEdit(){
 		InitRowEvents();
 	}
@@ -84,7 +84,7 @@ public class VmPreFilterVisualEdit: ViewModelBase, IMk<Ctx>{
 		SyncFromBo();
 	}
 
-	public class VmFilterItemRow: ViewModelBase{
+	public class VmFilterItemRow: AppVmBase{
 		public i32 OperationIndex{
 			get;
 			set{SetProperty(ref field, value);}
@@ -101,14 +101,14 @@ public class VmPreFilterVisualEdit: ViewModelBase, IMk<Ctx>{
 		} = "";
 	}
 
-	public class VmFieldValueRow: ViewModelBase{
+	public class VmFieldValueRow: AppVmBase{
 		public str Value{
 			get;
 			set{SetProperty(ref field, value);}
 		} = "";
 	}
 
-	public class VmFieldsFilterRow: ViewModelBase{
+	public class VmFieldsFilterRow: AppVmBase{
 		public ObservableCollection<VmFieldValueRow> Fields{get;set;} = [];
 		public ObservableCollection<VmFilterItemRow> Items{get;set;} = [];
 	}

@@ -4,7 +4,7 @@ using Ngan.Dict.Core.Shared.Word.Models;
 using Ngan.Dict.Ui.Infra;
 
 using Ctx = VmWordEdit;
-public partial class VmWordEdit: ViewModelBase, IMk<Ctx>{
+public partial class VmWordEdit: AppVmBase, IMk<Ctx>{
 	//蔿從構造函數依賴注入、故以靜態工廠代無參構造器
 	protected VmWordEdit(){}
 	public static Ctx Mk(){

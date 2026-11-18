@@ -11,7 +11,7 @@ using Tsinswreng.CsI18n;
 using Ctx = VmCfgLang;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
-public partial class ViewCfgLang: AppViewBase<Ctx>{
+public partial class ViewCfgLang: LegacyAppViewBase<Ctx>{
 
 	public ViewCfgLang(){
 		Ctx = App.DiOrMk<Ctx>();

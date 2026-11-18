@@ -5,7 +5,7 @@ using Ngan.Dict.Ui.Infra;
 using Tsinswreng.CsCore;
 using Tsinswreng.CsTools;
 using Ctx = VmJsonMapItem;
-public partial class VmJsonMapItem: ViewModelBase, IMk<Ctx>{
+public partial class VmJsonMapItem: AppVmBase, IMk<Ctx>{
 	//蔿從構造函數依賴注入、故以靜態工廠代無參構造器
 	protected VmJsonMapItem(){}
 	public static Ctx Mk(){

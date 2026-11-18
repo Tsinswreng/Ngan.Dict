@@ -14,7 +14,7 @@ using Tsinswreng.CsCfg;
 using Tsinswreng.CsTools;
 using Ctx = VmWordSync;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
-public partial class VmWordSync: ViewModelBase{
+public partial class VmWordSync: AppVmBase{
 	ISvcKv? SvcKv;
 	ClientWordSync? ClientWordSync;
 	ISvcWord? SvcWord;

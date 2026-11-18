@@ -16,7 +16,7 @@ using Ctx = VmAddWord;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 public partial class ViewAddWord
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 
 	public ViewAddWord(){

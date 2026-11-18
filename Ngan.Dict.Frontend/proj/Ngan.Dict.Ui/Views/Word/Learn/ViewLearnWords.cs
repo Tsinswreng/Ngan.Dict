@@ -26,7 +26,7 @@ using K = Infra.I18n.KeysUiI18nCommon;
 using PC = PsdCls;
 
 public partial class ViewLearnWords
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 	public OpBtn? StartBtn{get;set;}
 	public OpBtn? SaveBtn{get;set;}

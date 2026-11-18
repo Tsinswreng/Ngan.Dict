@@ -20,7 +20,7 @@ using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 /// 單個篩選卡片 V2 編輯頁。
 /// 將字段、運算、值類型和值內容收斂到一頁內編輯。
 /// </summary>
-public class ViewFilterCardEditV2: AppViewBase<Ctx>{
+public class ViewFilterCardEditV2: LegacyAppViewBase<Ctx>{
 
 	public ViewFilterCardEditV2(){
 		Ctx = App.DiOrMk<Ctx>();

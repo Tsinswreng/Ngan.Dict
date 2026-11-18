@@ -21,7 +21,7 @@ using JsonNode = System.Text.Json.Nodes.JsonNode;
 
 using Ctx = VmEditJsonWord;
 
-public partial class VmEditJsonWord: ViewModelBase, IMk<Ctx>{
+public partial class VmEditJsonWord: AppVmBase, IMk<Ctx>{
 	// 蔿從構造函數依賴注入，故以靜態工廠代無參構造器。
 	protected VmEditJsonWord(){}
 	public static Ctx Mk(){

@@ -23,7 +23,7 @@ using Tsinswreng.CsI18n;
 using Ctx = VmPreFilterPage;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 public partial class ViewPreFilterPage
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 
 	public ViewPreFilterPage(){

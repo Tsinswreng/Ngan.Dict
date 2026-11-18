@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using Ngan.Dict.Ui.Infra;
 
 using Ctx = VmStudyPlanRow;
-public partial class VmStudyPlanRow: ViewModelBase, IMk<Ctx>{
+public partial class VmStudyPlanRow: AppVmBase, IMk<Ctx>{
 	//蔿從構造函數依賴注入、故以靜態工廠代無參構造器
 	protected VmStudyPlanRow(){}
 	public static Ctx Mk(){

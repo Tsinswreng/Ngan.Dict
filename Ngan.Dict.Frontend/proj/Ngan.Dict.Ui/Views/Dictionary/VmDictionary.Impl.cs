@@ -461,12 +461,12 @@ public partial class VmDictionary{
 				HandleErr(Ex);
 			}
 			var BtnGoCfg = new Button();
-			BtnGoCfg.SetContent(I18n[K.GoToLanguageConfigPage]);
+			BtnGoCfg.Content = I18n[K.GoToLanguageConfigPage];
 			BtnGoCfg.Click += (s,e)=>{
 				_ = OpenNormLangMappingPage();
 			};
 			var BtnSkipCfg = new Button();
-			BtnSkipCfg.SetContent(I18n[K.SkipConfigAndGoEditPage]);
+			BtnSkipCfg.Content = I18n[K.SkipConfigAndGoEditPage];
 			BtnSkipCfg.Click += (s,e)=>{
 				_ = GoToWordEditPage(BuildFallbackJnWord(Req, Resp));
 			};

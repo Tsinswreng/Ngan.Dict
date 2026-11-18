@@ -29,7 +29,7 @@ using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 /// PreFilter 可視化編輯器 V2。
 /// V2 不再區分 Core/Prop 兩組，全部按單一列表編輯，解析責任交由後端。
 /// </summary>
-public class VmPreFilterVisualEditV2: ViewModelBase, IMk<Ctx>{
+public class VmPreFilterVisualEditV2: AppVmBase, IMk<Ctx>{
 	protected VmPreFilterVisualEditV2(){
 		InitRowEvents();
 	}
@@ -80,7 +80,7 @@ public class VmPreFilterVisualEditV2: ViewModelBase, IMk<Ctx>{
 		SyncFromBo();
 	}
 
-	public class VmFilterItemRow: ViewModelBase{
+	public class VmFilterItemRow: AppVmBase{
 		public i32 OperationIndex{
 			get;
 			set{SetProperty(ref field, value);}
@@ -97,14 +97,14 @@ public class VmPreFilterVisualEditV2: ViewModelBase, IMk<Ctx>{
 		} = "";
 	}
 
-	public class VmFieldValueRow: ViewModelBase{
+	public class VmFieldValueRow: AppVmBase{
 		public str Value{
 			get;
 			set{SetProperty(ref field, value);}
 		} = "";
 	}
 
-	public class VmFieldsFilterRow: ViewModelBase{
+	public class VmFieldsFilterRow: AppVmBase{
 		public ObservableCollection<VmFieldValueRow> Fields{get;set;} = [];
 		public ObservableCollection<VmFilterItemRow> Items{get;set;} = [];
 	}

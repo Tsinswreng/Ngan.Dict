@@ -7,7 +7,7 @@ using Ctx = VmNormLangTag;
 
 /// 詞典源語言快捷標籤的運行時狀態。
 /// 將持久化配置、最新標準語言資料與當前選中狀態聚合給 View 使用。
-public partial class VmNormLangTag: ViewModelBase, IMk<Ctx>{
+public partial class VmNormLangTag: AppVmBase, IMk<Ctx>{
 	/// 建立不注入服務的標籤 ViewModel。
 	protected partial VmNormLangTag();
 	/// 建立空白標籤 ViewModel。

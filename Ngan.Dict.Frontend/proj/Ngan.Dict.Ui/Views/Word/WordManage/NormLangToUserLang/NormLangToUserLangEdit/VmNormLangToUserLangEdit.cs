@@ -16,7 +16,7 @@ using Tsinswreng.CsTools;
 using Ctx = VmNormLangToUserLangEdit;using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 /// 標準語言到用戶語言映射編輯頁 ViewModel。
-public partial class VmNormLangToUserLangEdit: ViewModelBase, IMk<Ctx>{
+public partial class VmNormLangToUserLangEdit: AppVmBase, IMk<Ctx>{
 	protected VmNormLangToUserLangEdit(){}
 
 	public static Ctx Mk(){

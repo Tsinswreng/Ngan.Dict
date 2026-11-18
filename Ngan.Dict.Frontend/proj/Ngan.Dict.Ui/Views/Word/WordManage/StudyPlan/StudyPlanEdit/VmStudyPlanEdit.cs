@@ -19,7 +19,7 @@ using Ctx = VmStudyPlanEdit;using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 /// StudyPlan 編輯頁 ViewModel。
 /// 支持新增、修改與刪除。
-public partial class VmStudyPlanEdit: ViewModelBase, IMk<Ctx>{
+public partial class VmStudyPlanEdit: AppVmBase, IMk<Ctx>{
 	protected VmStudyPlanEdit(){}
 
 	public static Ctx Mk(){

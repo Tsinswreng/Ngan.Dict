@@ -21,7 +21,7 @@ using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 /// 標準語言到用戶語言映射詳情編輯頁。
 public partial class ViewNormLangToUserLangEdit
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 
 	public ViewNormLangToUserLangEdit(){

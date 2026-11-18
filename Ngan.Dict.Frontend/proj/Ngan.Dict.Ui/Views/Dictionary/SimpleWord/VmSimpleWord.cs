@@ -11,7 +11,7 @@ using Ngan.Dict.Ui.Infra;
 using Ctx = VmSimpleWord;
 
 /// 保存簡明查詞結果，並協調流式文本狀態與詞頭讀音播放。
-public partial class VmSimpleWord: ViewModelBase, IMk<Ctx>{
+public partial class VmSimpleWord: AppVmBase, IMk<Ctx>{
 	/// 供靜態工廠建立無依賴實例；依賴注入使用唯一的公開構造器。
 	protected partial VmSimpleWord();
 	/// 建立不注入服務的簡明查詞結果 ViewModel。

@@ -31,7 +31,7 @@ using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 /// PreFilter V2 主頁。
 /// 上半區保留 Po 基礎字段；下半區統一展示單一篩選列表。
 /// </summary>
-public class ViewPreFilterVisualEditV2: AppViewBase<Ctx>, I_MkTitleMenu{
+public class ViewPreFilterVisualEditV2: LegacyAppViewBase<Ctx>, I_MkTitleMenu{
 
 	public ViewPreFilterVisualEditV2(){
 		Ctx = App.DiOrMk<Ctx>();

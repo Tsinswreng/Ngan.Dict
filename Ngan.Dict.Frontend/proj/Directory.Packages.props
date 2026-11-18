@@ -12,6 +12,8 @@
 		<PackageVersion Include="Avalonia.Controls.DataGrid" Version="12.1.1" />
 		<PackageVersion Include="Avalonia.AvaloniaEdit" Version="12.0.0" />
 		<PackageVersion Include="Avalonia.Markup.Declarative" Version="12.1.1" />
+		<!-- 生成器：提供 .Text(vm, x=>x.X) 這類強型別鏈式方法；版本與 Ngan.Ime 對齊。 -->
+		<PackageVersion Include="MarkupDeclarative.Roslyn4" Version="12.1.0" />
 		<PackageVersion Include="Avalonia.Skia" Version="12.1.1" />
 		<PackageVersion Include="Avalonia.Themes.Fluent" Version="12.1.1" />
 		<PackageVersion Include="Avalonia.Fonts.Inter" Version="12.1.1" />

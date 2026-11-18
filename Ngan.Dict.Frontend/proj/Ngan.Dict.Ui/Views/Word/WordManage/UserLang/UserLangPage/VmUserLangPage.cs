@@ -16,7 +16,7 @@ using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 /// UserLang 列表頁 ViewModel。
 /// 負責分頁查詢、行模型映射與打開詳情事件派發。
-public partial class VmUserLangPage: ViewModelBase, IMk<Ctx>{
+public partial class VmUserLangPage: AppVmBase, IMk<Ctx>{
 	/// 初始化分頁器並綁定翻頁行爲。
 	void Init(){
 		PageBar = VmPageBar.Mk();

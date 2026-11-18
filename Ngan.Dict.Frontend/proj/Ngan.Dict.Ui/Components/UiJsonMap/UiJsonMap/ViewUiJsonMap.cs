@@ -8,7 +8,7 @@ using Tsinswreng.Avln.Grid;
 using Tsinswreng.CsI18n;
 using Ctx = VmUiJsonMap;
 public partial class ViewUiJsonMap
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 	public ViewUiJsonMap(){
 		Ctx = App.DiOrMk<Ctx>();

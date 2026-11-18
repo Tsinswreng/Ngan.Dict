@@ -14,7 +14,7 @@ using Ngan.Dict.Ui.Views.Word.WordManage.StudyPlan;
 using Ctx = VmNormLangToUserLangPage;
 
 /// 標準語言到用戶語言映射分頁頁 ViewModel。
-public partial class VmNormLangToUserLangPage: ViewModelBase, IMk<Ctx>{
+public partial class VmNormLangToUserLangPage: AppVmBase, IMk<Ctx>{
 	void Init(){
 		PageBar = VmPageBar.Mk();
 		PageBar.PageSize = 20;

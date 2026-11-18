@@ -6,7 +6,7 @@ using Tsinswreng.Avln.Grid;
 using Tsinswreng.CsI18n;
 using Ctx = VmXxx;
 public partial class ViewXxx
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 	public ViewXxx(){
 		Ctx = App.DiOrMk<Ctx>();

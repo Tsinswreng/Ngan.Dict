@@ -6,6 +6,8 @@
 		<ProjectReference Include="$(TswgLibsDir)CsSql/proj/Tsinswreng.CsSql/Tsinswreng.CsSql.csproj" />
 		<ProjectReference Include="$(TswgLibsDir)CsSql/proj/Tsinswreng.CsSql.Sqlite/Tsinswreng.CsSql.Sqlite.csproj" />
 		<ProjectReference Include="$(TswgLibsDir)CsRefl/proj/Tsinswreng.CsRefl/Tsinswreng.CsRefl.csproj" />
+		<!-- 大模型詞典的輸出格式用 jsonr（無轉義 JSON 超集）：heredoc 文本塊免去轉義地承載多行釋義。 -->
+		<ProjectReference Include="$(TswgLibsDir)Jsonr/proj/Tsinswreng.CsJsonr/Tsinswreng.CsJsonr.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

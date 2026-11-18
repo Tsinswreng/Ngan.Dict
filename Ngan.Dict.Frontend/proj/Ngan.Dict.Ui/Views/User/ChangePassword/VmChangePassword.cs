@@ -5,7 +5,7 @@ using Ngan.Dict.Core.Frontend.User;
 using Avalonia.Threading;
 using Ngan.Dict.Ui.Infra.I18n;
 using Ctx = VmChangePassword;
-public partial class VmChangePassword: ViewModelBase, IMk<Ctx>{
+public partial class VmChangePassword: AppVmBase, IMk<Ctx>{
 	//蔿從構造函數依賴注入、故以靜態工廠代無參構造器
 	protected VmChangePassword(){}
 	public static Ctx Mk(){

@@ -17,7 +17,7 @@ using Ctx = VmFieldsFilterCardEdit;using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nC
 /// Editor VM for one FieldsFilter group.
 /// It separates field editing and filter-item editing.
 /// </summary>
-public class VmFieldsFilterCardEdit: ViewModelBase, IMk<Ctx>{
+public class VmFieldsFilterCardEdit: AppVmBase, IMk<Ctx>{
 	protected VmFieldsFilterCardEdit(){}
 
 	static readonly i32 DefaultOperationRawIndex = (i32)EFilterOperationMode.Eq;

@@ -16,7 +16,7 @@ using Ctx = VmNormLangEdit;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 /// NormLang 編輯頁 ViewModel。
-public partial class VmNormLangEdit: ViewModelBase, IMk<Ctx>{
+public partial class VmNormLangEdit: AppVmBase, IMk<Ctx>{
 	protected VmNormLangEdit(){}
 
 	public static Ctx Mk(){

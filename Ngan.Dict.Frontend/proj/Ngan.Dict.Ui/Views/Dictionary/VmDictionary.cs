@@ -24,7 +24,7 @@ using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 using Ctx = VmDictionary;
 
-public partial class VmDictionary: ViewModelBase, IMk<Ctx>{
+public partial class VmDictionary: AppVmBase, IMk<Ctx>{
 
 	protected VmDictionary(){}
 	public static partial Ctx Mk();

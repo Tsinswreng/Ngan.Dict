@@ -1,6 +1,8 @@
 namespace Ngan.Dict.Ui.Views.Dictionary.SimpleWord;
 
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Templates;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Ngan.Dict.Core.Shared.Dictionary.Models;
@@ -9,102 +11,104 @@ using Ngan.Dict.Ui.Icons;
 using Ngan.Dict.Ui.Infra;
 using Ngan.Dict.Ui.Infra.Ctrls;
 using Tsinswreng.Avln.Grid;
-using Tsinswreng.CsI18n;
-using Ctx = VmSimpleWord;
+using Tsinswreng.CsCore;
 
-/// 此文件只保存 ViewSimpleWord 的函數實現；公開聲明位於同名 .cs 文件。
+/// ViewSimpleWord 的實現。
 public partial class ViewSimpleWord{
+
+	/// View 只能有無參構造器；Vm 在這裏解析，控件樹交給 Declarative 的 `Build`。
 	public partial ViewSimpleWord(){
-			Ctx = App.DiOrMk<Ctx>();
-			Style();
-			Render();
-		}
+		vm = App.DiOrMk<VmSimpleWord>();
+	}
 
-	protected partial nil Style(){
-			return NIL;
-		}
+	/// 結果內容縱向排列（詞頭／讀音／釋義），右側預留複製按鈕的位置。
+	protected override partial object Build(VmSimpleWord vm){
+		var Content = new StackGrid(IsRow: true)
+			.Rows("Auto,Auto,Auto")
+			.Margin(new Thickness(0, 0, UiCfg.Inst.BaseFontSize*2.2, 0))
+			.Children(
+				Txt()
+					.With(t => {
+						_Head = t;
+						t.FontSize = UiCfg.Inst.BaseFontSize*1.5;
+					})
+					.Text(vm, x => x.Head)
+				,MkPronunciations(vm)
+				,Txt()
+					.With(t => _Description = t)
+					.Text(vm, x => x.Description)
+			)
+		;
 
-	private partial SelectableTextBlock Txt(){
-			var R = new SelectableTextBlock();
-			R.TextWrapping = TextWrapping.Wrap;
-			return R;
-		}
-
-	protected partial nil Render(){
-			// 結果內容保持原有縱向排列；右側預留複製按鈕位置，避免首行詞頭被按鈕遮擋。
-			var Content = new GridStack(IsRow: true);
-			Content.SetRowDefs([
-				new(1, GUT.Auto),
-				new(1, GUT.Auto),
-				new(1, GUT.Auto),
-			]);
-			this.SetContent(Root);
-			Root.A(Content.Grid, o=>{
-				o.Margin = new (0, 0, UiCfg.Inst.BaseFontSize*2.2, 0);
-			});
+		// 根是疊放：內容本體 ＋ 右上角複製按鈕。
+		return new Grid().Children(
 			Content
-			.A(Txt(), o=>{
-				o.FontSize = UiCfg.Inst.BaseFontSize*1.5;
-				Ctx.Bind(o, o=>o.Text,x=>x.Head);
-			})
-			.A(PronunciationList())
-			.A(Txt(), o=>{
-				Ctx.Bind(o,o=>o.Text,x=>x.Description);
-			})
-			;
-			Root.A(CopyDescriptionBtn, o=>{
-				o.BtnContent = Icons.Copy().ToIcon();
-				o._Button.Width = UiCfg.Inst.BaseFontSize*2;
-				o._Button.Height = UiCfg.Inst.BaseFontSize*2;
-				o._Button.HorizontalAlignment = HAlign.Right;
-				o._Button.VerticalAlignment = VAlign.Top;
-				o.HorizontalAlignment = HAlign.Right;
-				o.VerticalAlignment = VAlign.Top;
-				o.ZIndex = 1;
-				o.SetExe(Ct=>Ctx?.CopyDescription(Ct));
-			})
-			;
-			return NIL;
-		}
-
-	private partial Control PronunciationList(){
-			var R = new ItemsControl();
-			R.Bind(
-				R.PropItemsSource, CBE.Mk<Ctx>(x=>x.Pronunciations)
-			);
-
-			R.SetItemTemplate<Pronunciation>((p,b)=>{
-				var Row = new GridStack(IsRow: false);
-				Row.SetColDefs([
-					new(1, GUT.Auto),
-					new(1, GUT.Auto),
-				]);
-				Row.A(new OpBtn(), o=>{
-					var Icon = Icons.VolHigh().ToIcon();
-					Icon.Height = UiCfg.Inst.BaseFontSize*0.8;
-					Icon.Width = UiCfg.Inst.BaseFontSize*0.8;
-					o.BtnContent = Icon;
-					// 按鈕保持方形尺寸，且靠左不拉伸。
-					o._Button.Width = UiCfg.Inst.BaseFontSize*1.6;
-					o._Button.Height = UiCfg.Inst.BaseFontSize*1.6;
-					o._Button.HorizontalAlignment = HAlign.Left;
-					o.HorizontalAlignment = HAlign.Left;
-					o.SetExe(Ct=>Ctx?.PlayHead(Ct));
+			,new OpBtn()
+				.With(b => {
+					_CopyDescriptionBtn = b;
+					b.BtnContent = Icons.Copy().ToIcon();
+					b._Button.Width = UiCfg.Inst.BaseFontSize*2;
+					b._Button.Height = UiCfg.Inst.BaseFontSize*2;
+					b._Button.HorizontalAlignment = HAlign.Right;
+					b._Button.VerticalAlignment = VAlign.Top;
+					b.HorizontalAlignment = HAlign.Right;
+					b.VerticalAlignment = VAlign.Top;
+					b.ZIndex = 1;
+					b.SetExe(Ct => vm.CopyDescription(Ct));
 				})
-				.A(Txt(), o=>{
-					o.Text = p.Text;
-					o.VerticalAlignment = VAlign.Center;
-					o.Margin = new Avalonia.Thickness(UiCfg.Inst.BaseFontSize*0.2, 0, 0, 0);
-				});
-				return Row.Grid;
-			});
-			R.SetItemsPanel(()=>{
-				return new StackPanel{
-					Orientation = Orientation.Vertical,
-					HorizontalAlignment = HAlign.Left,
-				};
-			});
+		);
+	}
 
-			return R;
-		}
+	/// 建立允許選取且自動換行的文本控件。
+	protected partial SelectableTextBlock Txt(){
+		return new SelectableTextBlock().TextWrapping(TextWrapping.Wrap);
+	}
+
+	/// 讀音列表：橫排固定兩列，每行一個讀音。
+	protected partial Control MkPronunciations(VmSimpleWord vm){
+		var List = new ItemsControl()
+			.With(l => _Pronunciations = l)
+			.ItemsSource(vm, x => x.Pronunciations)
+			.ItemsPanel(new StackPanel{
+				Orientation = Orientation.Vertical,
+				HorizontalAlignment = HAlign.Left,
+			})
+		;
+		List.ItemTemplate = new FuncDataTemplate<Pronunciation>((P, _) => {
+			// 虛擬化回收容器時模板會被以 null 呼叫。
+			if(P is null){
+				return null;
+			}
+			return MkPronunciationRow(vm, P);
+		});
+		return List;
+	}
+
+	/// 單行讀音：左邊播放按鈕、右邊讀音文本。
+	protected partial Control MkPronunciationRow(VmSimpleWord vm, Pronunciation P){
+		return new StackGrid(IsRow: false)
+			.Cols("Auto,Auto")
+			.Children(
+				new OpBtn()
+					.With(b => {
+						var Icon = Icons.VolHigh().ToIcon();
+						Icon.Height = UiCfg.Inst.BaseFontSize*0.8;
+						Icon.Width = UiCfg.Inst.BaseFontSize*0.8;
+						b.BtnContent = Icon;
+						// 按鈕保持方形尺寸，且靠左不拉伸。
+						b._Button.Width = UiCfg.Inst.BaseFontSize*1.6;
+						b._Button.Height = UiCfg.Inst.BaseFontSize*1.6;
+						b._Button.HorizontalAlignment = HAlign.Left;
+						b.HorizontalAlignment = HAlign.Left;
+						b.SetExe(Ct => vm.PlayHead(Ct));
+					})
+				,Txt()
+					.With(t => {
+						t.Text = P.Text;
+						t.VerticalAlignment = VAlign.Center;
+						t.Margin = new Thickness(UiCfg.Inst.BaseFontSize*0.2, 0, 0, 0);
+					})
+			)
+		;
+	}
 }

@@ -13,7 +13,7 @@ using Ctx = VmWordEditV2;
 操作儘量原子化、一個操作對應一個後端接口、
 不要在前端做「先編輯 再保存」、否則會有大量複雜邏輯判斷。
 ")]
-public partial class ViewWordEditV2: AppViewBase<Ctx>{
+public partial class ViewWordEditV2: LegacyAppViewBase<Ctx>{
 	/// 基本資料分頁的抽象介面，供宿主存取表單資料。
 	public ViewPoWordEdit? PoWordEdit{get;set;}
 	/// 單詞屬性分頁，供宿主存取屬性列表與新增入口。

@@ -16,7 +16,7 @@ using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 /// 單個篩選卡片 V2 編輯 VM。
 /// 規則：字段僅 1 個、篩選項僅 1 個，且全部在同一頁編輯。
 /// </summary>
-public class VmFilterCardEditV2: ViewModelBase, IMk<Ctx>{
+public class VmFilterCardEditV2: AppVmBase, IMk<Ctx>{
 	public static Ctx Mk(){ return new Ctx(); }
 
 	VmPreFilterVisualEditV2? Owner{get;set;}

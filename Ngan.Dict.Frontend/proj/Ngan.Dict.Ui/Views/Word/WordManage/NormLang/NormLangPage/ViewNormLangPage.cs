@@ -24,7 +24,7 @@ using Ctx = VmNormLangPage;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 public partial class ViewNormLangPage
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 	,I_MkTitleMenu
 {
 

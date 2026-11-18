@@ -8,7 +8,7 @@ using Pronunciation = Ngan.Dict.Core.Shared.Dictionary.Models.Pronunciation;
 using Ctx = VmPronunciation;
 using Ngan.Dict.Core.Shared.Dictionary.Models;
 
-public partial class VmPronunciation: ViewModelBase, IMk<Ctx>{
+public partial class VmPronunciation: AppVmBase, IMk<Ctx>{
 	//蔿從構造函數依賴注入、故以靜態工廠代無參構造器
 	protected VmPronunciation(){}
 	public static Ctx Mk(){

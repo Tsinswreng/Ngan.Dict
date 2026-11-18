@@ -29,6 +29,9 @@
 		<PackageReference Include="Avalonia.Controls.DataGrid" />
 		<PackageReference Include="Avalonia.AvaloniaEdit" />
 		<PackageReference Include="Avalonia.Markup.Declarative" />
+		<!-- 界面生成器（Roslyn4 版）：提供 .Text(vm, x=>x.X)、.IsVisible(vm, …) 等強型別鏈式方法。
+		     與 Ngan.Ime.UI 同一套寫法；PrivateAssets=all，不傳播給引用本專案的宿主。 -->
+		<PackageReference Include="MarkupDeclarative.Roslyn4" PrivateAssets="all" />
 		<PackageReference Include="Avalonia.Skia" />
 		<PackageReference Include="Avalonia.Themes.Fluent" />
 		<PackageReference Include="Avalonia.Fonts.Inter" />

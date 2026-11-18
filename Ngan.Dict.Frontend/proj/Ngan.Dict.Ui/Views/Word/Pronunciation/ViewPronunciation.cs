@@ -9,7 +9,7 @@ using Tsinswreng.Avln.Grid;
 using Tsinswreng.CsI18n;
 using Ctx = VmPronunciation;
 public partial class ViewPronunciation
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 
 	public ViewPronunciation(){

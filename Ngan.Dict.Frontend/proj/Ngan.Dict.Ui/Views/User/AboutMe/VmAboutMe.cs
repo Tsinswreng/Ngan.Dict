@@ -10,7 +10,7 @@ using Ngan.Dict.Ui.Infra.I18n;
 using Ngan.Dict.Ui.User;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 using Ctx = VmAboutMe;
-public partial class VmAboutMe: ViewModelBase{
+public partial class VmAboutMe: AppVmBase{
 	protected VmAboutMe(){}
 	public static Ctx Mk(){
 		return new Ctx();

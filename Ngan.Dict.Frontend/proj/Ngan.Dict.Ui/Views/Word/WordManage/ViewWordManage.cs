@@ -17,13 +17,13 @@ using Ngan.Dict.Ui.Views.Word.WordManage.WordSyncV2;
 using Tsinswreng.Avln.Grid;
 using Tsinswreng.Avln.StrokeText;
 using Tsinswreng.CsI18n;
-using Ctx = Ngan.Dict.Ui.Infra.ViewModelBase;
+using Ctx = Ngan.Dict.Ui.Infra.AppVmBase;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 using LK = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 
 public partial class ViewWordManage
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 
 	public ViewWordManage(){

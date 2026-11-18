@@ -4,7 +4,7 @@ using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 using Ngan.Dict.Ui.Infra;
 
 /// 編輯 PoWord 核心字段（含 Biz 時間與軟刪時間）。
-public partial class VmPoWordEdit: ViewModelBase{
+public partial class VmPoWordEdit: AppVmBase{
 	/// 供只讀欄位顯示的單詞識別碼。
 	public str WordIdText{
 		get;

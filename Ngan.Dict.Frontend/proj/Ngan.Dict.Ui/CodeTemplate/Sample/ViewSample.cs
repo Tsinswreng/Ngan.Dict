@@ -14,7 +14,7 @@ using Tsinswreng.CsCore;
 using Ctx = VmSample;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 public partial class ViewSample
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 	public ViewSample(){
 		Ctx = App.DiOrMk<Ctx>();

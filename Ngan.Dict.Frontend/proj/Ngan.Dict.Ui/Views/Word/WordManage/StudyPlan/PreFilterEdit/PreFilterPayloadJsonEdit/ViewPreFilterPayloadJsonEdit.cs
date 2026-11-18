@@ -18,7 +18,7 @@ using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 /// <summary>
 /// PreFilter 載荷 JSON 文本編輯頁。
 /// </summary>
-public class ViewPreFilterPayloadJsonEdit: AppViewBase<Ctx>{
+public class ViewPreFilterPayloadJsonEdit: LegacyAppViewBase<Ctx>{
 
 	public ViewPreFilterPayloadJsonEdit(){
 		Ctx = App.DiOrMk<Ctx>();

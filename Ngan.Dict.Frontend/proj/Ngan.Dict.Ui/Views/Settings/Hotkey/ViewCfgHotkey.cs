@@ -11,7 +11,7 @@ using Ctx = VmCfgHotkey;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 /// 快捷鍵配置頁。
-public partial class ViewCfgHotkey: AppViewBase<Ctx>{
+public partial class ViewCfgHotkey: LegacyAppViewBase<Ctx>{
 
 	public ViewCfgHotkey(){
 		Ctx = App.DiOrMk<Ctx>();

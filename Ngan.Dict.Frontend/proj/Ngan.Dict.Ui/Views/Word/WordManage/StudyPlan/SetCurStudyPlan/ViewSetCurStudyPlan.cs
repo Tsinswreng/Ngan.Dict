@@ -21,7 +21,7 @@ using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 /// 設置當前學習方案頁。
 /// 頁面打開後即讀取後端當前學習方案，僅展示關鍵字段並支持重新選擇。
 public partial class ViewSetCurStudyPlan
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 	,I_MkTitleMenu
 {
 

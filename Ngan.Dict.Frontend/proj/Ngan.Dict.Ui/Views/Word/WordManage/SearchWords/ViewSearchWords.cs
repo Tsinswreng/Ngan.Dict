@@ -8,7 +8,7 @@ using Tsinswreng.Avln.Grid;
 using Ctx = VmSearchWords;
 
 /// 用戶詞庫搜索、分頁瀏覽與入口導航頁。
-public partial class ViewSearchWords: AppViewBase<Ctx>, I_MkTitleMenu{
+public partial class ViewSearchWords: LegacyAppViewBase<Ctx>, I_MkTitleMenu{
 	/// 頁面根版面。
 	public GridStack Root = new(IsRow: true);
 	/// 搜索欄水平版面。

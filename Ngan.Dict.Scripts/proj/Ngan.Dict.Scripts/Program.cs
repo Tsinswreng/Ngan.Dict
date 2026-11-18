@@ -52,6 +52,9 @@ internal static partial class Program{
 			case nameof(TestWinAot):
 				await TestWinAot.Main(Root, Ct);
 				break;
+			case nameof(RunWin):
+				await RunWin.Main(Root, Ct);
+				break;
 			default:
 				throw new ArgumentException($"Unknown Ngan.Dict script: {Args[0]}.", nameof(Args));
 		}
@@ -60,7 +63,7 @@ internal static partial class Program{
 	/// 列出可由 dotnet run -- <入口> 呼叫的腳本名稱。
 	private static void PrintUsage() {
 		Console.Error.WriteLine("Usage: dotnet run --project Ngan.Dict/Ngan.Dict.Scripts -- <entry>");
-		Console.Error.WriteLine("Entries: PublishWeb, PublishWin, PublishLinux, PublishAndroid, PublishAndroidNativeAot, CpAssets, GenAppJsonCtx, TestWinAot");
+		Console.Error.WriteLine("Entries: PublishWeb, PublishWin, PublishLinux, PublishAndroid, PublishAndroidNativeAot, CpAssets, GenAppJsonCtx, TestWinAot, RunWin");
 	}
 
 	/// 讓編譯器把這個 dispatcher 原始檔路徑填入；CLR 的 Main 本身不會填 CallerFilePath。

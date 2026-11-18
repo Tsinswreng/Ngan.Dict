@@ -11,7 +11,7 @@ using Ngan.Dict.Ui.Views.Word.WordCard;
 using Ctx = VmSearchWords;
 
 /// 用戶詞庫搜索頁的狀態與分頁協調器。
-public partial class VmSearchWords: ViewModelBase, IWordCardMenuAction{
+public partial class VmSearchWords: AppVmBase, IWordCardMenuAction{
 	/// 提供分頁搜索的單詞服務；未注入時搜索安全地不執行。
 	ISvcWordV2 SvcWordV2;
 	/// 提供當前登入使用者的資料庫上下文。

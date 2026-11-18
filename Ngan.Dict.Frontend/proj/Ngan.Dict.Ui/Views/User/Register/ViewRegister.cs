@@ -16,7 +16,7 @@ using Ngan.Dict.Ui.Infra;
 using Tsinswreng.Avln.Grid;
 
 public partial class ViewRegister
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 
 	public ViewRegister(){

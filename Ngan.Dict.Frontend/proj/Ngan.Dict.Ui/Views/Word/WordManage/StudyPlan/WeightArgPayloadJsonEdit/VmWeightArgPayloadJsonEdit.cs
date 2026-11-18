@@ -10,7 +10,7 @@ using Ctx = VmWeightArgPayloadJsonEdit;
 
 /// WeightArg Payload(JSON) 子頁 ViewModel。
 /// 只編輯 payload 文本，提交給主編輯頁，不直接寫庫。
-public class VmWeightArgPayloadJsonEdit: ViewModelBase, IMk<Ctx>{
+public class VmWeightArgPayloadJsonEdit: AppVmBase, IMk<Ctx>{
 	protected VmWeightArgPayloadJsonEdit(){}
 
 	public static Ctx Mk(){

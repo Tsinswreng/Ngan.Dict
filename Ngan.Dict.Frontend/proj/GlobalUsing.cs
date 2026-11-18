@@ -12,7 +12,8 @@ global using Style = Avalonia.Styling.Style;
 global using TxtAlign = Avalonia.Media.TextAlignment;
 global using VAlign = Avalonia.Layout.VerticalAlignment;
 global using HAlign = Avalonia.Layout.HorizontalAlignment;
+// 舊寫法：Tsinswreng.Avln.Dsl 正逐步撤除，新寫與改動過的檔案不准再用。
+// （Avalonia.Markup.Declarative 的 global using 放在 Ngan.Dict.Ui 專案內，
+//  因為只有該專案引了那個套件；本檔是整個前端共用的。）
 global using Tsinswreng.Avln.Dsl;
-//global using static Tsinswreng.Avln.Dsl.Extn;
-//global using GridStack = Tsinswreng.Avln.Grid.GridStack;
 

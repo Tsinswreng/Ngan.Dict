@@ -23,7 +23,7 @@ using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 /// 標準語言到用戶語言映射列表頁視圖。
 public partial class ViewNormLangToUserLangPage
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 
 	public ViewNormLangToUserLangPage(){

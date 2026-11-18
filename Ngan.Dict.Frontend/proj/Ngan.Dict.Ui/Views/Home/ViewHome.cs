@@ -16,7 +16,7 @@ using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 using Tsinswreng.Avln.Grid;
 
 public partial class ViewHome
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 
 	public ViewHome(){

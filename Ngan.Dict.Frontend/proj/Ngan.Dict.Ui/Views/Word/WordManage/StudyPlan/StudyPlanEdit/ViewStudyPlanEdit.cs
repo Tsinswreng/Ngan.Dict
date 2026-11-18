@@ -20,7 +20,7 @@ using Ctx = VmStudyPlanEdit;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 public partial class ViewStudyPlanEdit
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 
 	public ViewStudyPlanEdit(){

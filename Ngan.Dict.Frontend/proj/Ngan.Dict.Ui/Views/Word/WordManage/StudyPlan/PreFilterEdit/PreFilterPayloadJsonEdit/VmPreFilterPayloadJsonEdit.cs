@@ -22,7 +22,7 @@ using JsonValue = System.Text.Json.Nodes.JsonValue;
 /// PreFilter 載荷 JSON 子頁 ViewModel。
 /// 只編輯 <see cref="PoPreFilter.Text"/>，保存/刪除直接調後端。
 /// </summary>
-public class VmPreFilterPayloadJsonEdit: ViewModelBase, IMk<Ctx>{
+public class VmPreFilterPayloadJsonEdit: AppVmBase, IMk<Ctx>{
 	protected VmPreFilterPayloadJsonEdit(){}
 
 	public static Ctx Mk(){

@@ -5,31 +5,38 @@ using Ngan.Dict.Ui.Infra;
 using Ngan.Dict.Ui.Infra.Ctrls;
 using Ngan.Dict.Ui.Views.Dictionary.NormLangTag;
 using Tsinswreng.Avln.Grid;
-using Ctx = VmNormLangTagEdit;
+using Tsinswreng.CsCore;
 
-/// 詞典源語言快捷標籤專用編輯頁。
-/// 提供短文字編輯、上下移、刪除、添加語言與保存操作。
-public partial class ViewNormLangTagEdit: AppViewBase<Ctx>{
-	/// 建立編輯頁並初始化控件樹。
+/// 詞典源語言快捷標籤編輯頁：短文字編輯、上下移、刪除、添加語言與保存。
+public partial class ViewNormLangTagEdit : AppViewBase<VmNormLangTagEdit>{
+
+	/// View 只能有無參構造器。
 	public partial ViewNormLangTagEdit();
 
-	/// 頁面根版面。
-	public GridStack Root = new(IsRow: true);
-	/// 顯示可編輯快捷標籤列的列表控件。
-	public ItemsControl? TagList;
-	/// 打開標準語言選擇頁的按鈕。
-	public OpBtn? AddBtn;
-	/// 保存配置並返回上一頁的按鈕。
-	public OpBtn? SaveBtn;
+	/// 樣式類名常量。
+	public partial class Cls{}
 
-	/// 建立快捷標籤列表與底部操作列。
-	private partial void Render();
-	/// 建立單個快捷標籤的編輯行。
-	private partial Control MkTagRow(VmNormLangTag Tag);
+	/// 頁面根版面：上面是標籤列表、下面是操作列。
+	public StackGrid Root = new(IsRow: true);
+	/// 可編輯快捷標籤列表。
+	public ItemsControl? _TagList;
+	/// 打開語言選擇頁的按鈕。
+	public OpBtn? _AddBtn;
+	/// 保存並返回的按鈕。
+	public OpBtn? _SaveBtn;
+
+	/// 建立控件樹。
+	protected override partial object Build(VmNormLangTagEdit vm);
+
+	/// 建立單個標籤的編輯行。
+	protected partial Control MkTagRow(VmNormLangTag Tag);
+
 	/// 建立添加與保存按鈕所在的操作列。
-	private partial Control MkBottomBar();
-	/// 打開標準語言選擇頁，選中後追加到編輯集合。
-	private partial void OpenNormLangSelector();
-	/// 保存配置；成功後返回詞典頁。
-	private partial Task<nil> SaveEtBack(CT Ct);
+	protected partial Control MkBottomBar(VmNormLangTagEdit vm);
+
+	/// 打開語言選擇頁，選中後追加到集合。
+	protected partial void OpenNormLangSelector();
+
+	/// 保存配置並返回。
+	protected partial Task<nil> SaveEtBack(CT Ct);
 }

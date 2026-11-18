@@ -21,7 +21,7 @@ using Ctx = VmWeightArgEdit;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 public partial class ViewWeightArgEdit
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 
 	public ViewWeightArgEdit(){

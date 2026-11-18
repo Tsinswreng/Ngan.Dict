@@ -6,7 +6,7 @@ using Tsinswreng.Avln.Grid;
 using Tsinswreng.CsI18n;
 using Ctx = VmStudyPlanRow;
 public partial class ViewStudyPlanRow
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 
 	public ViewStudyPlanRow(){

@@ -17,7 +17,7 @@ using Ngan.Dict.Ui.Components;
 using Tsinswreng.Avln.Grid;
 
 public partial class ViewAboutMe
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 
 	public ViewAboutMe(){

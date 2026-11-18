@@ -19,7 +19,7 @@ using Avalonia.Media;
 using Tsinswreng.Avln.Navi;
 
 public partial class ViewSettings
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 	public ViewSettings(){
 		Ctx = App.DiOrMk<Ctx>();

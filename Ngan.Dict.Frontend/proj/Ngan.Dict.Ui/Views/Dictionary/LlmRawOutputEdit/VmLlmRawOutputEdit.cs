@@ -7,7 +7,7 @@ using CommonK = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 using Ctx = VmLlmRawOutputEdit;
 
 /// LLM 原始輸出編輯頁 ViewModel。
-public partial class VmLlmRawOutputEdit: ViewModelBase, IMk<Ctx>{
+public partial class VmLlmRawOutputEdit: AppVmBase, IMk<Ctx>{
 	protected VmLlmRawOutputEdit(){}
 	public static Ctx Mk(){
 		return new Ctx();

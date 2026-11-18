@@ -17,6 +17,7 @@ using Ngan.Dict.Core.Shared.Word.Models.Po.Learn;
 using Ngan.Dict.Core.Shared.Word.Models.Po.Word;
 using Ngan.Dict.Core.Shared.Word.Svc;
 using Ngan.Dict.Core.Tools;
+using Tsinswreng.CsCore;
 using Ngan.Dict.Core.Tools.Json;
 using Tsinswreng.CsErr;
 using Tsinswreng.CsJson;

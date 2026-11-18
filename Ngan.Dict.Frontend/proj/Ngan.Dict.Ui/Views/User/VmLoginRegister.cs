@@ -15,7 +15,7 @@ using Ngan.Dict.Ui.Infra;
 using Tsinswreng.CsErr;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 using Ctx = VmLoginRegister;
-public partial class VmLoginRegister: ViewModelBase{
+public partial class VmLoginRegister: AppVmBase{
 	protected VmLoginRegister(){}
 	public static Ctx Mk(){
 		return new Ctx();
@@ -65,7 +65,7 @@ public partial class VmLoginRegister: ViewModelBase{
 		set{SetProperty(ref _Msgs, value);}
 	}
 
-	public ViewModelBase AddMsg(object? Msg){
+	public AppVmBase AddMsg(object? Msg){
 			Msgs.Add(Msg);
 	#if DEBUG
 			Console.WriteLine(Msg);

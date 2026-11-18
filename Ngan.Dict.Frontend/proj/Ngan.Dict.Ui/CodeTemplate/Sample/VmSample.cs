@@ -9,7 +9,7 @@ namespace Ngan.Dict.Ui.CodeTemplate.Sample;
 
 using Ctx = VmSample;
 
-public partial class VmSample:ViewModelBase, IMk<Ctx>{
+public partial class VmSample:AppVmBase, IMk<Ctx>{
 	//無參構造器聲明爲protected
 	protected VmSample(){}
 	//另置靜態無參工廠函數

@@ -18,7 +18,7 @@ using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 /// UserLang 編輯頁 ViewModel。
 /// 支持新增與修改（不顯示 Owner，Id 只讀）。
-public partial class VmUserLangEdit: ViewModelBase, IMk<Ctx>{
+public partial class VmUserLangEdit: AppVmBase, IMk<Ctx>{
 	/// 無參構造器供 `IMk<T>` 和設計期使用。
 	protected VmUserLangEdit(){}
 

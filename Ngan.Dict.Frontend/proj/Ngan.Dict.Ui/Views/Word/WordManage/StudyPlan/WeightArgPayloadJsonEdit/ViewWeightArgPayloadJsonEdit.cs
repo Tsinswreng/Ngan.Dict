@@ -18,7 +18,7 @@ using Ctx = VmWeightArgPayloadJsonEdit;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 /// WeightArg Payload(JSON) 編輯視圖。
-public class ViewWeightArgPayloadJsonEdit: AppViewBase<Ctx>{
+public class ViewWeightArgPayloadJsonEdit: LegacyAppViewBase<Ctx>{
 
 	public ViewWeightArgPayloadJsonEdit(){
 		Ctx = App.DiOrMk<Ctx>();

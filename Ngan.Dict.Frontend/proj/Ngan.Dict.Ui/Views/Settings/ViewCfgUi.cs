@@ -3,12 +3,12 @@ namespace Ngan.Dict.Ui.Views.Settings;
 using Avalonia.Controls;
 using Ngan.Dict.Ui.Infra;
 using Ngan.Dict.Ui.Views.Settings.Lang;
-using Ctx = Ngan.Dict.Ui.Infra.ViewModelBase;
+using Ctx = Ngan.Dict.Ui.Infra.AppVmBase;
 using Ngan.Dict.Ui.Infra.I18n;
 using Ngan.Dict.Ui.Icons;
 
 public partial class ViewCfgUi
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 
 	public ViewCfgUi(){

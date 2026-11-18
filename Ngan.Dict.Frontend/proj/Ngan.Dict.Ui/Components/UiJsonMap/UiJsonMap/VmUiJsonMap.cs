@@ -5,7 +5,7 @@ using Ngan.Dict.Ui.Infra;
 
 using Ctx = VmUiJsonMap;
 //using Bo = Ngan.Dict.Core.Tools.JsonMap.UiJsonMap;
-public partial class VmUiJsonMap: ViewModelBase, IMk<Ctx>{
+public partial class VmUiJsonMap: AppVmBase, IMk<Ctx>{
 	//蔿從構造函數依賴注入、故以靜態工廠代無參構造器
 	protected VmUiJsonMap(){}
 	public static Ctx Mk(){

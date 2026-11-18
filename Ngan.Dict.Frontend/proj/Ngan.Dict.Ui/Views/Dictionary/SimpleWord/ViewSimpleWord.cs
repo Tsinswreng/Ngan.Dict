@@ -1,32 +1,39 @@
 namespace Ngan.Dict.Ui.Views.Dictionary.SimpleWord;
 
 using Avalonia.Controls;
+using Ngan.Dict.Core.Shared.Dictionary.Models;
 using Ngan.Dict.Ui.Infra;
 using Ngan.Dict.Ui.Infra.Ctrls;
-using Tsinswreng.Avln.Grid;
-using Ctx = VmSimpleWord;
+using Tsinswreng.CsCore;
 
 /// 顯示詞頭、讀音列表與釋義的簡明查詞結果視圖。
-public partial class ViewSimpleWord: AppViewBase<Ctx>{
-	/// 建立簡明查詞結果視圖及控件樹。
+/// 佈局：內容縱向排列，右上角疊一個「複製釋義」按鈕；右側留出按鈕寬度，避免遮住首行。
+public partial class ViewSimpleWord : AppViewBase<VmSimpleWord>{
+
+	/// View 只能有無參構造器。
 	public partial ViewSimpleWord();
 
-	/// 簡明查詞結果樣式類名集合；目前保留作後續擴展入口。
+	/// 樣式類名常量。
 	public partial class Cls{}
 
-	/// 初始化此視圖專屬樣式；目前沒有額外樣式。
-	protected partial nil Style();
+	/// 詞頭。
+	public SelectableTextBlock? _Head;
+	/// 讀音列表（每行：播放按鈕＋讀音文本）。
+	public ItemsControl? _Pronunciations;
+	/// 釋義全文。
+	public SelectableTextBlock? _Description;
+	/// 把本次釋義複製到剪貼板。
+	public OpBtn? _CopyDescriptionBtn;
 
-	/// 疊放結果內容與右上複製按鈕的根版面。
-	/// 內容本體與按鈕同屬結果視圖，按鈕不再額外佔用釋義末尾的一行。
-	Grid Root = new();
-	/// 將本次查詞所有釋義拼接文本寫入系統剪貼板的操作按鈕。
-	public OpBtn CopyDescriptionBtn = new();
+	/// 建立控件樹。
+	protected override partial object Build(VmSimpleWord vm);
 
 	/// 建立允許選取且自動換行的文本控件。
-	private partial SelectableTextBlock Txt();
-	/// 建立詞頭、讀音列表與釋義控件樹。
-	protected partial nil Render();
-	/// 建立每行含播放按鈕與讀音文本的讀音列表。
-	private partial Control PronunciationList();
+	protected partial SelectableTextBlock Txt();
+
+	/// 建立讀音列表。
+	protected partial Control MkPronunciations(VmSimpleWord vm);
+
+	/// 建立單行讀音：播放按鈕＋讀音文本。
+	protected partial Control MkPronunciationRow(VmSimpleWord vm, Pronunciation P);
 }

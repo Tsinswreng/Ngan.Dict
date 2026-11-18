@@ -20,7 +20,7 @@ using Ctx = PreFilterVisualEdit.VmPreFilterVisualEdit;
 using K = Infra.I18n.KeysUiI18nCommon;
 
 /// GUI editor for PreFilter payload data (without Po fields).
-public class ViewPreFilterPayloadEdit: AppViewBase<Ctx>{
+public class ViewPreFilterPayloadEdit: LegacyAppViewBase<Ctx>{
 
 	public ViewPreFilterPayloadEdit(Ctx Ctx){
 		this.Ctx = Ctx;

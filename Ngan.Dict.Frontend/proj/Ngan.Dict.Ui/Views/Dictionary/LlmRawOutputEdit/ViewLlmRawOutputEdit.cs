@@ -1,54 +1,26 @@
 namespace Ngan.Dict.Ui.Views.Dictionary.LlmRawOutputEdit;
 
 using Avalonia.Controls;
-using Avalonia.Media;
-using Ngan.Dict.Ui;
 using Ngan.Dict.Ui.Infra;
 using Ngan.Dict.Ui.Infra.Ctrls;
 using Tsinswreng.Avln.Grid;
-using Tsinswreng.CsI18n;
-using CommonK = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
-using Ctx = VmLlmRawOutputEdit;
+using Tsinswreng.CsCore;
 
-/// LLM 原始輸出查看/編輯頁。
-public partial class ViewLlmRawOutputEdit: AppViewBase<Ctx>{
+/// LLM 原始輸出查看／編輯頁：上方可編輯原始輸出，下方確認按鈕。
+public partial class ViewLlmRawOutputEdit : AppViewBase<VmLlmRawOutputEdit>{
 
+	/// View 只能有無參構造器。
+	public partial ViewLlmRawOutputEdit();
 
-	public ViewLlmRawOutputEdit(){
-		Ctx = App.DiOrMk<Ctx>();
-		Style();
-		Render();
-	}
-
+	/// 樣式類名常量。
 	public partial class Cls{}
 
-	protected nil Style(){
-		return NIL;
-	}
+	/// 原始輸出編輯框。
+	public TextBox? _RawOutput;
 
-	GridStack Root = new(IsRow: true);
-	protected nil Render(){
-		this.Content = Root.Grid;
-		Root.SetRowDefs([
-			new(1, GUT.Star),
-			new(1, GUT.Auto),
-		]);
-		Root.A(new TextBox(), o=>{
-			o.CBind<Ctx>(o.PropText, x=>x.RawOutput);
-			o.AcceptsReturn = true;
-			o.TextWrapping = TextWrapping.Wrap;
-			o.MinHeight = 200;
-		})
-		.A(new OpBtn(), o=>{
-			o._Button.Background = UiCfg.Inst.MainColor;
-			o._Button.HorizontalAlignment = HAlign.Stretch;
-			o._Button.VerticalAlignment = VAlign.Stretch;
-			o._Button.HorizontalContentAlignment = HAlign.Center;
-			o._Button.VerticalContentAlignment = VAlign.Center;
-			o._Button.FontWeight = FontWeight.Bold;
-			o.BtnContent = I[CommonK.ConfirmChange];
-			o.SetExe(Ct=>Ctx?.Confirm(Ct));
-		});
-		return NIL;
-	}
+	/// 確認並重新解析的按鈕。
+	public OpBtn? _ConfirmBtn;
+
+	/// 建立控件樹。
+	protected override partial object Build(VmLlmRawOutputEdit vm);
 }

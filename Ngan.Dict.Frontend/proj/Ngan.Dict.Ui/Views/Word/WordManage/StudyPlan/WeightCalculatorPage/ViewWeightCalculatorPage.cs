@@ -23,7 +23,7 @@ using Ctx = VmWeightCalculatorPage;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 public partial class ViewWeightCalculatorPage
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 {
 
 	public ViewWeightCalculatorPage(){

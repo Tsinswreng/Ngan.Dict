@@ -16,7 +16,7 @@ using Ctx = VmWeightCalculatorPage;
 
 /// WeightCalculator 列表頁 ViewModel。
 /// 使用後端接口分頁讀取，不使用假數據。
-public partial class VmWeightCalculatorPage: ViewModelBase, IMk<Ctx>{
+public partial class VmWeightCalculatorPage: AppVmBase, IMk<Ctx>{
 	void Init(){
 		PageBar = VmPageBar.Mk();
 		PageBar.PageSize = 10;

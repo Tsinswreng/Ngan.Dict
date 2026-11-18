@@ -22,7 +22,7 @@ using Tsinswreng.Avln.Grid;
 
 using Ctx = VmWordListCard;
 public partial class ViewWordListCard
-	:AppViewBase<Ctx>
+	:LegacyAppViewBase<Ctx>
 	,IViewWordListCard
 {
 	public StrokeTextBlock? IndexTextCtrl;
@@ -71,7 +71,7 @@ public partial class ViewWordListCard
 	}
 
 	public static ContextMenu MkWordCardCtxMenu(
-		ViewModelBase? Ctx
+		AppVmBase? Ctx
 		,IJnWord? JnWord
 	){
 		var R = new ContextMenu();
@@ -106,7 +106,7 @@ public partial class ViewWordListCard
 	}
 
 	public static nil HandlePronounceResult(
-		ViewModelBase? Ctx,
+		AppVmBase? Ctx,
 		DtoWordCardPronounceResult? R
 	){
 		if(R is null){

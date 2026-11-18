@@ -16,7 +16,7 @@ using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 /// PoPreFilter JSON 專用編輯 ViewModel。
 /// 與 GUI 編輯 ViewModel 分離，不做雙向同步。
-public class VmPreFilterJsonEdit: ViewModelBase, IMk<Ctx>{
+public class VmPreFilterJsonEdit: AppVmBase, IMk<Ctx>{
 	protected VmPreFilterJsonEdit(){}
 
 	public static Ctx Mk(){

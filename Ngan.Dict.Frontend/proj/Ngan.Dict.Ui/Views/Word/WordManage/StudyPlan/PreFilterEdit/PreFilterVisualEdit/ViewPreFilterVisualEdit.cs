@@ -22,7 +22,7 @@ using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 /// PreFilter GUI 主頁。
 /// 顯示 Po 主信息與內嵌的篩選器編輯表格。
-public class ViewPreFilterVisualEdit: AppViewBase<Ctx>, I_MkTitleMenu{
+public class ViewPreFilterVisualEdit: LegacyAppViewBase<Ctx>, I_MkTitleMenu{
 
 	public ViewPreFilterVisualEdit(){
 		Ctx = App.DiOrMk<Ctx>();

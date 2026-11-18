@@ -12,7 +12,7 @@ using Ngan.Dict.Ui.Views.Word;
 using K = Ngan.Dict.Ui.Infra.I18n.KeysUiI18nCommon;
 
 /// 屬性分頁 ViewModel：管理列表、新增、轉換。
-public partial class VmWordPropPage: ViewModelBase{
+public partial class VmWordPropPage: AppVmBase{
 	public partial nil LoadFromPoProps(IList<PoWordProp> Props){
 		Rows = new ObservableCollection<VmWordPropRow>(Props.Select(VmWordPropRow.FromPo));
 		return NIL;
@@ -63,7 +63,7 @@ public partial class VmWordPropPage: ViewModelBase{
 }
 
 /// 單詞屬性行編輯 ViewModel。
-public partial class VmWordPropRow: ViewModelBase{
+public partial class VmWordPropRow: AppVmBase{
 	partial void MarkModified(){
 		if(DmlState == EDmlState.Unchanged){
 			DmlState = EDmlState.Modified;
