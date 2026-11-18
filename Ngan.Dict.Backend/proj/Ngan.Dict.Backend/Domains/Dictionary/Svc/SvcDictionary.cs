@@ -10,6 +10,7 @@ using Tsinswreng.CsCore;
 using Tsinswreng.CsTools;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.Json;
 using Ngan.Dict.Core.Tools;
 using Tsinswreng.CsJsonr;
 using Microsoft.Extensions.Logging;
@@ -26,22 +27,8 @@ using Tsinswreng.CsJson;
 
 
 namespace Ngan.Dict.Backend.Domains.Dictionary.Svc;
-using Kv = System.Collections.Generic.Dictionary<string, object?>;
-using IKv = System.Collections.Generic.IDictionary<string, object?>;
 
 #region DTOs
-
-/// DTO for LLM API request body
-public class DtoLlmApiReq{
-	public string? Model{get;set;}
-	public List<DtoLlmMessage>? Messages{get;set;}
-}
-
-/// DTO for LLM message
-public class DtoLlmMessage{
-	public string? Role{get;set;}
-	public string? Content{get;set;}
-}
 
 /// DTO for LLM API call parameters
 public class DtoLlmCallParam{
@@ -380,24 +367,19 @@ $"""
 		if(string.IsNullOrWhiteSpace(SysPrompt)){
 			SysPrompt = DfltPrompt.Prompt;
 		}
-		var reqBody = new Kv{
-			["model"] = param.Model,
-			["messages"] = new List<IKv>{
-				new Kv{
-					["role"] = "system",
-					["content"] = SysPrompt
-				},
-				new Kv{
-					["role"] = "user",
-					["content"] = param.UserPrompt
-				}
-			},
-			["stream"] = true // 启用流式输出
+		// 用具體 DTO 組 OpenAI-compatible 請求體：線上式不能出現 object／Dictionary<string,object?>，
+		// 否則源生成 context 沒有它的元資料，AOT 與本機都會直接拋 NotSupportedException。
+		var reqBody = new DtoLlmApiReq{
+			Model = param.Model,
+			Messages = [
+				new DtoLlmMessage{ Role = "system", Content = SysPrompt },
+				new DtoLlmMessage{ Role = "user", Content = param.UserPrompt },
+			],
+			Stream = true
 		};
-		// 先構造通用 OpenAI-compatible 主體，再允許配置覆蓋/追加頂層字段，
-		// 以便適配 DeepSeek 等 provider 的私有參數。
+		// 先構造通用主體，再允許配置追加頂層字段，以便適配 DeepSeek 等 provider 的私有參數。
 		MergeExtraBodyJson(reqBody, param.ExtraBodyJson);
-		var json = AppJsonS.Inst.Serialize(reqBody);
+		var json = AppJsonS.Inst.Serialize(reqBody, typeof(DtoLlmApiReq), AppJsonCtx.Default);
 		var content = new StringContent(json, Encoding.UTF8, "application/json");
 
 		var request = new HttpRequestMessage(HttpMethod.Post, param.ApiUrl);
@@ -472,20 +454,25 @@ $"""
 
 	/// 把配置中的頂層 JSON 對象 merge 到請求體。
 	/// 當存在同名鍵時，採用配置值覆蓋默認值，方便顯式關閉 provider 默認行為。
-	private static void MergeExtraBodyJson(Kv ReqBody, str? ExtraBodyJson){
+	/// *為何不用 IJsonSerializer*：`Dictionary<string, object?>` 在源生成 context 裏沒有元資料，
+	/// 而配置裏的值本來就是任意 JSON；用 `JsonDocument` 逐屬性 Clone 進去，不經反射、也不經源生成。
+	private static void MergeExtraBodyJson(DtoLlmApiReq ReqBody, str? ExtraBodyJson){
 		if(str.IsNullOrWhiteSpace(ExtraBodyJson)){
 			return;
 		}
-		var a = System.Text.Json.Nodes.JsonNode.Parse("1");
-		
 		try{
-			var extraDict = AppJsonS.Inst.Deserialize<IDictionary<str, obj?>>(ExtraBodyJson);
-			if(extraDict is null){
+			using var Doc = JsonDocument.Parse(ExtraBodyJson, new JsonDocumentOptions{
+				CommentHandling = JsonCommentHandling.Skip,
+				AllowTrailingCommas = true,
+			});
+			if(Doc.RootElement.ValueKind != JsonValueKind.Object){
 				throw KeysErr.Common.ArgErr.ToErr()
 					.AddDebugArgs(nameof(KeysClientCfg.LlmDictionary.ExtraBodyJson), ExtraBodyJson);
 			}
-			foreach(var kv in extraDict){
-				ReqBody[kv.Key] = kv.Value;
+			// 同名鍵由配置覆蓋默認值：字典賦值即覆蓋語義。
+			ReqBody.Extra ??= [];
+			foreach(var Prop in Doc.RootElement.EnumerateObject()){
+				ReqBody.Extra[Prop.Name] = Prop.Value.Clone();
 			}
 		}catch(TypedErr){
 			throw;

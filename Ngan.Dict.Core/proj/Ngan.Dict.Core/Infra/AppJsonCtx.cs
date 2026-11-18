@@ -47,5 +47,8 @@ public partial class AppJsonCtx : JsonSerializerContext {
 		,PropertyNamingPolicy = null
 		,TypeInfoResolver = AppJsonCtx.Default
 		,ReadCommentHandling = JsonCommentHandling.Skip
+		// 與生成檔的 [JsonSourceGenerationOptions] 對齊：可空欄位沒值時不寫進 JSON。
+		// 兩份選項不一致時，同一個型別走不同路徑會寫出不同結果。
+		,DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
 	};
 }

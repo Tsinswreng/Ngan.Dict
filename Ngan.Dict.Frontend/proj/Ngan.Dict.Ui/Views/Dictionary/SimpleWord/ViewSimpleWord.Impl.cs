@@ -16,9 +16,12 @@ using Tsinswreng.CsCore;
 /// ViewSimpleWord 的實現。
 public partial class ViewSimpleWord{
 
-	/// View 只能有無參構造器；Vm 在這裏解析，控件樹交給 Declarative 的 `Build`。
+	/// View 只能有無參構造器。
+	/// *為何不在這裏自己解析 Vm*：本視圖顯示的是「詞典頁那一個查詞結果」，
+	/// 必須用父層傳進來的同一份 Vm 實例（流式過程中是就地改屬性，不會換對象），
+	/// 自己 `DiOrMk` 會拿到另一個空實例，界面就永遠不更新。
+	/// 由父層在建構後、掛進視覺樹前呼叫 `SetVm`。
 	public partial ViewSimpleWord(){
-		vm = App.DiOrMk<VmSimpleWord>();
 	}
 
 	/// 結果內容縱向排列（詞頭／讀音／釋義），右側預留複製按鈕的位置。

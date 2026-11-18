@@ -10,9 +10,10 @@ using Tsinswreng.CsCore;
 /// 詞典源語言快捷標籤 View 的實現。
 public partial class ViewNormLangTag{
 
-	/// View 只能有無參構造器；Vm 在這裏解析。
+	/// View 只能有無參構造器。
+	/// *為何不在這裏自己解析 Vm*：標籤要顯示的是詞典頁那一份 `SrcLangTags` 裏的實例，
+	/// 自己 `DiOrMk` 只會得到一個空標籤。由父層在建構後、掛進視覺樹前呼叫 `SetVm`。
 	public partial ViewNormLangTag(){
-		vm = App.DiOrMk<VmNormLangTag>();
 		Margin = new Thickness(0, 0, 4, 0);
 	}
 
