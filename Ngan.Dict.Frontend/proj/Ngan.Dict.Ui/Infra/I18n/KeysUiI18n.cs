@@ -150,6 +150,7 @@ public class KeysUiI18nCommon{
 	public static readonly K PoUserLang = Mk(_R, [nameof(PoUserLang)]);
 	public static readonly K NoWordOrCtx = Mk(_R, [nameof(NoWordOrCtx)]);
 	public static readonly K SaveToUserWordLibrary = Mk(_R, [nameof(SaveToUserWordLibrary)]);
+	public static readonly K CopyResult = Mk(_R, [nameof(CopyResult)]);
 	public static readonly K WordCore = Mk(_R, [nameof(WordCore)]);
 	public static readonly K InvalidKI64 = Mk(_R, [nameof(InvalidKI64)]);
 	public static readonly K InvalidKType = Mk(_R, [nameof(InvalidKType)]);

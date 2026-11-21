@@ -74,6 +74,10 @@ public class KeysClientCfg : KeysDeclBase<KeysClientCfg>, IStaticKeysDecl {
 		public static KeyNode<str> ApiKey = Mk(_R, [nameof(ApiKey)], "");
 		public static KeyNode<str> Model = Mk(_R, [nameof(Model)], "");
 		public static KeyNode<str> Prompt = Mk(_R, [nameof(Prompt)], "");
+		/// 翻譯（整句／整段）用的系統提示詞。
+		/// 留空時用內置的 `DfltPromptTranslate`；與查詞提示詞分開，是因為兩者的輸出約束不同：
+		/// 查詞要求詞頭正規化、讀音、按義項列釋義；翻譯要求原文一字不改、保留段落換行。
+		public static KeyNode<str> PromptTranslate = Mk(_R, [nameof(PromptTranslate)], "");
 		/// 透傳到 LLM 請求體頂層的額外 JSON 對象。
 		/// 用於承載 provider-specific 參數；空字符串表示不附加。
 		public static KeyNode<str> ExtraBodyJson = Mk(_R, [nameof(ExtraBodyJson)], "");

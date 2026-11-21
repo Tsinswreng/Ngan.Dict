@@ -51,8 +51,14 @@ The object MUST have exactly these four fields:
 - "DetectedInputLang": { "Code": <source language code>, "NativeName": <that language's native name> }
 - "Head": <the normalized / corrected canonical headword>
 - "Pronunciations": [ { "TextType": <pronunciation kind, e.g. "Ipa" or "romazi">, "Text": <pronunciation> }, ... ]
-- "Descrs": [ <definition strings> ]
-  Use a heredoc block for every definition that spans more than one line (definitions with example sentences must).
+- "Senses": [ <one object per meaning>, ... ]
+  Each sense object has exactly these fields:
+  - "Pos": <part of speech in the target language, e.g. "感嘆詞" / "n." / "verb". Use "" when the word has no meaningful part of speech.>
+  - "Meaning": <the definition in the target language. One short clause per sense; do NOT pack several parts of speech here.>
+  - "Examples": [ { "Src": <example sentence in the SOURCE language>, "Dst": <its translation in the TARGET language> }, ... ]
+    Zero to three examples per sense. Examples must be full sentences.
+  Use a heredoc block for any value that spans multiple lines.
+  NEVER emit a "Descrs" field: it is the legacy format and will be ignored.
 
 Output Example 1
 When querying the English word “acquiesce” with target language Traditional Chinese (zh-TW-Hant), the output should be:
@@ -63,10 +69,17 @@ When querying the English word “acquiesce” with target language Traditional 
 	"Pronunciations": [
 		{ "TextType": "Ipa", "Text": "ˌækwiˈes" }
 	],
-	"Descrs": [
-		<<!'EOF'
-v.  默認；默許；默然接受；順從
-EOF
+	"Senses": [
+		{
+			"Pos": "v.",
+			"Meaning": "默認；默許；默然接受",
+			"Examples": [
+				{
+					"Src": "She acquiesced in the plan without protest.",
+					"Dst": "她默然接受了這個計劃，沒有異議。"
+				}
+			]
+		}
 	]
 }
 
@@ -79,11 +92,22 @@ When querying the English word “hello” with target language Japanese (ja), t
 	"Pronunciations": [
 		{ "TextType": "Ipa", "Text": "həˈləʊ" }
 	],
-	"Descrs": [
-		<<!'EOF'
-【感嘆詞】こんにちは；やあ
-【名詞】挨拶；呼びかけ
-EOF
+	"Senses": [
+		{
+			"Pos": "感嘆詞",
+			"Meaning": "こんにちは；やあ",
+			"Examples": []
+		},
+		{
+			"Pos": "名詞",
+			"Meaning": "挨拶；呼びかけ",
+			"Examples": [
+				{
+					"Src": "彼はにこやかに hello と言った。",
+					"Dst": "他笑容滿面地打了聲招呼。"
+				}
+			]
+		}
 	]
 }
 
@@ -96,12 +120,17 @@ When querying the Japanese word “ありがとう” with target language Engli
 	"Pronunciations": [
 		{ "TextType": "romazi", "Text": "arigatou" }
 	],
-	"Descrs": [
-		<<!'EOF'
-【Interjection】Thank you; Thanks
-Example: 手伝ってくれてありがとう。
-Translation: Thank you for helping me.
-EOF
+	"Senses": [
+		{
+			"Pos": "Interjection",
+			"Meaning": "Thank you; Thanks",
+			"Examples": [
+				{
+					"Src": "手伝ってくれてありがとう。",
+					"Dst": "Thank you for helping me."
+				}
+			]
+		}
 	]
 }
 
@@ -114,10 +143,15 @@ When translating the complete French sentence “Je suis heureux de vous voir.�
 	"Pronunciations": [
 		{ "TextType": "Ipa", "Text": "ʒə sɥi øʁø də vu vwaʁ" }
 	],
-	"Descrs": [
-		<<!'EOF'
+	"Senses": [
+		{
+			"Pos": "",
+			"Meaning": <<!'EOF'
 很高兴见到您。
 EOF
+			,
+			"Examples": []
+		}
 	]
 }
 
@@ -129,7 +163,7 @@ If there are multiple target languages, prioritize the first one for detailed de
 Context Disambiguation
 If Query.ContextSentence is provided, determine the word meaning based on context and prioritize returning definitions that match the context.
 
-For a complete sentence, Descrs must be its complete translation; do not split it into dictionary entries.
+For a complete sentence, Senses must contain exactly one sense whose Meaning is the complete translation; do not split it into dictionary entries.
 
 Pronunciation
 If the user did not specify a pronunciation text type, use the most common pronunciation type for the target language. e.g Ipa for English, Pinyin for Chinese etc.

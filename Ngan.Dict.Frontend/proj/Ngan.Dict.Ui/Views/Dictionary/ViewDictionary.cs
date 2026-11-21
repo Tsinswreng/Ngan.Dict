@@ -28,11 +28,11 @@ public partial class ViewDictionary
 	/// 輸入待查詞語的文本框。
 	public TextBox? _SearchTextBox;
 	/// 執行或取消查詞的操作按鈕。
-	public OpBtn? _SearchBtn;
+	public Button? _SearchBtn;
 	/// 快速保存當前查詞結果的操作按鈕。
-	public OpBtn? _SaveToWordBtn;
+	public Button? _SaveToWordBtn;
 	/// 打開詞典頁附加操作選單的按鈕。
-	public OpBtn? _MenuBtn;
+	public Button? _MenuBtn;
 	/// 打開快捷標籤編輯頁的按鈕。
 	public OpBtn? _SrcLangTagEditBtn;
 	/// 橫向承載源語言快捷標籤的容器。
@@ -43,6 +43,8 @@ public partial class ViewDictionary
 	public ScrollViewer? _SrcLangTagScroll;
 	/// 承載使用提示與查詞結果的結果區。
 	public Grid? _ResultArea;
+	/// 搜索列容器（診斷用）。
+	public DockPanel? _SearchBar;
 	/// 簡明查詞結果子視圖。
 	public ViewSimpleWord? _ResultView;
 
@@ -68,6 +70,9 @@ public partial class ViewDictionary
 	protected partial Button MkLangButton();
 	/// 建立交換源語言與目標語言的按鈕。
 	protected partial Button MkLangSwapButton();
+	/// 建立搜索列上的圖標按鈕。
+	protected partial Button MkBarBtn(Control Icon, Action? OnClick, IBrush? Background = null);
+
 	/// 初始化工具列按鈕的外觀與命令。
 	protected partial nil InitToolbarBtn(OpBtn Btn, Control Content, Func<CT, Task<nil>>? Exe = null, IBrush? Background = null);
 	/// 未查詞時顯示的使用說明。

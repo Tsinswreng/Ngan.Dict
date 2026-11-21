@@ -110,6 +110,33 @@ public partial class VmDictionary: AppVmBase, IMk<Ctx>{
 		set{SetProperty(ref field, value);}
 	} = App.DiOrMk<VmSimpleWord>();
 
+	/// 本輪查詢的類型（詞／句／段）；由輸入形狀判定，決定提示詞與結果卡片。
+	public EQueryKind CurKind{
+		get;
+		set{
+			if(SetProperty(ref field, value)){
+				OnPropertyChanged(nameof(IsTranslate));
+				OnPropertyChanged(nameof(ShowTranslating));
+			}
+		}
+	} = EQueryKind.Word;
+
+	/// 是否為翻譯（句子或段落）。
+	public bool IsTranslate => CurKind != EQueryKind.Word;
+
+	/// 是否顯示「翻譯中」提示：只有翻譯路徑需要（詞典路徑本身有串流文本可看）。
+	public bool ShowTranslating => IsGenerating && IsTranslate;
+
+	/// 是否正在生成；用於顯示「翻譯中」與禁用重複提交。
+	public bool IsGenerating{
+		get;
+		set{
+			if(SetProperty(ref field, value)){
+				OnPropertyChanged(nameof(ShowTranslating));
+			}
+		}
+	} = false;
+
 	public str SrcLang{
 		get;
 		set{
@@ -223,6 +250,8 @@ public partial class VmDictionary: AppVmBase, IMk<Ctx>{
 	/// 將最近一次詞典查詢結果轉為詞庫詞條，然後跳到單詞編輯頁。
 	/// 注意: 此函數本身不落庫；最終保存由 ViewWordEditV2 的 Save 按鈕執行。
 	public partial Task<nil> ToWordEdit(CT Ct);
+	/// 把當前結果文本複製到剪貼板（詞典為釋義，翻譯為譯文）。
+	public partial Task<nil> CopyResult(CT Ct);
 
 	/// 將最近一次詞典查詢結果直接合併保存到詞庫。
 	/// 用於詞典頁的快速保存按鈕；成功後不再進入編輯頁。

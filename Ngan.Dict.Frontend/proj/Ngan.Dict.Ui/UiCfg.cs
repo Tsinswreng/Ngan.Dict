@@ -29,6 +29,29 @@ public partial class UiCfg{
 	public IBrush? DelBtnBg {get;set;} = new SolidColorBrush(Color.FromRgb(210, 56, 56));
 	public IBrush ForegroundColor {get;set;}= Brushes.White;
 	public IBrush BackgroundColor {get;set;}= Brushes.Black;
+
+	/// 次要文字（原文、讀音、例句譯文、備註）。
+	public IBrush MutedTextBrush {get;set;} = new SolidColorBrush(Color.FromArgb(0xB3, 0xFF, 0xFF, 0xFF));
+
+	/// 最弱一級文字（說明、時間戳、例句標記）。
+	/// 三級色階（主／次／弱）比只有白與灰更容易建立層次，且不必動到主題。
+	public IBrush FaintTextBrush {get;set;} = new SolidColorBrush(Color.FromArgb(0x73, 0xFF, 0xFF, 0xFF));
+
+	/// 頁面內容的水平內距。所有頁面共用一個值，避免各頁各寫一套。
+	public double PagePaddingH {get;set;} = 14;
+
+	/// 頁面內容的垂直內距（上下各留這麼多）。
+	public double PagePaddingV {get;set;} = 10;
+
+	/// 組與組之間（例如詞頭區與義項區）的間距。
+	public double GapSection {get;set;} = 14;
+
+	/// 同一組內元素之間的間距。
+	public double GapItem {get;set;} = 6;
+
+	/// 例句相對義項正文的縮排量。
+	public double IndentContent {get;set;} = 12;
+
 	public static IBrush DfltMainColor = new SolidColorBrush(Color.FromArgb(0xFF, 0x00, 0x78, 0xD7));
 
 	protected IBrush ResolveThemeBrush(){

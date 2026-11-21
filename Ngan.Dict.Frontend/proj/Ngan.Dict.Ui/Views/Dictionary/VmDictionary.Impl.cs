@@ -102,6 +102,10 @@ public partial class VmDictionary{
 		var UiFlushQueued = new IntBox();
 
 		HasLookupStarted = true;
+		IsGenerating = true;
+		// 查詢類型先由輸入形狀判定；翻譯路徑要換提示詞、換卡片，也要關掉「把原始 JSON 當正文」的串流顯示。
+		var Kind = ToolQueryKind.Detect(Input);
+		CurKind = Kind;
 		ResetQuickSaveState();
 		Result ??= App.DiOrMk<VmSimpleWord>();
 		Result.StartStreaming(Input.Trim());
@@ -110,16 +114,23 @@ public partial class VmDictionary{
 		var Req = new ReqLlmDictEvt{
 			Query = new Query{
 				InputText = Input.Trim(),
+				Kind = Kind,
 			},
 			OptLang = ReqLang,
 			OnNewSeg = (dto, ct) => {
 				if(dto.NewSeg is not null){
 					lock(streamLock){
 						StreamedResp.Append(dto.NewSeg);
-						PendingUiSeg.Append(dto.NewSeg);
+						// 翻譯的串流內容是 JSON 片段，直接貼進結果區只會看到原始格式；
+						// 故翻譯路徑只累積原始輸出，等最終解析後一次性呈現。
+						if(Kind == EQueryKind.Word){
+							PendingUiSeg.Append(dto.NewSeg);
+						}
 					}
 				}
-				QueueFlushStreamedSegToUi(PendingUiSeg, streamLock, UiFlushQueued);
+				if(Kind == EQueryKind.Word){
+					QueueFlushStreamedSegToUi(PendingUiSeg, streamLock, UiFlushQueued);
+				}
 				return 0;
 			},
 			OnDone = (dto, ct) => {
@@ -200,6 +211,9 @@ public partial class VmDictionary{
 				);
 			}
 			HandleErr(ex);
+		}finally{
+			// 不論成功、取消或失敗，都要關掉「生成中」狀態，否則界面永遠停在 loading。
+			IsGenerating = false;
 		}
 
 		return NIL;
@@ -437,6 +451,17 @@ public partial class VmDictionary{
 		Result.Head = Snapshot.Head;
 		Result.Description = Snapshot.Description;
 		Result.Pronunciations = Snapshot.Pronunciations;
+		return NIL;
+	}
+
+	/// 把當前結果文本複製到剪貼板：詞典模式複製釋義，翻譯模式複製譯文。
+	/// *為何交給子 Vm*：剪貼板服務與「結果文本」都歸 `VmSimpleWord` 管，
+	/// 這裏只做轉發，避免同一份狀態在兩處各存一份。
+	public async partial Task<nil> CopyResult(CT Ct){
+		if(Result is null){
+			return NIL;
+		}
+		await Result.CopyDescription(Ct);
 		return NIL;
 	}
 
@@ -709,8 +734,15 @@ public partial class VmDictionary{
 		return NIL;
 	}
 
+	/// 語言顯示文字：`代碼 譯名`；沒有譯名時只顯示代碼。
+	/// *為何要判斷「像鍵名」*：譯名來自語料庫，未填譯文時會回 `Lang/en` 這種鍵名；
+	/// 直接顯示在按鈕上就是「en Lang/en」這種半成品。查不到真譯名時寧可只顯示代碼。
 	private static partial str FormatLangDisplay(str Code, str? TranslatedName){
 		if(str.IsNullOrWhiteSpace(TranslatedName)){
+			return Code;
+		}
+		// 鍵名特徵：含路徑分隔符，或本身就是 Code 的包裝（Lang/en）。
+		if(TranslatedName.Contains('/') || TranslatedName.Contains('\\')){
 			return Code;
 		}
 		return $"{Code} {TranslatedName}";

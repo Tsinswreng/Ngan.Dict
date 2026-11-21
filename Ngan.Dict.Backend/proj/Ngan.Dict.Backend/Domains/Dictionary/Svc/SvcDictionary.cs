@@ -41,6 +41,9 @@ public class DtoLlmCallParam{
 	/// 用戶提示詞
 
 	public string? UserPrompt{get;set;}
+
+	/// 本次查詢類型；決定用查詞還是翻譯的系統提示詞。
+	public EQueryKind Kind{get;set;} = EQueryKind.Word;
 }
 
 /// DTO for LLM API response
@@ -159,6 +162,13 @@ public class SvcDictionary:ISvcDictionary{
 
 		var userPrompt = BuildUserPrompt(Req);
 
+		// 查詢類型：調用方有填就用；沒填（老調用方）就按輸入文本兜底判定。
+		// 它決定用哪套系統提示詞（查詞／翻譯），故必須在挑 prompt 之前定好。
+		var Kind = Req.Query.Kind;
+		if(Kind == EQueryKind.Word){
+			Kind = ToolQueryKind.Detect(Req.Query.InputText);
+		}
+
 		// 统一走流式输出流程
 		// 如果传参方不按流式输出传，就自己攒着等完了一起发结果回去
 		ReqLlmDictEvt? internalEvt = null;
@@ -177,7 +187,8 @@ public class SvcDictionary:ISvcDictionary{
 			ApiKey = apiKey,
 			Model = model,
 			ExtraBodyJson = Cfg.Get(KeysClientCfg.LlmDictionary.ExtraBodyJson),
-			UserPrompt = userPrompt
+			UserPrompt = userPrompt,
+			Kind = Kind,
 		};
 
 		var result = await CallLlmApiStream(evtToUse, dtoParam, Ct);
@@ -185,11 +196,13 @@ public class SvcDictionary:ISvcDictionary{
 	}
 
 	/// 構造發給大模型的用戶提示詞。
-	/// 此處只傳遞統一的來源文本；查詞或翻譯的任務選擇與格式約束由 system prompt 負責。
+	/// 此處只傳遞統一的來源文本與任務類型；查詞或翻譯的格式約束由 system prompt 負責。
+	/// `<kind>` 讓模型知道要回哪種 schema，也讓它在 `Kind` 欄位上保持一致。
 	private string BuildUserPrompt(IReqLlmDict Req){
 		var R =
 $"""
 <dictionary-request>
+  <kind>{Req.Query.Kind}</kind>
   <source-language>{FormatLang(Req.OptLang.SrcLang)}</source-language>
   <target-languages>{FormatLangList(Req.OptLang.TgtLangs)}</target-languages>
   <input-text>
@@ -363,9 +376,16 @@ $"""
 		DtoLlmCallParam param,
 		CT Ct
 	){
-		var SysPrompt = Cfg.Get(KeysClientCfg.LlmDictionary.Prompt);
+		// 按查詢類型挑系統提示詞：詞典與翻譯的輸出約束不同，不能共用一份。
+		// 配置留空時回落到各自的內置提示詞。
+		var IsTranslate = param.Kind != EQueryKind.Word;
+		var SysPrompt = Cfg.Get(
+			IsTranslate
+				? KeysClientCfg.LlmDictionary.PromptTranslate
+				: KeysClientCfg.LlmDictionary.Prompt
+		);
 		if(string.IsNullOrWhiteSpace(SysPrompt)){
-			SysPrompt = DfltPrompt.Prompt;
+			SysPrompt = IsTranslate ? DfltPromptTranslate.Prompt : DfltPrompt.Prompt;
 		}
 		// 用具體 DTO 組 OpenAI-compatible 請求體：線上式不能出現 object／Dictionary<string,object?>，
 		// 否則源生成 context 沒有它的元資料，AOT 與本機都會直接拋 NotSupportedException。
@@ -498,6 +518,7 @@ $"""
 				DescribeTextTail("Jsonc", Jsonc)
 			);
 			var R = JsonS.Deserialize<RespLlmDict>(Jsonc);
+			NormalizeSenses(R);
 			Logger.LogWarning(
 				"Dictionary parse diag: {Stage}",
 				DescribeDescrsFromResp(R)
@@ -518,6 +539,88 @@ $"""
 			throw KeysErr.Dictionary.LlmResponseParseFailed.ToErr()
 				.AddDebugArgs(ex, rawResponse, content);
 		};
+	}
+
+	/// 把舊版純文本釋義補成結構化義項。
+	/// *兼容目的*：用戶可能仍在使用自定義的舊提示詞（只給 `Descrs`），
+	/// 或本地快取是舊格式；兩種情況都不該讓界面退化成「一整段文字」。
+	/// 舊格式每條釋義內部用「【詞性】釋義」「Example: …」「Translation: …」分層，
+	/// 這裏按這套約定做一次盡力而為的拆解。
+	private static nil NormalizeSenses(RespLlmDict R){
+		if(R is null){
+			return NIL;
+		}
+		if(R.Senses.Count > 0){
+			return NIL;
+		}
+		foreach(var Raw in R.Descrs){
+			if(str.IsNullOrWhiteSpace(Raw)){
+				continue;
+			}
+			foreach(var Block in SplitLegacyDescr(Raw)){
+				R.Senses.Add(Block);
+			}
+		}
+		return NIL;
+	}
+
+	/// 把一條舊格式釋義（可能含多個義項）拆成若干結構化義項。
+	private static IList<DictSense> SplitLegacyDescr(str Raw){
+		IList<DictSense> Ans = [];
+		DictSense? Cur = null;
+		SenseExample? CurExample = null;
+		foreach(var LineRaw in Raw.Split('\n')){
+			var Line = LineRaw.Trim();
+			if(Line.Length == 0){
+				continue;
+			}
+			// 「【名詞】釋義」：新的義項起頭。
+			if(Line.StartsWith('【') && Line.Contains('】')){
+				var End = Line.IndexOf('】');
+				var Pos = Line[1..End].Trim();
+				var Meaning = Line[(End+1)..].Trim();
+				Cur = new DictSense{ Pos = Pos, Meaning = Meaning };
+				Ans.Add(Cur);
+				CurExample = null;
+				continue;
+			}
+			// 「Example: …」開新例句。
+			if(Line.StartsWith("Example:", StringComparison.OrdinalIgnoreCase)
+				|| Line.StartsWith("例句:", StringComparison.OrdinalIgnoreCase)
+				|| Line.StartsWith("例句：", StringComparison.OrdinalIgnoreCase)
+			){
+				var Src = Line[(Line.IndexOfAny([':', '：'])+1)..].Trim();
+				CurExample = new SenseExample{ Src = Src };
+				Cur ??= AddImplicitSense(Ans);
+				Cur.Examples.Add(CurExample);
+				continue;
+			}
+			// 「Translation: …」補到當前例句。
+			if(Line.StartsWith("Translation:", StringComparison.OrdinalIgnoreCase)
+				|| Line.StartsWith("翻譯:", StringComparison.OrdinalIgnoreCase)
+				|| Line.StartsWith("译文:", StringComparison.OrdinalIgnoreCase)
+				|| Line.StartsWith("譯文:", StringComparison.OrdinalIgnoreCase)
+				|| Line.StartsWith("译文：", StringComparison.OrdinalIgnoreCase)
+				|| Line.StartsWith("譯文：", StringComparison.OrdinalIgnoreCase)
+			){
+				var Dst = Line[(Line.IndexOfAny([':', '：'])+1)..].Trim();
+				if(CurExample is not null){
+					CurExample.Dst = Dst;
+				}
+				continue;
+			}
+			// 其餘行：併入當前義項的釋義；沒有義項就開一個無詞性的。
+			Cur ??= AddImplicitSense(Ans);
+			Cur.Meaning = str.IsNullOrWhiteSpace(Cur.Meaning) ? Line : Cur.Meaning + "\n" + Line;
+		}
+		return Ans;
+	}
+
+	/// 舊格式沒有詞性前綴時，補一個無詞性的義項。
+	private static DictSense AddImplicitSense(IList<DictSense> Ans){
+		var S = new DictSense{ Pos = "", Meaning = "" };
+		Ans.Add(S);
+		return S;
 	}
 
 	/// 用 jsonr 把模型輸出轉成標準 JSONC 文本。

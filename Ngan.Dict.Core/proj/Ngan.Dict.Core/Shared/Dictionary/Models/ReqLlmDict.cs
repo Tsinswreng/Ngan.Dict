@@ -84,6 +84,11 @@ public class Query {
 	/// 可选：上下文句子，用于消歧
 	public str? ContextSentence { get; set; }
 
+	/// 本次查詢的類型：詞／句／段。
+	/// 由調用方填（前端會先按輸入判定）；後端據此挑系統提示詞。
+	/// 留 `Word` 時後端會再用 `ToolQueryKind.Detect` 兜底，兼容老調用方。
+	public EQueryKind Kind { get; set; } = EQueryKind.Word;
+
 }
 
 /// 语言配置（核心动态配置）
